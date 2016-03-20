@@ -1,6 +1,39 @@
-# Windows image file caches
+# =============== #
+# Unity generated #
+# =============== #
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Ll]ibrary/
+sysinfo.txt
+*.stackdump
+
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+[Ee]xported[Oo]bj/
+*.userprefs
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*swp
+*~
+
+# =========================
+# Operating System Files
+# =========================
+
+# Windows image file caches and Thumbnails
+._*
 Thumbs.db
 ehthumbs.db
+[Tt]humbs.db/
 
 # Folder config file
 Desktop.ini
@@ -17,19 +50,11 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# =========================
-# Operating System Files
-# =========================
-
 # OSX
-# =========================
-
 .DS_Store
+.DS_Store*
 .AppleDouble
 .LSOverride
-
-# Thumbnails
-._*
 
 # Files that might appear in the root of a volume
 .DocumentRevisions-V100
