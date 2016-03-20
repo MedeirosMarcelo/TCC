@@ -4,7 +4,9 @@ using System.Collections;
 public class charactercontrol : MonoBehaviour {
 
     public float moveSpeed;
+    public float turnSpeed = 1f;
     public GameObject target;
+    public GameObject sword;
     public int controller = 1;
     Vector3 velocity;
     bool dashing;
@@ -75,7 +77,7 @@ public class charactercontrol : MonoBehaviour {
                 faceDirection.z = Input.GetAxis("VerticalP2RightStick");
             }
             if (faceDirection != Vector3.zero) {
-                transform.forward = faceDirection;
+                transform.forward = Vector3.Lerp(transform.forward, faceDirection, 0.1f * turnSpeed);
             }
         }
     }
@@ -83,37 +85,38 @@ public class charactercontrol : MonoBehaviour {
     void Dash(Vector3 direction) {
         if (dashing) {
             rb.AddForce(direction * 4f, ForceMode.Impulse);
-            print("dashing");
+            DashTime();
         }
         else {
-            //timeLeft = dashTime;
-            StartCoroutine("DashDelay");
+            timeLeft = dashTime;
         }
-        // DashTime();
     }
 
     float dashTime = 0.1f;
-    IEnumerator DashDelay() {
-        yield return new WaitForSeconds(dashTime);
-        dashing = false;
+    float timeLeft;
+    void DashTime() {
+        if (dashing) {
+            timeLeft -= Time.deltaTime;
+            if (timeLeft < 0) {
+                dashing = false;
+            }
+        }
     }
-
-    //float timeLeft;
-    //void DashTime() {
-    //    if (dashing) {
-    //        timeLeft -= Time.deltaTime;
-    //        if (timeLeft < 0) {
-    //            dashing = false;
-    //        }
-    //    }
-    //}
 
     void OnTriggerEnter(Collider col) {
         if (col.name == "Sword") {
-            Vector3 pos = transform.position * 1.1f;
-            pos.z = transform.position.z - 0.5f;
-            DecalPainter.Instance.Paint(pos, Color.gray, 10);
-            bloodAnim.SetTrigger("Bleed");
+            int c = col.transform.parent.GetComponent<SwordController>().controller;
+            if (c != controller){
+                Paint();
+                bloodAnim.SetTrigger("Bleed");
+            }
         }
+    }
+
+    void Paint() {
+        Vector3 pos = transform.position * 1.1f;
+        pos.z = transform.position.z - 0.5f;
+        pos.y = transform.position.y + 0.1f;
+        DecalPainter.Instance.Paint(pos, Color.gray, 10);
     }
 }

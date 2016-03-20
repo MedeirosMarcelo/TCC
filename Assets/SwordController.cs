@@ -10,7 +10,10 @@ public class SwordController : MonoBehaviour {
     void Start() {
         animator = GetComponent<Animator>();
         boxCollider = GetComponentInChildren<BoxCollider>();
-        boxCollider.enabled = false;
+        if (transform.parent != null) {
+            controller = transform.parent.GetComponent<charactercontrol>().controller;
+            boxCollider.enabled = false;
+        }
     }
 
 	void Update () {
@@ -23,80 +26,80 @@ public class SwordController : MonoBehaviour {
 
     void ControlP1() {
         if (Input.GetKeyDown(KeyCode.Mouse0)) {
-            animator.SetInteger("Sword Move", 4);
+            animator.SetTrigger("Slash Left");
             boxCollider.enabled = true;
         }
         else if (Input.GetKeyDown(KeyCode.Mouse1)) {
-            animator.SetInteger("Sword Move", 6);
+            animator.SetTrigger("Slash Right");
             boxCollider.enabled = true;
         }
         else if (Input.GetKeyDown(KeyCode.Keypad1)) {
-            animator.SetInteger("Sword Move", 1);
+            animator.SetTrigger("Slash Down Left");
             boxCollider.enabled = true;
         }
         else if (Input.GetKeyDown(KeyCode.Keypad2)) {
-            animator.SetInteger("Sword Move", 2);
+            animator.SetTrigger("Slash Up");
             boxCollider.enabled = true;
         }
         else if (Input.GetKeyDown(KeyCode.Keypad3)) {
-            animator.SetInteger("Sword Move", 3);
+            animator.SetTrigger("Slash Down Right");
             boxCollider.enabled = true;
         }
         else if (Input.GetKeyDown(KeyCode.Keypad4)) {
-            animator.SetInteger("Sword Move", 4);
+            animator.SetTrigger("Slash Left");
             boxCollider.enabled = true;
         }
         else if (Input.GetKeyDown(KeyCode.Keypad5)) {
-            animator.SetInteger("Sword Move", 5);
+            animator.SetTrigger("Slash Up");
             boxCollider.enabled = true;
         }
         else if (Input.GetKeyDown(KeyCode.Keypad6)) {
-            animator.SetInteger("Sword Move", 6);
+            animator.SetTrigger("Slash Right");
             boxCollider.enabled = true;
         }
         else if (Input.GetKeyDown(KeyCode.Keypad7)) {
-            animator.SetInteger("Sword Move", 7);
+            animator.SetTrigger("Slash Up Left");
             boxCollider.enabled = true;
         }
         else if (Input.GetKeyDown(KeyCode.Keypad8)) {
-            animator.SetInteger("Sword Move", 8);
+            animator.SetTrigger("Slash Down");
             boxCollider.enabled = true;
         }
         else if (Input.GetKeyDown(KeyCode.Keypad9)) {
-            animator.SetInteger("Sword Move", 9);
+            animator.SetTrigger("Slash Up Right");
             boxCollider.enabled = true;
         }
     }
 
     void ControlP2() {
         if (Input.GetKeyDown(KeyCode.Joystick1Button4)) {
-            animator.SetInteger("Sword Move", 4);
+            animator.SetTrigger("Slash Left");
             boxCollider.enabled = true;
         }
         else if (Input.GetKeyDown(KeyCode.Joystick1Button5)) {
-            animator.SetInteger("Sword Move", 6);
+            animator.SetTrigger("Slash Right");
             boxCollider.enabled = true;
         }
         else if (Input.GetKeyDown(KeyCode.Joystick1Button2)) {
-            animator.SetInteger("Sword Move", 7);
+            animator.SetTrigger("Slash Up Left");
             boxCollider.enabled = true;
         }
         else if (Input.GetKeyDown(KeyCode.Joystick1Button0)) {
-            animator.SetInteger("Sword Move", 9);
+            animator.SetTrigger("Slash Up Right");
             boxCollider.enabled = true;
         }
         else if (Input.GetKeyDown(KeyCode.Joystick1Button1)) {
-            animator.SetInteger("Sword Move", 8);
+            animator.SetTrigger("Slash Down");
             boxCollider.enabled = true;
         }
         else if (Input.GetKeyDown(KeyCode.Joystick1Button3)) {
-            animator.SetInteger("Sword Move", 5);
+            animator.SetTrigger("Slash Up");
             boxCollider.enabled = true;
         }
     }
 
     public void ResetMove(){
-        animator.SetInteger("Sword Move", 0);
+        animator.SetFloat("Sword Move", 0);
         boxCollider.enabled = false;
     }
 }
