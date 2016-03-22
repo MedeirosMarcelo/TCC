@@ -2,14 +2,16 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 3
+  serializedVersion: 6
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: GlassRefractive
   m_Shader: {fileID: 4800000, guid: 963484209d11fd7f110076aa44295342, type: 3}
-  m_ShaderKeywords: []
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
   m_CustomRenderQueue: -1
+  stringTagMap: {}
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
@@ -40,11 +42,11 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: .423392087, g: .423392087, b: .423392087, a: 0}
+        second: {r: 0.4233921, g: 0.4233921, b: 0.4233921, a: 0}
       data:
         first:
           name: _SpecColor
-        second: {r: .981927693, g: .963855445, b: 1, a: 1}
+        second: {r: 0.9819277, g: 0.96385545, b: 1, a: 1}
 --- !u!1002 &2100001
 EditorExtensionImpl:
   serializedVersion: 6

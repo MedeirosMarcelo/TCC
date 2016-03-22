@@ -2,14 +2,16 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 3
+  serializedVersion: 6
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: TesselatedBumpSpecularDisplacement
   m_Shader: {fileID: 4800000, guid: 0a4b0bce1e250a14bb534d70bce205fa, type: 3}
-  m_ShaderKeywords: []
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
   m_CustomRenderQueue: -1
+  stringTagMap: {}
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
@@ -38,21 +40,21 @@ Material:
       data:
         first:
           name: _Shininess
-        second: .0732631832
-      data:
-        first:
-          name: _EdgeLength
-        second: 12.3068314
+        second: 0.07326318
       data:
         first:
           name: _Parallax
-        second: .354557991
+        second: 0.354558
+      data:
+        first:
+          name: _EdgeLength
+        second: 12.306831
     m_Colors:
       data:
         first:
           name: _Color
-        second: {r: .514925361, g: .514925361, b: .514925361, a: 1}
+        second: {r: 0.51492536, g: 0.51492536, b: 0.51492536, a: 1}
       data:
         first:
           name: _SpecColor
-        second: {r: .5, g: .5, b: .5, a: 1}
+        second: {r: 0.5, g: 0.5, b: 0.5, a: 1}
