@@ -3,7 +3,6 @@ using System.Collections;
 
 public class SwordCollision : MonoBehaviour {
 
-    public GameObject spark;
     Animator animator;
 
     void Start() {
