@@ -10,18 +10,22 @@ public class SwordController : MonoBehaviour {
     void Start() {
         animator = GetComponent<Animator>();
         boxCollider = GetComponentInChildren<BoxCollider>();
+        /*
         if (transform.parent != null) {
             controller = transform.parent.GetComponent<charactercontrol>().controller;
             boxCollider.enabled = false;
         }
+        */
     }
 
 	void Update () {
 
+        /*
         if (controller == 1)
             ControlP1();
         else
             ControlP2();
+        */
 	}
 
     void ControlP1() {
