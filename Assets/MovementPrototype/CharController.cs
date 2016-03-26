@@ -7,9 +7,12 @@ public class CharController : MonoBehaviour {
     BaseInput input;
     Rigidbody rbody;
 
-    float runSpeed = 4f;
-    float dashForce = 10f;
+    public float moveSpeed = 4f;
+    public float dashForce = 12f;
     float maxAcceleration = 2f;
+    public float turnSpeed = 0.2f;
+    Vector3 velocity;
+
 
     public void Awake() {
         input = new ControllerInput(ControllerId.One);
@@ -18,40 +21,50 @@ public class CharController : MonoBehaviour {
 
     public void Update() {
         input.Update();
-        Move();
         Look();
-        Dodge();
     }
 
     public void FixedUpdate() {
+        Move();
+        Dash();
         input.FixedUpdate();
     }
 
     public void Move() {
         // Calculate how fast we should be moving
-        var relativeVelocity = input.move.vector * runSpeed;
+        var relativeVelocity = input.move.vector * moveSpeed;
         // Calcualte the delta velocity
-        var velocityChange = relativeVelocity - rbody.velocity;
+        var velocityChange = relativeVelocity - velocity;
         velocityChange.y = 0;
         // Limit acceleration
         if (velocityChange.magnitude > maxAcceleration) {
             velocityChange = velocityChange.normalized * maxAcceleration;
         }
-        rbody.AddForce(velocityChange, ForceMode.VelocityChange);
-    }
 
-    public void Dodge() {
-        if (input.dash) {
-            Debug.Log("Dodge");
-            Vector3 dash = input.move.vector.normalized;
-            rbody.AddForce(dash * dashForce, ForceMode.Impulse);
-        }
+        velocity += velocityChange;
+        rbody.MovePosition(transform.position + (velocity * Time.deltaTime));
+
     }
 
     public void Look() {
         var vec = input.look.vector;
         if (vec.magnitude > 0.25f) {
-            transform.forward = vec;
+            transform.forward = Vector3.Lerp(transform.forward, vec, turnSpeed);
+        }
+    }
+
+    public float dashSpeed = 20f;
+    Vector3 dashVelocity;
+
+    public void Dash() {
+        if (dashVelocity.magnitude > 0.3) {
+            dashVelocity = Vector3.Lerp(dashVelocity, Vector3.zero , 0.2f );
+            rbody.MovePosition(transform.position + dashVelocity * Time.deltaTime);
+        } else if (input.dash) {
+            Debug.Log("Dodge");
+            Vector3 direction = input.move.vector.normalized;
+            dashVelocity = direction * dashSpeed;
+            rbody.MovePosition(transform.position + dashVelocity * Time.deltaTime);
         }
     }
 }
