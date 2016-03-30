@@ -336,11 +336,11 @@ Prefab:
       objectReference: {fileID: 190582718}
     - target: {fileID: 11463662, guid: 46a8ec6ff7b1b124980de8206073aa62, type: 2}
       propertyPath: useSphereCast
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11463662, guid: 46a8ec6ff7b1b124980de8206073aa62, type: 2}
       propertyPath: drawDebug
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 46a8ec6ff7b1b124980de8206073aa62, type: 2}
