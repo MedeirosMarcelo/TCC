@@ -2,8 +2,8 @@
 using System.Collections;
 using System;
 
-public class CCombat : CState {
-    public CCombat(CController character) : base(character) {
+public class CCombat : BaseState {
+    public CCombat(BaseFsm fsm) : base(fsm) {
 
     }
 

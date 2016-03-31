@@ -17,13 +17,13 @@ public class StateTransitionEventArgs : EventArgs {
     }
 }
 
-public abstract class CState {
+public abstract class BaseState {
     public string Name { get; protected set; }
-    public CController Character { get; protected set; }
+    public BaseFsm Fsm { get; protected set; }
     public event Action<StateTransitionEventArgs> StateTransitionRequested;
 
-    public CState(CController character) {
-        Character = character;
+    public BaseState(BaseFsm fsm) {
+        Fsm = fsm;
     }
 
     protected virtual void ChangeState(string name, bool runNextState = true, float additionalDeltaTime = 0f)

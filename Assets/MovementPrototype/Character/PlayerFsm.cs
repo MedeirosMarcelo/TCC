@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 
-public class PlayerFsm : CFsm {
-    public PlayerFsm(CController character) : base(character, "Assets.MovementPrototype.Character.States") {
+public class PlayerFsm : BaseFsm {
+    public CController Character { get; protected set; }
+    public PlayerFsm(CController character) : base(null, "Assets.MovementPrototype.Character.States", typeof(CState)) {
+        Character = character;
         Name = "FSM";
         current = dict["IDLE"];
     }

@@ -6,23 +6,23 @@ namespace Assets.MovementPrototype.Character.States
 {
     public class CWalk : CState
     {
-        public CWalk(CController character) : base(character)
+        public CWalk(BaseFsm fsm) : base(fsm)
         {
             Name = "WALK";
         }
 
         public override void PreUpdate()
         {
-            if (Character.input.dash)
+            if (FsmPlayer.Character.input.dash)
             {
                 ChangeState("DASH");
                 return;
             }
-            if (Character.input.move.vector.magnitude > 0.2f)
+            if (FsmPlayer.Character.input.move.vector.magnitude > 0.2f)
             {
                 return;
             }
-            if (Character.rbody.velocity.magnitude < 0.2f)
+            if (FsmPlayer.Character.rbody.velocity.magnitude < 0.2f)
             {
                 ChangeState("IDLE");
                 return;
@@ -36,7 +36,7 @@ namespace Assets.MovementPrototype.Character.States
         public override void Update()
         {
             // Calculate how fast we should be moving
-            var inputVelocity = Character.input.move.vector * moveSpeed;
+            var inputVelocity = FsmPlayer.Character.input.move.vector * moveSpeed;
             // Calcualte the delta velocity
             var velocityChange = inputVelocity - velocity;
             velocityChange.y = 0;
@@ -46,9 +46,9 @@ namespace Assets.MovementPrototype.Character.States
                 velocityChange = velocityChange.normalized * maxAcceleration;
             }
             velocity += velocityChange;
-            Character.Move(Character.transform.position + (velocity * Time.fixedDeltaTime));
+            FsmPlayer.Character.Move(FsmPlayer.Character.transform.position + (velocity * Time.fixedDeltaTime));
 
-            Character.Look();
+            FsmPlayer.Character.Look();
         }
 
         public override void Enter(StateTransitionEventArgs args)

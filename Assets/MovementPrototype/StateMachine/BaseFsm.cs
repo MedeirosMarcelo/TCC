@@ -3,28 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-public class CFsm : CState
+public class BaseFsm : BaseState
 {
-    public Dictionary<string, CState> dict;
+    public Dictionary<string, BaseState> dict;
 
-    public CState last { get; protected set; }
-    public CState current { get; protected set; }
-    public CState next { get; protected set; }
+    public BaseState last { get; protected set; }
+    public BaseState current { get; protected set; }
+    public BaseState next { get; protected set; }
 
-    protected void AddState(CState state)
+    protected void AddState(BaseState state)
     {
         dict.Add(state.Name, state);
     }
 
     protected void HookEvents()
     {
-        foreach (KeyValuePair<string, CState> entry in dict)
+        foreach (KeyValuePair<string, BaseState> entry in dict)
         {
             HookEvents(entry.Value);
         }
     }
 
-    protected void HookEvents(CState state)
+    protected void HookEvents(BaseState state)
     {
         state.StateTransitionRequested -= StateTransitionRequestedListener; // makes sure we don't hook twice
         state.StateTransitionRequested += StateTransitionRequestedListener;
@@ -35,20 +35,20 @@ public class CFsm : CState
 
     }
 
-    public CFsm(CController character, string @namespace = null) : base(character)
+    public BaseFsm(BaseFsm parentFsm, string @namespace = null, Type baseType = null) : base(parentFsm)
     {
-        Character = character;
-        dict = new Dictionary<string, CState>();
+        dict = new Dictionary<string, BaseState>();
+        baseType = baseType ?? typeof(BaseState);
         if (!string.IsNullOrEmpty(@namespace))
         {
             Type[] types = Assembly
                 .GetExecutingAssembly()
                 .GetTypes()
-                .Where(type => type.Namespace == @namespace && type.BaseType == typeof(CState))
+                .Where(type => type.Namespace == @namespace && type.BaseType == baseType)
                 .ToArray();
             foreach (Type t in types)
             {
-                CState state = (CState)Activator.CreateInstance(t, (object)Character);
+                BaseState state = (BaseState)Activator.CreateInstance(t, this);
                 AddState(state);
             }
         }
