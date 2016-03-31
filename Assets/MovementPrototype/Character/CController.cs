@@ -11,7 +11,7 @@ public class CController : MonoBehaviour {
     public CFsm fsm { get; private set; }
 
     public void Awake() {
-        fsm = new CFsm(this);
+        fsm = new PlayerFsm(this);
         input = new ControllerInput(joystick);
         rbody = GetComponent<Rigidbody>();
     }

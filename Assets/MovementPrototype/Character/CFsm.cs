@@ -1,57 +1,58 @@
-﻿using UnityEngine;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
-public class CFsm : CState {
+public class CFsm : CState
+{
     public Dictionary<string, CState> dict;
 
-    public CState last    { get; private set; }
-    public CState current { get; private set; }
-    public CState next    { get; private set; }
+    public CState last { get; protected set; }
+    public CState current { get; protected set; }
+    public CState next { get; protected set; }
 
-    private void AddState(CState state)
+    protected void AddState(CState state)
     {
         dict.Add(state.Name, state);
     }
 
-    private void HookEvents()
+    protected void HookEvents()
     {
         foreach (KeyValuePair<string, CState> entry in dict)
         {
-            entry.Value.StateTransitionRequested += StateTransitionRequestedListener;
+            HookEvents(entry.Value);
         }
     }
 
-    public CFsm(CController character) : base(character) {
-        Name = "FSM";
+    protected void HookEvents(CState state)
+    {
+        state.StateTransitionRequested -= StateTransitionRequestedListener; // makes sure we don't hook twice
+        state.StateTransitionRequested += StateTransitionRequestedListener;
+    }
+
+    protected virtual void StateTransitionRequestedListener(StateTransitionEventArgs obj)
+    {
+
+    }
+
+    public CFsm(CController character, string @namespace = null) : base(character)
+    {
         Character = character;
         dict = new Dictionary<string, CState>();
-        AddState(new CIdle(character));
-        AddState(new CWalk(character));
-        AddState(new CDash(character));
-        current = dict.First().Value;
-        HookEvents();
-    }
-
-    private void StateTransitionRequestedListener(StateTransitionEventArgs obj)
-    {
-        Debug.Log("ChangeState: from " + current + " to " + obj.RequestedStateName);
-
-        // Notice there is no check if is a different state, this is by design
-        next = dict[obj.RequestedStateName];
-        last = current;
-        last.Exit();
-
-        current = next;
-        next = null;
-        current.Enter(obj);
-
-        if (obj.RunNextState)
+        if (!string.IsNullOrEmpty(@namespace))
         {
-            current.Update();
+            Type[] types = Assembly
+                .GetExecutingAssembly()
+                .GetTypes()
+                .Where(type => type.Namespace == @namespace && type.BaseType == typeof(CState))
+                .ToArray();
+            foreach (Type t in types)
+            {
+                CState state = (CState)Activator.CreateInstance(t, (object)Character);
+                AddState(state);
+            }
         }
+        HookEvents();
     }
 
     public override void PreUpdate()
@@ -64,8 +65,6 @@ public class CFsm : CState {
 
     public override void Update()
     {
-        current.PreUpdate();
-        current.Update();
     }
 
     public override void Exit()
