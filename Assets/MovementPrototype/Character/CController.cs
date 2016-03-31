@@ -5,13 +5,14 @@ using System.Collections.Generic;
 
 public class CController : MonoBehaviour {
 
+    public ControllerId joystick = ControllerId.One;
     public BaseInput input { get; private set; }
     public Rigidbody rbody { get; private set; }
     public CFsm fsm { get; private set; }
 
     public void Awake() {
         fsm = new CFsm(this);
-        input = new ControllerInput(ControllerId.One);
+        input = new ControllerInput(joystick);
         rbody = GetComponent<Rigidbody>();
     }
 

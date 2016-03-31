@@ -27,7 +27,7 @@ public class CFsm {
     }
 
     public void ChangeState(CStateEnum nextState) {
-        Debug.Log("ChnageState: from " + current.value + " to " + nextState);
+        Debug.Log("ChangeState: from " + current.value + " to " + nextState);
 
         // Notice there is no check if is a different state, this is by design
         next = dict[nextState];
