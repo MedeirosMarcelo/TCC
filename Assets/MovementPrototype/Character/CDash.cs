@@ -3,21 +3,23 @@ using System;
 using System.Collections;
 
 public class CDash : CState {
-    public CDash(CFsm fsm) : base(fsm, CStateEnum.Dash) {
+    public CDash(CController character) : base(character) {
+        Name = "DASH";
     }
 
     public override void PreUpdate() {
         if (state == State.Ended) {
-            base.PreUpdate();
+            ChangeState("IDLE");
         }
     }
 
     const float speed = 12f;
     Vector3 velocity;
 
-    public override void Enter() {
+    public override void Enter(StateTransitionEventArgs args) {
+        elapsed = args.AdditionalDeltaTime;
         state = State.Accel;
-        velocity = input.move.vector.normalized * speed;
+        velocity = Character.input.move.vector.normalized * speed;
     }
 
     enum State {
@@ -69,7 +71,7 @@ public class CDash : CState {
         }
 
         Debug.Log("Vprop = " + propVelocity);
-        rbody.MovePosition(position + (velocity * propVelocity) * Time.fixedDeltaTime);
+        Character.Move(Character.transform.position + (velocity * propVelocity) * Time.fixedDeltaTime);
     }
 
     public override void Exit() {

@@ -25,6 +25,16 @@ public class CController : MonoBehaviour {
         input.FixedUpdate();
     }
 
+    public void ChangeVelocity(Vector3 velocity)
+    {
+        rbody.velocity = velocity;
+    }
+
+    public void Move(Vector3 position)
+    {
+        rbody.MovePosition(position);
+    }
+
     public float turnSpeed = 0.2f;
     public void Look() {
         var vec = input.look.vector;

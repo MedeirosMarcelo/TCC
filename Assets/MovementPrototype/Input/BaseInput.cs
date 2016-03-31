@@ -28,6 +28,7 @@ public class BaseInput {
     public virtual bool dash { get; protected set; }
     public virtual bool slash { get; protected set; }
     public virtual bool heavy { get; protected set; }
+    public virtual float deadZone { get; protected set; }
 
     public BaseInput() {
         name = "Generic input";
@@ -35,6 +36,7 @@ public class BaseInput {
         move.vertical = 0.0f;
         look.horizontal = 0.0f;
         look.vertical = 0.0f;
+        deadZone = 0.2f;
         dash = false;
         slash = false;
         heavy = false;

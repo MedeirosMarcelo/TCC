@@ -3,69 +3,41 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public enum CStateEnum {
-    Idle,
-    Walk,
-    Dash,
-    Attacking
+public class StateTransitionEventArgs : EventArgs {
+    public string CurrentStateName { get; private set; }
+    public string RequestedStateName { get; private set; }
+    public bool RunNextState { get; private set; }
+    public float AdditionalDeltaTime { get; private set; }
+    public StateTransitionEventArgs(string currentStateName, string requestedStateName, bool runNextState = true, float additionalDeltaTime = 0f) : base()
+    {
+        CurrentStateName = currentStateName;
+        RequestedStateName = requestedStateName;
+        RunNextState = runNextState;
+        AdditionalDeltaTime = additionalDeltaTime;
+    }
 }
 
-public class CState {
+public abstract class CState {
+    public string Name { get; protected set; }
+    public CController Character { get; protected set; }
+    public event Action<StateTransitionEventArgs> StateTransitionRequested;
 
-    public CFsm fsm { get; private set; }
-    public CStateEnum value { get; private set; }
-
-    public CState(CFsm fsm, CStateEnum value) {
-        this.fsm = fsm;
-        this.value = value;
+    public CState(CController character) {
+        Character = character;
     }
 
-    public CController character {
-        get { return fsm.character; }
-    }
-
-    public Transform transform {
-        get { return character.transform; }
-    }
-
-    public Rigidbody rbody {
-        get { return character.rbody; }
-    }
-
-    public BaseInput input {
-        get { return character.input; }
-    }
-
-    public Vector3 position {
-        get { return transform.position; }
-        set { transform.position = value; }
+    protected virtual void ChangeState(string name, bool runNextState = true, float additionalDeltaTime = 0f)
+    {
+        if (StateTransitionRequested != null)
+        {
+            StateTransitionRequested(new StateTransitionEventArgs(this.Name, name));
+        }
     }
 
     // Evaluate Input and changes the FSM Current State
     // This base method should be used as a generic handler
-    public virtual void PreUpdate() {
-        if (input.dash) {
-            fsm.ChangeState(CStateEnum.Dash);
-            return;
-        }
-        if (input.move.vector.magnitude > 0.2f) {
-            fsm.ChangeState(CStateEnum.Walk);
-            return;
-        }
-        if (value != CStateEnum.Idle) {
-            fsm.ChangeState(CStateEnum.Idle);
-        }
-    }
-    public virtual void Enter() { }
-    public virtual void Update() { }
-    public virtual void Exit() { }
-}
-
-public class CIdle : CState {
-    public CIdle(CFsm fsm) : base(fsm, CStateEnum.Idle) {
-    }
-
-    public override void Update() {
-        character.Look();
-    }
+    public abstract void PreUpdate();
+    public abstract void Enter(StateTransitionEventArgs args);
+    public abstract void Update();
+    public abstract void Exit();
 }

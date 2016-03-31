@@ -1,18 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class CCombat : CState {
-    public CCombat(CFsm fsm) : base(fsm, CStateEnum.Walk) {
+    public CCombat(CController character) : base(character) {
 
     }
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public override void Enter(StateTransitionEventArgs args)
+    {
+    }
+
+    public override void Exit()
+    {
+    }
+
+    public override void PreUpdate()
+    {
+    }
+
+    public override void Update()
+    {
+    }
 }

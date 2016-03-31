@@ -3,19 +3,21 @@ using System;
 using System.Collections;
 
 public class CWalk : CState {
-    public CWalk(CFsm fsm) : base(fsm, CStateEnum.Walk) {
+    public CWalk(CController character) : base(character) {
+        Name = "WALK";
     }
 
     public override void PreUpdate() {
-        if (input.dash) {
-            fsm.ChangeState(CStateEnum.Dash);
+        if (Character.input.dash) {
+            ChangeState("DASH");
             return;
         }
-        if (input.move.vector.magnitude > 0.2f) {
+        if (Character.input.move.vector.magnitude > 0.2f) {
             return;
         }
-        if (velocity.magnitude < 0.2f) {
-            fsm.ChangeState(CStateEnum.Idle);
+        if (Character.rbody.velocity.magnitude < 0.2f) {
+            ChangeState("IDLE");
+            return;
         }
     }
 
@@ -25,7 +27,7 @@ public class CWalk : CState {
 
     public override void Update() {
         // Calculate how fast we should be moving
-        var inputVelocity = input.move.vector * moveSpeed;
+        var inputVelocity = Character.input.move.vector * moveSpeed;
         // Calcualte the delta velocity
         var velocityChange = inputVelocity - velocity;
         velocityChange.y = 0;
@@ -34,12 +36,12 @@ public class CWalk : CState {
             velocityChange = velocityChange.normalized * maxAcceleration;
         }
         velocity += velocityChange;
-        rbody.MovePosition(position + (velocity * Time.fixedDeltaTime));
+        Character.Move(Character.transform.position + (velocity * Time.fixedDeltaTime));
 
-        character.Look();
+        Character.Look();
     }
 
-    public override void Enter() {
+    public override void Enter(StateTransitionEventArgs args) {
         velocity = Vector3.zero;
     }
 
