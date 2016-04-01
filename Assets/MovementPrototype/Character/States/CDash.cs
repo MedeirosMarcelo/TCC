@@ -6,7 +6,7 @@ namespace Assets.MovementPrototype.Character.States
 {
     public class CDash : CState
     {
-        public CDash(BaseFsm fsm) : base(fsm)
+        public CDash(CFsm fsm) : base(fsm)
         {
             Name = "DASH";
         }
@@ -15,7 +15,8 @@ namespace Assets.MovementPrototype.Character.States
         {
             if (state == State.Ended)
             {
-                ChangeState("IDLE");
+                Fsm.ChangeState("IDLE");
+                return;
             }
         }
 
@@ -26,7 +27,7 @@ namespace Assets.MovementPrototype.Character.States
         {
             elapsed = args.AdditionalDeltaTime;
             state = State.Accel;
-            velocity = FsmPlayer.Character.input.move.vector.normalized * speed;
+            velocity = Input.move.vector.normalized * speed;
         }
 
         enum State
@@ -89,8 +90,7 @@ namespace Assets.MovementPrototype.Character.States
                     break;
             }
 
-            Debug.Log("Vprop = " + propVelocity);
-            FsmPlayer.Character.Move(FsmPlayer.Character.transform.position + (velocity * propVelocity) * Time.fixedDeltaTime);
+            Character.Move(Transform.position + (velocity * propVelocity) * Time.fixedDeltaTime);
         }
 
         public override void Exit()

@@ -3,39 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-public class BaseFsm : BaseState
+public abstract class BaseFsm
 {
     public Dictionary<string, BaseState> dict;
-
-    public BaseState last { get; protected set; }
     public BaseState current { get; protected set; }
-    public BaseState next { get; protected set; }
 
     protected void AddState(BaseState state)
     {
         dict.Add(state.Name, state);
     }
 
-    protected void HookEvents()
+    public virtual void ChangeState(string name, float additionalDeltaTime = 0f)
     {
-        foreach (KeyValuePair<string, BaseState> entry in dict)
-        {
-            HookEvents(entry.Value);
-        }
+        ChangeState(new StateTransitionEventArgs(current.Name, name, additionalDeltaTime));
     }
 
-    protected void HookEvents(BaseState state)
+    public virtual void ChangeState(StateTransitionEventArgs obj)
     {
-        state.StateTransitionRequested -= StateTransitionRequestedListener; // makes sure we don't hook twice
-        state.StateTransitionRequested += StateTransitionRequestedListener;
+        current.Exit();
+        current = dict[obj.RequestedStateName];
+        current.Enter(obj);
     }
 
-    protected virtual void StateTransitionRequestedListener(StateTransitionEventArgs obj)
-    {
-
-    }
-
-    public BaseFsm(BaseFsm parentFsm, string @namespace = null, Type baseType = null) : base(parentFsm)
+    public BaseFsm(string @namespace = null, Type baseType = null) : base()
     {
         dict = new Dictionary<string, BaseState>();
         baseType = baseType ?? typeof(BaseState);
@@ -52,22 +42,7 @@ public class BaseFsm : BaseState
                 AddState(state);
             }
         }
-        HookEvents();
     }
 
-    public override void PreUpdate()
-    {
-    }
-
-    public override void Enter(StateTransitionEventArgs args)
-    {
-    }
-
-    public override void Update()
-    {
-    }
-
-    public override void Exit()
-    {
-    }
+    public abstract void Update();
 }

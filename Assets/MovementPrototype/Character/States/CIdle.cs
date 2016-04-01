@@ -4,36 +4,38 @@ namespace Assets.MovementPrototype.Character.States
 {
     public class CIdle : CState
     {
-        public CIdle(BaseFsm fsm) : base(fsm)
+        public CIdle(CFsm fsm) : base(fsm)
         {
             Name = "IDLE";
         }
 
         public override void Enter(StateTransitionEventArgs args)
         {
-            FsmPlayer.Character.ChangeVelocity(Vector3.zero);
+            Character.ChangeVelocity(Vector3.zero);
         }
 
         public override void Exit()
         {
-            FsmPlayer.Character.ChangeVelocity(Vector3.zero);
+            Character.ChangeVelocity(Vector3.zero);
         }
 
         public override void PreUpdate()
         {
-            if (FsmPlayer.Character.input.dash)
+            if (Input.dash)
             {
-                ChangeState("DASH");
+                Fsm.ChangeState("DASH");
+                return;
             }
-            else if (FsmPlayer.Character.input.move.vector.magnitude > FsmPlayer.Character.input.deadZone)
+            if (Input.move.vector.magnitude > Input.deadZone)
             {
-                ChangeState("WALK");
+                Fsm.ChangeState("WALK");
+                return;
             }
         }
 
         public override void Update()
         {
-            FsmPlayer.Character.Look();
+            Character.Look();
         }
     }
 }
