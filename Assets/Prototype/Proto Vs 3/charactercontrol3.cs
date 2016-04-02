@@ -13,7 +13,7 @@ public class charactercontrol3 : MonoBehaviour {
     Rigidbody rb;
     ParticleSystem.EmissionModule bloodEmission;
     Animator bloodAnim;
-    SwordControl2 swordControl;
+    SwordControl3 swordControl;
 
     void Awake() {
         rb = GetComponent<Rigidbody>();
@@ -21,7 +21,7 @@ public class charactercontrol3 : MonoBehaviour {
         //bloodEmission.enabled = false;
         bloodAnim = transform.Find("Blood Fountain").GetComponent<Animator>();
         if (sword != null) {
-            swordControl = sword.GetComponent<SwordControl2>();
+            swordControl = sword.GetComponent<SwordControl3>();
         }
     }
 
@@ -36,18 +36,18 @@ public class charactercontrol3 : MonoBehaviour {
     void ControlP1() {
         velocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
-        Vector3 dir = Vector3.zero;
-        if (Input.GetKeyDown(KeyCode.E)) {
-            dashing = true;
-            dir = transform.right;
-            velocity = Vector3.zero;
-        }
-        if (Input.GetKeyDown(KeyCode.Q)) {
-            dashing = true;
-            dir = -transform.right;
-            velocity = Vector3.zero;
-        }
-        Dash(dir);
+        //Vector3 dir = Vector3.zero;
+        //if (Input.GetKeyDown(KeyCode.E)) {
+        //    dashing = true;
+        //    dir = transform.right;
+        //    velocity = Vector3.zero;
+        //}
+        //if (Input.GetKeyDown(KeyCode.Q)) {
+        //    dashing = true;
+        //    dir = -transform.right;
+        //    velocity = Vector3.zero;
+        //}
+        //Dash(dir);
 
         if (!dashing) {
             rb.MovePosition(transform.position + velocity * moveSpeed * Time.deltaTime);
@@ -74,18 +74,20 @@ public class charactercontrol3 : MonoBehaviour {
         Dash(dir);
 
         if (!dashing) {
-            rb.MovePosition(transform.position + velocity * moveSpeed * Time.deltaTime);
-            Vector3 faceDirection = Vector3.zero;
-            if (Input.GetAxis("HorizontalP2RightStick") != 0) {
-                faceDirection.x = Input.GetAxis("HorizontalP2RightStick");
-            }
-            if (Input.GetAxis("VerticalP2RightStick") != 0) {
-                faceDirection.z = Input.GetAxis("VerticalP2RightStick");
-            }
-            if (faceDirection != Vector3.zero) {
-                //if (!swordControl.attacking) {
+            if (swordControl.state == CombatState.Idle) {
+                rb.MovePosition(transform.position + velocity * moveSpeed * Time.deltaTime);
+                Vector3 faceDirection = Vector3.zero;
+                if (Input.GetAxis("HorizontalP2RightStick") != 0) {
+                    faceDirection.x = Input.GetAxis("HorizontalP2RightStick");
+                }
+                if (Input.GetAxis("VerticalP2RightStick") != 0) {
+                    faceDirection.z = Input.GetAxis("VerticalP2RightStick");
+                }
+                if (faceDirection != Vector3.zero) {
+                    //if (!swordControl.attacking) {
                     transform.forward = Vector3.Lerp(transform.forward, faceDirection, 0.1f * turnSpeed);
-              //  }
+                    //  }
+                }
             }
         }
     }
@@ -113,10 +115,26 @@ public class charactercontrol3 : MonoBehaviour {
 
     void OnTriggerEnter(Collider col) {
         if (col.name == "Sword") {
-            int c = col.transform.parent.GetComponent<SwordController>().controller;
-            if (c != controller) {
-                bloodAnim.SetTrigger("Bleed");
-                StartCoroutine("DelayBlood");
+            SwordControl3 sc3 = col.transform.parent.GetComponent<SwordControl3>();
+            //print("Defender: " + swordControl.state + " | Attacker: " + sc3.state);
+            if (swordControl.state == CombatState.BlockingMid || swordControl.state == CombatState.BlockingUp) {
+                if (swordControl.state == CombatState.BlockingMid && sc3.state != CombatState.AttackingMid ||
+                    swordControl.state == CombatState.BlockingUp && sc3.state != CombatState.AttackingUp) {
+                    //if (c != controller) {
+                    if (sc3.attacking) {
+                        bloodAnim.SetTrigger("Bleed");
+                    }
+                    //StartCoroutine("DelayBlood");
+                    //}
+                }
+                else {
+                    swordControl.Spark();
+                }
+            }
+            else {
+                if (sc3.attacking) {
+                    bloodAnim.SetTrigger("Bleed");
+                }
             }
         }
     }

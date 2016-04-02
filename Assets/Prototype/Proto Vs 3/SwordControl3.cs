@@ -6,6 +6,7 @@ public class SwordControl3 : MonoBehaviour {
     public int controller = 1;
     public bool autoAttack;
     public bool attacking;
+    public CombatState state;
     BoxCollider boxCollider;
     Animator animator;
     Stance stance;
@@ -42,99 +43,43 @@ public class SwordControl3 : MonoBehaviour {
 
     void ControlP1() {
 
-        if (Input.GetKeyDown(KeyCode.Mouse0)) {
-            if (Input.GetAxis("Horizontal") < -0.2f) {
-                animator.SetTrigger("Slash Left");
-            }
-            else if (Input.GetAxis("Horizontal") > 0.2f) {
-                animator.SetTrigger("Slash Right");
-            }
-            else if (Input.GetAxis("Vertical") < -0.2f) {
-                animator.SetTrigger("Slash Up");
-            }
-            else {
-                animator.SetTrigger("Slash Down");
-            }
-            attacking = true;
+        if (Input.GetKeyDown(KeyCode.F)) {
+            if (stance == Stance.Right) stance = Stance.Left;
+            else if (stance == Stance.Left) stance = Stance.Up;
+            else if (stance == Stance.Up) stance = Stance.Right;
+            animator.SetTrigger("Idle " + stance.ToString());
         }
-
-
-        //if (Input.GetKeyDown(KeyCode.R)) {
-        //    animator.SetTrigger("Block Up");
-        //    // boxCollider.enabled = true;
-        //}
-        //else if (Input.GetKeyDown(KeyCode.F)) {
-        //    animator.SetTrigger("Block Mid");
-        //    //   boxCollider.enabled = true;
-        //}
-        //else if (Input.GetKeyDown(KeyCode.Keypad1)) {
-        //    animator.SetTrigger("Slash Down Left");
-        //    boxCollider.enabled = true;
-        //}
-        //else if (Input.GetKeyDown(KeyCode.Keypad2)) {
-        //    animator.SetTrigger("Slash Up");
-        //    boxCollider.enabled = true;
-        //}
-        //else if (Input.GetKeyDown(KeyCode.Keypad3)) {
-        //    animator.SetTrigger("Slash Down Right");
-        //    boxCollider.enabled = true;
-        //}
-        //else if (Input.GetKeyDown(KeyCode.Keypad4)) {
-        //    animator.SetTrigger("Slash Left");
-        //    boxCollider.enabled = true;
-        //}
-        //else if (Input.GetKeyDown(KeyCode.Keypad5)) {
-        //    animator.SetTrigger("Slash Up");
-        //    boxCollider.enabled = true;
-        //}
-        //else if (Input.GetKeyDown(KeyCode.Keypad6)) {
-        //    animator.SetTrigger("Slash Right");
-        //    boxCollider.enabled = true;
-        //}
-        //else if (Input.GetKeyDown(KeyCode.Keypad7)) {
-        //    animator.SetTrigger("Slash Up Left");
-        //    boxCollider.enabled = true;
-        //}
-        //else if (Input.GetKeyDown(KeyCode.Keypad8)) {
-        //    animator.SetTrigger("Slash Down");
-        //    boxCollider.enabled = true;
-        //}
-        //else if (Input.GetKeyDown(KeyCode.Keypad9)) {
-        //    animator.SetTrigger("Slash Up Right");
-        //    boxCollider.enabled = true;
-        //}
+        else if (Input.GetKeyDown(KeyCode.Q)) {
+            animator.SetTrigger("Block Mid");
+            state = CombatState.BlockingMid;
+        }
+        else if (Input.GetKeyDown(KeyCode.E)) {
+            animator.SetTrigger("Block Up");
+            state = CombatState.BlockingUp;
+        }
+        else {
+            if (Input.GetKeyDown(KeyCode.Mouse0)) {
+                animator.SetTrigger("Attack");
+                if (stance == Stance.Up) {
+                    state = CombatState.AttackingUp;
+                }
+                else {
+                    state = CombatState.AttackingMid;
+                }
+                attacking = true;
+            }
+        }
     }
-
-    //void ControlP2() {
-    //    if (Input.GetKeyDown(KeyCode.Joystick1Button4)) {
-    //        animator.SetTrigger("Slash Left");
-    //        boxCollider.enabled = true;
-    //    }
-    //    else if (Input.GetKeyDown(KeyCode.Joystick1Button5)) {
-    //        animator.SetTrigger("Slash Right");
-    //        boxCollider.enabled = true;
-    //    }
-    //    else if (Input.GetKeyDown(KeyCode.Joystick1Button2)) {
-    //        animator.SetTrigger("Slash Up Left");
-    //        boxCollider.enabled = true;
-    //    }
-    //    else if (Input.GetKeyDown(KeyCode.Joystick1Button0)) {
-    //        animator.SetTrigger("Slash Up Right");
-    //        boxCollider.enabled = true;
-    //    }
-    //    else if (Input.GetKeyDown(KeyCode.Joystick1Button1)) {
-    //        animator.SetTrigger("Slash Down");
-    //        boxCollider.enabled = true;
-    //    }
-    //    else if (Input.GetKeyDown(KeyCode.Joystick1Button3)) {
-    //        animator.SetTrigger("Slash Up");
-    //        boxCollider.enabled = true;
-    //    }
-    //}
 
     void ControlP2() {
         if (Input.GetKeyDown(KeyCode.Joystick1Button5)) {
             animator.SetTrigger("Attack");
+            if (stance == Stance.Up) {
+                state = CombatState.AttackingUp;
+            }
+            else {
+                state = CombatState.AttackingMid;
+            }
             attacking = true;
         }
         else if (Input.GetKeyDown(KeyCode.Joystick1Button4)) {
@@ -142,14 +87,25 @@ public class SwordControl3 : MonoBehaviour {
             else if (stance == Stance.Left) stance = Stance.Up;
             else if (stance == Stance.Up) stance = Stance.Right;
             animator.SetTrigger("Idle " + stance.ToString());
-            print(stance);
+        }
+        else if (Input.GetKeyDown(KeyCode.Joystick1Button1)) {
+            if (stance == Stance.Right) stance = Stance.Up;
+            else if (stance == Stance.Left) stance = Stance.Right;
+            else if (stance == Stance.Up) stance = Stance.Left;
+            animator.SetTrigger("Idle " + stance.ToString());
         }
         else if (Input.GetKeyDown(KeyCode.Joystick1Button0)) {
             animator.SetTrigger("Block Mid");
+            state = CombatState.BlockingMid;
         }
         else if (Input.GetKeyDown(KeyCode.Joystick1Button3)) {
             animator.SetTrigger("Block Up");
+            state = CombatState.BlockingUp;
         }
+    }
+
+    public void Spark() {
+        animator.SetTrigger("Spark");
     }
 
     void AutoAttack() {
@@ -162,12 +118,14 @@ public class SwordControl3 : MonoBehaviour {
         animator.SetTrigger("Slash Right");
         boxCollider.enabled = true;
         yield return new WaitForSeconds(1f);
+        state = CombatState.Idle;
         attacking = false;
     }
 
     public void ResetMove() {
         animator.SetFloat("Sword Move", 0);
         attacking = false;
+        state = CombatState.Idle;
         if (stance == Stance.Right) stance = Stance.Left;
         else if (stance == Stance.Left) stance = Stance.Right;
         else if (stance == Stance.Up) stance = Stance.Up;

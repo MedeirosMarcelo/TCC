@@ -338,6 +338,10 @@ Prefab:
       propertyPath: drawDebug
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9549930, guid: 46a8ec6ff7b1b124980de8206073aa62, type: 2}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 8c23566595c32cd48bd5780bfb32b47f, type: 2}
     m_RemovedComponents:
     - {fileID: 11477688, guid: 46a8ec6ff7b1b124980de8206073aa62, type: 2}
     - {fileID: 11474100, guid: 46a8ec6ff7b1b124980de8206073aa62, type: 2}
@@ -542,6 +546,10 @@ Prefab:
       propertyPath: useSphereCast
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9549930, guid: 46a8ec6ff7b1b124980de8206073aa62, type: 2}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 8c23566595c32cd48bd5780bfb32b47f, type: 2}
     m_RemovedComponents:
     - {fileID: 11477688, guid: 46a8ec6ff7b1b124980de8206073aa62, type: 2}
     - {fileID: 11474100, guid: 46a8ec6ff7b1b124980de8206073aa62, type: 2}

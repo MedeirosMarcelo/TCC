@@ -74,16 +74,16 @@ public class charactercontrol2 : MonoBehaviour {
         Dash(dir);
 
         if (!dashing) {
-            rb.MovePosition(transform.position + velocity * moveSpeed * Time.deltaTime);
-            Vector3 faceDirection = Vector3.zero;
-            if (Input.GetAxis("HorizontalP2RightStick") != 0) {
-                faceDirection.x = Input.GetAxis("HorizontalP2RightStick");
-            }
-            if (Input.GetAxis("VerticalP2RightStick") != 0) {
-                faceDirection.z = Input.GetAxis("VerticalP2RightStick");
-            }
-            if (faceDirection != Vector3.zero) {
-                if (!swordControl.attacking) {
+            if (swordControl.state == CombatState.Idle) {
+                rb.MovePosition(transform.position + velocity * moveSpeed * Time.deltaTime);
+                Vector3 faceDirection = Vector3.zero;
+                if (Input.GetAxis("HorizontalP2RightStick") != 0) {
+                    faceDirection.x = Input.GetAxis("HorizontalP2RightStick");
+                }
+                if (Input.GetAxis("VerticalP2RightStick") != 0) {
+                    faceDirection.z = Input.GetAxis("VerticalP2RightStick");
+                }
+                if (faceDirection != Vector3.zero) {
                     transform.forward = Vector3.Lerp(transform.forward, faceDirection, 0.1f * turnSpeed);
                 }
             }
@@ -113,10 +113,25 @@ public class charactercontrol2 : MonoBehaviour {
 
     void OnTriggerEnter(Collider col) {
         if (col.name == "Sword") {
-            int c = col.transform.parent.GetComponent<SwordController>().controller;
-            if (c != controller) {
-                bloodAnim.SetTrigger("Bleed");
-                StartCoroutine("DelayBlood");
+            SwordControl2 sc2 = col.transform.parent.GetComponent<SwordControl2>();
+            if (swordControl.state == CombatState.BlockingMid || swordControl.state == CombatState.BlockingUp) {
+                if (swordControl.state == CombatState.BlockingMid && sc2.state != CombatState.AttackingMid ||
+                    swordControl.state == CombatState.BlockingUp && sc2.state != CombatState.AttackingUp) {
+                    //if (c != controller) {
+                    if (sc2.attacking) {
+                        bloodAnim.SetTrigger("Bleed");
+                    }
+                    //StartCoroutine("DelayBlood");
+                    //}
+                }
+                else {
+                    swordControl.Spark();
+                }
+            }
+            else {
+                if (sc2.attacking) {
+                    bloodAnim.SetTrigger("Bleed");
+                }
             }
         }
     }

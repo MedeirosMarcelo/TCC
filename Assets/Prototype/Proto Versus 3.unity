@@ -304,7 +304,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 6578458, guid: 46a8ec6ff7b1b124980de8206073aa62, type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11474100, guid: 46a8ec6ff7b1b124980de8206073aa62, type: 2}
       propertyPath: sword
@@ -337,6 +337,26 @@ Prefab:
     - target: {fileID: 11463662, guid: 46a8ec6ff7b1b124980de8206073aa62, type: 2}
       propertyPath: drawDebug
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463662, guid: 46a8ec6ff7b1b124980de8206073aa62, type: 2}
+      propertyPath: realisticCollision
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6578458, guid: 46a8ec6ff7b1b124980de8206073aa62, type: 2}
+      propertyPath: m_Size.y
+      value: 0.7421153
+      objectReference: {fileID: 0}
+    - target: {fileID: 6578458, guid: 46a8ec6ff7b1b124980de8206073aa62, type: 2}
+      propertyPath: m_Center.x
+      value: -0.0000122782685
+      objectReference: {fileID: 0}
+    - target: {fileID: 6578458, guid: 46a8ec6ff7b1b124980de8206073aa62, type: 2}
+      propertyPath: m_Center.y
+      value: 0.1139637
+      objectReference: {fileID: 0}
+    - target: {fileID: 6578458, guid: 46a8ec6ff7b1b124980de8206073aa62, type: 2}
+      propertyPath: m_Center.z
+      value: 0.000007021078
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11477688, guid: 46a8ec6ff7b1b124980de8206073aa62, type: 2}
@@ -415,6 +435,7 @@ MonoBehaviour:
   controller: 1
   autoAttack: 0
   attacking: 0
+  state: 0
 --- !u!1 &636630646
 GameObject:
   m_ObjectHideFlags: 0
@@ -543,6 +564,26 @@ Prefab:
       propertyPath: useSphereCast
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11463662, guid: 46a8ec6ff7b1b124980de8206073aa62, type: 2}
+      propertyPath: realisticCollision
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6578458, guid: 46a8ec6ff7b1b124980de8206073aa62, type: 2}
+      propertyPath: m_Size.y
+      value: 0.73640287
+      objectReference: {fileID: 0}
+    - target: {fileID: 6578458, guid: 46a8ec6ff7b1b124980de8206073aa62, type: 2}
+      propertyPath: m_Center.x
+      value: -0.000009313717
+      objectReference: {fileID: 0}
+    - target: {fileID: 6578458, guid: 46a8ec6ff7b1b124980de8206073aa62, type: 2}
+      propertyPath: m_Center.y
+      value: 0.116815805
+      objectReference: {fileID: 0}
+    - target: {fileID: 6578458, guid: 46a8ec6ff7b1b124980de8206073aa62, type: 2}
+      propertyPath: m_Center.z
+      value: 0.00000031487616
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11477688, guid: 46a8ec6ff7b1b124980de8206073aa62, type: 2}
     - {fileID: 11474100, guid: 46a8ec6ff7b1b124980de8206073aa62, type: 2}
@@ -565,7 +606,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 3
   turnSpeed: 1
-  target: {fileID: 0}
+  target: {fileID: 1120415820}
   sword: {fileID: 596789800}
   controller: 1
 --- !u!1 &901085042
@@ -681,6 +722,7 @@ MonoBehaviour:
   controller: 2
   autoAttack: 0
   attacking: 0
+  state: 0
 --- !u!1 &1187953941
 GameObject:
   m_ObjectHideFlags: 0

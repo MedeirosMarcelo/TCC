@@ -4,6 +4,7 @@ using UnityEngine.Assertions;
 
 public class SwordCollision : MonoBehaviour {
 
+    public bool realisticCollision = true;
     public bool useSphereCast;
     public float sphereRadius = 2f;
     public float sphereDistance = 2f;
@@ -25,7 +26,6 @@ public class SwordCollision : MonoBehaviour {
     void OnTriggerEnter(Collider col) {
         if (!useSphereCast) {
             if (col.tag == "Sword") {
-                print("TRIGGERENTER");
                 Hit();
             }
         }
@@ -46,9 +46,12 @@ public class SwordCollision : MonoBehaviour {
     }
 
     void Hit() {
-        AnimatorStateInfo currentState = animator.GetCurrentAnimatorStateInfo(0);
-        animator.Play("Slash Right Back", 0, currentState.normalizedTime);
-        animator.SetTrigger("Spark");
+        if (realisticCollision) {
+            AnimatorStateInfo currentState = animator.GetCurrentAnimatorStateInfo(0);
+            animator.Play("Slash Right Back", 0, currentState.normalizedTime);
+            animator.SetTrigger("Spark");
+            StartCoroutine("DelayAttack");
+        }
     }
 
     void OnDrawGizmos() {
