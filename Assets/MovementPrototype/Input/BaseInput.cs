@@ -1,45 +1,78 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum  InputEvent {
+    None,
+    Dash,
+    Attack
+}
+
+public class InputBuffer {
+    private InputEvent buffer = InputEvent.None;
+
+    public InputEvent Peek() {
+        return buffer;
+    }
+
+    public InputEvent Pop() {
+        Debug.Log("InputBuffer poped: " + buffer);
+        buffer = InputEvent.None;
+        return buffer;
+    }
+
+    public void Push(InputEvent ev) {
+        buffer = ev;
+        elapsed = 0f;
+    }
+
+    static readonly float TIMEOUT = 0.5f;
+    float elapsed = 0f;
+
+    public void Update() {
+        if (buffer != InputEvent.None) {
+
+            elapsed += Time.deltaTime;
+            if (elapsed > TIMEOUT) {
+
+                Debug.Log("InputBuffer timeout: " + buffer);
+                buffer = InputEvent.None;
+            }
+        }
+    }
+}
+
 public class Stick {
-    public float horizontal;
-    public float vertical;
+    public float deadZone = 0.25f;
+    public float horizontal = 0f;
+    public float vertical = 0f;
     public Vector3 vector {
         get { return new Vector3(horizontal, 0, vertical); }
+    }
+    public bool isActive {
+        get { return (vector.magnitude > deadZone);  }
     }
 }
 
 public class BaseInput {
- 
+
     public virtual string name { get; protected set; }
 
-    private Stick _move = new Stick();
-    private Stick _look = new Stick(); 
-
-    public virtual Stick move {
-        get { return _move; }
-        protected set { _move = value; }
-    }
-    public virtual Stick look {
-        get { return _look; }
-        protected set { _look = value; }
-    }
+    public virtual Stick move { get; private set; }
+    public virtual Stick look { get; private set; }
 
     public virtual bool dash { get; protected set; }
-    public virtual bool slash { get; protected set; }
-    public virtual bool heavy { get; protected set; }
-    public virtual float deadZone { get; protected set; }
+    public virtual bool attack { get; protected set; }
+
+    public virtual InputBuffer buffer { get; private set; }
 
     public BaseInput() {
         name = "Generic input";
-        move.horizontal = 0.0f;
-        move.vertical = 0.0f;
-        look.horizontal = 0.0f;
-        look.vertical = 0.0f;
-        deadZone = 0.2f;
+        move = new Stick();
+        look = new Stick();
+        buffer = new InputBuffer();
+
         dash = false;
-        slash = false;
-        heavy = false;
+        attack = false;
     }
 
     // must be called each Update before consuming any input.

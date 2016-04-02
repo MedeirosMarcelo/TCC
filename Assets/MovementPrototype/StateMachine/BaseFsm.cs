@@ -15,13 +15,13 @@ public abstract class BaseFsm
 
     public virtual void ChangeState(string name, float additionalDeltaTime = 0f)
     {
-        ChangeState(new StateTransitionEventArgs(current.Name, name, additionalDeltaTime));
+        ChangeState(new StateTransitionArgs(current.Name, name, additionalDeltaTime));
     }
 
-    public virtual void ChangeState(StateTransitionEventArgs obj)
+    public virtual void ChangeState(StateTransitionArgs obj)
     {
-        current.Exit();
-        current = dict[obj.RequestedStateName];
+        current.Exit(obj);
+        current = dict[obj.NextStateName];
         current.Enter(obj);
     }
 

@@ -3,14 +3,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class StateTransitionEventArgs : EventArgs {
-    public string CurrentStateName { get; private set; }
-    public string RequestedStateName { get; private set; }
+public class StateTransitionArgs {
+    public string LastStateName { get; private set; }
+    public string NextStateName { get; private set; }
     public float AdditionalDeltaTime { get; private set; }
-    public StateTransitionEventArgs(string currentStateName, string requestedStateName, float additionalDeltaTime = 0f) : base()
+    public StateTransitionArgs(string lastStateName, string nextStateName, float additionalDeltaTime)
     {
-        CurrentStateName = currentStateName;
-        RequestedStateName = requestedStateName;
+        LastStateName = lastStateName;
+        NextStateName = nextStateName;
         AdditionalDeltaTime = additionalDeltaTime;
     }
 }
@@ -26,7 +26,7 @@ public abstract class BaseState {
     // Evaluate Input and changes the FSM Current State
     // This base method should be used as a generic handler
     public abstract void PreUpdate();
-    public abstract void Enter(StateTransitionEventArgs args);
+    public abstract void Enter(StateTransitionArgs args);
     public abstract void Update();
-    public abstract void Exit();
+    public abstract void Exit(StateTransitionArgs args);
 }

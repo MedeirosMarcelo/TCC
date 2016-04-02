@@ -7,11 +7,11 @@ public class CCombat : BaseState {
 
     }
 
-    public override void Enter(StateTransitionEventArgs args)
+    public override void Enter(StateTransitionArgs args)
     {
     }
 
-    public override void Exit()
+    public override void Exit(StateTransitionArgs args)
     {
     }
 

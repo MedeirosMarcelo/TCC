@@ -23,7 +23,7 @@ namespace Assets.MovementPrototype.Character.States
         const float speed = 12f;
         Vector3 velocity;
 
-        public override void Enter(StateTransitionEventArgs args)
+        public override void Enter(StateTransitionArgs args)
         {
             elapsed = args.AdditionalDeltaTime;
             state = State.Accel;
@@ -93,7 +93,7 @@ namespace Assets.MovementPrototype.Character.States
             Character.Move(Transform.position + (velocity * propVelocity) * Time.fixedDeltaTime);
         }
 
-        public override void Exit()
+        public override void Exit(StateTransitionArgs args)
         {
             velocity = Vector3.zero;
             elapsed = 0;

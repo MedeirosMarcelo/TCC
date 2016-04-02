@@ -9,24 +9,25 @@ namespace Assets.MovementPrototype.Character.States
             Name = "IDLE";
         }
 
-        public override void Enter(StateTransitionEventArgs args)
+        public override void Enter(StateTransitionArgs args)
         {
             Character.ChangeVelocity(Vector3.zero);
         }
 
-        public override void Exit()
+        public override void Exit(StateTransitionArgs args)
         {
             Character.ChangeVelocity(Vector3.zero);
         }
 
         public override void PreUpdate()
         {
-            if (Input.dash)
+            if (Input.buffer.Peek() == InputEvent.Dash)
             {
+                Input.buffer.Pop();
                 Fsm.ChangeState("DASH");
                 return;
             }
-            if (Input.move.vector.magnitude > Input.deadZone)
+            if (Input.move.isActive)
             {
                 Fsm.ChangeState("WALK");
                 return;

@@ -13,23 +13,25 @@ namespace Assets.MovementPrototype.Character.States
 
         public override void PreUpdate()
         {
-            if (Input.dash)
+            if (Input.buffer.Peek() == InputEvent.Dash)
             {
+                Input.buffer.Pop();
                 Fsm.ChangeState("DASH");
                 return;
             }
-            if (Input.move.vector.magnitude > Input.deadZone)
+            if (Input.move.isActive)
             {
                 return;
             }
-            if (Rigidbody.velocity.magnitude < Input.deadZone)
+            if (Rigidbody.velocity.magnitude < minVelocity)
             {
                 Fsm.ChangeState("IDLE");
                 return;
             }
         }
 
-        public float moveSpeed = 4f;
+        static readonly float minVelocity = 0.25f;
+        float moveSpeed = 4f;
         float maxAcceleration = 2f;
         Vector3 velocity;
 
@@ -51,12 +53,12 @@ namespace Assets.MovementPrototype.Character.States
             Character.Look();
         }
 
-        public override void Enter(StateTransitionEventArgs args)
+        public override void Enter(StateTransitionArgs args)
         {
             velocity = Vector3.zero;
         }
 
-        public override void Exit()
+        public override void Exit(StateTransitionArgs args)
         {
             velocity = Vector3.zero;
         }
