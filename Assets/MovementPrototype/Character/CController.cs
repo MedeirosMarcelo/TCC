@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class CController : MonoBehaviour {
 
     public ControllerId joystick = ControllerId.One;
+    public Animator swordAnimator;
     public BaseInput input { get; private set; }
     public Rigidbody rbody { get; private set; }
     public CFsm fsm { get; private set; }

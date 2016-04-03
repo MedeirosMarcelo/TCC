@@ -4,6 +4,7 @@ using System.Collections;
 public class SwordController : MonoBehaviour {
 
     public int controller = 1;
+    public CController charController;
     public bool autoAttack;
     BoxCollider boxCollider;
     Animator animator;
@@ -147,7 +148,8 @@ public class SwordController : MonoBehaviour {
     }
 
     public void ResetMove() {
-        animator.SetFloat("Sword Move", 0);
-      //  boxCollider.enabled = false;
+        charController.fsm.ChangeState("IDLE");
+        //animator.SetTrigger("Sword " + stance.ToString());
+        //  boxCollider.enabled = false;
     }
 }

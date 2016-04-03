@@ -13,6 +13,11 @@ namespace Assets.MovementPrototype.Character.States
 
         public override void PreUpdate()
         {
+            if (Input.buffer.Peek() == InputEvent.Attack) {
+                Input.buffer.Pop();
+                Fsm.ChangeState("ATTACK");
+                return;
+            }
             if (Input.buffer.Peek() == InputEvent.Dash)
             {
                 Input.buffer.Pop();

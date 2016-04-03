@@ -33,7 +33,7 @@ namespace Assets.MovementPrototype.Character.States
         enum State
         {
             Accel,
-            Platou,
+            Plateau,
             Deccel,
             Ended
         };
@@ -61,11 +61,11 @@ namespace Assets.MovementPrototype.Character.States
                     else
                     {
                         elapsed -= accelTime;
-                        state = State.Platou;
-                        goto case State.Platou;
+                        state = State.Plateau;
+                        goto case State.Plateau;
                     }
 
-                case State.Platou:
+                case State.Plateau:
                     if (elapsed < platouTime)
                     {
                         propVelocity = 1;
