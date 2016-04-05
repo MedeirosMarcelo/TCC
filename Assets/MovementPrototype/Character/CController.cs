@@ -3,9 +3,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+public enum PlayerIndex : int {
+    One = 1,
+    Two = 2,
+    //Three = 3,
+    //Four  = 4
+}
+
 public class CController : MonoBehaviour {
 
-    public ControllerId joystick = ControllerId.One;
+    public PlayerIndex joystick = PlayerIndex.One;
+
     public Animator swordAnimator;
     public Animator bloodAnimator;
     public BaseInput input { get; private set; }
@@ -13,7 +21,7 @@ public class CController : MonoBehaviour {
     public CFsm fsm { get; private set; }
 
     public void Awake() {
-        input = new ControllerInput(joystick);
+        input = new GamePadInput(joystick);
         rbody = GetComponent<Rigidbody>();
         fsm = new CFsm(this);
     }
@@ -47,10 +55,14 @@ public class CController : MonoBehaviour {
 
     void OnTriggerEnter(Collider col) {
         if (col.name == "Sword") {
-            ControllerId swordJoystick = col.transform.parent.parent.GetComponent<CController>().joystick;
+            PlayerIndex swordJoystick = col.transform.parent.parent.GetComponent<CController>().joystick;
             if (swordJoystick != this.joystick && fsm.current.Name != "BLOCK") {
                 bloodAnimator.SetTrigger("Bleed");
             }
         }
+    }
+
+    void OnGUI() {
+        input.OnGUI();
     }
 }

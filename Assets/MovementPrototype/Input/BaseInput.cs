@@ -1,47 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum  InputEvent {
-    None,
-    Dash,
-    Attack,
-    Block
-}
-
-public class InputBuffer {
-    private InputEvent buffer = InputEvent.None;
-
-    public InputEvent Peek() {
-        return buffer;
-    }
-
-    public InputEvent Pop() {
-        Debug.Log("InputBuffer poped: " + buffer);
-        buffer = InputEvent.None;
-        return buffer;
-    }
-
-    public void Push(InputEvent ev) {
-        buffer = ev;
-        elapsed = 0f;
-    }
-
-    static readonly float TIMEOUT = 0.5f;
-    float elapsed = 0f;
-
-    public void Update() {
-        if (buffer != InputEvent.None) {
-
-            elapsed += Time.deltaTime;
-            if (elapsed > TIMEOUT) {
-
-                Debug.Log("InputBuffer timeout: " + buffer);
-                buffer = InputEvent.None;
-            }
-        }
-    }
-}
-
 public class Stick {
     public float deadZone = 0.25f;
     public float horizontal = 0f;
@@ -89,5 +48,9 @@ public class BaseInput {
     // get debug msg;
     public virtual string DebugMsg() {
         return (name + ":  M=" + move.vector + "  L=" + look.vector);
+    }
+
+    // OnGUI debug;
+    public virtual void OnGUI() {
     }
 }

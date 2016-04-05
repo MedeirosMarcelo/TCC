@@ -1,24 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum ControllerId : int {
-    One = 1,
-    Two = 2,
-    //Three = 3,
-    //Four  = 4
-}
-
 public class ControllerInput : BaseInput {
-    public ControllerId id { get; private set; }
+    public PlayerIndex id { get; private set; }
 
-    public ControllerInput(ControllerId id) {
+    public ControllerInput(PlayerIndex id) {
         this.id = id;
         name = "Controller " + id;
     }
 
     public override void Update() {
         buffer.Update();
-
+        id.toXInput();
         move.horizontal = Input.GetAxis("Move Horizontal " + (int)id);
         move.vertical = Input.GetAxis("Move Vertical " + (int)id);
 
@@ -34,13 +27,13 @@ public class ControllerInput : BaseInput {
         block |= blocked;
 
         if (dashed) {
-            buffer.Push(InputEvent.Dash);
+            buffer.Push(new InputEvent.Dash(move));
         }
         else if (attacked) {
-            buffer.Push(InputEvent.Attack);
+            buffer.Push(new InputEvent.Attack());
         }
         else if (blocked) {
-            buffer.Push(InputEvent.Block);
+            buffer.Push(new InputEvent.Block());
         }
     }
 
