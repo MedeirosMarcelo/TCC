@@ -486,11 +486,11 @@ InputManager:
     axis: 4
     joyNum: 2
   - serializedVersion: 3
-    m_Name: Dash 1 
+    m_Name: Dash 1
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton:
+    positiveButton: 
     altNegativeButton: 
     altPositiveButton: joystick 1 button 4
     gravity: 1000
@@ -502,11 +502,11 @@ InputManager:
     axis: 0
     joyNum: 1
   - serializedVersion: 3
-    m_Name: Dash 2 
+    m_Name: Dash 2
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton:
+    positiveButton: 
     altNegativeButton: 
     altPositiveButton: joystick 2 button 4
     gravity: 1000
@@ -518,11 +518,11 @@ InputManager:
     axis: 0
     joyNum: 2
   - serializedVersion: 3
-    m_Name: Attack 1 
+    m_Name: Attack 1
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton:
+    positiveButton: 
     altNegativeButton: 
     altPositiveButton: joystick 1 button 5
     gravity: 1000
@@ -534,11 +534,11 @@ InputManager:
     axis: 0
     joyNum: 1
   - serializedVersion: 3
-    m_Name: Attack 2 
+    m_Name: Attack 2
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton:
+    positiveButton: 
     altNegativeButton: 
     altPositiveButton: joystick 2 button 5
     gravity: 1000
@@ -549,5 +549,35 @@ InputManager:
     type: 0
     axis: 0
     joyNum: 2
-
-
+  - serializedVersion: 3
+    m_Name: Block 1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: joystick 1 button 8
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: Block 2
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: joystick 2 button 8
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 2

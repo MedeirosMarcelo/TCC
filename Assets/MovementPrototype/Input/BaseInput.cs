@@ -4,7 +4,8 @@ using System.Collections;
 public enum  InputEvent {
     None,
     Dash,
-    Attack
+    Attack,
+    Block
 }
 
 public class InputBuffer {
@@ -62,6 +63,7 @@ public class BaseInput {
 
     public virtual bool dash { get; protected set; }
     public virtual bool attack { get; protected set; }
+    public virtual bool block { get; protected set; }
 
     public virtual InputBuffer buffer { get; private set; }
 
@@ -73,6 +75,7 @@ public class BaseInput {
 
         dash = false;
         attack = false;
+        block = false;
     }
 
     // must be called each Update before consuming any input.

@@ -2,16 +2,16 @@
 
 namespace Assets.MovementPrototype.Character.States
 {
-    public class CAttack : CState
+    public class CBlock : CState
     {
-        public CAttack(CFsm fsm) : base(fsm)
+        public CBlock(CFsm fsm) : base(fsm)
         {
-            Name = "ATTACK";
+            Name = "BLOCK";
         }
 
         public override void Enter(StateTransitionArgs args)
         {
-            Character.swordAnimator.SetTrigger("Attack");
+            Character.swordAnimator.SetTrigger("Block Mid");
         }
 
         public override void Exit(StateTransitionArgs args)

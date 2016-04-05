@@ -7,6 +7,7 @@ public class CController : MonoBehaviour {
 
     public ControllerId joystick = ControllerId.One;
     public Animator swordAnimator;
+    public Animator bloodAnimator;
     public BaseInput input { get; private set; }
     public Rigidbody rbody { get; private set; }
     public CFsm fsm { get; private set; }
@@ -41,6 +42,15 @@ public class CController : MonoBehaviour {
         var vec = input.look.vector;
         if (vec.magnitude > 0.25f) {
             transform.forward = Vector3.Lerp(transform.forward, vec, turnSpeed);
+        }
+    }
+
+    void OnTriggerEnter(Collider col) {
+        if (col.name == "Sword") {
+            ControllerId swordJoystick = col.transform.parent.parent.GetComponent<CController>().joystick;
+            if (swordJoystick != this.joystick && fsm.current.Name != "BLOCK") {
+                bloodAnimator.SetTrigger("Bleed");
+            }
         }
     }
 }

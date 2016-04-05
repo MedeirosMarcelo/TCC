@@ -24,7 +24,7 @@ public class SwordCollision : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider col) {
-        if (!useSphereCast) {
+        if (!useSphereCast && realisticCollision) {
             if (col.tag == "Sword") {
                 Hit();
             }

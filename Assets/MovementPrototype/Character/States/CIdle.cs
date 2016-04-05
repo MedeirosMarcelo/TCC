@@ -26,6 +26,11 @@ namespace Assets.MovementPrototype.Character.States
                 Fsm.ChangeState("ATTACK");
                 return;
             }
+            if (Input.buffer.Peek() == InputEvent.Block) {
+                Input.buffer.Pop();
+                Fsm.ChangeState("BLOCK");
+                return;
+            }
             if (Input.buffer.Peek() == InputEvent.Dash)
             {
                 Input.buffer.Pop();

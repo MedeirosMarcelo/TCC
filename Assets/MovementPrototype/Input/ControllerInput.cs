@@ -27,9 +27,11 @@ public class ControllerInput : BaseInput {
 
         var dashed = Input.GetButtonDown("Dash " + (int)id);
         var attacked = Input.GetButtonDown("Attack " + (int)id);
+        var blocked = Input.GetButtonDown("Block " + (int)id);
 
         dash |= dashed;
         attack |= attacked;
+        block |= blocked;
 
         if (dashed) {
             buffer.Push(InputEvent.Dash);
@@ -37,10 +39,14 @@ public class ControllerInput : BaseInput {
         else if (attacked) {
             buffer.Push(InputEvent.Attack);
         }
+        else if (blocked) {
+            buffer.Push(InputEvent.Block);
+        }
     }
 
     public override void FixedUpdate() {
         dash = false;
         attack = false;
+        block = false;
     }
 }
