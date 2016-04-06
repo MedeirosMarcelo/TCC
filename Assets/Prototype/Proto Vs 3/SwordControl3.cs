@@ -72,7 +72,7 @@ public class SwordControl3 : MonoBehaviour {
     }
 
     void ControlP2() {
-        if (Input.GetKeyDown(KeyCode.Joystick1Button5)) {
+        if (Input.GetKeyDown(KeyCode.JoystickButton5)) {
             animator.SetTrigger("Attack");
             if (stance == Stance.Up) {
                 state = CombatState.AttackingUp;
@@ -82,23 +82,23 @@ public class SwordControl3 : MonoBehaviour {
             }
             attacking = true;
         }
-        else if (Input.GetKeyDown(KeyCode.Joystick1Button4)) {
+        else if (Input.GetKeyDown(KeyCode.JoystickButton4)) {
             if (stance == Stance.Right) stance = Stance.Left;
             else if (stance == Stance.Left) stance = Stance.Up;
             else if (stance == Stance.Up) stance = Stance.Right;
             animator.SetTrigger("Idle " + stance.ToString());
         }
-        else if (Input.GetKeyDown(KeyCode.Joystick1Button1)) {
+        else if (Input.GetKeyDown(KeyCode.JoystickButton1)) {
             if (stance == Stance.Right) stance = Stance.Up;
             else if (stance == Stance.Left) stance = Stance.Right;
             else if (stance == Stance.Up) stance = Stance.Left;
             animator.SetTrigger("Idle " + stance.ToString());
         }
-        else if (Input.GetKeyDown(KeyCode.Joystick1Button0)) {
+        else if (Input.GetKeyDown(KeyCode.JoystickButton0)) {
             animator.SetTrigger("Block Mid");
             state = CombatState.BlockingMid;
         }
-        else if (Input.GetKeyDown(KeyCode.Joystick1Button3)) {
+        else if (Input.GetKeyDown(KeyCode.JoystickButton3)) {
             animator.SetTrigger("Block Up");
             state = CombatState.BlockingUp;
         }

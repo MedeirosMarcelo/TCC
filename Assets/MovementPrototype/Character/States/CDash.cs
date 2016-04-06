@@ -2,39 +2,46 @@
 using System;
 using System.Collections;
 
-namespace Assets.MovementPrototype.Character.States {
-
-    public class DashTransitionArgs : StateTransitionArgs {
+namespace Assets.MovementPrototype.Character.States
+{
+    public class DashTransitionArgs : StateTransitionArgs
+    {
         public InputEvent.Dash Event { get; private set; }
         public DashTransitionArgs(string lastStateName, string nextStateName, float additionalDeltaTime, InputEvent.Dash evt)
-            : base(lastStateName, nextStateName, additionalDeltaTime) {
+            : base(lastStateName, nextStateName, additionalDeltaTime)
+        {
             Event = evt;
         }
     }
 
-    public class CDash : CState {
-        public CDash(CFsm fsm) : base(fsm) {
+    public class CDash : CState
+    {
+        public CDash(CFsm fsm) : base(fsm)
+        {
             Name = "DASH";
         }
 
-        public override void PreUpdate() {
-            if (state == State.Ended) {
+        public override void PreUpdate()
+        {
+            if (state == State.Ended)
+            {
                 Fsm.ChangeState("IDLE");
                 return;
             }
         }
 
-        const float speed = 12f;
+        const float speed = 8f;
         Vector3 velocity;
 
-        public override void Enter(StateTransitionArgs args) {
+        public override void Enter(StateTransitionArgs args)
+        {
             elapsed = args.AdditionalDeltaTime;
             state = State.Accel;
-            velocity = (args as DashTransitionArgs).Event.move.vector * speed;
-            Debug.Log("v=" + (args as DashTransitionArgs).Event.move.vector);
+            velocity = (args as DashTransitionArgs).Event.move.vector.normalized * speed;
         }
 
-        enum State {
+        enum State
+        {
             Accel,
             Plateau,
             Deccel,
@@ -48,38 +55,46 @@ namespace Assets.MovementPrototype.Character.States {
         const float deccelTime = 0.3f * totalTime;
 
         float elapsed = 0f;
-        public override void Update() {
+        public override void Update()
+        {
             float propVelocity = 0f;
             elapsed += Time.fixedDeltaTime;
 
-            switch (state) {
+            switch (state)
+            {
                 case State.Accel:
-                    if (elapsed < accelTime) {
+                    if (elapsed < accelTime)
+                    {
                         propVelocity = (elapsed / accelTime);
                         break;
                     }
-                    else {
+                    else
+                    {
                         elapsed -= accelTime;
                         state = State.Plateau;
                         goto case State.Plateau;
                     }
 
                 case State.Plateau:
-                    if (elapsed < platouTime) {
+                    if (elapsed < platouTime)
+                    {
                         propVelocity = 1;
                         break;
                     }
-                    else {
+                    else
+                    {
                         elapsed -= platouTime;
                         state = State.Deccel;
                         goto case State.Deccel;
                     }
 
                 case State.Deccel:
-                    if (elapsed < deccelTime) {
+                    if (elapsed < deccelTime)
+                    {
                         propVelocity = (1 - (elapsed / deccelTime));
                     }
-                    else {
+                    else
+                    {
                         state = State.Ended;
                     }
                     break;
@@ -88,7 +103,8 @@ namespace Assets.MovementPrototype.Character.States {
             Character.Move(Transform.position + (velocity * propVelocity) * Time.fixedDeltaTime);
         }
 
-        public override void Exit(StateTransitionArgs args) {
+        public override void Exit(StateTransitionArgs args)
+        {
             velocity = Vector3.zero;
             elapsed = 0;
         }

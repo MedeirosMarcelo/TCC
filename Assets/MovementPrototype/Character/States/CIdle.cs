@@ -21,32 +21,45 @@ namespace Assets.MovementPrototype.Character.States
 
         public override void PreUpdate()
         {
-            if (Input.buffer.NextEventIs<InputEvent.Attack>()) {
+            if (Input.buffer.NextEventIs<InputEvent.Attack>())
+            {
                 Input.buffer.Pop<InputEvent.Attack>();
                 Fsm.ChangeState("ATTACK");
-                return;
             }
-            if (Input.buffer.NextEventIs<InputEvent.Block>()) {
+            else if (Input.buffer.NextEventIs<InputEvent.Block>())
+            {
                 Input.buffer.Pop<InputEvent.Block>();
                 Fsm.ChangeState("BLOCK");
-                return;
             }
-
-            if (Input.buffer.NextEventIs<InputEvent.Dash>())
+            else if (Input.buffer.NextEventIs<InputEvent.Dash>())
             {
                 var evt = Input.buffer.Pop<InputEvent.Dash>();
                 Fsm.ChangeState(new DashTransitionArgs(Name, "DASH", 0f, evt));
-                return;
-            }
-            if (Input.move.isActive)
-            {
-                Fsm.ChangeState("WALK");
-                return;
             }
         }
 
+        const float minVelocity = 0.25f;
+        float moveSpeed = 4f;
+        float maxAcceleration = 2f;
+        Vector3 velocity;
+
         public override void Update()
         {
+            if (Input.move.isActive)
+            {
+                // Calculate how fast we should be moving
+                var inputVelocity = Input.move.vector * moveSpeed;
+                // Calcualte the delta velocity
+                var velocityChange = inputVelocity - velocity;
+                velocityChange.y = 0;
+                // Limit acceleration
+                if (velocityChange.magnitude > maxAcceleration)
+                {
+                    velocityChange = velocityChange.normalized * maxAcceleration;
+                }
+                velocity += velocityChange;
+                Character.Move(Transform.position + (velocity * Time.fixedDeltaTime));
+            }
             Character.Look();
         }
     }

@@ -4282,9 +4282,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joystick: 2
+  opponent: {fileID: 1935135507}
   swordAnimator: {fileID: 1660948036}
   bloodAnimator: {fileID: 1422348919}
-  turnSpeed: 0.2
 --- !u!65 &1879920953
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4448,9 +4448,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joystick: 1
+  opponent: {fileID: 1879920951}
   swordAnimator: {fileID: 570359056}
   bloodAnimator: {fileID: 1590938678}
-  turnSpeed: 0.2
 --- !u!65 &1935135510
 BoxCollider:
   m_ObjectHideFlags: 0

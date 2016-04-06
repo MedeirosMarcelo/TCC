@@ -23,6 +23,19 @@ public class StateLoader<FsmType, StateType>
             }
         }
     }
+    public void LoadNestedStates(FsmType fsm)
+    {
+        Type[] types = typeof(FsmType)
+            .GetNestedTypes(BindingFlags.Public | BindingFlags.Instance)
+            .Where(type => type.BaseType == typeof(StateType))
+            .ToArray();
+
+        foreach (Type t in types)
+        {
+            StateType state = (StateType)Activator.CreateInstance(t, fsm);
+            fsm.AddState(state);
+        }
+    }
 }
 
 public abstract class BaseFsm

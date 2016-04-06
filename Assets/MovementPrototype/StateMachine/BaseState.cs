@@ -3,7 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class StateTransitionArgs {
+public class StateTransitionArgs
+{
     public string LastStateName { get; private set; }
     public string NextStateName { get; private set; }
     public float AdditionalDeltaTime { get; private set; }
@@ -15,11 +16,13 @@ public class StateTransitionArgs {
     }
 }
 
-public abstract class BaseState {
+public abstract class BaseState
+{
     public string Name { get; protected set; }
     public BaseFsm Fsm { get; protected set; }
 
-    public BaseState(BaseFsm fsm) {
+    public BaseState(BaseFsm fsm)
+    {
         Fsm = fsm;
     }
 

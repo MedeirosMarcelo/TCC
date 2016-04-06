@@ -22,8 +22,13 @@ namespace Assets.MovementPrototype.Character.States
         {
         }
 
+        public float speed = 2f;
+        Vector3 velocity;
+
         public override void Update()
         {
+            Character.Look(0.5f);
+            Character.Move(Transform.position + ((Transform.forward * speed) * Time.fixedDeltaTime));
         }
     }
 }
