@@ -7,8 +7,7 @@ namespace Assets.MovementPrototype.Character.States
     {
         public CController Character { get; protected set; }
         public Vector3 Velocity { get; set; }
-        public const float dashTime = 0.2f;
-        const float speed = 8f;
+        const float speed = 16f;
 
         public DashFsm(CFsm fsm) : base(fsm)
         {
@@ -33,7 +32,8 @@ namespace Assets.MovementPrototype.Character.States
 
         public override void PreUpdate()
         {
-            if (Current.Name == "ENDED")
+            DashState current = (DashState)Current;
+            if (current.IsOver())
             {
                 Fsm.ChangeState("IDLE");
             }

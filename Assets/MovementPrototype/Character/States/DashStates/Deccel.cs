@@ -8,8 +8,7 @@ namespace Assets.MovementPrototype.Character.States.DashStates
         public Deccel(DashFsm fsm) : base(fsm)
         {
             Name = "DECCEL";
-            timePercent = 0.4f;
-            totalTime = DashFsm.dashTime * timePercent;
+            totalTime = 0.04f;
             nextState = "ENDED";
         }
 

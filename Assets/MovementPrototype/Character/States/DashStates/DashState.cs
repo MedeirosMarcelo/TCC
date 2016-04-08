@@ -7,7 +7,6 @@ public class DashState : BaseState
     public Transform Transform { get; protected set; }
     public DashFsm DashFsm { get; protected set; }
     protected float elapsed;
-    protected float timePercent;
     protected float totalTime;
     protected string nextState;
     public DashState(DashFsm fsm)
@@ -34,5 +33,10 @@ public class DashState : BaseState
     }
     public override void Exit(StateTransitionArgs args)
     {
+    }
+
+    public virtual bool IsOver()
+    {
+        return false;
     }
 }

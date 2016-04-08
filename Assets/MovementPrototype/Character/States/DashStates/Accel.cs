@@ -8,9 +8,8 @@ namespace Assets.MovementPrototype.Character.States.DashStates
         public Accel(DashFsm fsm) : base(fsm)
         {
             Name = "ACCEL";
-            timePercent = 0.1f;
-            totalTime = DashFsm.dashTime * timePercent;
             nextState = "PLATEAU";
+            totalTime = 0.04f;
         }
 
         public override void Enter(StateTransitionArgs args)

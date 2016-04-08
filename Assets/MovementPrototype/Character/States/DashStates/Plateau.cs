@@ -8,8 +8,7 @@ namespace Assets.MovementPrototype.Character.States.DashStates
         public Plateau(DashFsm fsm) : base(fsm)
         {
             Name = "PLATEAU";
-            timePercent = 0.5f;
-            totalTime = DashFsm.dashTime * timePercent;
+            totalTime = 0.04f;
             nextState = "DECCEL";
         }
 
