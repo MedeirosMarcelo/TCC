@@ -1,71 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 
-public class StateLoader<FsmType, StateType>
-    where FsmType : BaseFsm
-    where StateType : BaseState
+public abstract class BaseFsm : IState
 {
-    public void LoadStates(FsmType fsm, string @namespace)
-    {
-        if (!string.IsNullOrEmpty(@namespace))
-        {
-            Type[] types = Assembly
-                .GetExecutingAssembly()
-                .GetTypes()
-                .Where(type => type.Namespace == @namespace && type.BaseType == typeof(StateType))
-                .ToArray();
-            foreach (Type t in types)
-            {
-                StateType state = (StateType)Activator.CreateInstance(t, fsm);
-                fsm.AddState(state);
-            }
-        }
-    }
-    public void LoadNestedStates(FsmType fsm)
-    {
-        Type[] types = typeof(FsmType)
-            .GetNestedTypes(BindingFlags.Public | BindingFlags.Instance)
-            .Where(type => type.BaseType == typeof(StateType))
-            .ToArray();
+    public Dictionary<string, IState> dict;
+    public IState Current { get; protected set; }
+    public string Name { get; protected set; }
+    public BaseFsm Fsm { get; protected set; }
 
-        foreach (Type t in types)
-        {
-            StateType state = (StateType)Activator.CreateInstance(t, fsm);
-            fsm.AddState(state);
-        }
-    }
-}
-
-public abstract class BaseFsm
-{
-    protected string @namespace;
-    public Dictionary<string, BaseState> dict;
-    public BaseState current { get; protected set; }
-
-    public void AddState(BaseState state)
+    public void AddState(IState state)
     {
         dict.Add(state.Name, state);
     }
 
     public virtual void ChangeState(string name, float additionalDeltaTime = 0f)
     {
-        ChangeState(new StateTransitionArgs(current.Name, name, additionalDeltaTime));
+        ChangeState(new StateTransitionArgs(Current.Name, name, additionalDeltaTime));
     }
 
     public virtual void ChangeState(StateTransitionArgs obj)
     {
-        current.Exit(obj);
-        current = dict[obj.NextStateName];
-        current.Enter(obj);
+        Current.Exit(obj);
+        Current = dict[obj.NextStateName];
+        Current.Enter(obj);
     }
 
-    public BaseFsm(string @namespace = null) : base()
+    public BaseFsm(BaseFsm fsm = null)
     {
-        dict = new Dictionary<string, BaseState>();
-        this.@namespace = @namespace;
+        Fsm = fsm;
+        dict = new Dictionary<string, IState>();
     }
 
-    public abstract void Update();
+    public virtual void PreUpdate()
+    {
+        Current.PreUpdate();
+    }
+
+    public virtual void Update()
+    {
+        Current.Update();
+    }
+
+    public virtual void Enter(StateTransitionArgs args)
+    {
+    }
+
+    public virtual void Exit(StateTransitionArgs args)
+    {
+    }
 }

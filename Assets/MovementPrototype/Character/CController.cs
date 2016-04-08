@@ -36,6 +36,7 @@ public class CController : MonoBehaviour
 
     public void FixedUpdate()
     {
+        fsm.PreUpdate();
         fsm.Update();
         input.FixedUpdate();
     }
@@ -77,7 +78,7 @@ public class CController : MonoBehaviour
         if (col.name == "Sword")
         {
             PlayerIndex swordJoystick = col.transform.parent.parent.GetComponent<CController>().joystick;
-            if (swordJoystick != this.joystick && fsm.current.Name != "BLOCK")
+            if (swordJoystick != this.joystick && fsm.Current.Name != "BLOCK")
             {
                 bloodAnimator.SetTrigger("Bleed");
             }

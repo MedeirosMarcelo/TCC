@@ -2,24 +2,24 @@
 using System.Collections;
 using System;
 
-public class CCombat : BaseState {
-    public CCombat(BaseFsm fsm) : base(fsm) {
+//public class CCombat : IState {
+//    public CCombat(BaseFsm fsm) : base(fsm) {
 
-    }
+//    }
 
-    public override void Enter(StateTransitionArgs args)
-    {
-    }
+//    public override void Enter(StateTransitionArgs args)
+//    {
+//    }
 
-    public override void Exit(StateTransitionArgs args)
-    {
-    }
+//    public override void Exit(StateTransitionArgs args)
+//    {
+//    }
 
-    public override void PreUpdate()
-    {
-    }
+//    public override void PreUpdate()
+//    {
+//    }
 
-    public override void Update()
-    {
-    }
-}
+//    public override void Update()
+//    {
+//    }
+//}

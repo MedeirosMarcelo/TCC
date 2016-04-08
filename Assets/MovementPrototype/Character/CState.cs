@@ -6,26 +6,18 @@ using UnityEngine;
 
 public abstract class CState : BaseState
 {
-    public new CFsm Fsm { get; set; }
-    protected CController Character
-    {
-        get { return Fsm.Character; }
-    }
-    protected BaseInput Input
-    {
-        get { return Fsm.Character.input; }
-    }
-    protected Rigidbody Rigidbody
-    {
-        get { return Fsm.Character.rbody; }
-    }
-    protected Transform Transform
-    {
-        get { return Fsm.Character.transform; }
-    }
-    public CState(CFsm fsm) : base(fsm)
+    public CController Character{ get; protected set; }
+    public BaseInput Input { get; protected set; }
+    public Rigidbody Rigidbody { get; protected set; }
+    public Transform Transform { get; protected set; }
+
+    public CState(CFsm fsm)
     {
         Fsm = fsm;
+        Character = fsm.Character;
+        Input = Character.input;
+        Rigidbody = Character.rbody;
+        Transform = Character.transform;
     }
 }
 

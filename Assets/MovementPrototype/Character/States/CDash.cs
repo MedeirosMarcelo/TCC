@@ -50,9 +50,9 @@ namespace Assets.MovementPrototype.Character.States
         State state;
 
         const float totalTime = 0.2f;
-        const float accelTime = 0.2f * totalTime;
+        const float accelTime = 0.1f * totalTime;
         const float platouTime = 0.5f * totalTime;
-        const float deccelTime = 0.3f * totalTime;
+        const float deccelTime = 0.4f * totalTime;
 
         float elapsed = 0f;
         public override void Update()
