@@ -18,7 +18,7 @@ namespace Assets.MovementPrototype.Character.States
     {
         public CDash(CFsm fsm) : base(fsm)
         {
-            Name = "DASH";
+            Name = "DASH2";
         }
 
         public override void PreUpdate()

@@ -1,23 +1,38 @@
-﻿namespace Assets.MovementPrototype.Character.States.DashStates
+﻿using Assets.MovementPrototype.Character.States;
+using UnityEngine;
+
+public class DashState : BaseState
 {
-    public class DashState : BaseState
+    public CController Character { get; protected set; }
+    public Transform Transform { get; protected set; }
+    public DashFsm DashFsm { get; protected set; }
+    protected float elapsed;
+    protected float timePercent;
+    protected float totalTime;
+    protected string nextState;
+    public DashState(DashFsm fsm)
     {
-        protected float elapsed;
-        public DashState(DashFsm fsm)
+        Fsm = fsm;
+        DashFsm = fsm;
+        Character = fsm.Character;
+        Transform = Character.transform;
+    }
+    public override void PreUpdate()
+    {
+        if (elapsed >= totalTime)
         {
-            Fsm = fsm;
+            Fsm.ChangeState(nextState, totalTime - elapsed);
         }
-        public override void PreUpdate()
-        {
-        }
-        public override void Update()
-        {
-        }
-        public override void Enter(StateTransitionArgs args)
-        {
-        }
-        public override void Exit(StateTransitionArgs args)
-        {
-        }
+    }
+    public override void Update()
+    {
+        elapsed += Time.fixedDeltaTime;
+    }
+    public override void Enter(StateTransitionArgs args)
+    {
+        elapsed = args.AdditionalDeltaTime;
+    }
+    public override void Exit(StateTransitionArgs args)
+    {
     }
 }
