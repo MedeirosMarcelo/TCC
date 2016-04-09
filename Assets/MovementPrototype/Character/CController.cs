@@ -14,24 +14,33 @@ public enum PlayerIndex : int
 public class CController : MonoBehaviour
 {
     public PlayerIndex joystick = PlayerIndex.One;
+    public bool canControl = true;
 
     public GameObject opponent;
     public Animator swordAnimator;
     public Animator bloodAnimator;
+    public Material baseMaterial;
+    public Material dodgeMaterial;
     public BaseInput input { get; private set; }
     public Rigidbody rbody { get; private set; }
     public CFsm fsm { get; private set; }
+
+    Animator animator;
+    MeshRenderer mesh;
 
     public void Awake()
     {
         input = new GamePadInput(joystick);
         rbody = GetComponent<Rigidbody>();
         fsm = new CFsm(this);
+        animator = GetComponent<Animator>();
+        mesh = transform.Find("Model").GetComponent<MeshRenderer>();
     }
 
     public void Update()
     {
-        input.Update();
+        if (canControl)
+            input.Update();
     }
 
     public void FixedUpdate()
@@ -88,5 +97,15 @@ public class CController : MonoBehaviour
     void OnGUI()
     {
         input.OnGUI();
+    }
+
+    public void ApplyBaseMaterial()
+    {
+        mesh.material = baseMaterial;
+    }
+    
+    public void ApplyDodgeMaterial()
+    {
+        mesh.material = dodgeMaterial;
     }
 }

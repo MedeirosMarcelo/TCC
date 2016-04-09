@@ -29,10 +29,12 @@ public class DashState : BaseState
     }
     public override void Enter(StateTransitionArgs args)
     {
+        Character.ApplyDodgeMaterial();
         elapsed = args.AdditionalDeltaTime;
     }
     public override void Exit(StateTransitionArgs args)
     {
+        Character.ApplyBaseMaterial();
     }
 
     public virtual bool IsOver()
