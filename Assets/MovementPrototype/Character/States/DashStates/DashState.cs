@@ -11,7 +11,7 @@ public class DashTransitionArgs : StateTransitionArgs
     }
 }
 
-public class DashState : TimedState
+public class DashState : BaseState
 {
     public CController Character { get; protected set; }
     public Transform Transform { get; protected set; }

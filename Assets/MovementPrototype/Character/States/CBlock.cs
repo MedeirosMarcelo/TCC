@@ -2,7 +2,7 @@
 
 namespace Assets.MovementPrototype.Character.States
 {
-    public class CBlock : CTimedState
+    public class CBlock : CState
     {
         public CBlock(CFsm fsm) : base(fsm)
         {

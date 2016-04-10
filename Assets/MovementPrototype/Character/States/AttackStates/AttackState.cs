@@ -11,7 +11,7 @@ public class AttackTransitionArgs : StateTransitionArgs
     }
 }
 
-public class AttackState : TimedState
+public class AttackState : BaseState
 {
     public CController Character { get; protected set; }
     public Transform Transform { get; protected set; }

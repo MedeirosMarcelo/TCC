@@ -32,6 +32,10 @@ public interface IState
 
 public abstract class BaseState : IState
 {
+    protected float elapsed;
+    protected float totalTime;
+    protected string nextState;
+
     public BaseFsm Fsm { get; protected set; }
     public string Name { get; protected set; }
     public string Debug
@@ -39,16 +43,22 @@ public abstract class BaseState : IState
         get { return Name; }
     }
 
-    public virtual void Enter(StateTransitionArgs args)
-    {
-    }
-    public virtual void Exit(StateTransitionArgs args)
-    {
-    }
     public virtual void PreUpdate()
     {
+        if (elapsed >= totalTime)
+        {
+            Fsm.ChangeState(nextState, totalTime - elapsed);
+        }
     }
     public virtual void FixedUpdate()
+    {
+        elapsed += Time.fixedDeltaTime;
+    }
+    public virtual void Enter(StateTransitionArgs args)
+    {
+        elapsed = args.AdditionalDeltaTime;
+    }
+    public virtual void Exit(StateTransitionArgs args)
     {
     }
 }
