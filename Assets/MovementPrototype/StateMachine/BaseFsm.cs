@@ -6,6 +6,13 @@ public abstract class BaseFsm : IState
     public Dictionary<string, IState> dict;
     public IState Current { get; protected set; }
     public string Name { get; protected set; }
+    public string Debug
+    {
+        get
+        {
+            return Name + "/" + Current.Debug;
+        }
+    }
     public BaseFsm Fsm { get; protected set; }
 
     public void AddState(IState state)
@@ -36,16 +43,18 @@ public abstract class BaseFsm : IState
         Current.PreUpdate();
     }
 
-    public virtual void Update()
+    public virtual void FixedUpdate()
     {
-        Current.Update();
+        Current.FixedUpdate();
     }
 
     public virtual void Enter(StateTransitionArgs args)
     {
+        Current.Enter(args);
     }
 
     public virtual void Exit(StateTransitionArgs args)
     {
+        Current.Exit(args);
     }
 }

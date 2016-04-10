@@ -446,7 +446,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 570359054}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e347402016c269498c3ea100d7ccd37, type: 3}
   m_Name: 
@@ -2290,7 +2290,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1157305176}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e2781f152f7b074b82a2932b118817f, type: 3}
   m_Name: 
@@ -2351,7 +2351,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1223647047}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e2781f152f7b074b82a2932b118817f, type: 3}
   m_Name: 
@@ -2507,7 +2507,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1660948033}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e347402016c269498c3ea100d7ccd37, type: 3}
   m_Name: 
@@ -4285,6 +4285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joystick: 2
+  canControl: 1
   opponent: {fileID: 1935135507}
   swordAnimator: {fileID: 1660948036}
   bloodAnimator: {fileID: 1422348919}
@@ -4470,6 +4471,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joystick: 1
+  canControl: 1
   opponent: {fileID: 1879920951}
   swordAnimator: {fileID: 570359056}
   bloodAnimator: {fileID: 1590938678}

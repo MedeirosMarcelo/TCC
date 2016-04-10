@@ -1,15 +1,14 @@
 ﻿using UnityEngine;
 
-namespace Assets.MovementPrototype.Character.States.DashStates
+namespace Assets.MovementPrototype.Character.States.AttackStates
 {
-    public class Ended : DashState
+    public class Recover : AttackState
     {
-        public Ended(DashFsm fsm) : base(fsm)
+        public Recover(AttackFsm fsm) : base(fsm)
         {
-            Name = "ENDED";
-            totalTime = 0.12f;
+            Name = "RECOVER";
+            totalTime = 0.2f;
         }
-
         public override void PreUpdate()
         {
             if (elapsed >= totalTime)

@@ -19,13 +19,14 @@ public class StateTransitionArgs
 public interface IState
 {
     string Name { get; }
+    string Debug { get; }
     BaseFsm Fsm { get; }
 
     // Evaluate Input and changes the FSM Current State
     // This base method should be used as a generic handler
     void PreUpdate();
     void Enter(StateTransitionArgs args);
-    void Update();
+    void FixedUpdate();
     void Exit(StateTransitionArgs args);
 }
 
@@ -33,21 +34,21 @@ public abstract class BaseState : IState
 {
     public BaseFsm Fsm { get; protected set; }
     public string Name { get; protected set; }
+    public string Debug
+    {
+        get { return Name; }
+    }
 
     public virtual void Enter(StateTransitionArgs args)
     {
-
     }
     public virtual void Exit(StateTransitionArgs args)
     {
-
     }
     public virtual void PreUpdate()
     {
-
     }
-    public virtual void Update()
+    public virtual void FixedUpdate()
     {
-
     }
 }

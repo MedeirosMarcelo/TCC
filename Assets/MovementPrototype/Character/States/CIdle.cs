@@ -23,8 +23,8 @@ namespace Assets.MovementPrototype.Character.States
         {
             if (Input.buffer.NextEventIs<InputEvent.Attack>())
             {
-                Input.buffer.Pop<InputEvent.Attack>();
-                Fsm.ChangeState("ATTACK");
+                var evt = Input.buffer.Pop<InputEvent.Attack>();
+                Fsm.ChangeState(new AttackTransitionArgs(Name, "ATTACK", 0f, evt));
             }
             else if (Input.buffer.NextEventIs<InputEvent.Block>())
             {
@@ -43,7 +43,7 @@ namespace Assets.MovementPrototype.Character.States
         float maxAcceleration = 2f;
         Vector3 velocity;
 
-        public override void Update()
+        public override void FixedUpdate()
         {
             if (Input.move.isActive)
             {

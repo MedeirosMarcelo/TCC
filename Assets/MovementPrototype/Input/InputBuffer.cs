@@ -5,14 +5,19 @@ public abstract class InputEvent
 {
     public class Dash : InputEvent
     {
-        public Stick move { get; private set; }
+        public Stick Move { get; private set; }
         public Dash(Stick move)
         {
-            this.move = move;
+            Move = move;
         }
     }
     public class Attack : InputEvent
     {
+        public Stick Move { get; private set; }
+        public Attack(Stick move)
+        {
+            Move = move;
+        }
     }
     public class Block : InputEvent
     {

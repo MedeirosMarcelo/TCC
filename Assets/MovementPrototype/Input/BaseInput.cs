@@ -50,7 +50,9 @@ public class BaseInput {
         return (name + ":  M=" + move.vector + "  L=" + look.vector);
     }
 
-    // OnGUI debug;
-    public virtual void OnGUI() {
+    public virtual string Debug { get
+        {
+            return "";
+        }
     }
 }

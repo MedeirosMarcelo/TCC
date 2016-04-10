@@ -18,9 +18,9 @@ namespace Assets.MovementPrototype.Character.States.DashStates
             velocity = DashFsm.Velocity;
         }
 
-        public override void Update() // should we rename this to fixedUpdate?
+        public override void FixedUpdate() 
         {
-            base.Update();
+            base.FixedUpdate();
             Vector3 finalVelocity = velocity * (elapsed / totalTime);
             Character.Move(Transform.position + finalVelocity * Time.fixedDeltaTime);
         }

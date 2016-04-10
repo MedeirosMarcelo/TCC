@@ -18,9 +18,9 @@ namespace Assets.MovementPrototype.Character.States.DashStates
             velocity = DashFsm.Velocity;
         }
 
-        public override void Update()
+        public override void FixedUpdate()
         {
-            base.Update();
+            base.FixedUpdate();
             Character.Move(Transform.position + velocity * Time.fixedDeltaTime);
         }
     }

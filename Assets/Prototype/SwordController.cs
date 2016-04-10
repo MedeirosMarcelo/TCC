@@ -148,7 +148,7 @@ public class SwordController : MonoBehaviour {
     }
 
     public void ResetMove() {
-        charController.fsm.ChangeState("IDLE");
+        //charController.fsm.ChangeState("IDLE");
         //animator.SetTrigger("Sword " + stance.ToString());
         //  boxCollider.enabled = false;
     }

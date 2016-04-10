@@ -30,7 +30,7 @@ public class ControllerInput : BaseInput {
             buffer.Push(new InputEvent.Dash(move));
         }
         else if (attacked) {
-            buffer.Push(new InputEvent.Attack());
+            buffer.Push(new InputEvent.Attack(move));
         }
         else if (blocked) {
             buffer.Push(new InputEvent.Block());

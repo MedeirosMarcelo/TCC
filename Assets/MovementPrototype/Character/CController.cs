@@ -35,6 +35,8 @@ public class CController : MonoBehaviour
         fsm = new CFsm(this);
         animator = GetComponent<Animator>();
         mesh = transform.Find("Model").GetComponent<MeshRenderer>();
+        currentId += 1;
+        id = currentId;
     }
 
     public void Update()
@@ -46,7 +48,7 @@ public class CController : MonoBehaviour
     public void FixedUpdate()
     {
         fsm.PreUpdate();
-        fsm.Update();
+        fsm.FixedUpdate();
         input.FixedUpdate();
     }
 
@@ -61,7 +63,7 @@ public class CController : MonoBehaviour
     }
 
     float maxTurnSpeed = Mathf.PI / 30;
-    public void Look(float turnRate = 1f)
+    public void Look(float lookTurnRate = 1f, float lockTurnRate = 1f)
     {
         var vec = input.look.vector;
         if (vec.magnitude > 0.25f)
@@ -69,7 +71,7 @@ public class CController : MonoBehaviour
             transform.forward = Vector3.RotateTowards(
                 transform.forward,
                 vec.normalized,
-                maxTurnSpeed * turnRate,
+                maxTurnSpeed * lookTurnRate,
                 1f);
         }
         else if (opponent != null)
@@ -77,7 +79,7 @@ public class CController : MonoBehaviour
             transform.forward = Vector3.RotateTowards(
                 transform.forward,
                 (opponent.transform.position - transform.position).normalized,
-                maxTurnSpeed * turnRate,
+                maxTurnSpeed * lockTurnRate,
                 1f);
         }
     }
@@ -94,9 +96,12 @@ public class CController : MonoBehaviour
         }
     }
 
+    int id = 0;
+    static int currentId = 0;
     void OnGUI()
     {
-        input.OnGUI();
+        string text = input.Debug + "\n" +  fsm.Debug;
+        GUI.Label(new Rect(((int)id - 1) * (Screen.width / 2), 0, Screen.width / 2, Screen.height), text);
     }
 
     public void ApplyBaseMaterial()

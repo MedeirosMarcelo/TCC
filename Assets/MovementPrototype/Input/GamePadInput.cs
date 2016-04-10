@@ -65,7 +65,7 @@ public class GamePadInput : BaseInput
         }
         else if (attacked)
         {
-            buffer.Push(new InputEvent.Attack());
+            buffer.Push(new InputEvent.Attack(move));
         }
         else if (blocked)
         {
@@ -80,15 +80,18 @@ public class GamePadInput : BaseInput
         block = false;
     }
 
-    public override void OnGUI()
+    public override string Debug
     {
-        string text = "";
-        text += string.Format("IsConnected {0}\n", state.IsConnected);
-        text += string.Format("Stick Left  {0,4:0.0} {1,4:0.0}\n", state.ThumbSticks.Left.X, state.ThumbSticks.Left.Y);
-        text += string.Format("Stick Right {0,4:0.0} {1,4:0.0}\n", state.ThumbSticks.Right.X, state.ThumbSticks.Right.Y);
-        text += string.Format("Shoulders {0,8} {1,8}\n", state.Buttons.LeftShoulder, state.Buttons.RightShoulder);
-        text += string.Format("Triggers  {0,4:0.0} {1,4:0.0}\n", state.Triggers.Left, state.Triggers.Right);
-        GUI.Label(new Rect(((int)id - 1) * (Screen.width / 2), 0, Screen.width / 2, Screen.height), text);
+        get
+        {
+            string text = "";
+            text += string.Format("IsConnected {0}\n", state.IsConnected);
+            text += string.Format("Stick Left  {0,4:0.0} {1,4:0.0}\n", state.ThumbSticks.Left.X, state.ThumbSticks.Left.Y);
+            text += string.Format("Stick Right {0,4:0.0} {1,4:0.0}\n", state.ThumbSticks.Right.X, state.ThumbSticks.Right.Y);
+            text += string.Format("Shoulders {0,8} {1,8}\n", state.Buttons.LeftShoulder, state.Buttons.RightShoulder);
+            text += string.Format("Triggers  {0,4:0.0} {1,4:0.0}\n", state.Triggers.Left, state.Triggers.Right);
+            return text;
+        }
     }
 
 }

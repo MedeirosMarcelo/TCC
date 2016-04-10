@@ -21,7 +21,7 @@ namespace Assets.MovementPrototype.Character.States
         public override void Enter(StateTransitionArgs args)
         {
             DashTransitionArgs dashArgs = (DashTransitionArgs)args;
-            Velocity = dashArgs.Event.move.vector.normalized * speed;
+            Velocity = dashArgs.Event.Move.vector.normalized * speed;
             Current = dict["ACCEL"];
             Current.Enter(args);
         }
@@ -30,17 +30,5 @@ namespace Assets.MovementPrototype.Character.States
             Current.Exit(args);
         }
 
-        public override void PreUpdate()
-        {
-            DashState current = (DashState)Current;
-            if (current.IsOver())
-            {
-                Fsm.ChangeState("IDLE");
-            }
-            else
-            {
-                base.PreUpdate();
-            }
-        }
     }
 }
