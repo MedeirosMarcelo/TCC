@@ -15,6 +15,7 @@ namespace Assets.MovementPrototype.Character.States.AttackStates
         public override void Enter(StateTransitionArgs args)
         {
             base.Enter(args);
+            Character.swordAnimator.SetFloat("Speed", 1f/totalTime);
             Character.swordAnimator.SetTrigger("Attack");
         }
 
