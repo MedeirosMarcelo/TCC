@@ -12,9 +12,9 @@ namespace Assets.MovementPrototype.Character.States.AttackStates
             totalTime = 0.3f;
         }
 
-        public override void Enter(StateTransitionArgs args)
+        public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {
-            base.Enter(args);
+            base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
             Character.swordAnimator.SetFloat("Speed", 1f/totalTime);
             Character.swordAnimator.SetTrigger("Attack");
         }

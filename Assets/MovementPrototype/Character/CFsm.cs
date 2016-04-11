@@ -12,16 +12,9 @@ public class CFsm : BaseFsm
         Current = dict["IDLE"];
     }
 
-    public override void Enter(StateTransitionArgs args)
+    public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
     {
         Current = dict["IDLE"];
-        UnityEngine.Debug.Log("Enter");
-        Current.Enter(args);
-    }
-
-    public override void Exit(StateTransitionArgs args)
-    {
-        UnityEngine.Debug.Log("Exit");
-        Current.Exit(args);
+        base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
     }
 }

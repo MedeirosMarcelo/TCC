@@ -20,16 +20,16 @@ public abstract class BaseFsm : IState
         dict.Add(state.Name, state);
     }
 
-    public virtual void ChangeState(string name, float additionalDeltaTime = 0f)
+    public virtual void ChangeState(string name, float additionalDeltaTime = 0f, params object[] args)
     {
-        ChangeState(new StateTransitionArgs(Current.Name, name, additionalDeltaTime));
+        ChangeState(Current.Name, name, additionalDeltaTime, args);
     }
 
-    public virtual void ChangeState(StateTransitionArgs obj)
+    public virtual void ChangeState(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
     {
-        Current.Exit(obj);
-        Current = dict[obj.NextStateName];
-        Current.Enter(obj);
+        Current.Exit(lastStateName, nextStateName, additionalDeltaTime, args);
+        Current = dict[nextStateName];
+        Current.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
     }
 
     public BaseFsm(BaseFsm fsm = null)
@@ -48,13 +48,13 @@ public abstract class BaseFsm : IState
         Current.FixedUpdate();
     }
 
-    public virtual void Enter(StateTransitionArgs args)
+    public virtual void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
     {
-        Current.Enter(args);
+        Current.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
     }
 
-    public virtual void Exit(StateTransitionArgs args)
+    public virtual void Exit(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
     {
-        Current.Exit(args);
+        Current.Exit(lastStateName, nextStateName, additionalDeltaTime, args);
     }
 }

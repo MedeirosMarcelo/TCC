@@ -1,5 +1,6 @@
 ﻿using Assets.MovementPrototype.Character.States;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Assets.MovementPrototype.Character.States
 {
@@ -18,17 +19,13 @@ namespace Assets.MovementPrototype.Character.States
             Current = dict["ACCEL"];
         }
 
-        public override void Enter(StateTransitionArgs args)
+        public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {
-            DashTransitionArgs dashArgs = (DashTransitionArgs)args;
-            Velocity = dashArgs.Event.Move.vector.normalized * speed;
+            Assert.IsTrue(args.Length == 1);
+            var evt = (InputEvent.Dash)args[0];
+            Velocity = evt.Move.vector.normalized * speed;
             Current = dict["ACCEL"];
-            Current.Enter(args);
+            base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
         }
-        public override void Exit(StateTransitionArgs args)
-        {
-            Current.Exit(args);
-        }
-
     }
 }

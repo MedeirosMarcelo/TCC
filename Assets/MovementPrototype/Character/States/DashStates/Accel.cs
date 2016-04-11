@@ -4,7 +4,6 @@ namespace Assets.MovementPrototype.Character.States.DashStates
 {
     public class Accel : DashState
     {
-        Vector3 velocity;
         public Accel(DashFsm fsm) : base(fsm)
         {
             Name = "ACCEL";
@@ -12,16 +11,10 @@ namespace Assets.MovementPrototype.Character.States.DashStates
             totalTime = 0.04f;
         }
 
-        public override void Enter(StateTransitionArgs args)
-        {
-            base.Enter(args);
-            velocity = DashFsm.Velocity;
-        }
-
         public override void FixedUpdate() 
         {
             base.FixedUpdate();
-            Vector3 finalVelocity = velocity * (elapsed / totalTime);
+            Vector3 finalVelocity = DashFsm.Velocity * (elapsed / totalTime);
             Character.Move(Transform.position + finalVelocity * Time.fixedDeltaTime);
         }
 

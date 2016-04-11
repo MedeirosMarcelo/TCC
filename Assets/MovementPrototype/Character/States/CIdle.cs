@@ -9,14 +9,10 @@ namespace Assets.MovementPrototype.Character.States
             Name = "IDLE";
         }
 
-        public override void Enter(StateTransitionArgs args)
+        public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {
             Character.ChangeVelocity(Vector3.zero);
-        }
-
-        public override void Exit(StateTransitionArgs args)
-        {
-            Character.ChangeVelocity(Vector3.zero);
+            base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
         }
 
         public override void PreUpdate()
@@ -24,7 +20,7 @@ namespace Assets.MovementPrototype.Character.States
             if (Input.buffer.NextEventIs<InputEvent.Attack>())
             {
                 var evt = Input.buffer.Pop<InputEvent.Attack>();
-                Fsm.ChangeState(new AttackTransitionArgs(Name, "ATTACK", 0f, evt));
+                Fsm.ChangeState("ATTACK", 0f, evt);
             }
             else if (Input.buffer.NextEventIs<InputEvent.Block>())
             {
@@ -34,7 +30,7 @@ namespace Assets.MovementPrototype.Character.States
             else if (Input.buffer.NextEventIs<InputEvent.Dash>())
             {
                 var evt = Input.buffer.Pop<InputEvent.Dash>();
-                Fsm.ChangeState(new DashTransitionArgs(Name, "DASH", 0f, evt));
+                Fsm.ChangeState("DASH", 0f, evt);
             }
         }
 

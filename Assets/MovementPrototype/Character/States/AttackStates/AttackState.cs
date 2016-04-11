@@ -1,16 +1,6 @@
 ﻿using Assets.MovementPrototype.Character.States;
 using UnityEngine;
 
-public class AttackTransitionArgs : StateTransitionArgs
-{
-    public InputEvent.Attack Event { get; private set; }
-    public AttackTransitionArgs(string lastStateName, string nextStateName, float additionalDeltaTime, InputEvent.Attack evt)
-        : base(lastStateName, nextStateName, additionalDeltaTime)
-    {
-        Event = evt;
-    }
-}
-
 public class AttackState : BaseState
 {
     public CController Character { get; protected set; }

@@ -1,16 +1,6 @@
 ﻿using Assets.MovementPrototype.Character.States;
 using UnityEngine;
 
-public class DashTransitionArgs : StateTransitionArgs
-{
-    public InputEvent.Dash Event { get; private set; }
-    public DashTransitionArgs(string lastStateName, string nextStateName, float additionalDeltaTime, InputEvent.Dash evt)
-        : base(lastStateName, nextStateName, additionalDeltaTime)
-    {
-        Event = evt;
-    }
-}
-
 public class DashState : BaseState
 {
     public CController Character { get; protected set; }
@@ -28,14 +18,14 @@ public class DashState : BaseState
         base.FixedUpdate();
         Character.Look();
     }
-    public override void Enter(StateTransitionArgs args)
+    public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
     {
-        base.Enter(args);
+        base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
         Character.ApplyDodgeMaterial();
     }
-    public override void Exit(StateTransitionArgs args)
+    public override void Exit(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
     {
-        base.Exit(args);
+        base.Exit(lastStateName, nextStateName, additionalDeltaTime, args);
         Character.ApplyBaseMaterial();
     }
 }
