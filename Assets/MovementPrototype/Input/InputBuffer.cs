@@ -37,7 +37,7 @@ public class InputBuffer
     }
     public T Pop<T>() where T : InputEvent
     {
-        Debug.Log("InputBuffer poped: " + buffer);
+        //Debug.Log("InputBuffer poped: " + buffer);
         var evt = (T)buffer;
         buffer = null;
         return evt;

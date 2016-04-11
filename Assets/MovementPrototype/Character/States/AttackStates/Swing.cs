@@ -15,8 +15,8 @@ namespace Assets.MovementPrototype.Character.States.AttackStates
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
-            Character.swordAnimator.SetFloat("Speed", 1f/totalTime);
-            Character.swordAnimator.SetTrigger("Attack");
+            Character.animator.SetFloat("Speed", 1f/totalTime);
+            Character.animator.Play("Swing");
         }
 
         public override void FixedUpdate() 

@@ -40,11 +40,13 @@ public abstract class BaseFsm : IState
 
     public virtual void PreUpdate()
     {
+        // dict["COMMON"].PreUpdate();
         Current.PreUpdate();
     }
 
     public virtual void FixedUpdate()
     {
+       //dict["COMMON"].FixedUpdate();
         Current.FixedUpdate();
     }
 

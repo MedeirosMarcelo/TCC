@@ -14,7 +14,7 @@ namespace Assets.MovementPrototype.Character.States
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
-            Character.swordAnimator.SetTrigger("Block Mid");
+            Character.animator.Play("Block Mid");
         }
     }
 }

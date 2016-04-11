@@ -15,17 +15,19 @@ public class CController : MonoBehaviour
 {
     public PlayerIndex joystick = PlayerIndex.One;
     public bool canControl = true;
+    public int health = 3;
+    public string stateOverride = "";
 
     public GameObject opponent;
-    public Animator swordAnimator;
     public Animator bloodAnimator;
     public Material baseMaterial;
     public Material dodgeMaterial;
+    public GameObject blockSpark;
     public BaseInput input { get; private set; }
     public Rigidbody rbody { get; private set; }
     public CFsm fsm { get; private set; }
+    public Animator animator { get; private set; }
 
-    Animator animator;
     MeshRenderer mesh;
 
     public void Awake()
@@ -42,7 +44,10 @@ public class CController : MonoBehaviour
     public void Update()
     {
         if (canControl)
+        {
             input.Update();
+        }
+        ControllerDebug();
     }
 
     public void FixedUpdate()
@@ -88,10 +93,22 @@ public class CController : MonoBehaviour
     {
         if (col.name == "Sword")
         {
-            PlayerIndex swordJoystick = col.transform.parent.parent.GetComponent<CController>().joystick;
-            if (swordJoystick != this.joystick && fsm.Current.Name != "BLOCK")
+            PlayerIndex swordJoystick = col.transform.parent.GetComponent<CController>().joystick;
+            string attackerState = col.transform.parent.GetComponent<CController>().fsm.Current.Name;
+            if (swordJoystick != this.joystick)
             {
-                bloodAnimator.SetTrigger("Bleed");
+                if (fsm.Current.Name == "BLOCK")
+                {
+                    ShowBlockSpark(col.transform.position);
+                }
+                else
+                {
+                    if (attackerState == "ATTACK")
+                    {
+                        bloodAnimator.SetTrigger("Bleed");
+                        ReceiveDamage(1);
+                    }
+                }
             }
         }
     }
@@ -104,13 +121,58 @@ public class CController : MonoBehaviour
         GUI.Label(new Rect(((int)id - 1) * (Screen.width / 2), 0, Screen.width / 2, Screen.height), text);
     }
 
+    public void ReceiveDamage(int damage)
+    {
+        health -= damage;
+        print(health);
+        if (health <= 0)
+        {
+            Die();
+            StartCoroutine("RestartLevel");
+        }
+    }
+
+    IEnumerator RestartLevel()
+    {
+        yield return new WaitForSeconds(1.5f);
+        Application.LoadLevel(0);
+    }
+
     public void ApplyBaseMaterial()
     {
         mesh.material = baseMaterial;
     }
-    
+
     public void ApplyDodgeMaterial()
     {
         mesh.material = dodgeMaterial;
+    }
+
+    void ShowBlockSpark(Vector3 position)
+    {
+        Vector3 pos = new Vector3(position.x, position.y + 0.6f, position.z + 0.4f);
+        Instantiate(blockSpark, pos, blockSpark.transform.rotation);
+    }
+
+    void Die() {
+        if (health <= 0 && fsm.Current.Name != "DEATH")
+        {
+            animator.Play("Death");
+        }
+    }
+
+    public void ResetMove()
+    {
+        fsm.ChangeState("IDLE");
+    }
+
+    void ControllerDebug()
+    {
+#if UNITY_EDITOR
+        if (stateOverride != "")
+        {
+            fsm.ChangeState(stateOverride);
+        }
+#endif
     }
 }
