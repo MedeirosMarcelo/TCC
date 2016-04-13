@@ -1,17 +1,14 @@
 ﻿using Assets.MovementPrototype.Character.States;
 using UnityEngine;
 
-public class DashState : BaseState
+public class DashState : CState
 {
-    public CController Character { get; protected set; }
-    public Transform Transform { get; protected set; }
     public DashFsm DashFsm { get; protected set; }
-    public DashState(DashFsm fsm)
+
+    public DashState(DashFsm fsm) : base (fsm, fsm.Character)
     {
         Fsm = fsm;
         DashFsm = fsm;
-        Character = fsm.Character;
-        Transform = Character.transform;
     }
     public override void FixedUpdate()
     {

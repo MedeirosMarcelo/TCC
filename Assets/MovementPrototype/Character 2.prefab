@@ -79,6 +79,7 @@ GameObject:
   - 65: {fileID: 6579062}
   - 65: {fileID: 6594160}
   - 95: {fileID: 9555498}
+  - 114: {fileID: 11489070}
   m_Layer: 2
   m_Name: Character 2
   m_TagString: Player
@@ -396,12 +397,24 @@ MonoBehaviour:
   joystick: 2
   canControl: 1
   health: 3
-  stateOverride: 
   opponent: {fileID: 0}
   bloodAnimator: {fileID: 9510150}
   baseMaterial: {fileID: 2100000, guid: 2f4f372d6b462cb4bb80420e8e142f3a, type: 2}
   dodgeMaterial: {fileID: 2100000, guid: 35c7d70288e3270488cbd744b253d530, type: 2}
   blockSpark: {fileID: 193270, guid: ba29760dea7606b4c82eca8b7258bc88, type: 2}
+--- !u!114 &11489070
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 113882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d6a251b5646fde4aacb52cacb926561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enable: 0
+  action: 1
 --- !u!136 &13629134
 CapsuleCollider:
   m_ObjectHideFlags: 1

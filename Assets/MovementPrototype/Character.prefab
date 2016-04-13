@@ -396,7 +396,6 @@ MonoBehaviour:
   joystick: 1
   canControl: 1
   health: 3
-  stateOverride: 
   opponent: {fileID: 0}
   bloodAnimator: {fileID: 9597290}
   baseMaterial: {fileID: 2100000, guid: 2f4f372d6b462cb4bb80420e8e142f3a, type: 2}

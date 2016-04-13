@@ -4,7 +4,7 @@ namespace Assets.MovementPrototype.Character.States
 {
     public class CDeath : CState
     {
-        public CDeath(CFsm fsm) : base(fsm)
+        public CDeath(CFsm fsm) : base(fsm, fsm.Character)
         {
             Name = "DEATH";
         }

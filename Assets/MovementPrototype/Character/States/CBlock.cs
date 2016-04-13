@@ -4,7 +4,7 @@ namespace Assets.MovementPrototype.Character.States
 {
     public class CBlock : CState
     {
-        public CBlock(CFsm fsm) : base(fsm)
+        public CBlock(CFsm fsm) : base(fsm, fsm.Character)
         {
             Name = "BLOCK";
             nextState = "IDLE";

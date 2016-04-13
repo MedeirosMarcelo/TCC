@@ -1,14 +1,11 @@
 ﻿using UnityEngine;
-using System;
 using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public enum PlayerIndex : int
 {
     One = 1,
     Two = 2,
-    //Three = 3,
-    //Four  = 4
 }
 
 public class CController : MonoBehaviour
@@ -16,7 +13,6 @@ public class CController : MonoBehaviour
     public PlayerIndex joystick = PlayerIndex.One;
     public bool canControl = true;
     public int health = 3;
-    public string stateOverride = "";
 
     public GameObject opponent;
     public Animator bloodAnimator;
@@ -47,7 +43,6 @@ public class CController : MonoBehaviour
         {
             input.Update();
         }
-        ControllerDebug();
     }
 
     public void FixedUpdate()
@@ -89,28 +84,9 @@ public class CController : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider col)
+    void OnTriggerEnter(Collider collider)
     {
-        if (col.name == "Sword")
-        {
-            PlayerIndex swordJoystick = col.transform.parent.GetComponent<CController>().joystick;
-            string attackerState = col.transform.parent.GetComponent<CController>().fsm.Current.Name;
-            if (swordJoystick != this.joystick)
-            {
-                if (fsm.Current.Name == "BLOCK")
-                {
-                    ShowBlockSpark(col.transform.position);
-                }
-                else
-                {
-                    if (attackerState == "ATTACK")
-                    {
-                        bloodAnimator.SetTrigger("Bleed");
-                        ReceiveDamage(1);
-                    }
-                }
-            }
-        }
+        fsm.OnTriggerEnter(collider);
     }
 
     int id = 0;
@@ -135,7 +111,7 @@ public class CController : MonoBehaviour
     IEnumerator RestartLevel()
     {
         yield return new WaitForSeconds(1.5f);
-        Application.LoadLevel(0);
+        SceneManager.LoadScene(0);
     }
 
     public void ApplyBaseMaterial()
@@ -148,7 +124,7 @@ public class CController : MonoBehaviour
         mesh.material = dodgeMaterial;
     }
 
-    void ShowBlockSpark(Vector3 position)
+    public void ShowBlockSpark(Vector3 position)
     {
         Vector3 pos = new Vector3(position.x, position.y + 0.6f, position.z + 0.4f);
         Instantiate(blockSpark, pos, blockSpark.transform.rotation);
@@ -166,13 +142,4 @@ public class CController : MonoBehaviour
         fsm.ChangeState("IDLE");
     }
 
-    void ControllerDebug()
-    {
-#if UNITY_EDITOR
-        if (stateOverride != "")
-        {
-            fsm.ChangeState(stateOverride);
-        }
-#endif
-    }
 }

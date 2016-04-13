@@ -1,17 +1,13 @@
 ﻿using Assets.MovementPrototype.Character.States;
 using UnityEngine;
 
-public class AttackState : BaseState
+public class AttackState : CState
 {
-    public CController Character { get; protected set; }
-    public Transform Transform { get; protected set; }
     public AttackFsm AttackFsm { get; protected set; }
-    public AttackState(AttackFsm fsm)
+    public AttackState(AttackFsm fsm) : base (fsm, fsm.Character)
     {
         Fsm = fsm;
         AttackFsm = fsm;
-        Character = fsm.Character;
-        Transform = Character.transform;
     }
     public override void FixedUpdate()
     {

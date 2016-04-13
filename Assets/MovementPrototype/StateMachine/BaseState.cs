@@ -12,7 +12,6 @@ public abstract class BaseState : IState
     {
         get { return Name; }
     }
-
     public virtual void PreUpdate()
     {
         if (elapsed >= totalTime)
@@ -29,6 +28,12 @@ public abstract class BaseState : IState
         elapsed = additionalDeltaTime;
     }
     public virtual void Exit(string lastStateName, string nextStateName, float additionalDeltaTime = 0f, params object[] args)
+    {
+    }
+    public virtual void OnTriggerEnter(Collider colllider)
+    {
+    }
+    public virtual void OnCollisionEnter(Collision collision)
     {
     }
 }

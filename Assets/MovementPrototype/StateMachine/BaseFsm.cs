@@ -1,4 +1,4 @@
-﻿using System;
+﻿using UnityEngine;
 using System.Collections.Generic;
 
 public abstract class BaseFsm : IState
@@ -40,13 +40,11 @@ public abstract class BaseFsm : IState
 
     public virtual void PreUpdate()
     {
-        // dict["COMMON"].PreUpdate();
         Current.PreUpdate();
     }
 
     public virtual void FixedUpdate()
     {
-       //dict["COMMON"].FixedUpdate();
         Current.FixedUpdate();
     }
 
@@ -58,5 +56,13 @@ public abstract class BaseFsm : IState
     public virtual void Exit(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
     {
         Current.Exit(lastStateName, nextStateName, additionalDeltaTime, args);
+    }
+    public virtual void OnTriggerEnter(Collider collider)
+    {
+        Current.OnTriggerEnter(collider);
+    }
+    public virtual void OnCollisionEnter(Collision collision)
+    {
+        Current.OnCollisionEnter(collision);
     }
 }

@@ -461,10 +461,6 @@ Prefab:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 11487302, guid: 2182d4da75709bb4da6806d60ff06963, type: 2}
-      propertyPath: stateOverride
-      value: ATTACK
-      objectReference: {fileID: 0}
-    - target: {fileID: 11487302, guid: 2182d4da75709bb4da6806d60ff06963, type: 2}
       propertyPath: opponent
       value: 
       objectReference: {fileID: 1823746764}

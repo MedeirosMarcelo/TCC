@@ -1,4 +1,6 @@
-﻿public interface IState
+﻿using UnityEngine;
+
+public interface IState
 {
     string Name { get; }
     string Debug { get; }
@@ -10,4 +12,6 @@
     void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args);
     void FixedUpdate();
     void Exit(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args);
+    void OnTriggerEnter(Collider collider);
+    void OnCollisionEnter(Collision collision);
 }
