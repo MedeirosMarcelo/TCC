@@ -8,7 +8,6 @@ namespace Assets.MovementPrototype.Character.States
         {
             Name = "DEATH";
         }
-
         public override void Enter(string lastName, string nextName, float additionalDeltaTime, params object[] args)
         {
             Character.animator.Play("Death");

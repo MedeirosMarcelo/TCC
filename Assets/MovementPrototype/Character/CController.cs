@@ -103,7 +103,7 @@ public class CController : MonoBehaviour
         print(health);
         if (health <= 0)
         {
-            Die();
+            fsm.ChangeState("DEATH");
             StartCoroutine("RestartLevel");
         }
     }
@@ -129,17 +129,4 @@ public class CController : MonoBehaviour
         Vector3 pos = new Vector3(position.x, position.y + 0.6f, position.z + 0.4f);
         Instantiate(blockSpark, pos, blockSpark.transform.rotation);
     }
-
-    void Die() {
-        if (health <= 0 && fsm.Current.Name != "DEATH")
-        {
-            animator.Play("Death");
-        }
-    }
-
-    public void ResetMove()
-    {
-        fsm.ChangeState("IDLE");
-    }
-
 }

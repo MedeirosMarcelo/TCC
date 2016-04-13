@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Assets.MovementPrototype.Character.States;
 using UnityEngine;
 
 public abstract class CState : BaseState
@@ -19,29 +16,24 @@ public abstract class CState : BaseState
         Rigidbody = Character.rbody;
         Transform = Character.transform;
     }
+
     public override void OnTriggerEnter(Collider collider)
     {
-        base.OnTriggerEnter(collider);
         if (collider.name == "Sword")
         {
-            PlayerIndex swordJoystick = collider.transform.parent.GetComponent<CController>().joystick;
-            string attackerState = collider.transform.parent.GetComponent<CController>().fsm.Current.Name;
-            if (swordJoystick != Character.joystick)
+            var otherCharacter = collider.transform.parent.GetComponent<CController>();
+            if (!ReferenceEquals(Character, otherCharacter))
             {
-                if (Fsm.Current.Name == "BLOCK")
+                var attackFsm = otherCharacter.fsm.Current as AttackFsm;
+                if (attackFsm != null && attackFsm.Current.Name == "SWING")
                 {
-                    Character.ShowBlockSpark(collider.transform.position);
-                }
-                else
-                {
-                    if (attackerState == "ATTACK")
-                    {
-                        Character.bloodAnimator.SetTrigger("Bleed");
-                        Character.ReceiveDamage(1);
-                    }
+                    Character.bloodAnimator.SetTrigger("Bleed");
+                    Character.ReceiveDamage(1);
                 }
             }
         }
+        // otherwise defer to base
+        base.OnTriggerEnter(collider);
     }
 }
 

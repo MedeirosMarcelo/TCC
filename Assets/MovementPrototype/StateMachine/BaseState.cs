@@ -14,7 +14,7 @@ public abstract class BaseState : IState
     }
     public virtual void PreUpdate()
     {
-        if (elapsed >= totalTime)
+        if (totalTime > 0f && elapsed >= totalTime) 
         {
             Fsm.ChangeState(nextState, totalTime - elapsed);
         }
