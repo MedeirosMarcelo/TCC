@@ -12,6 +12,7 @@ namespace Assets.MovementPrototype.Character.States
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {
             Character.ChangeVelocity(Vector3.zero);
+            Character.animator.Play("Idle");
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
         }
 

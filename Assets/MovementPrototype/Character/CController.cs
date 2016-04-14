@@ -100,7 +100,6 @@ public class CController : MonoBehaviour
     public void ReceiveDamage(int damage)
     {
         health -= damage;
-        print(health);
         if (health <= 0)
         {
             fsm.ChangeState("DEATH");
