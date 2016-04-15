@@ -58,7 +58,7 @@ public class COverride : MonoBehaviour
             case Action.BLOCK:
                 if (Current.Name == "IDLE")
                 {
-                    Fsm.ChangeState("BLOCK");
+                    Fsm.ChangeState("BLOCK/WINDUP");
                 }
                 break;
         }

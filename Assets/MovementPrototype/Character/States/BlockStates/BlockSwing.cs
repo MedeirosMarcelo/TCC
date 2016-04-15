@@ -1,14 +1,15 @@
 ﻿using UnityEngine;
 
-namespace Assets.MovementPrototype.Character.States
+namespace Assets.MovementPrototype.Character.States.BlockStates
 {
-    public class CBlock : CState
+    public class BlockSwing : BlockState
     {
-        public CBlock(CFsm fsm) : base(fsm, fsm.Character)
+        const float speed = 2f;
+        public BlockSwing(CFsm fsm) : base(fsm)
         {
-            Name = "BLOCK";
-            nextState = "IDLE";
-            totalTime = 0.5f;
+            Name = "BLOCK/SWING";
+            nextState = "BLOCK/RECOVER";
+            totalTime = 0.3f;
         }
 
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
@@ -25,7 +26,9 @@ namespace Assets.MovementPrototype.Character.States
                 if (!ReferenceEquals(Character, otherCharacter))
                 {
                     var attackFsm = otherCharacter.fsm.Current as AttackFsm;
-                    if (attackFsm != null && attackFsm.Current.Name == "SWING")
+                    if (attackFsm != null && (attackFsm.Current.Name == "SWING" ||
+                                              attackFsm.Current.Name == "RIGHTSWING" ||
+                                              attackFsm.Current.Name == "DOWNSWING"))
                     {
                         Character.ShowBlockSpark(collider.transform.position);
                         return;

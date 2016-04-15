@@ -20,6 +20,8 @@ public class BaseInput {
     public virtual Stick move { get; private set; }
     public virtual Stick look { get; private set; }
 
+    public virtual float run { get; protected set; }
+
     public virtual bool dash { get; protected set; }
     public virtual bool attack { get; protected set; }
     public virtual bool block { get; protected set; }
@@ -35,6 +37,7 @@ public class BaseInput {
         dash = false;
         attack = false;
         block = false;
+        run = 0f;
     }
 
     // must be called each Update before consuming any input.
@@ -46,10 +49,6 @@ public class BaseInput {
     }
 
     // get debug msg;
-    public virtual string DebugMsg() {
-        return (name + ":  M=" + move.vector + "  L=" + look.vector);
-    }
-
     public virtual string Debug { get
         {
             return "";
