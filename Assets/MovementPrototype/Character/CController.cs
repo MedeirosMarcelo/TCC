@@ -65,23 +65,39 @@ public class CController : MonoBehaviour
     float maxTurnSpeed = Mathf.PI / 30;
     public void Look(float lookTurnRate = 1f, float lockTurnRate = 1f)
     {
-        var vec = input.look.vector;
-        if (vec.magnitude > 0.25f)
+
+        if (input.run > 0.25f || opponent == null)
         {
-            transform.forward = Vector3.RotateTowards(
-                transform.forward,
-                vec.normalized,
-                maxTurnSpeed * lookTurnRate,
-                1f);
+            if (input.move.vector.magnitude > 0.25)
+            {
+                transform.forward = Vector3.RotateTowards(
+                    transform.forward,
+                    input.move.vector,
+                    maxTurnSpeed * lookTurnRate,
+                    1f);
+            }
         }
-        else if (opponent != null)
+        else
         {
+            var vec = input.look.vector;
+            if (vec.magnitude > 0.25)
+            {
+                transform.forward = Vector3.RotateTowards(
+                    transform.forward,
+                    vec,
+                    maxTurnSpeed * lookTurnRate,
+                    1f);
+            }
+            else
+            {
             transform.forward = Vector3.RotateTowards(
                 transform.forward,
                 (opponent.transform.position - transform.position).normalized,
                 maxTurnSpeed * lockTurnRate,
                 1f);
-        }
+ 
+            }
+       }
     }
 
     void OnTriggerEnter(Collider collider)
@@ -93,14 +109,13 @@ public class CController : MonoBehaviour
     static int currentId = 0;
     void OnGUI()
     {
-        string text = input.Debug + "\n" +  fsm.Debug;
+        string text = input.Debug + "\n" + fsm.Debug;
         GUI.Label(new Rect(((int)id - 1) * (Screen.width / 2), 0, Screen.width / 2, Screen.height), text);
     }
 
     public void ReceiveDamage(int damage)
     {
         health -= damage;
-        print(health);
         if (health <= 0)
         {
             fsm.ChangeState("DEATH");

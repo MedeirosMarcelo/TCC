@@ -25,7 +25,9 @@ public abstract class CState : BaseState
             if (!ReferenceEquals(Character, otherCharacter))
             {
                 var attackFsm = otherCharacter.fsm.Current as AttackFsm;
-                if (attackFsm != null && attackFsm.Current.Name == "SWING")
+                if (attackFsm != null && (attackFsm.Current.Name == "SWING" || 
+                                          attackFsm.Current.Name == "RIGHTSWING" || 
+                                          attackFsm.Current.Name == "DOWNSWING"))
                 {
                     Character.bloodAnimator.SetTrigger("Bleed");
                     Character.ReceiveDamage(1);

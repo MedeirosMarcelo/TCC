@@ -45,6 +45,8 @@ public class GamePadInput : BaseInput
         look.horizontal = state.ThumbSticks.Right.X;
         look.vertical = state.ThumbSticks.Right.Y;
 
+        run = state.Triggers.Left;
+
         var dashed = (state.Buttons.LeftShoulder == ButtonState.Pressed
                && lastState.Buttons.LeftShoulder == ButtonState.Released)
                || (state.Buttons.B == ButtonState.Pressed && lastState.Buttons.B == ButtonState.Released);

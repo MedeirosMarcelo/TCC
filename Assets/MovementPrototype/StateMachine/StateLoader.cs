@@ -12,7 +12,9 @@ public class StateLoader<FsmType>
             Type[] types = Assembly
                 .GetExecutingAssembly()
                 .GetTypes()
-                .Where(type => type.Namespace == @namespace && type.GetInterfaces().Contains(typeof(IState)))
+                .Where(type => type.Namespace == @namespace &&
+                               type.GetInterfaces().Contains(typeof(IState)) &&
+                               !type.IsAbstract)
                 .ToArray();
             foreach (Type t in types)
             {

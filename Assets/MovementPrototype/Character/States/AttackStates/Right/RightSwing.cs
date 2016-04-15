@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 
-namespace Assets.MovementPrototype.Character.States.AttackStates
+namespace Assets.MovementPrototype.Character.States.AttackStates.Right
 {
-    public class Swing : AttackState
+    public class RightSwing : AttackState
     {
         const float speed = 2f;
-        public Swing(AttackFsm fsm) : base(fsm)
+        public RightSwing(AttackFsm fsm) : base(fsm)
         {
-            Name = "SWING";
-            nextState = "RECOVER";
+            Name = "RIGHTSWING";
+            nextState = "RIGHTRECOVER";
             totalTime = 0.3f;
         }
 
@@ -16,7 +16,7 @@ namespace Assets.MovementPrototype.Character.States.AttackStates
         {
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
             Character.animator.SetFloat("Speed", 1f / totalTime);
-            Character.animator.Play("Swing");
+            Character.animator.Play("RightSwing");
         }
 
         public override void FixedUpdate()

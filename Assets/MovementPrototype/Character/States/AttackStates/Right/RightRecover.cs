@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-namespace Assets.MovementPrototype.Character.States.AttackStates
+namespace Assets.MovementPrototype.Character.States.AttackStates.Right
 {
-    public class Recover : AttackState
+    public class RightRecover : AttackState
     {
-        public Recover(AttackFsm fsm) : base(fsm)
+        public RightRecover(AttackFsm fsm) : base(fsm)
         {
-            Name = "RECOVER";
+            Name = "RIGHTRECOVER";
             totalTime = 0.2f;
         }
 
@@ -14,7 +14,7 @@ namespace Assets.MovementPrototype.Character.States.AttackStates
         {
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
             Character.animator.SetFloat("Speed", 1f / totalTime);
-            Character.animator.Play("Recover");
+            Character.animator.Play("RightRecover");
         }
 
         public override void PreUpdate()

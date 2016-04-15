@@ -12,6 +12,7 @@ namespace Assets.MovementPrototype.Character.States
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {
             Character.ChangeVelocity(Vector3.zero);
+            Character.animator.Play("Idle");
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
         }
 
@@ -25,7 +26,7 @@ namespace Assets.MovementPrototype.Character.States
             else if (Input.buffer.NextEventIs<InputEvent.Block>())
             {
                 Input.buffer.Pop<InputEvent.Block>();
-                Fsm.ChangeState("BLOCK");
+                Fsm.ChangeState("BLOCK/WINDUP");
             }
             else if (Input.buffer.NextEventIs<InputEvent.Dash>())
             {

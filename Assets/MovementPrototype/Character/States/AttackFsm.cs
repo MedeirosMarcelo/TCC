@@ -7,15 +7,17 @@ namespace Assets.MovementPrototype.Character.States
     public class AttackFsm : BaseFsm, IState
     {
         public CController Character { get; protected set; }
-        public Vector3 Velocity { get; set; }
         const float speed = 16f;
 
-        public AttackFsm(CFsm fsm) : base(fsm)
+        public AttackFsm(CFsm fsm)
+            : base(fsm)
         {
             Name = "ATTACK";
             Character = fsm.Character;
             var loader = new StateLoader<AttackFsm>();
-            loader.LoadStates(this, "Assets.MovementPrototype.Character.States.AttackStates");
+            loader.LoadStates(this, "Assets.MovementPrototype.Character.States.AttackStates.Right");
+            loader.LoadStates(this, "Assets.MovementPrototype.Character.States.AttackStates.Left");
+            loader.LoadStates(this, "Assets.MovementPrototype.Character.States.AttackStates.Down");
             Current = dict["WINDUP"];
         }
 
@@ -23,8 +25,21 @@ namespace Assets.MovementPrototype.Character.States
         {
             Assert.IsTrue(args.Length == 1);
             var evt = (InputEvent.Attack)args[0];
-            Velocity = evt.Move.vector.normalized * speed;
-            Current = dict["WINDUP"];
+
+            Vector3 moveDirection = evt.Move.vector.normalized;
+            if (moveDirection.x < -0.2f)
+            {
+                Current = dict["RIGHTWINDUP"];
+            }
+            else if (moveDirection.x > 0.2f)
+            {
+                Current = dict["WINDUP"];
+            }
+            else
+            {
+                Current = dict["DOWNWINDUP"];
+            }
+
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
         }
     }
