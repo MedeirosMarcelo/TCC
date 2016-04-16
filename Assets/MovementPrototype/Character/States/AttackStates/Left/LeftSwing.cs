@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 
-namespace Assets.MovementPrototype.Character.States.AttackStates.Right
+namespace Assets.MovementPrototype.Character.States.AttackStates.Left
 {
-    public class RightSwing : AttackState
+    public class LeftSwing : AttackState
     {
         const float speed = 2f;
-        public RightSwing(AttackFsm fsm) : base(fsm)
+        public LeftSwing(AttackFsm fsm) : base(fsm)
         {
-            Name = "RIGHT/SWING";
-            nextState = "RIGHT/RECOVER";
+            Name = "LEFT/SWING";
+            nextState = "LEFT/RECOVER";
             totalTime = 0.1f;
             damage = 1;
         }
@@ -17,7 +17,7 @@ namespace Assets.MovementPrototype.Character.States.AttackStates.Right
         {
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
             Character.animator.SetFloat("Speed", 1f / totalTime);
-            Character.animator.Play("RightSwing");
+            Character.animator.Play("Swing");
             Character.swordTrail.Activate();
         }
 

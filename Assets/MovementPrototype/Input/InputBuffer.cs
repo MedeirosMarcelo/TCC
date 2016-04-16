@@ -14,12 +14,25 @@ public abstract class InputEvent
     public class Attack : InputEvent
     {
         public Stick Move { get; private set; }
-        public Attack(Stick move)
+        public bool isHeavy { get; private set; }
+        public Attack(Stick move, bool isHeavy = false)
+        {
+            Move = move;
+            this.isHeavy = isHeavy;
+        }
+    }
+    public class HeavyAttack : InputEvent
+    {
+        public Stick Move { get; private set; }
+        public HeavyAttack(Stick move)
         {
             Move = move;
         }
     }
-    public class Block : InputEvent
+    public class BlockMid : InputEvent
+    {
+    }
+    public class BlockHigh : InputEvent
     {
     }
 }

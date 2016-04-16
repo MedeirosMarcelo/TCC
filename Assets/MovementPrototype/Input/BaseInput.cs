@@ -24,7 +24,9 @@ public class BaseInput {
 
     public virtual bool dash { get; protected set; }
     public virtual bool attack { get; protected set; }
-    public virtual bool block { get; protected set; }
+    public virtual bool heavyAttack { get; protected set; }
+    public virtual bool blockMid { get; protected set; }
+    public virtual bool blockHigh { get; protected set; }
 
     public virtual InputBuffer buffer { get; private set; }
 
@@ -36,7 +38,9 @@ public class BaseInput {
 
         dash = false;
         attack = false;
-        block = false;
+        heavyAttack = false;
+        blockMid = false;
+        blockHigh = false;
         run = 0f;
     }
 

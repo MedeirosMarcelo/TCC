@@ -24,7 +24,7 @@ public class ControllerInput : BaseInput {
 
         dash |= dashed;
         attack |= attacked;
-        block |= blocked;
+        blockMid |= blocked;
 
         if (dashed) {
             buffer.Push(new InputEvent.Dash(move));
@@ -33,13 +33,13 @@ public class ControllerInput : BaseInput {
             buffer.Push(new InputEvent.Attack(move));
         }
         else if (blocked) {
-            buffer.Push(new InputEvent.Block());
+            buffer.Push(new InputEvent.BlockMid());
         }
     }
 
     public override void FixedUpdate() {
         dash = false;
         attack = false;
-        block = false;
+        blockMid = false;
     }
 }

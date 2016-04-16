@@ -2,14 +2,14 @@
 
 namespace Assets.MovementPrototype.Character.States.BlockStates
 {
-    public class BlockSwing : BlockState
+    public class BlockHighSwing : BlockState
     {
         const float speed = 2f;
-        public BlockSwing(CFsm fsm) : base(fsm)
+        public BlockHighSwing(CFsm fsm) : base(fsm)
         {
-            Name = "BLOCK/SWING";
-            nextState = "BLOCK/RECOVER";
-            totalTime = 0.3f;
+            Name = "BLOCK/HIGH/SWING";
+            nextState = "BLOCK/HIGH/RECOVER";
+            totalTime = 0.5f;
         }
 
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)

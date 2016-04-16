@@ -2,13 +2,13 @@
 
 namespace Assets.MovementPrototype.Character.States.BlockStates
 {
-    public class BlockWindUp : BlockState
+    public class BlockMidWindUp : BlockState
     {
         const float speed = 1f;
-        public BlockWindUp(CFsm fsm) : base(fsm)
+        public BlockMidWindUp(CFsm fsm) : base(fsm)
         {
-            Name = "BLOCK/WINDUP";
-            nextState = "BLOCK/SWING";
+            Name = "BLOCK/MID/WINDUP";
+            nextState = "BLOCK/MID/SWING";
             totalTime = 0.1f;
         }
     }

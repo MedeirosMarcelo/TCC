@@ -2,15 +2,15 @@
 
 namespace Assets.MovementPrototype.Character.States.AttackStates.Right
 {
-    public class RightSwing : AttackState
+    public class RightHeavySwing : AttackState
     {
         const float speed = 2f;
-        public RightSwing(AttackFsm fsm) : base(fsm)
+        public RightHeavySwing(AttackFsm fsm) : base(fsm)
         {
-            Name = "RIGHT/SWING";
-            nextState = "RIGHT/RECOVER";
-            totalTime = 0.1f;
-            damage = 1;
+            Name = "RIGHT/HEAVY/SWING";
+            nextState = "RIGHT/HEAVY/RECOVER";
+            totalTime = 0.2f;
+            damage = 2;
         }
 
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)

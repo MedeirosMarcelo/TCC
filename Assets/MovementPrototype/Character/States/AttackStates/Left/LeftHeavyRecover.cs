@@ -1,20 +1,20 @@
 ﻿using UnityEngine;
 
-namespace Assets.MovementPrototype.Character.States.AttackStates.Right
+namespace Assets.MovementPrototype.Character.States.AttackStates.Left
 {
-    public class RightRecover : AttackState
+    public class LeftHeavyRecover : AttackState
     {
-        public RightRecover(AttackFsm fsm) : base(fsm)
+        public LeftHeavyRecover(AttackFsm fsm) : base(fsm)
         {
-            Name = "RIGHT/RECOVER";
-            totalTime = 0.2f;
+            Name = "LEFT/HEAVY/RECOVER";
+            totalTime = 0.3f;
         }
 
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
             Character.animator.SetFloat("Speed", 1f / totalTime);
-            Character.animator.Play("RightRecover");
+            Character.animator.Play("Recover");
         }
 
         public override void Exit(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)

@@ -7,8 +7,8 @@ namespace Assets.MovementPrototype.Character.States.AttackStates.Down
         const float speed = 1f;
         public DownWindUp(AttackFsm fsm) : base(fsm)
         {
-            Name = "DOWNWINDUP";
-            nextState = "DOWNSWING";
+            Name = "DOWN/WINDUP";
+            nextState = "DOWN/SWING";
             totalTime = 0.2f;
         }
 

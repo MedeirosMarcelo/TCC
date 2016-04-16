@@ -23,9 +23,9 @@ namespace Assets.MovementPrototype.Character.States
                 var evt = Input.buffer.Pop<InputEvent.Attack>();
                 Fsm.ChangeState("ATTACK", 0f, evt);
             }
-            else if (Input.buffer.NextEventIs<InputEvent.Block>())
+            else if (Input.buffer.NextEventIs<InputEvent.BlockMid>())
             {
-                Input.buffer.Pop<InputEvent.Block>();
+                Input.buffer.Pop<InputEvent.BlockMid>();
                 Fsm.ChangeState("BLOCK/WINDUP");
             }
             else if (Input.buffer.NextEventIs<InputEvent.Dash>())

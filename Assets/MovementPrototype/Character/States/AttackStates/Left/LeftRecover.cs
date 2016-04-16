@@ -2,11 +2,11 @@
 
 namespace Assets.MovementPrototype.Character.States.AttackStates.Left
 {
-    public class Recover : AttackState
+    public class LeftRecover : AttackState
     {
-        public Recover(AttackFsm fsm) : base(fsm)
+        public LeftRecover(AttackFsm fsm) : base(fsm)
         {
-            Name = "RECOVER";
+            Name = "LEFT/RECOVER";
             totalTime = 0.2f;
         }
 
@@ -15,6 +15,12 @@ namespace Assets.MovementPrototype.Character.States.AttackStates.Left
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
             Character.animator.SetFloat("Speed", 1f / totalTime);
             Character.animator.Play("Recover");
+        }
+
+        public override void Exit(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
+        {
+            base.Exit(lastStateName, nextStateName, additionalDeltaTime, args);
+            Character.swordTrail.Deactivate();
         }
 
         public override void PreUpdate()

@@ -14,7 +14,8 @@ public class CController : MonoBehaviour
     public bool canControl = true;
     public int health = 3;
 
-    public GameObject opponent;
+    public GameObject target;
+    public Xft.XWeaponTrail swordTrail;
     public Animator bloodAnimator;
     public Material baseMaterial;
     public Material dodgeMaterial;
@@ -24,8 +25,8 @@ public class CController : MonoBehaviour
     public CFsm fsm { get; private set; }
     public Animator animator { get; private set; }
 
-    float maxTurnSpeed = Mathf.PI / 30;
     MeshRenderer mesh;
+    float maxTurnSpeed = Mathf.PI / 30;
 
     public void Awake()
     {
@@ -34,6 +35,7 @@ public class CController : MonoBehaviour
         fsm = new CFsm(this);
         animator = GetComponent<Animator>();
         mesh = transform.Find("Model").GetComponent<MeshRenderer>();
+        if (swordTrail) swordTrail.Deactivate();
         currentId += 1;
         id = currentId;
     }
@@ -87,7 +89,7 @@ public class CController : MonoBehaviour
         {
             transform.forward = Vector3.RotateTowards(
                 transform.forward,
-                (opponent.transform.position - transform.position).normalized,
+                (target.transform.position - transform.position).normalized,
                 maxTurnSpeed * lockTurnRate,
                 1f);
 
@@ -110,6 +112,7 @@ public class CController : MonoBehaviour
     public void ReceiveDamage(int damage)
     {
         health -= damage;
+        StartCoroutine("DelayBlood");
         if (health <= 0)
         {
             fsm.ChangeState("DEATH");
@@ -137,6 +140,20 @@ public class CController : MonoBehaviour
     {
         Vector3 pos = new Vector3(position.x, position.y + 0.6f, position.z + 0.4f);
         Instantiate(blockSpark, pos, blockSpark.transform.rotation);
+    }
+
+    IEnumerator DelayBlood()
+    {
+        yield return new WaitForSeconds(0.1f);
+        Paint();
+    }
+
+    public void Paint()
+    {
+        Vector3 pos = transform.position * 1.1f;
+        pos.z = transform.position.z - 0.5f;
+        pos.y = transform.position.y + 0.5f;
+        DecalPainter.Instance.Paint(pos, Color.gray, 10);
     }
 
     public void PrintLog(string text)

@@ -27,10 +27,15 @@ namespace Assets.MovementPrototype.Character.States
                 var evt = Input.buffer.Pop<InputEvent.Attack>();
                 Fsm.ChangeState("ATTACK", 0f, evt);
             }
-            else if (Input.buffer.NextEventIs<InputEvent.Block>())
+            else if (Input.buffer.NextEventIs<InputEvent.Attack>())
             {
-                Input.buffer.Pop<InputEvent.Block>();
-                Fsm.ChangeState("BLOCK/WINDUP");
+                var evt = Input.buffer.Pop<InputEvent.Attack>();
+                Fsm.ChangeState("ATTACK", 0f, evt);
+            }
+            else if (Input.buffer.NextEventIs<InputEvent.BlockMid>())
+            {
+                Input.buffer.Pop<InputEvent.BlockMid>();
+                Fsm.ChangeState("BLOCK/MID/WINDUP");
             }
             else if (Input.buffer.NextEventIs<InputEvent.Dash>())
             {

@@ -54,12 +54,20 @@ public class GamePadInput : BaseInput
         var attacked = state.Buttons.RightShoulder == ButtonState.Pressed
                 && lastState.Buttons.RightShoulder == ButtonState.Released;
 
-        var blocked = state.Triggers.Right > triggerThreshold
+        var heavyAttacked = state.Buttons.X == ButtonState.Pressed
+                     && lastState.Buttons.X == ButtonState.Released;
+
+        var blockedMid = state.Triggers.Right > triggerThreshold
               && (lastState.Triggers.Right <= triggerThreshold);
+
+        var blockedHigh = state.Buttons.Y == ButtonState.Pressed
+                   && lastState.Buttons.Y == ButtonState.Released;
 
         dash |= dashed;
         attack |= attacked;
-        block |= blocked;
+        heavyAttack |= heavyAttacked;
+        blockMid |= blockedMid;
+        blockHigh |= blockedHigh;
 
         if (dashed)
         {
@@ -69,9 +77,17 @@ public class GamePadInput : BaseInput
         {
             buffer.Push(new InputEvent.Attack(move));
         }
-        else if (blocked)
+        else if (heavyAttacked)
         {
-            buffer.Push(new InputEvent.Block());
+            buffer.Push(new InputEvent.Attack(move, true));
+        }
+        else if (blockedMid)
+        {
+            buffer.Push(new InputEvent.BlockMid());
+        }
+        else if (blockedHigh)
+        {
+            buffer.Push(new InputEvent.BlockHigh());
         }
     }
 
@@ -79,7 +95,7 @@ public class GamePadInput : BaseInput
     {
         dash = false;
         attack = false;
-        block = false;
+        blockMid = false;
     }
 
     public override string Debug

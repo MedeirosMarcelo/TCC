@@ -1,29 +1,28 @@
 ﻿using UnityEngine;
 
-namespace Assets.MovementPrototype.Character.States.AttackStates.Left
+namespace Assets.MovementPrototype.Character.States.AttackStates.Down
 {
-    public class WindUp : AttackState
+    public class DownHeavyWindUp : AttackState
     {
         const float speed = 1f;
-        public WindUp(AttackFsm fsm) : base(fsm)
+        public DownHeavyWindUp(AttackFsm fsm) : base(fsm)
         {
-            Name = "WINDUP";
-            nextState = "SWING";
-            totalTime = 0.2f;
+            Name = "DOWN/HEAVY/WINDUP";
+            nextState = "DOWN/HEAVY/SWING";
+            totalTime = 0.3f;
         }
 
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
             Character.animator.SetFloat("Speed", 1f / totalTime);
-            Character.animator.Play("Windup");
+            Character.animator.Play("DownWindup");
         }
 
         public override void FixedUpdate() 
         {
             base.FixedUpdate();
             Character.Move(Transform.position + ((Transform.forward * speed) * Time.fixedDeltaTime));
-
         }
     }
 }

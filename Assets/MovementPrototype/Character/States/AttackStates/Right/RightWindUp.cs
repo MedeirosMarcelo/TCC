@@ -7,8 +7,8 @@ namespace Assets.MovementPrototype.Character.States.AttackStates.Right
         const float speed = 1f;
         public RightWindUp(AttackFsm fsm) : base(fsm)
         {
-            Name = "RIGHTWINDUP";
-            nextState = "RIGHTSWING";
+            Name = "RIGHT/WINDUP";
+            nextState = "RIGHT/SWING";
             totalTime = 0.2f;
         }
 

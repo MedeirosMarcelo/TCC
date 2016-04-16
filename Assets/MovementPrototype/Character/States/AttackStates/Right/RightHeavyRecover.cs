@@ -2,12 +2,12 @@
 
 namespace Assets.MovementPrototype.Character.States.AttackStates.Right
 {
-    public class RightRecover : AttackState
+    public class RightHeavyRecover : AttackState
     {
-        public RightRecover(AttackFsm fsm) : base(fsm)
+        public RightHeavyRecover(AttackFsm fsm) : base(fsm)
         {
-            Name = "RIGHT/RECOVER";
-            totalTime = 0.2f;
+            Name = "RIGHT/HEAVY/RECOVER";
+            totalTime = 0.3f;
         }
 
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)

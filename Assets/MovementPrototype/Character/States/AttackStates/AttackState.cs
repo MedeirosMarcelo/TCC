@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class AttackState : CState
 {
+    public int damage = 0;
     public AttackFsm AttackFsm { get; protected set; }
     public AttackState(AttackFsm fsm) : base (fsm, fsm.Character)
     {

@@ -1,31 +1,28 @@
 ﻿using UnityEngine;
 
-namespace Assets.MovementPrototype.Character.States.AttackStates.Right
+namespace Assets.MovementPrototype.Character.States.AttackStates.Left
 {
-    public class RightSwing : AttackState
+    public class LeftHeavyWindUp : AttackState
     {
-        const float speed = 2f;
-        public RightSwing(AttackFsm fsm) : base(fsm)
+        const float speed = 1f;
+        public LeftHeavyWindUp(AttackFsm fsm) : base(fsm)
         {
-            Name = "RIGHT/SWING";
-            nextState = "RIGHT/RECOVER";
-            totalTime = 0.1f;
-            damage = 1;
+            Name = "LEFT/HEAVY/WINDUP";
+            nextState = "LEFT/HEAVY/SWING";
+            totalTime = 0.3f;
         }
 
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
             Character.animator.SetFloat("Speed", 1f / totalTime);
-            Character.animator.Play("RightSwing");
-            Character.swordTrail.Activate();
+            Character.animator.Play("Windup");
         }
 
-        public override void FixedUpdate()
+        public override void FixedUpdate() 
         {
             base.FixedUpdate();
             Character.Move(Transform.position + ((Transform.forward * speed) * Time.fixedDeltaTime));
-
         }
     }
 }

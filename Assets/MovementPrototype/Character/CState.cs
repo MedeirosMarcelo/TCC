@@ -24,13 +24,12 @@ public abstract class CState : BaseState
             var otherCharacter = collider.transform.parent.GetComponent<CController>();
             if (!ReferenceEquals(Character, otherCharacter))
             {
-                var attackFsm = otherCharacter.fsm.Current as AttackFsm;
-                if (attackFsm != null && (attackFsm.Current.Name == "SWING" || 
-                                          attackFsm.Current.Name == "RIGHTSWING" || 
-                                          attackFsm.Current.Name == "DOWNSWING"))
+                var attackerFsm = otherCharacter.fsm.Current as AttackFsm;
+                var attackerState = attackerFsm.Current as AttackState;
+                if (attackerState != null && (attackerState.damage > 0))
                 {
                     Character.bloodAnimator.SetTrigger("Bleed");
-                    Character.ReceiveDamage(1);
+                    Character.ReceiveDamage(attackerState.damage);
                 }
             }
         }
