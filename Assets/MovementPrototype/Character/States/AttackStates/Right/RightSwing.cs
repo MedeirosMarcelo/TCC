@@ -9,7 +9,7 @@ namespace Assets.MovementPrototype.Character.States.AttackStates.Right
         {
             Name = "RIGHTSWING";
             nextState = "RIGHTRECOVER";
-            totalTime = 0.3f;
+            totalTime = 0.1f;
         }
 
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)

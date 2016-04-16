@@ -10,12 +10,12 @@ public class CFsm : BaseFsm
         StateLoader<CFsm> loader = new StateLoader<CFsm>();
         loader.LoadStates(this, "Assets.MovementPrototype.Character.States");
         loader.LoadStates(this, "Assets.MovementPrototype.Character.States.BlockStates");
-        Current = dict["IDLE"];
+        Current = dict["MOVEMENT"];
     }
 
     public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
     {
-        Current = dict["IDLE"];
+        Current = dict["MOVEMENT"];
         base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
     }
 }

@@ -58,6 +58,7 @@ namespace Assets.MovementPrototype.Character.States
                 Character.Move(Transform.position + (velocity * Time.fixedDeltaTime));
             }
             Character.Look();
+            //Character.Run();
         }
     }
 }

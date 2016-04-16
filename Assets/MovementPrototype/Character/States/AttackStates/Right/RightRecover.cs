@@ -21,7 +21,7 @@ namespace Assets.MovementPrototype.Character.States.AttackStates.Right
         {
             if (elapsed >= totalTime)
             {
-                Fsm.Fsm.ChangeState("IDLE");
+                Fsm.Fsm.ChangeState("MOVEMENT");
             }
         }
     }

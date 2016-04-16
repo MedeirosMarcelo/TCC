@@ -14,7 +14,7 @@ namespace Assets.MovementPrototype.Character.States.DashStates
         {
             if (elapsed >= totalTime)
             {
-                Fsm.Fsm.ChangeState("IDLE");
+                Fsm.Fsm.ChangeState("MOVEMENT");
             }
         }
     }

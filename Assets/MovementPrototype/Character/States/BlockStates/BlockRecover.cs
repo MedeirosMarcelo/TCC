@@ -7,7 +7,7 @@ namespace Assets.MovementPrototype.Character.States.BlockStates
         public BlockRecover(CFsm fsm) : base(fsm)
         {
             Name = "BLOCK/RECOVER";
-            nextState = "IDLE";
+            nextState = "MOVEMENT";
             totalTime = 0.3f;
         }
     }

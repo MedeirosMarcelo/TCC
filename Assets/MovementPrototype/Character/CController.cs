@@ -24,6 +24,7 @@ public class CController : MonoBehaviour
     public CFsm fsm { get; private set; }
     public Animator animator { get; private set; }
 
+    float maxTurnSpeed = Mathf.PI / 30;
     MeshRenderer mesh;
 
     public void Awake()
@@ -62,42 +63,35 @@ public class CController : MonoBehaviour
         rbody.MovePosition(position);
     }
 
-    float maxTurnSpeed = Mathf.PI / 30;
+    public void LookForward(float lookTurnRate = 1f)
+    {
+        transform.forward = Vector3.RotateTowards(
+                transform.forward,
+                input.move.vector,
+                maxTurnSpeed * lookTurnRate,
+                1f);
+    }
+
     public void Look(float lookTurnRate = 1f, float lockTurnRate = 1f)
     {
-
-        if (input.run > 0.25f || opponent == null)
+        var vec = input.look.vector;
+        if (vec.magnitude > 0.25)
         {
-            if (input.move.vector.magnitude > 0.25)
-            {
-                transform.forward = Vector3.RotateTowards(
-                    transform.forward,
-                    input.move.vector,
-                    maxTurnSpeed * lookTurnRate,
-                    1f);
-            }
+            transform.forward = Vector3.RotateTowards(
+                transform.forward,
+                vec,
+                maxTurnSpeed * lookTurnRate,
+                1f);
         }
         else
         {
-            var vec = input.look.vector;
-            if (vec.magnitude > 0.25)
-            {
-                transform.forward = Vector3.RotateTowards(
-                    transform.forward,
-                    vec,
-                    maxTurnSpeed * lookTurnRate,
-                    1f);
-            }
-            else
-            {
             transform.forward = Vector3.RotateTowards(
                 transform.forward,
                 (opponent.transform.position - transform.position).normalized,
                 maxTurnSpeed * lockTurnRate,
                 1f);
- 
-            }
-       }
+
+        }
     }
 
     void OnTriggerEnter(Collider collider)
@@ -143,5 +137,10 @@ public class CController : MonoBehaviour
     {
         Vector3 pos = new Vector3(position.x, position.y + 0.6f, position.z + 0.4f);
         Instantiate(blockSpark, pos, blockSpark.transform.rotation);
+    }
+
+    public void PrintLog(string text)
+    {
+        print(text);
     }
 }
