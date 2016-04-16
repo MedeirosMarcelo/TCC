@@ -18,7 +18,7 @@ namespace Assets.MovementPrototype.Character.States.AttackStates.Down
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
             Character.animator.SetFloat("Speed", 1f / totalTime);
             Character.animator.Play("DownSwing");
-            Character.swordTrail.Activate();
+            Character.SwordTrail.Activate();
         }
 
         public override void FixedUpdate()

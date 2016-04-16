@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
 
 public enum PlayerIndex : int
@@ -15,7 +16,6 @@ public class CController : MonoBehaviour
     public int health = 3;
 
     public GameObject target;
-    public Xft.XWeaponTrail swordTrail;
     public Animator bloodAnimator;
     public Material baseMaterial;
     public Material dodgeMaterial;
@@ -24,6 +24,7 @@ public class CController : MonoBehaviour
     public Rigidbody rbody { get; private set; }
     public CFsm fsm { get; private set; }
     public Animator animator { get; private set; }
+    public Xft.XWeaponTrail SwordTrail { get; private set; }
 
     MeshRenderer mesh;
     float maxTurnSpeed = Mathf.PI / 30;
@@ -31,11 +32,20 @@ public class CController : MonoBehaviour
     public void Awake()
     {
         input = new GamePadInput(joystick);
-        rbody = GetComponent<Rigidbody>();
         fsm = new CFsm(this);
+
+        rbody = GetComponent<Rigidbody>();
+        Assert.IsNotNull(rbody);
         animator = GetComponent<Animator>();
-        mesh = transform.Find("Model").GetComponent<MeshRenderer>();
-        if (swordTrail) swordTrail.Deactivate();
+        Assert.IsNotNull(animator);
+        mesh = transform.FindChild("Model").GetComponent<MeshRenderer>();
+        Assert.IsNotNull(mesh);
+        //Trail init
+        SwordTrail = transform.FindChild("Sword").FindChild("X-WeaponTrail").GetComponent<Xft.XWeaponTrail>();
+        Assert.IsNotNull(SwordTrail);
+        SwordTrail.Init();
+        SwordTrail.Deactivate();
+
         currentId += 1;
         id = currentId;
     }

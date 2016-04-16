@@ -20,7 +20,7 @@ namespace Assets.MovementPrototype.Character.States.AttackStates.Down
         public override void Exit(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {
             base.Exit(lastStateName, nextStateName, additionalDeltaTime, args);
-            Character.swordTrail.Deactivate();
+            Character.SwordTrail.Deactivate();
         }
 
         public override void PreUpdate()

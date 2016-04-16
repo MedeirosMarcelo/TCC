@@ -12,13 +12,13 @@ namespace Assets.MovementPrototype.Character.States.AttackStates.Left
             totalTime = 0.1f;
             damage = 1;
         }
-
+        
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
             Character.animator.SetFloat("Speed", 1f / totalTime);
             Character.animator.Play("Swing");
-            Character.swordTrail.Activate();
+            Character.SwordTrail.Activate();
         }
 
         public override void FixedUpdate()

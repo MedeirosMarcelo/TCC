@@ -18,7 +18,7 @@ namespace Assets.MovementPrototype.Character.States.AttackStates.Right
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
             Character.animator.SetFloat("Speed", 1f / totalTime);
             Character.animator.Play("RightSwing");
-            Character.swordTrail.Activate();
+            Character.SwordTrail.Activate();
         }
 
         public override void FixedUpdate()
