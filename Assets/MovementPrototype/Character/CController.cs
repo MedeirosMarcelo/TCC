@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
 
 public enum PlayerIndex : int
@@ -23,6 +24,7 @@ public class CController : MonoBehaviour
     public Rigidbody rbody { get; private set; }
     public CFsm fsm { get; private set; }
     public Animator animator { get; private set; }
+    public Xft.XWeaponTrail Trail { get; private set; }
 
     float maxTurnSpeed = Mathf.PI / 30;
     MeshRenderer mesh;
@@ -30,10 +32,20 @@ public class CController : MonoBehaviour
     public void Awake()
     {
         input = new GamePadInput(joystick);
-        rbody = GetComponent<Rigidbody>();
         fsm = new CFsm(this);
+
+        rbody = GetComponent<Rigidbody>();
+        Assert.IsNotNull(rbody);
         animator = GetComponent<Animator>();
+        Assert.IsNotNull(animator);
         mesh = transform.Find("Model").GetComponent<MeshRenderer>();
+        Assert.IsNotNull(mesh);
+
+        Trail = transform.Find("Sword").Find("X-WeaponTrail").GetComponent<Xft.XWeaponTrail>();
+        Assert.IsNotNull(Trail);
+        Trail.Init();
+        Trail.Deactivate();
+
         currentId += 1;
         id = currentId;
     }
