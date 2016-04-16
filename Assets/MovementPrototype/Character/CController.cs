@@ -38,10 +38,11 @@ public class CController : MonoBehaviour
         Assert.IsNotNull(rbody);
         animator = GetComponent<Animator>();
         Assert.IsNotNull(animator);
-        mesh = transform.Find("Model").GetComponent<MeshRenderer>();
+        mesh = transform.FindChild("Model").GetComponent<MeshRenderer>();
         Assert.IsNotNull(mesh);
 
-        Trail = transform.Find("Sword").Find("X-WeaponTrail").GetComponent<Xft.XWeaponTrail>();
+        //Trail init
+        Trail = transform.FindChild("Sword").FindChild("X-WeaponTrail").GetComponent<Xft.XWeaponTrail>();
         Assert.IsNotNull(Trail);
         Trail.Init();
         Trail.Deactivate();
