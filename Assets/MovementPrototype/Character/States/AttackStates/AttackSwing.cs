@@ -4,7 +4,7 @@ public abstract class AttackSwing : AnimatedState
 {
     public int Damage { get; protected set; }
     public float Speed { get; protected set; }
-    public AttackSwing(CFsm fsm) : base(fsm)
+    public AttackSwing(CharFsm fsm) : base(fsm)
     {
         Speed = 2f;
     }

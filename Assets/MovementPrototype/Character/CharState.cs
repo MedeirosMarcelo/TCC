@@ -1,17 +1,16 @@
-﻿using Assets.MovementPrototype.Character.States.AttackStates;
-using UnityEngine;
+﻿using UnityEngine;
 
-public abstract class CState : BaseState
+public abstract class CharState : BaseState
 {
-    public CController Character { get; protected set; }
+    public CharController Character { get; protected set; }
     public BaseInput Input { get; protected set; }
     public Rigidbody Rigidbody { get; protected set; }
     public Transform Transform { get; protected set; }
 
-    public CState(BaseFsm fsm, CController character)
+    public CharState(CharFsm fsm)
     {
         Fsm = fsm;
-        Character = character;
+        Character = fsm.Character;
         Input = Character.input;
         Rigidbody = Character.rbody;
         Transform = Character.transform;
@@ -21,7 +20,7 @@ public abstract class CState : BaseState
     {
         if (collider.name == "Sword")
         {
-            var otherCharacter = collider.transform.parent.GetComponent<CController>();
+            var otherCharacter = collider.transform.parent.GetComponent<CharController>();
             if (!ReferenceEquals(Character, otherCharacter))
             {
                 var attackerState = otherCharacter.fsm.Current as AttackSwing;

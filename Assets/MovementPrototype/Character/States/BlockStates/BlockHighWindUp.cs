@@ -5,7 +5,7 @@ namespace Assets.MovementPrototype.Character.States.BlockStates
     public class BlockHighWindUp : BlockState
     {
         const float speed = 1f;
-        public BlockHighWindUp(CFsm fsm) : base(fsm)
+        public BlockHighWindUp(CharFsm fsm) : base(fsm)
         {
             Name = "BLOCK/HIGH/WINDUP";
             nextState = "BLOCK/HIGH/SWING";

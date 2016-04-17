@@ -3,7 +3,7 @@
     public class DownHeavyWindUp : AttackWindUp
     {
         const float speed = 1f;
-        public DownHeavyWindUp(CFsm fsm) : base(fsm)
+        public DownHeavyWindUp(CharFsm fsm) : base(fsm)
         {
             Name = "DOWN/HEAVY/WINDUP";
             nextState = "DOWN/HEAVY/SWING";
@@ -14,7 +14,7 @@
     public class DownHeavySwing : AttackSwing
     {
         const float speed = 2f;
-        public DownHeavySwing(CFsm fsm) : base(fsm)
+        public DownHeavySwing(CharFsm fsm) : base(fsm)
         {
             Name = "DOWN/HEAVY/SWING";
             nextState = "DOWN/HEAVY/RECOVER";
@@ -25,7 +25,7 @@
     }
     public class DownHeavyRecover : AttackRecover
     {
-        public DownHeavyRecover(CFsm fsm) : base(fsm)
+        public DownHeavyRecover(CharFsm fsm) : base(fsm)
         {
             Name = "DOWN/HEAVY/RECOVER";
             nextState = "MOVEMENT";

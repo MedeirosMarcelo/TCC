@@ -2,11 +2,11 @@
 
 namespace Assets.MovementPrototype.Character.States.BlockStates
 {
-    public abstract class BlockState : CState
+    public abstract class BlockState : CharState
     {
         string previousState;
 
-        public BlockState(CFsm fsm) : base(fsm, fsm.Character)
+        public BlockState(CharFsm fsm) : base(fsm)
         {
         }
 

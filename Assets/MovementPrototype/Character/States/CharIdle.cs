@@ -2,9 +2,9 @@
 
 namespace Assets.MovementPrototype.Character.States
 {
-    public class CIdle : CState
+    public class CharIdle : CharState
     {
-        public CIdle(CFsm fsm) : base(fsm, fsm.Character)
+        public CharIdle(CharFsm fsm) : base(fsm)
         {
             Name = "IDLE";
         }

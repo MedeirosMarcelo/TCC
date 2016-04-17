@@ -16,7 +16,7 @@ public enum CharacterType {
 
 public class GameManager : MonoBehaviour {
 
-    public IList<CController> characterList = new List<CController>();
+    public IList<CharController> characterList = new List<CharController>();
     public byte maxScore = 5;
     public float roundClock;
     //public Map currentMap;
@@ -76,13 +76,13 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public GameObject SpawnCharacter(CController cController, Vector3 position) {
+    public GameObject SpawnCharacter(CharController cController, Vector3 position) {
         //GameObject pl = (GameObject)Instantiate(GetCharacterPrefab(cController.type), position, transform.rotation);
         //characterList.Add(player.Character);
         return null;//pl;
     }
 
-    public void RemoveCharacter(CController character) {
+    public void RemoveCharacter(CharController character) {
 
     }
 

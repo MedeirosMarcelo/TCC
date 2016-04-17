@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Assertions;
 
-public class COverride : MonoBehaviour
+public class CharOverride : MonoBehaviour
 {
 #if UNITY_EDITOR
 
@@ -19,14 +19,14 @@ public class COverride : MonoBehaviour
     [Header("F10 toggle Action")]
     public Action action;
 
-    CController character;
+    CharController character;
     Transform Transform { get { return character.transform; } }
     BaseFsm Fsm { get { return character.fsm; } }
     IState Current { get { return Fsm.Current; } }
 
     void Start()
     {
-        character = gameObject.GetComponent<CController>();
+        character = gameObject.GetComponent<CharController>();
         Assert.IsNotNull(character);
 
     }

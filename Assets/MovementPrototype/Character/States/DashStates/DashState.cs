@@ -1,28 +1,21 @@
-﻿using Assets.MovementPrototype.Character.States;
-using UnityEngine;
+﻿using UnityEngine.Assertions;
 
-public class DashState : CState
+namespace Assets.MovementPrototype.Character.States.DashStates
 {
-    public DashFsm DashFsm { get; protected set; }
-
-    public DashState(DashFsm fsm) : base (fsm, fsm.Character)
+    public class DashState : ProxyState
     {
-        Fsm = fsm;
-        DashFsm = fsm;
-    }
-    public override void FixedUpdate()
-    {
-        base.FixedUpdate();
-        Character.Look();
-    }
-    public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
-    {
-        base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
-        Character.ApplyDodgeMaterial();
-    }
-    public override void Exit(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
-    {
-        base.Exit(lastStateName, nextStateName, additionalDeltaTime, args);
-        Character.ApplyBaseMaterial();
+        const float speed = 16f;
+        public DashState(CharFsm fsm) : base(fsm)
+        {
+            Name = "DASH";
+        }
+        public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
+        {
+            Assert.IsTrue(args.Length == 1);
+            var evt = args[0] as InputEvent.Dash;
+            Assert.IsNotNull(evt);
+            Character.DashVelocity = evt.Move.vector.normalized * speed;
+            Fsm.ChangeState("DASH/ACCEL");
+        }
     }
 }

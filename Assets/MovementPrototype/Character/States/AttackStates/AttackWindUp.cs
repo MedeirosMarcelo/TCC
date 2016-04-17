@@ -3,7 +3,7 @@
 public abstract class AttackWindUp : AnimatedState
 {
     public float Speed { get; protected set; }
-    public AttackWindUp(CFsm fsm) : base(fsm)
+    public AttackWindUp(CharFsm fsm) : base(fsm)
     {
         Speed = 1f;
     }

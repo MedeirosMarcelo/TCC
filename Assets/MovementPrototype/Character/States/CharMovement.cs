@@ -2,7 +2,7 @@
 
 namespace Assets.MovementPrototype.Character.States
 {
-    public class CMovement : CState
+    public class CharMovement : CharState
     {
         public const float minVelocity = 0.25f;
         public float maxAcceleration = 2f;
@@ -10,8 +10,7 @@ namespace Assets.MovementPrototype.Character.States
         public float lockTurnRate = 1f;
         public Vector3 velocity;
 
-        public CMovement(CFsm fsm)
-            : base(fsm, fsm.Character)
+        public CharMovement(CharFsm fsm) : base(fsm)
         {
             Name = "MOVEMENT";
         }

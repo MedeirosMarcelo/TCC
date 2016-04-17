@@ -1,6 +1,6 @@
 ﻿public abstract class AttackRecover : AnimatedState
 {
-    public AttackRecover(CFsm fsm) : base(fsm)
+    public AttackRecover(CharFsm fsm) : base(fsm)
     {
     }
     public override void Exit(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)

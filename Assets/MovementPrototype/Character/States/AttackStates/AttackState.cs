@@ -5,7 +5,7 @@ namespace Assets.MovementPrototype.Character.States.AttackStates
 {
     public class AttackState : ProxyState
     {
-        public AttackState(CFsm fsm) : base(fsm)
+        public AttackState(CharFsm fsm) : base(fsm)
         {
             Name = "ATTACK";
         }

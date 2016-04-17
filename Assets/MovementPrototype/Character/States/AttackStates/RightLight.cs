@@ -2,7 +2,7 @@
 {
     public class RightWindUp : AttackWindUp 
     {
-        public RightWindUp(CFsm fsm) : base(fsm)
+        public RightWindUp(CharFsm fsm) : base(fsm)
         {
             Name = "RIGHT/LIGHT/WINDUP";
             nextState = "RIGHT/LIGHT/SWING";
@@ -12,7 +12,7 @@
     }
     public class RightSwing : AttackSwing
     {
-        public RightSwing(CFsm fsm) : base(fsm)
+        public RightSwing(CharFsm fsm) : base(fsm)
         {
             Name = "RIGHT/LIGHT/SWING";
             nextState = "RIGHT/LIGHT/RECOVER";
@@ -23,7 +23,7 @@
     }
     public class RightRecover : AttackRecover
     {
-        public RightRecover(CFsm fsm) : base(fsm)
+        public RightRecover(CharFsm fsm) : base(fsm)
         {
             Name = "RIGHT/LIGHT/RECOVER";
             nextState = "MOVEMENT"; 

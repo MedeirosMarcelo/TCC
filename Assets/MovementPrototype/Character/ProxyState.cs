@@ -2,9 +2,9 @@
 using UnityEngine;
 using UnityEngine.Assertions;
 
-public abstract class ProxyState : CState
+public abstract class ProxyState : CharState
 {
-    public ProxyState(CFsm fsm): base(fsm, fsm.Character)
+    public ProxyState(CharFsm fsm): base(fsm)
     {
     }
     public sealed override void PreUpdate()

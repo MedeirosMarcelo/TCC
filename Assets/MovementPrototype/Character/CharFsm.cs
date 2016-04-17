@@ -1,14 +1,15 @@
 ﻿using System;
 using UnityEngine;
 
-public class CFsm : BaseFsm
+public class CharFsm : BaseFsm
 {
-    public CController Character { get; protected set; }
-    public CFsm(CController character) : base()
+    public CharController Character { get; protected set; }
+    public CharFsm(CharController character) : base()
     {
         Character = character;
-        StateLoader<CFsm> loader = new StateLoader<CFsm>();
+        StateLoader<CharFsm> loader = new StateLoader<CharFsm>();
         loader.LoadStates(this, "Assets.MovementPrototype.Character.States");
+        loader.LoadStates(this, "Assets.MovementPrototype.Character.States.DashStates");
         loader.LoadStates(this, "Assets.MovementPrototype.Character.States.BlockStates");
         loader.LoadStates(this, "Assets.MovementPrototype.Character.States.AttackStates");
         Current = dict["MOVEMENT"];

@@ -9,7 +9,7 @@ public enum PlayerIndex : int
     Two = 2,
 }
 
-public class CController : MonoBehaviour
+public class CharController : MonoBehaviour
 {
     public PlayerIndex joystick = PlayerIndex.One;
     public bool canControl = true;
@@ -20,26 +20,29 @@ public class CController : MonoBehaviour
     public Material baseMaterial;
     public Material dodgeMaterial;
     public GameObject blockSpark;
+
     public BaseInput input { get; private set; }
     public Rigidbody rbody { get; private set; }
-    public CFsm fsm { get; private set; }
+    public CharFsm fsm { get; private set; }
     public Animator animator { get; private set; }
     public Xft.XWeaponTrail SwordTrail { get; private set; }
+    public MeshRenderer Mesh { get; private set; }
+    // Dash state data
+    public Vector3 DashVelocity { get; set; }
 
-    MeshRenderer mesh;
     float maxTurnSpeed = Mathf.PI / 30;
 
     public void Awake()
     {
         input = new GamePadInput(joystick);
-        fsm = new CFsm(this);
+        fsm = new CharFsm(this);
 
         rbody = GetComponent<Rigidbody>();
         Assert.IsNotNull(rbody);
         animator = GetComponent<Animator>();
         Assert.IsNotNull(animator);
-        mesh = transform.FindChild("Model").GetComponent<MeshRenderer>();
-        Assert.IsNotNull(mesh);
+        Mesh = transform.FindChild("Model").GetComponent<MeshRenderer>();
+        Assert.IsNotNull(Mesh);
         //Trail init
         SwordTrail = transform.FindChild("Sword").FindChild("X-WeaponTrail").GetComponent<Xft.XWeaponTrail>();
         Assert.IsNotNull(SwordTrail);
@@ -138,12 +141,12 @@ public class CController : MonoBehaviour
 
     public void ApplyBaseMaterial()
     {
-        mesh.material = baseMaterial;
+        Mesh.material = baseMaterial;
     }
 
     public void ApplyDodgeMaterial()
     {
-        mesh.material = dodgeMaterial;
+        Mesh.material = dodgeMaterial;
     }
 
     public void ShowBlockSpark(Vector3 position)

@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-public abstract class AnimatedState : CState
+public abstract class AnimatedState : CharState
 {
     public string Animation { get; protected set; }
-    public AnimatedState(CFsm fsm) : base(fsm, fsm.Character)
+    public AnimatedState(CharFsm fsm) : base(fsm)
     {
     }
     public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)

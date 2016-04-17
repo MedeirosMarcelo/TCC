@@ -6,7 +6,7 @@ namespace Assets.MovementPrototype.Character.States.BlockStates
     public class BlockHighSwing : BlockState
     {
         const float speed = 2f;
-        public BlockHighSwing(CFsm fsm) : base(fsm)
+        public BlockHighSwing(CharFsm fsm) : base(fsm)
         {
             Name = "BLOCK/HIGH/SWING";
             nextState = "BLOCK/HIGH/RECOVER";
@@ -23,7 +23,7 @@ namespace Assets.MovementPrototype.Character.States.BlockStates
         {
             if (collider.name == "Sword")
             {
-                var otherCharacter = collider.transform.parent.GetComponent<CController>();
+                var otherCharacter = collider.transform.parent.GetComponent<CharController>();
                 if (!ReferenceEquals(Character, otherCharacter))
                 {
                     var attackerState = otherCharacter.fsm.Current as AttackSwing;

@@ -4,7 +4,7 @@ using System.Collections;
 public class SwordController : MonoBehaviour {
 
     public int controller = 1;
-    public CController charController;
+    public CharController charController;
     public bool autoAttack;
     BoxCollider boxCollider;
     Animator animator;

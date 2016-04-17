@@ -2,7 +2,7 @@
 {
     public class DownWindUp : AttackWindUp
     {
-        public DownWindUp(CFsm fsm) : base(fsm)
+        public DownWindUp(CharFsm fsm) : base(fsm)
         {
             Name = "DOWN/LIGHT/WINDUP";
             nextState = "DOWN/LIGHT/SWING";
@@ -12,7 +12,7 @@
     }
     public class DownSwing : AttackSwing
     {
-        public DownSwing(CFsm fsm) : base(fsm)
+        public DownSwing(CharFsm fsm) : base(fsm)
         {
             Name = "DOWN/LIGHT/SWING";
             nextState = "DOWN/LIGHT/RECOVER";
@@ -23,7 +23,7 @@
     }
     public class DownRecover : AttackRecover
     {
-        public DownRecover(CFsm fsm) : base(fsm)
+        public DownRecover(CharFsm fsm) : base(fsm)
         {
             Name = "DOWN/LIGHT/RECOVER";
             nextState = "MOVEMENT";

@@ -2,11 +2,11 @@
 
 namespace Assets.MovementPrototype.Character.States
 {
-    public class Lock : CMovement
+    public class Lock : CharMovement
     {
         float moveSpeed = 3.5f;
 
-        public Lock(CFsm fsm) : base(fsm)
+        public Lock(CharFsm fsm) : base(fsm)
         {
             Name = "LOCK";
         }

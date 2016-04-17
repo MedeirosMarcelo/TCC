@@ -2,11 +2,11 @@
 
 namespace Assets.MovementPrototype.Character.States
 {
-    public class Run : CMovement
+    public class Run : CharMovement
     {
         float moveSpeed = 6f;
 
-        public Run(CFsm fsm) : base(fsm)
+        public Run(CharFsm fsm) : base(fsm)
         {
             Name = "RUN";
         }
