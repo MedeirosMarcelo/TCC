@@ -10,6 +10,7 @@ public class CFsm : BaseFsm
         StateLoader<CFsm> loader = new StateLoader<CFsm>();
         loader.LoadStates(this, "Assets.MovementPrototype.Character.States");
         loader.LoadStates(this, "Assets.MovementPrototype.Character.States.BlockStates");
+        loader.LoadStates(this, "Assets.MovementPrototype.Character.States.AttackStates");
         Current = dict["MOVEMENT"];
     }
 

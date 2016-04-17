@@ -1,4 +1,4 @@
-﻿using Assets.MovementPrototype.Character.States;
+﻿using Assets.MovementPrototype.Character.States.AttackStates;
 using UnityEngine;
 
 public abstract class CState : BaseState
@@ -24,12 +24,11 @@ public abstract class CState : BaseState
             var otherCharacter = collider.transform.parent.GetComponent<CController>();
             if (!ReferenceEquals(Character, otherCharacter))
             {
-                var attackerFsm = otherCharacter.fsm.Current as AttackFsm;
-                var attackerState = attackerFsm.Current as AttackState;
-                if (attackerState != null && (attackerState.damage > 0))
+                var attackerState = otherCharacter.fsm.Current as AttackSwing;
+                if (attackerState != null)
                 {
                     Character.bloodAnimator.SetTrigger("Bleed");
-                    Character.ReceiveDamage(attackerState.damage);
+                    Character.ReceiveDamage(attackerState.Damage);
                 }
             }
         }

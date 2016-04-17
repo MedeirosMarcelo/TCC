@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Assertions;
 using System.Collections.Generic;
 
 public abstract class BaseFsm : IState
@@ -17,6 +18,7 @@ public abstract class BaseFsm : IState
 
     public void AddState(IState state)
     {
+        Assert.IsNotNull(state.Name, "State doesnt have a Name: " + state.GetType());
         dict.Add(state.Name, state);
     }
 
@@ -27,6 +29,7 @@ public abstract class BaseFsm : IState
 
     public virtual void ChangeState(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
     {
+        Assert.IsTrue(dict.ContainsKey(nextStateName), "Unknown next state: " + nextStateName);
         Current.Exit(lastStateName, nextStateName, additionalDeltaTime, args);
         Current = dict[nextStateName];
         Current.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
