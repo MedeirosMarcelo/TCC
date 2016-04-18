@@ -8,16 +8,18 @@ public class CharOverride : MonoBehaviour
 
     public enum Action
     {
-        ATTACK,
+        ATTACKMID,
+        ATTACKHIGH,
         DASH,
-        BLOCK
+        BLOCKMID,
+        BLOCKHIGH
     };
 
     [Header("F9 Enable/Disable")]
     public bool Enable = false;
 
     [Header("F10 toggle Action")]
-    public Action action;
+    public Action action = Action.ATTACKMID;
 
     CharController character;
     Transform Transform { get { return character.transform; } }
@@ -35,8 +37,18 @@ public class CharOverride : MonoBehaviour
     {
         switch (action)
         {
-            case Action.ATTACK:
-                if (Current.Name == "IDLE")
+            case Action.ATTACKMID:
+                if (Current.Name == "LOCK")
+                {
+                    var stick = new Stick();
+                    stick.horizontal = Transform.forward.x + 1f;
+                    stick.vertical = Transform.forward.z;
+                    var evt = new InputEvent.Attack(stick);
+                    Fsm.ChangeState("ATTACK", 0f, evt);
+                }
+                break;
+            case Action.ATTACKHIGH:
+                if (Current.Name == "LOCK")
                 {
                     var stick = new Stick();
                     stick.horizontal = Transform.forward.x;
@@ -46,7 +58,7 @@ public class CharOverride : MonoBehaviour
                 }
                 break;
             case Action.DASH:
-                if (Current.Name == "IDLE")
+                if (Current.Name == "LOCK")
                 {
                     var stick = new Stick();
                     stick.horizontal = Transform.forward.x;
@@ -55,10 +67,16 @@ public class CharOverride : MonoBehaviour
                     Fsm.ChangeState("DASH", 0f, evt);
                 }
                 break;
-            case Action.BLOCK:
-                if (Current.Name == "IDLE")
+            case Action.BLOCKMID:
+                if (Current.Name == "LOCK")
                 {
-                    Fsm.ChangeState("BLOCK/WINDUP");
+                    Fsm.ChangeState("BLOCK/MID/WINDUP");
+                }
+                break;
+            case Action.BLOCKHIGH:
+                if (Current.Name == "LOCK")
+                {
+                    Fsm.ChangeState("BLOCK/HIGH/WINDUP");
                 }
                 break;
         }

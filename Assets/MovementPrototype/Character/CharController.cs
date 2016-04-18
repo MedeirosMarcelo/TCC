@@ -27,9 +27,12 @@ public class CharController : MonoBehaviour
     public Animator animator { get; private set; }
     public Xft.XWeaponTrail SwordTrail { get; private set; }
     public MeshRenderer Mesh { get; private set; }
+    public CapsuleCollider AttackCollider { get; private set; }
+    public BoxCollider BlockMidCollider { get; private set; }
+    public BoxCollider BlockHighCollider { get; private set; }
     // Dash state data
     public Vector3 DashVelocity { get; set; }
-
+    public string MovementState { get; set; }
     float maxTurnSpeed = Mathf.PI / 30;
 
     public void Awake()
@@ -41,11 +44,17 @@ public class CharController : MonoBehaviour
         Assert.IsNotNull(rbody);
         animator = GetComponent<Animator>();
         Assert.IsNotNull(animator);
-        Mesh = transform.FindChild("Model").GetComponent<MeshRenderer>();
+        Mesh = transform.Find("Model").GetComponent<MeshRenderer>();
         Assert.IsNotNull(Mesh);
         //Trail init
-        SwordTrail = transform.FindChild("Sword").FindChild("X-WeaponTrail").GetComponent<Xft.XWeaponTrail>();
+        SwordTrail = transform.Find("Sword").Find("X-WeaponTrail").GetComponent<Xft.XWeaponTrail>();
         Assert.IsNotNull(SwordTrail);
+        AttackCollider = transform.Find("Sword").Find("Attack Collider").GetComponent<CapsuleCollider>();
+        Assert.IsNotNull(AttackCollider);
+        BlockMidCollider = transform.Find("Sword").Find("Block Mid Collider").GetComponent<BoxCollider>();
+        Assert.IsNotNull(BlockMidCollider);
+        BlockHighCollider = transform.Find("Sword").Find("Block High Collider").GetComponent<BoxCollider>();
+        Assert.IsNotNull(BlockHighCollider);
         SwordTrail.Init();
         SwordTrail.Deactivate();
 

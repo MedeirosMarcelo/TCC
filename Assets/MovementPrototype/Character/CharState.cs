@@ -18,9 +18,9 @@ public abstract class CharState : BaseState
 
     public override void OnTriggerEnter(Collider collider)
     {
-        if (collider.name == "Sword")
+        if (collider.name == "Attack Collider")
         {
-            var otherCharacter = collider.transform.parent.GetComponent<CharController>();
+            var otherCharacter = collider.transform.parent.parent.GetComponent<CharController>();
             if (!ReferenceEquals(Character, otherCharacter))
             {
                 var attackerState = otherCharacter.fsm.Current as AttackSwing;
@@ -35,4 +35,3 @@ public abstract class CharState : BaseState
         base.OnTriggerEnter(collider);
     }
 }
-

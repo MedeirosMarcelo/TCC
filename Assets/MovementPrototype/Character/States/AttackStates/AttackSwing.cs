@@ -12,7 +12,15 @@ public abstract class AttackSwing : AnimatedState
     {
         base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
         Character.SwordTrail.Activate();
+        Character.AttackCollider.enabled = true;
     }
+
+    public override void Exit(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
+    {
+        base.Exit(lastStateName, nextStateName, additionalDeltaTime, args);
+        Character.AttackCollider.enabled = false;
+    }
+
     public override void FixedUpdate()
     {
         base.FixedUpdate();

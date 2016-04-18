@@ -14,6 +14,7 @@ namespace Assets.MovementPrototype.Character.States
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
+            Character.MovementState = Name;
         }
 
         public override void PreUpdate()
@@ -31,6 +32,11 @@ namespace Assets.MovementPrototype.Character.States
             {
                 Input.buffer.Pop<InputEvent.BlockMid>();
                 Fsm.ChangeState("BLOCK/MID/WINDUP");
+            }
+            else if (Input.buffer.NextEventIs<InputEvent.BlockHigh>())
+            {
+                Input.buffer.Pop<InputEvent.BlockHigh>();
+                Fsm.ChangeState("BLOCK/HIGH/WINDUP");
             }
             else if (Input.buffer.NextEventIs<InputEvent.Dash>())
             {

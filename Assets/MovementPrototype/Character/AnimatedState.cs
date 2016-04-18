@@ -13,4 +13,3 @@ public abstract class AnimatedState : CharState
         Character.animator.Play(Animation);
     }
 }
-

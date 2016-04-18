@@ -26,7 +26,7 @@
         public RightRecover(CharFsm fsm) : base(fsm)
         {
             Name = "RIGHT/LIGHT/RECOVER";
-            nextState = "MOVEMENT"; 
+            nextState = "MOVEMENT";
             totalTime = 0.2f;
             Animation = "RightRecover";
         }

@@ -7,7 +7,7 @@
             Name = "LEFT/LIGHT/WINDUP";
             nextState = "LEFT/LIGHT/SWING";
             totalTime = 0.2f;
-            Animation = "Windup";
+            Animation = "LeftWindup";
         }
     }
     public class LeftSwing : AttackSwing
@@ -18,7 +18,7 @@
             nextState = "LEFT/LIGHT/RECOVER";
             totalTime = 0.1f;
             Damage = 1;
-            Animation = "Swing";
+            Animation = "LeftSwing";
         }
     }
     public class LeftRecover : AttackRecover
@@ -28,7 +28,7 @@
             Name = "LEFT/LIGHT/RECOVER";
             nextState = "MOVEMENT";
             totalTime = 0.2f;
-            Animation = "Recover";
+            Animation = "LeftRecover";
         }
     }
 }
