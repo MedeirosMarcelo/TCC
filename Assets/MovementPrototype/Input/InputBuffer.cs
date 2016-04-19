@@ -21,12 +21,14 @@ public abstract class InputEvent
             this.isHeavy = isHeavy;
         }
     }
-    public class HeavyAttack : InputEvent
+    public class Lunge : InputEvent
     {
         public Stick Move { get; private set; }
-        public HeavyAttack(Stick move)
+        public bool isHeavy { get; private set; }
+        public Lunge(Stick move, bool isHeavy = false)
         {
             Move = move;
+            this.isHeavy = isHeavy;
         }
     }
     public class BlockMid : InputEvent

@@ -4,9 +4,11 @@ public abstract class AttackSwing : AnimatedState
 {
     public int Damage { get; protected set; }
     public float Speed { get; protected set; }
+    public SwordStance nextStance { get; protected set; }
     public AttackSwing(CharFsm fsm) : base(fsm)
     {
         Speed = 2f;
+        nextStance = SwordStance.Right;
     }
     public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
     {
@@ -19,6 +21,7 @@ public abstract class AttackSwing : AnimatedState
     {
         base.Exit(lastStateName, nextStateName, additionalDeltaTime, args);
         Character.AttackCollider.enabled = false;
+        Character.Stance = nextStance;
     }
 
     public override void FixedUpdate()

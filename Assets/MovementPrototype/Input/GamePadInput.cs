@@ -57,6 +57,9 @@ public class GamePadInput : BaseInput
         var heavyAttacked = state.Buttons.X == ButtonState.Pressed
                      && lastState.Buttons.X == ButtonState.Released;
 
+        var lunged = state.Buttons.A == ButtonState.Pressed
+                     && lastState.Buttons.A == ButtonState.Released;
+
         var blockedMid = state.Triggers.Right > triggerThreshold
               && (lastState.Triggers.Right <= triggerThreshold);
 
@@ -66,6 +69,7 @@ public class GamePadInput : BaseInput
         dash |= dashed;
         attack |= attacked;
         heavyAttack |= heavyAttacked;
+        lunge |= lunged;
         blockMid |= blockedMid;
         blockHigh |= blockedHigh;
 
@@ -88,6 +92,10 @@ public class GamePadInput : BaseInput
         else if (blockedHigh)
         {
             buffer.Push(new InputEvent.BlockHigh());
+        }
+        else if (lunged)
+        {
+            buffer.Push(new InputEvent.Lunge(move));
         }
     }
 

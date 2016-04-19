@@ -11,6 +11,7 @@
             Animation = "DownWindup";
         }
     }
+
     public class DownHeavySwing : AttackSwing
     {
         const float speed = 2f;
@@ -21,8 +22,10 @@
             totalTime = 0.2f;
             Damage = 2;
             Animation = "DownSwing";
-        }
+            nextStance = SwordStance.High;
+         }
     }
+
     public class DownHeavyRecover : AttackRecover
     {
         public DownHeavyRecover(CharFsm fsm) : base(fsm)

@@ -42,7 +42,29 @@ namespace Assets.MovementPrototype.Character.States
                 {
                     // Calculate how fast we should be moving
                     var inputVelocity = Input.move.vector * speed;
-                    // Calcualte the delta velocity
+                    // Calculate the delta velocity
+                    var velocityChange = inputVelocity - velocity;
+                    velocityChange.y = 0;
+                    // Limit acceleration
+                    if (velocityChange.magnitude > maxAcceleration)
+                    {
+                        velocityChange = velocityChange.normalized * maxAcceleration;
+                    }
+                    velocity += velocityChange;
+                    Character.Move(Transform.position + (velocity * Time.fixedDeltaTime));
+                }
+            }
+        }
+
+        public void MoveRun(float speed = 4f)
+        {
+            if (Character.input.move.vector.magnitude > 0.25)
+            {
+                if (Input.move.isActive)
+                {
+                    // Calculate how fast we should be moving
+                    var inputVelocity = Input.move.vector * speed;
+                    // Calculate the delta velocity
                     var velocityChange = inputVelocity - velocity;
                     velocityChange.y = 0;
                     // Limit acceleration

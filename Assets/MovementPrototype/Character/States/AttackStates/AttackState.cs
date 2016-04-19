@@ -54,11 +54,24 @@ namespace Assets.MovementPrototype.Character.States.AttackStates
             {
                 if (evt.isHeavy)
                 {
-                    Fsm.ChangeState("RIGHT/HEAVY/WINDUP", additionalDeltaTime);
+                    if (Character.Stance == SwordStance.Left)
+                    {
+                        Fsm.ChangeState("LEFT/HEAVY/WINDUP", additionalDeltaTime);
+                    }
+                    else {
+                        Fsm.ChangeState("RIGHT/HEAVY/WINDUP", additionalDeltaTime);
+                    }
                 }
                 else
                 {
-                    Fsm.ChangeState("RIGHT/LIGHT/WINDUP", additionalDeltaTime);
+                    if (Character.Stance == SwordStance.Left)
+                    {
+                        Fsm.ChangeState("LEFT/LIGHT/WINDUP", additionalDeltaTime);
+                    }
+                    else
+                    {
+                        Fsm.ChangeState("RIGHT/LIGHT/WINDUP", additionalDeltaTime);
+                    }
                 }
             }
         }

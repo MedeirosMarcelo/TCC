@@ -8,6 +8,13 @@ public enum PlayerIndex : int
     One = 1,
     Two = 2,
 }
+public enum SwordStance
+{
+    Left,
+    Right,
+    High
+}
+
 
 public class CharController : MonoBehaviour
 {
@@ -33,6 +40,7 @@ public class CharController : MonoBehaviour
     // Dash state data
     public Vector3 DashVelocity { get; set; }
     public string MovementState { get; set; }
+    public SwordStance Stance { get; set; }
     float maxTurnSpeed = Mathf.PI / 30;
 
     public void Awake()
@@ -40,6 +48,7 @@ public class CharController : MonoBehaviour
         input = new GamePadInput(joystick);
         fsm = new CharFsm(this);
 
+        Stance = SwordStance.Right;
         rbody = GetComponent<Rigidbody>();
         Assert.IsNotNull(rbody);
         animator = GetComponent<Animator>();
@@ -114,7 +123,6 @@ public class CharController : MonoBehaviour
                 (target.transform.position - transform.position).normalized,
                 maxTurnSpeed * lockTurnRate,
                 1f);
-
         }
     }
 

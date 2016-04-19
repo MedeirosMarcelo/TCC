@@ -10,6 +10,7 @@
             Animation = "DownWindup";
         }
     }
+
     public class DownSwing : AttackSwing
     {
         public DownSwing(CharFsm fsm) : base(fsm)
@@ -19,8 +20,10 @@
             totalTime = 0.1f;
             Damage = 1;
             Animation = "DownSwing";
+            nextStance = SwordStance.High;
         }
     }
+
     public class DownRecover : AttackRecover
     {
         public DownRecover(CharFsm fsm) : base(fsm)

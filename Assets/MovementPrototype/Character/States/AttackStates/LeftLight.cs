@@ -10,6 +10,7 @@
             Animation = "LeftWindup";
         }
     }
+
     public class LeftSwing : AttackSwing
     {
         public LeftSwing(CharFsm fsm) : base(fsm)
@@ -19,8 +20,10 @@
             totalTime = 0.1f;
             Damage = 1;
             Animation = "LeftSwing";
+            nextStance = SwordStance.Right;
         }
     }
+
     public class LeftRecover : AttackRecover
     {
         public LeftRecover(CharFsm fsm) : base(fsm)

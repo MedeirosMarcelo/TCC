@@ -28,6 +28,11 @@ namespace Assets.MovementPrototype.Character.States
                 var evt = Input.buffer.Pop<InputEvent.Attack>();
                 Fsm.ChangeState("ATTACK", 0f, evt);
             }
+            else if (Input.buffer.NextEventIs<InputEvent.Lunge>())
+            {
+                var evt = Input.buffer.Pop<InputEvent.Lunge>();
+                Fsm.ChangeState("LUNGE/LIGHT/WINDUP", 0f, evt);
+            }
             else if (Input.buffer.NextEventIs<InputEvent.BlockMid>())
             {
                 Input.buffer.Pop<InputEvent.BlockMid>();
