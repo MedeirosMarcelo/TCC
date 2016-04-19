@@ -3,9 +3,8 @@ using UnityEngine;
 
 namespace Assets.MovementPrototype.Character.States.BlockStates
 {
-    public class BlockHighSwing : BlockState
+    public class BlockHighSwing : BlockBase
     {
-        const float speed = 2f;
         public BlockHighSwing(CharFsm fsm) : base(fsm)
         {
             Name = "BLOCK/HIGH/SWING";

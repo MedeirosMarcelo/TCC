@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Assets.MovementPrototype.Character.States
+﻿namespace Assets.MovementPrototype.Character.States
 {
     public class DownLightStagger : AnimatedState
     {
@@ -16,8 +14,6 @@ namespace Assets.MovementPrototype.Character.States
         {
             Character.SwordTrail.Deactivate();
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
-            Character.animator.SetFloat("Speed", 1f / totalTime);
-            Character.animator.Play(Animation);
         }
     }
 }

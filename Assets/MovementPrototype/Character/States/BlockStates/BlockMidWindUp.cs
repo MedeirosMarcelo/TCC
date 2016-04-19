@@ -2,7 +2,7 @@
 
 namespace Assets.MovementPrototype.Character.States.BlockStates
 {
-    public class BlockMidWindUp : BlockState
+    public class BlockMidWindUp : BlockBase
     {
         const float speed = 1f;
         public BlockMidWindUp(CharFsm fsm) : base(fsm)

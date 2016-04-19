@@ -38,27 +38,21 @@ public class CharOverride : MonoBehaviour
         switch (action)
         {
             case Action.ATTACKMID:
-                if (Current.Name == "LOCK")
+                if (Current.Name == "MOVEMENT/LOCK")
                 {
-                    var stick = new Stick();
-                    stick.horizontal = Transform.forward.x + 1f;
-                    stick.vertical = Transform.forward.z;
-                    var evt = new InputEvent.Attack(stick);
+                    var evt = new InputEvent.Attack();
                     Fsm.ChangeState("ATTACK", 0f, evt);
                 }
                 break;
             case Action.ATTACKHIGH:
-                if (Current.Name == "LOCK")
+                if (Current.Name == "MOVEMENT/LOCK")
                 {
-                    var stick = new Stick();
-                    stick.horizontal = Transform.forward.x;
-                    stick.vertical = Transform.forward.z;
-                    var evt = new InputEvent.Attack(stick);
+                    var evt = new InputEvent.Attack(isHigh: true);
                     Fsm.ChangeState("ATTACK", 0f, evt);
                 }
                 break;
             case Action.DASH:
-                if (Current.Name == "LOCK")
+                if (Current.Name == "MOVEMENT/LOCK")
                 {
                     var stick = new Stick();
                     stick.horizontal = Transform.forward.x;
@@ -68,15 +62,17 @@ public class CharOverride : MonoBehaviour
                 }
                 break;
             case Action.BLOCKMID:
-                if (Current.Name == "LOCK")
+                if (Current.Name == "MOVEMENT/LOCK")
                 {
-                    Fsm.ChangeState("BLOCK/MID/WINDUP");
+                    var evt = new InputEvent.Block();
+                    Fsm.ChangeState("BLOCK/MID/WINDUP", 0f, evt);
                 }
                 break;
             case Action.BLOCKHIGH:
-                if (Current.Name == "LOCK")
+                if (Current.Name == "MOVEMENT/LOCK")
                 {
-                    Fsm.ChangeState("BLOCK/HIGH/WINDUP");
+                    var evt = new InputEvent.Block(isHigh: true);
+                    Fsm.ChangeState("BLOCK/HIGH/WINDUP", 0f, evt);
                 }
                 break;
         }

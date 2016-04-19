@@ -1,28 +1,21 @@
-﻿using UnityEngine;
+﻿using UnityEngine.Assertions;
 
 namespace Assets.MovementPrototype.Character.States.BlockStates
 {
-    public abstract class BlockState : CharState
+    public class BlockState : ProxyState
     {
-        string previousState;
-
         public BlockState(CharFsm fsm) : base(fsm)
         {
+            Name = "BLOCK";
         }
-
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
-            previousState = lastStateName;
-        }
+            Assert.IsTrue(args.Length == 1);
+            var evt = args[0] as InputEvent.Block;
+            Assert.IsNotNull(evt);
 
-        public override void FixedUpdate()
-        {
-            base.FixedUpdate();
-            if (previousState == "LOCK")
-            {
-                Character.Look();
-            }
+            Fsm.ChangeState((evt.IsHigh) ? "BLOCK/HIGH/WINDUP" : "BLOCK/MID/WINDUP", additionalDeltaTime);
         }
     }
 }

@@ -11,31 +11,33 @@ public abstract class InputEvent
             Move = move;
         }
     }
-    public class Attack : InputEvent
-    {
-        public Stick Move { get; private set; }
-        public bool isHeavy { get; private set; }
-        public Attack(Stick move, bool isHeavy = false)
-        {
-            Move = move;
-            this.isHeavy = isHeavy;
-        }
-    }
     public class Lunge : InputEvent
     {
         public Stick Move { get; private set; }
-        public bool isHeavy { get; private set; }
-        public Lunge(Stick move, bool isHeavy = false)
+        public Lunge(Stick move)
         {
             Move = move;
-            this.isHeavy = isHeavy;
         }
     }
-    public class BlockMid : InputEvent
+
+    public class Attack : InputEvent
     {
+        public bool IsHigh { get; private set; }
+        public bool IsHeavy { get; private set; }
+        public Attack(bool isHigh = false, bool isHeavy = false)
+        {
+            IsHigh = isHigh;
+            IsHeavy = isHeavy;
+        }
     }
-    public class BlockHigh : InputEvent
+
+    public class Block : InputEvent
     {
+        public bool IsHigh { get; private set; }
+        public Block(bool isHigh = false)
+        {
+            IsHigh = isHigh;
+        }
     }
 }
 

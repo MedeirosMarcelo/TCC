@@ -12,53 +12,30 @@ namespace Assets.MovementPrototype.Character.States.AttackStates
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {
             Assert.IsTrue(args.Length == 1);
-            var evt = (InputEvent.Attack)args[0];
-            if (lastStateName == "LOCK")
+            var evt = args[0] as InputEvent.Attack;
+            Assert.IsNotNull(evt);
+
+            if (lastStateName == "MOVEMENT/LOCK" && evt.IsHigh)
             {
-                Vector3 moveDirection = Character.transform.InverseTransformDirection(evt.Move.vector.normalized);
-                if (moveDirection.x < -0.2f)
+                if (evt.IsHeavy)
                 {
-                    if (evt.isHeavy)
-                    {
-                        Fsm.ChangeState("RIGHT/HEAVY/WINDUP", additionalDeltaTime);
-                    }
-                    else
-                    {
-                        Fsm.ChangeState("RIGHT/LIGHT/WINDUP", additionalDeltaTime);
-                    }
-                }
-                else if (moveDirection.x > 0.2f)
-                {
-                    if (evt.isHeavy)
-                    {
-                        Fsm.ChangeState("LEFT/HEAVY/WINDUP", additionalDeltaTime);
-                    }
-                    else
-                    {
-                        Fsm.ChangeState("LEFT/LIGHT/WINDUP", additionalDeltaTime);
-                    }
+                    Fsm.ChangeState("DOWN/HEAVY/WINDUP", additionalDeltaTime);
                 }
                 else
                 {
-                    if (evt.isHeavy)
-                    {
-                        Fsm.ChangeState("DOWN/HEAVY/WINDUP", additionalDeltaTime);
-                    }
-                    else
-                    {
-                        Fsm.ChangeState("DOWN/LIGHT/WINDUP", additionalDeltaTime);
-                    }
+                    Fsm.ChangeState("DOWN/LIGHT/WINDUP", additionalDeltaTime);
                 }
             }
-            else if (lastStateName == "RUN")
+            else
             {
-                if (evt.isHeavy)
+                if (evt.IsHeavy)
                 {
                     if (Character.Stance == SwordStance.Left)
                     {
                         Fsm.ChangeState("LEFT/HEAVY/WINDUP", additionalDeltaTime);
                     }
-                    else {
+                    else
+                    {
                         Fsm.ChangeState("RIGHT/HEAVY/WINDUP", additionalDeltaTime);
                     }
                 }

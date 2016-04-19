@@ -2,7 +2,7 @@
 
 namespace Assets.MovementPrototype.Character.States.BlockStates
 {
-    public class BlockHighRecover : BlockState 
+    public class BlockHighRecover : BlockBase 
     {
         public BlockHighRecover(CharFsm fsm) : base(fsm)
         {

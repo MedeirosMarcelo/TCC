@@ -18,7 +18,6 @@ internal static class Extension
 
 public class GamePadInput : BaseInput
 {
-
     GamePadState state;
     GamePadState lastState;
 
@@ -31,6 +30,31 @@ public class GamePadInput : BaseInput
     }
 
     static readonly float triggerThreshold = 0.2f;
+
+    bool PressedB
+    {
+        get { return state.Buttons.B == ButtonState.Pressed && lastState.Buttons.B == ButtonState.Released; }
+    }
+    bool PressedX
+    {
+        get { return state.Buttons.X == ButtonState.Pressed && lastState.Buttons.X == ButtonState.Released; }
+    }
+    bool PressedA
+    {
+        get { return state.Buttons.A == ButtonState.Pressed && lastState.Buttons.A == ButtonState.Released; }
+    }
+    bool PressedY
+    {
+        get { return state.Buttons.Y == ButtonState.Pressed && lastState.Buttons.Y == ButtonState.Released; }
+    }
+    bool PressedRS
+    {
+        get { return state.Buttons.RightShoulder == ButtonState.Pressed && lastState.Buttons.RightShoulder == ButtonState.Released; }
+    }
+    bool PressedRT
+    {
+        get { return state.Triggers.Right > triggerThreshold && (lastState.Triggers.Right <= triggerThreshold); }
+    }
 
     public override void Update()
     {
@@ -45,57 +69,43 @@ public class GamePadInput : BaseInput
         look.horizontal = state.ThumbSticks.Right.X;
         look.vertical = state.ThumbSticks.Right.Y;
 
+        // modifiers
         run = state.Triggers.Left;
+        var high = state.Buttons.LeftShoulder == ButtonState.Pressed;
 
-        var dashed = (state.Buttons.LeftShoulder == ButtonState.Pressed
-               && lastState.Buttons.LeftShoulder == ButtonState.Released)
-               || (state.Buttons.B == ButtonState.Pressed && lastState.Buttons.B == ButtonState.Released);
-
-        var attacked = state.Buttons.RightShoulder == ButtonState.Pressed
-                && lastState.Buttons.RightShoulder == ButtonState.Released;
-
-        var heavyAttacked = state.Buttons.X == ButtonState.Pressed
-                     && lastState.Buttons.X == ButtonState.Released;
-
-        var lunged = state.Buttons.A == ButtonState.Pressed
-                     && lastState.Buttons.A == ButtonState.Released;
-
-        var blockedMid = state.Triggers.Right > triggerThreshold
-              && (lastState.Triggers.Right <= triggerThreshold);
-
-        var blockedHigh = state.Buttons.Y == ButtonState.Pressed
-                   && lastState.Buttons.Y == ButtonState.Released;
+        var light = PressedRS;
+        var heavy = PressedRT;
+        var blocked = PressedY;
+        var dashed = PressedB;
 
         dash |= dashed;
-        attack |= attacked;
-        heavyAttack |= heavyAttacked;
-        lunge |= lunged;
-        blockMid |= blockedMid;
-        blockHigh |= blockedHigh;
+        attack |= light;
+        heavyAttack |= heavy;
+        block |= blocked;
+
 
         if (dashed)
         {
-            buffer.Push(new InputEvent.Dash(move));
+            if (high)
+            {
+                buffer.Push(new InputEvent.Lunge(move));
+            }
+            else
+            {
+                buffer.Push(new InputEvent.Dash(move));
+            }
         }
-        else if (attacked)
+        else if (blocked)
         {
-            buffer.Push(new InputEvent.Attack(move));
+            buffer.Push(new InputEvent.Block(isHigh: high));
         }
-        else if (heavyAttacked)
+        else if (light)
         {
-            buffer.Push(new InputEvent.Attack(move, true));
+            buffer.Push(new InputEvent.Attack(isHigh: high));
         }
-        else if (blockedMid)
+        else if (heavy)
         {
-            buffer.Push(new InputEvent.BlockMid());
-        }
-        else if (blockedHigh)
-        {
-            buffer.Push(new InputEvent.BlockHigh());
-        }
-        else if (lunged)
-        {
-            buffer.Push(new InputEvent.Lunge(move));
+            buffer.Push(new InputEvent.Attack(isHigh: high, isHeavy: true));
         }
     }
 
@@ -103,7 +113,7 @@ public class GamePadInput : BaseInput
     {
         dash = false;
         attack = false;
-        blockMid = false;
+        block = false;
     }
 
     public override string Debug

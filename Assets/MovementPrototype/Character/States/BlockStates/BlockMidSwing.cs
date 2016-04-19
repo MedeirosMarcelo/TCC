@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.MovementPrototype.Character.States.BlockStates
 {
-    public class BlockMidSwing : BlockState
+    public class BlockMidSwing : BlockBase
     {
         const float speed = 2f;
         public BlockMidSwing(CharFsm fsm) : base(fsm)
