@@ -1,5 +1,6 @@
-﻿using Assets.MovementPrototype.Character.States.AttackStates;
-using UnityEngine;
+﻿using UnityEngine;
+using BaseSwing = Assets.MovementPrototype.Character.States.HoldAttackStates.BaseSwing;
+using HeavySwing = Assets.MovementPrototype.Character.States.HoldAttackStates.HeavySwing;
 
 namespace Assets.MovementPrototype.Character.States.BlockStates
 {
@@ -33,15 +34,19 @@ namespace Assets.MovementPrototype.Character.States.BlockStates
                 var otherCharacter = collider.transform.parent.parent.GetComponent<CharController>();
                 if (!ReferenceEquals(Character, otherCharacter))
                 {
-                    var attackerState = otherCharacter.fsm.Current as AttackSwing;
-                    if (attackerState != null && (attackerState.Name == "RIGHT/LIGHT/SWING" ||
-                                                  attackerState.Name == "RIGHT/HEAVY/SWING" ||
-                                                  attackerState.Name == "LEFT/LIGHT/SWING" ||
-                                                  attackerState.Name == "LEFT/HEAVY/SWING" ||
-                                                  attackerState.Name == "LUNGE/LIGHT/SWING"))
+                    var attackerState = otherCharacter.fsm.Current;
+                    if (attackerState is BaseSwing)
                     {
                         Character.ShowBlockSpark(collider.transform.position);
                         otherCharacter.fsm.ChangeState("STAGGER");
+                        if (attackerState is HeavySwing)
+                        {
+                            Fsm.ChangeState("STAGGER");
+                        }
+                        else
+                        {
+                            Fsm.ChangeState(nextState);
+                        }
                         return;
                     }
                 }

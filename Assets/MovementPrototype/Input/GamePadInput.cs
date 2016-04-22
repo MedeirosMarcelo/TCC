@@ -69,51 +69,36 @@ public class GamePadInput : BaseInput
         look.horizontal = state.ThumbSticks.Right.X;
         look.vertical = state.ThumbSticks.Right.Y;
 
-        // modifiers
+        // Modifier
         run = state.Triggers.Left;
-        var high = state.Buttons.LeftShoulder == ButtonState.Pressed;
 
-        var light = PressedRS;
-        var heavy = PressedRT;
-        var blocked = PressedY;
+        // Actions
+        attack = state.Triggers.Right > triggerThreshold;
+        var attacked = PressedRT;
+
+        block = state.Buttons.RightShoulder == ButtonState.Pressed;
+        var blocked = PressedRS;
+
+        dash = state.Buttons.B == ButtonState.Pressed;
         var dashed = PressedB;
-
-        dash |= dashed;
-        attack |= light;
-        heavyAttack |= heavy;
-        block |= blocked;
 
 
         if (dashed)
         {
-            if (high)
-            {
-                buffer.Push(new InputEvent.Lunge(move));
-            }
-            else
-            {
                 buffer.Push(new InputEvent.Dash(move));
-            }
         }
         else if (blocked)
         {
-            buffer.Push(new InputEvent.Block(isHigh: high));
+            buffer.Push(new InputEvent.Block());
         }
-        else if (light)
+        else if (attacked)
         {
-            buffer.Push(new InputEvent.Attack(isHigh: high));
-        }
-        else if (heavy)
-        {
-            buffer.Push(new InputEvent.Attack(isHigh: high, isHeavy: true));
+            buffer.Push(new InputEvent.Attack());
         }
     }
 
     public override void FixedUpdate()
     {
-        dash = false;
-        attack = false;
-        block = false;
     }
 
     public override string Debug

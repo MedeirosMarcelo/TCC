@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
+using Swing = Assets.MovementPrototype.Character.States.HoldAttackStates.BaseSwing;
 
 public abstract class CharState : BaseState
 {
+
     public CharController Character { get; protected set; }
     public BaseInput Input { get; protected set; }
     public Rigidbody Rigidbody { get; protected set; }
@@ -16,6 +18,7 @@ public abstract class CharState : BaseState
         Transform = Character.transform;
     }
 
+
     public override void OnTriggerEnter(Collider collider)
     {
         if (collider.name == "Attack Collider")
@@ -23,7 +26,7 @@ public abstract class CharState : BaseState
             var otherCharacter = collider.transform.parent.parent.GetComponent<CharController>();
             if (!ReferenceEquals(Character, otherCharacter))
             {
-                var attackerState = otherCharacter.fsm.Current as AttackSwing;
+                var attackerState = otherCharacter.fsm.Current as Swing;
                 if (attackerState != null)
                 {
                     Character.bloodAnimator.SetTrigger("Bleed");
