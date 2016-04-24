@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Assertions;
+using Assets.MovementPrototype.Character.States.HoldAttackStates;
 
 public class CharOverride : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class CharOverride : MonoBehaviour
     {
         ATTACKMID,
         ATTACKHIGH,
+        HATTACKLIGHT,
+        HATTACKHEAVY,
         DASH,
         BLOCKMID,
         BLOCKHIGH
@@ -41,16 +44,31 @@ public class CharOverride : MonoBehaviour
                 if (Current.Name == "MOVEMENT/LOCK")
                 {
                     var evt = new InputEvent.Attack();
-                    Fsm.ChangeState("ATTACK", 0f, evt);
+                    //Fsm.ChangeState("ATTACK", 0f, evt);
                 }
                 break;
             case Action.ATTACKHIGH:
                 if (Current.Name == "MOVEMENT/LOCK")
                 {
                     var evt = new InputEvent.Attack(isHigh: true);
-                    Fsm.ChangeState("ATTACK", 0f, evt);
+                    //Fsm.ChangeState("ATTACK", 0f, evt);
                 }
                 break;
+
+            case Action.HATTACKLIGHT:
+                if (Current.Name == "MOVEMENT/LOCK")
+                {
+                    var evt = new InputEvent.Attack();
+                    Fsm.ChangeState("HATTACK", 0f, evt);
+                }
+                break;
+             case Action.HATTACKHEAVY:
+                if (Current.Name == "MOVEMENT/LOCK")
+                {
+                    Fsm.ChangeState("HATTACK/HEAVY/WINDUP");
+                }
+                break;
+ 
             case Action.DASH:
                 if (Current.Name == "MOVEMENT/LOCK")
                 {
@@ -72,7 +90,7 @@ public class CharOverride : MonoBehaviour
                 if (Current.Name == "MOVEMENT/LOCK")
                 {
                     var evt = new InputEvent.Block(isHigh: true);
-                    Fsm.ChangeState("BLOCK/HIGH/WINDUP", 0f, evt);
+                    //Fsm.ChangeState("BLOCK/HIGH/WINDUP", 0f, evt);
                 }
                 break;
         }

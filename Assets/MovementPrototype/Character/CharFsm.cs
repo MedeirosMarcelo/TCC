@@ -8,7 +8,8 @@
         loader.LoadStates(this, "Assets.MovementPrototype.Character.States");
         loader.LoadStates(this, "Assets.MovementPrototype.Character.States.DashStates");
         loader.LoadStates(this, "Assets.MovementPrototype.Character.States.BlockStates");
-        loader.LoadStates(this, "Assets.MovementPrototype.Character.States.AttackStates");
+        //loader.LoadStates(this, "Assets.MovementPrototype.Character.States.AttackStates");
+        loader.LoadStates(this, "Assets.MovementPrototype.Character.States.HoldAttackStates");
         loader.LoadStates(this, "Assets.MovementPrototype.Character.States.MovementStates");
         Current = dict["MOVEMENT/LOCK"];
     }
