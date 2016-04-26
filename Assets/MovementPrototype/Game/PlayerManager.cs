@@ -7,12 +7,12 @@ public static class PlayerManager {
     static IList<Player> PlayerList = new List<Player>();
 
     static PlayerManager() {
-        AddPlayer(PlayerIndex.Two, "2");
-        AddPlayer(PlayerIndex.One, "1");
+        AddPlayer(PlayerIndex.One);
+        AddPlayer(PlayerIndex.Two);
     }
 
-    public static Player AddPlayer(PlayerIndex playerId, string name) {
-        Player pl = new Player(playerId, name);
+    public static Player AddPlayer(PlayerIndex playerId) {
+        Player pl = new Player(playerId);
         PlayerList.Add(pl);
         return pl;
     }
