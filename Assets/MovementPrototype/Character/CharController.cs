@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
@@ -20,7 +21,8 @@ public class CharController : MonoBehaviour
 {
     public PlayerIndex joystick = PlayerIndex.One;
     public bool canControl = true;
-    public int health = 3;
+    public int health = 2;
+    public int lives = 3;
 
     public GameObject target;
     public Animator bloodAnimator;
@@ -43,8 +45,13 @@ public class CharController : MonoBehaviour
     public SwordStance Stance { get; set; }
     float maxTurnSpeed = Mathf.PI / 30;
 
+    GameManager game;
+
     public void Awake()
     {
+        game = GameObject.Find("GameManager").GetComponent<GameManager>();
+        game.characterList.Add(this);
+
         input = new GamePadInput(joystick);
         fsm = new CharFsm(this);
 
@@ -115,6 +122,7 @@ public class CharController : MonoBehaviour
                 vec,
                 maxTurnSpeed * lookTurnRate,
                 1f);
+            ChangeTarget(vec);
         }
         else
         {
@@ -145,15 +153,11 @@ public class CharController : MonoBehaviour
         StartCoroutine("DelayBlood");
         if (health <= 0)
         {
+            lives--;
             fsm.ChangeState("DEATH");
-            StartCoroutine("RestartLevel");
+            if (lives > 0) PlantSword();
+            game.EnterState(GameState.RoundEnd);
         }
-    }
-
-    IEnumerator RestartLevel()
-    {
-        yield return new WaitForSeconds(1.5f);
-        SceneManager.LoadScene(0);
     }
 
     public void ApplyBaseMaterial()
@@ -189,5 +193,41 @@ public class CharController : MonoBehaviour
     public void PrintLog(string text)
     {
         print(text);
+    }
+
+    public void ChangeTarget(Vector3 direction)
+    {
+        float maxAngle = 45f;
+        float maxDistance = 7.5f;
+        GameObject closestChar = null;
+        float closestDistance = maxDistance;
+        foreach (CharController child in game.characterList)
+        {
+            if (child.gameObject != this.gameObject)
+            {
+                float angle = Vector3.Angle(direction, child.transform.localPosition - this.transform.localPosition);
+                if (angle <= maxAngle)
+                {
+                    float childDistance = Vector3.Distance(this.transform.position, child.transform.position);
+                    if (childDistance < closestDistance)
+                    {
+                        closestDistance = childDistance;
+                        closestChar = child.gameObject;
+                    }
+                }
+            }
+        }
+        if (closestChar != null)
+        {
+            target = closestChar;
+        }
+    }
+
+    void PlantSword()
+    {
+        Vector3 pos = transform.position;
+        pos.y += 0.5f;
+        Instantiate(game.PlantedSword, pos, game.PlantedSword.transform.rotation);
+        transform.Find("Model").Find("Swords").Find("Sword " + lives).gameObject.SetActive(false);
     }
 }

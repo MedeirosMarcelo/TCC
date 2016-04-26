@@ -3,129 +3,211 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
-public enum GameState {
+public enum GameState
+{
     Load,
-    Intro,
-    Play,
-    End
+    PreRound,
+    PlayRound,
+    RoundEnd,
+    EndGame
 }
 
-public enum CharacterType {
-    PunkSamuraiChick
-}
-
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
 
     public IList<CharController> characterList = new List<CharController>();
     public byte maxScore = 5;
     public float roundClock;
     //public Map currentMap;
     public GameState State { get; private set; }
+    public GameObject PlantedSword;
 
     [SerializeField]
     GameObject characterPrefab;
+    Vector3[] spawnPosition = new Vector3[2];
+    Vector3[] spawnRotation = new Vector3[2];
     Timer timer = new Timer();
 
-    void Awake() {
+    void Start()
+    {
+        spawnPosition[0] = new Vector3(0f, 0.393f, -3f);
+        spawnPosition[1] = new Vector3(0f, 0.393f, 3f);
+
+        spawnRotation[0] = Vector3.zero;
+        spawnRotation[1] = new Vector3(0f, 180, 0f);
+
+        //-- Provisório até criar sistema de entrada de jogadores.
+        int i = 0;
+        foreach (Player pl in PlayerManager.GetPlayerList())
+        {
+            pl.Character = characterList[i];
+            pl.Character.canControl = false;
+            pl.Character.joystick = pl.PlayerId;
+            i++;
+        }
+        //--
+
         EnterState(GameState.Load);
     }
 
-    void Update() {
+    void Update()
+    {
         StateMachine();
     }
 
-    void StateMachine() {
-        switch (State) {
-            default:
-            case GameState.Load:
-                break;
-            case GameState.Intro:
-                break;
-            case GameState.Play:
-                RoundTimer();
-                break;
-            case GameState.End:
-                break;
-        }
-    }
-
-    void EnterState(GameState newState) {
+    public void EnterState(GameState newState)
+    {
+        ExitState(State);
         State = newState;
-        switch (State) {
-            default:
+        switch (State)
+        {
             case GameState.Load:
-                LoadPlayers();
+                //LoadPlayers();
+                EnterState(GameState.PreRound);
                 break;
-            case GameState.Intro:
+            case GameState.PreRound:
+                EnterState(GameState.PlayRound);
                 break;
-            case GameState.Play:
-                StartRound();
+            case GameState.PlayRound:
+                EnterPlayRound();
                 break;
-            case GameState.End:
-                End();
+            case GameState.RoundEnd:
+                EnterRoundEnd();
+                break;
+            case GameState.EndGame:
+                EnterEndGame();
+                break;
+            default:
+                break;
+        }
+        Debug.Log(State);
+    }
+
+    void ExitState(GameState newState)
+    {
+        switch (State)
+        {
+            case GameState.Load:
+                break;
+            case GameState.PreRound:
+                break;
+            case GameState.PlayRound:
+                ExitPlayRound();
+                break;
+            case GameState.RoundEnd:
+                break;
+            case GameState.EndGame:
+                break;
+            default:
                 break;
         }
     }
 
-    void LoadPlayers() {
+    void StateMachine()
+    {
+        switch (State)
+        {
+            case GameState.Load:
+                break;
+            case GameState.PreRound:
+                break;
+            case GameState.PlayRound:
+                break;
+            case GameState.RoundEnd:
+                break;
+            case GameState.EndGame:
+                break;
+            default:
+                break;
+        }
+    }
+
+    void LoadPlayers()
+    {
         Vector3 position;
-        foreach (Player pl in PlayerManager.GetPlayerList()) {
+        foreach (Player pl in PlayerManager.GetPlayerList())
+        {
             position = Vector3.zero; //currentMap.GetSpawnPosition(type, i);
             SpawnCharacter(pl.Character, position);
             pl.Character.canControl = false;
         }
     }
 
-    public GameObject SpawnCharacter(CharController cController, Vector3 position) {
+    public GameObject SpawnCharacter(CharController cController, Vector3 position)
+    {
         //GameObject pl = (GameObject)Instantiate(GetCharacterPrefab(cController.type), position, transform.rotation);
         //characterList.Add(player.Character);
         return null;//pl;
     }
 
-    public void RemoveCharacter(CharController character) {
-
-    }
-
-    public void Score(PlayerIndex controller) {
-        MatchData.PlayerScore[controller] += 1;
-        if (MatchData.PlayerScore[controller] < maxScore) {
-            StartNextRound();
-        }
-        else {
-            EndMatch();
-        }
-    }
-
-    void RoundTimer() {
-        //if (timer.Run(currentMap.clockTime)) {
-        //    StartNextRound();
-        //}
-        //roundClock = timer.GetTimeDecreasing();
-    }
-
-    void StartRound() {
-        foreach (Player pl in PlayerManager.GetPlayerList()) {
+    void EnterPlayRound()
+    {
+        int i = 1;
+        foreach (Player pl in PlayerManager.GetPlayerList())
+        {
+            pl.Character.transform.position = spawnPosition[i];
+            pl.Character.transform.eulerAngles = spawnRotation[i];
+            pl.Character.health = 2;
+            pl.Character.fsm.ChangeState("MOVEMENT");
             pl.Character.canControl = true;
+            i--;
         }
     }
 
-    public void StartNextRound() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-    void EndMatch() {
-        EnterState(GameState.End);
-    }
-
-    void End() {
-        SceneManager.LoadScene("ResultScreen");
-    }
-
-    GameObject GetCharacterPrefab(CharacterType type) {
-        switch (type) {
-            default:
-            case CharacterType.PunkSamuraiChick:
-                return null;
+    void ExitPlayRound()
+    {
+        foreach (Player pl in PlayerManager.GetPlayerList())
+        {
+            pl.Character.canControl = false;
         }
     }
+
+    void EnterRoundEnd()
+    {
+        foreach (Player pl in PlayerManager.GetPlayerList())
+        {
+            if (pl.Character.lives <= 0)
+            {
+                EnterState(GameState.EndGame);
+                return;
+            }
+        }
+        StartCoroutine("WaitRestartRound");
+    }
+
+    IEnumerator WaitRestartRound()
+    {
+        yield return new WaitForSeconds(2f);
+        EnterState(GameState.PreRound);
+    }
+
+    void EnterEndGame()
+    {
+        StartCoroutine("ShowResultScreen");
+    }
+
+    IEnumerator ShowResultScreen()
+    {
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene("Result");
+    }
+
+    //public void Score(PlayerIndex controller) {
+    //    MatchData.PlayerLives[controller] += 1;
+    //    if (MatchData.PlayerLives[controller] < maxScore) {
+    //        StartNextRound();
+    //    }
+    //    else {
+    //        EndMatch();
+    //    }
+    //}
+
+    //void RoundTimer()
+    //{
+    //    if (timer.Run(currentMap.clockTime))
+    //    {
+    //        StartNextRound();
+    //    }
+    //    roundClock = timer.GetTimeDecreasing();
+    //}
 }
