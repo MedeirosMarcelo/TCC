@@ -62,15 +62,19 @@ public class CharController : MonoBehaviour
         Assert.IsNotNull(animator);
         Mesh = transform.Find("Model").GetComponent<MeshRenderer>();
         Assert.IsNotNull(Mesh);
-        //Trail init
-        SwordTrail = transform.Find("Sword").Find("X-WeaponTrail").GetComponent<Xft.XWeaponTrail>();
-        Assert.IsNotNull(SwordTrail);
+
+        // Colliders
         AttackCollider = transform.Find("Sword").Find("Attack Collider").GetComponent<CapsuleCollider>();
         Assert.IsNotNull(AttackCollider);
         BlockMidCollider = transform.Find("Sword").Find("Block Mid Collider").GetComponent<BoxCollider>();
         Assert.IsNotNull(BlockMidCollider);
         BlockHighCollider = transform.Find("Sword").Find("Block High Collider").GetComponent<BoxCollider>();
         Assert.IsNotNull(BlockHighCollider);
+
+        // Trail init
+        SwordTrail = transform.Find("Sword").Find("X-WeaponTrail").GetComponent<Xft.XWeaponTrail>();
+        Assert.IsNotNull(SwordTrail);
+        AttackCollider = transform.Find("Sword").Find("Attack Collider").GetComponent<CapsuleCollider>();
         SwordTrail.Init();
         SwordTrail.Deactivate();
 
@@ -144,7 +148,7 @@ public class CharController : MonoBehaviour
     void OnGUI()
     {
         string text = input.Debug + "\n" + fsm.Debug;
-        GUI.Label(new Rect(((int)id - 1) * (Screen.width / 2), 0, Screen.width / 2, Screen.height), text);
+        GUI.Label(new Rect((id - 1) * (Screen.width / 2), 0, Screen.width / 2, Screen.height), text);
     }
 
     public void ReceiveDamage(int damage)

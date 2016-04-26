@@ -24,7 +24,7 @@ public abstract class MovementBase : CharState
         if (Input.buffer.NextEventIs<InputEvent.Attack>())
         {
             var evt = Input.buffer.Pop<InputEvent.Attack>();
-            Fsm.ChangeState("ATTACK", 0f, evt);
+            Fsm.ChangeState("HATTACK", 0f, evt);
         }
         else if (Input.buffer.NextEventIs<InputEvent.Lunge>())
         {

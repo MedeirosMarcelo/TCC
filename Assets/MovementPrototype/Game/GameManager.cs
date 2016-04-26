@@ -80,7 +80,6 @@ public class GameManager : MonoBehaviour
             default:
                 break;
         }
-        Debug.Log(State);
     }
 
     void ExitState(GameState newState)
