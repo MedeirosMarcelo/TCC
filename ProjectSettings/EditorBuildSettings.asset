@@ -6,4 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/MovementPrototype/Sword Prototype.unity
+    path: Assets/MovementPrototype/Scenes/Sword Prototype.unity
+  - enabled: 1
+    path: Assets/MovementPrototype/Scenes/Result.unity

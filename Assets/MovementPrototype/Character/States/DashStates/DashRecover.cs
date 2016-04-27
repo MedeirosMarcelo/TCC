@@ -8,7 +8,8 @@ namespace Assets.MovementPrototype.Character.States.DashStates
         {
             Name = "DASH/RECOVER";
             nextState = "MOVEMENT";
-            totalTime = 0.12f;
+            totalTime = 0.2f;
+            turnRate = 0f;
         }
     }
 }

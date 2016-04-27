@@ -2,31 +2,53 @@
 using BaseSwing = Assets.MovementPrototype.Character.States.HoldAttackStates.BaseSwing;
 using HeavySwing = Assets.MovementPrototype.Character.States.HoldAttackStates.HeavySwing;
 
-namespace Assets.MovementPrototype.Character.States.BlockStates
+namespace Assets.MovementPrototype.Character.States.HoldBlockStates
 {
-    public class BlockMidSwing : BlockBase
+    public class BlockSwing : AnimatedState
     {
-        const float speed = 2f;
-        public BlockMidSwing(CharFsm fsm) : base(fsm)
+        private bool holding;
+        private float minSwingTime = 0.3f;
+        public BlockSwing(CharFsm fsm) : base(fsm)
         {
-            Name = "BLOCK/MID/SWING";
-            nextState = "BLOCK/MID/RECOVER";
-            totalTime = 0.5f;
+            Name = "BLOCK/SWING";
+            nextState = "BLOCK/RECOVER";
+            totalTime = 0.8f;
+            canPlayerMove = true;
+            moveSpeed = 0.75f;
+            turnRate = 0.25f;
+            Animation = "Block High";
         }
-
+        public override void PreUpdate()
+        {
+            base.PreUpdate();
+            if (holding)
+            {
+                if (Character.input.block == false)
+                {
+                    holding = false;
+                }
+            }
+            else
+            {
+                if (elapsed > minSwingTime)
+                {
+                    UnityEngine.Debug.Log("Early end");
+                    Fsm.ChangeState(nextState);
+                }
+            }
+        }
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
-            Character.animator.Play("Block Mid");
             Character.BlockMidCollider.enabled = true;
+            holding = true;
         }
-
         public override void Exit(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {
             base.Exit(lastStateName, nextStateName, additionalDeltaTime, args);
             Character.BlockMidCollider.enabled = false;
-        }
 
+        }
         public override void OnTriggerEnter(Collider collider)
         {
             if (collider.name == "Attack Collider")

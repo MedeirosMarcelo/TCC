@@ -1,7 +1,7 @@
-﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.SceneManagement;
+﻿using System.Collections;
+﻿using System;
 
 public enum PlayerIndex : int
 {
@@ -20,7 +20,8 @@ public class CharController : MonoBehaviour
 {
     public PlayerIndex joystick = PlayerIndex.One;
     public bool canControl = true;
-    public int health = 3;
+    public int health = 2;
+    public int lives = 3;
 
     public GameObject target;
     public Animator bloodAnimator;
@@ -43,10 +44,14 @@ public class CharController : MonoBehaviour
     public SwordStance Stance { get; set; }
     float maxTurnSpeed = Mathf.PI / 30;
 
+    GameManager game;
+
     public void Awake()
     {
+        game = GameObject.Find("GameManager").GetComponent<GameManager>();
+        game.characterList.Add(this);
+
         input = new GamePadInput(joystick);
-        fsm = new CharFsm(this);
 
         Stance = SwordStance.Right;
         rbody = GetComponent<Rigidbody>();
@@ -55,20 +60,26 @@ public class CharController : MonoBehaviour
         Assert.IsNotNull(animator);
         Mesh = transform.Find("Model").GetComponent<MeshRenderer>();
         Assert.IsNotNull(Mesh);
-        //Trail init
-        SwordTrail = transform.Find("Sword").Find("X-WeaponTrail").GetComponent<Xft.XWeaponTrail>();
-        Assert.IsNotNull(SwordTrail);
+
+        // Colliders
         AttackCollider = transform.Find("Sword").Find("Attack Collider").GetComponent<CapsuleCollider>();
         Assert.IsNotNull(AttackCollider);
         BlockMidCollider = transform.Find("Sword").Find("Block Mid Collider").GetComponent<BoxCollider>();
         Assert.IsNotNull(BlockMidCollider);
         BlockHighCollider = transform.Find("Sword").Find("Block High Collider").GetComponent<BoxCollider>();
         Assert.IsNotNull(BlockHighCollider);
+
+        // Trail init
+        SwordTrail = transform.Find("Sword").Find("X-WeaponTrail").GetComponent<Xft.XWeaponTrail>();
+        Assert.IsNotNull(SwordTrail);
         SwordTrail.Init();
         SwordTrail.Deactivate();
 
         currentId += 1;
         id = currentId;
+
+        // Fsm must be last, states will access input, rbody ...
+        fsm = new CharFsm(this);
     }
 
     public void Update()
@@ -86,25 +97,16 @@ public class CharController : MonoBehaviour
         input.FixedUpdate();
     }
 
-    public void ChangeVelocity(Vector3 velocity)
-    {
-        rbody.velocity = velocity;
-    }
-
     public void Move(Vector3 position)
     {
         rbody.MovePosition(position);
     }
-
-    public void LookForward(float lookTurnRate = 1f)
+    public void Forward(Vector3 forward)
     {
-        transform.forward = Vector3.RotateTowards(
-                transform.forward,
-                input.move.vector,
-                maxTurnSpeed * lookTurnRate,
-                1f);
+        transform.forward = forward;
     }
 
+    [Obsolete]
     public void Look(float lookTurnRate = 1f, float lockTurnRate = 1f)
     {
         var vec = input.look.vector;
@@ -115,6 +117,7 @@ public class CharController : MonoBehaviour
                 vec,
                 maxTurnSpeed * lookTurnRate,
                 1f);
+            ChangeTarget(vec);
         }
         else
         {
@@ -136,7 +139,7 @@ public class CharController : MonoBehaviour
     void OnGUI()
     {
         string text = input.Debug + "\n" + fsm.Debug;
-        GUI.Label(new Rect(((int)id - 1) * (Screen.width / 2), 0, Screen.width / 2, Screen.height), text);
+        GUI.Label(new Rect((id - 1) * (Screen.width / 2), 0, Screen.width / 2, Screen.height), text);
     }
 
     public void ReceiveDamage(int damage)
@@ -145,15 +148,11 @@ public class CharController : MonoBehaviour
         StartCoroutine("DelayBlood");
         if (health <= 0)
         {
+            lives--;
             fsm.ChangeState("DEATH");
-            StartCoroutine("RestartLevel");
+            if (lives > 0) PlantSword();
+            game.EnterState(GameState.RoundEnd);
         }
-    }
-
-    IEnumerator RestartLevel()
-    {
-        yield return new WaitForSeconds(1.5f);
-        SceneManager.LoadScene(0);
     }
 
     public void ApplyBaseMaterial()
@@ -189,5 +188,41 @@ public class CharController : MonoBehaviour
     public void PrintLog(string text)
     {
         print(text);
+    }
+
+    public void ChangeTarget(Vector3 direction)
+    {
+        float maxAngle = 45f;
+        float maxDistance = 7.5f;
+        GameObject closestChar = null;
+        float closestDistance = maxDistance;
+        foreach (CharController child in game.characterList)
+        {
+            if (child.gameObject != this.gameObject)
+            {
+                float angle = Vector3.Angle(direction, child.transform.localPosition - this.transform.localPosition);
+                if (angle <= maxAngle)
+                {
+                    float childDistance = Vector3.Distance(this.transform.position, child.transform.position);
+                    if (childDistance < closestDistance)
+                    {
+                        closestDistance = childDistance;
+                        closestChar = child.gameObject;
+                    }
+                }
+            }
+        }
+        if (closestChar != null)
+        {
+            target = closestChar;
+        }
+    }
+
+    void PlantSword()
+    {
+        Vector3 pos = transform.position;
+        pos.y += 0.5f;
+        Instantiate(game.PlantedSword, pos, game.PlantedSword.transform.rotation);
+        transform.Find("Model").Find("Swords").Find("Sword " + lives).gameObject.SetActive(false);
     }
 }
