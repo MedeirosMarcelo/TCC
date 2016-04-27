@@ -2,7 +2,7 @@
 {
     public class LightWindUp : BaseWindUp
     {
-        bool holding;
+        private bool holding;
         public LightWindUp(CharFsm fsm) : base(fsm)
         {
             Name = "HATTACK/LIGHT/WINDUP";
@@ -14,9 +14,8 @@
             base.PreUpdate();
             if (holding && Character.input.attack == false)
             {
-
-                    holding = false;
-                    nextState = "HATTACK/LIGHT/SWING";
+                holding = false;
+                nextState = "HATTACK/LIGHT/SWING";
             }
         }
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
@@ -28,10 +27,12 @@
         public override void Exit(string lastStateName, string nextStateName, float additionalDeltaTime = 0, params object[] args)
         {
             base.Exit(lastStateName, nextStateName, additionalDeltaTime, args);
-            if (holding)
-            {
-                UnityEngine.Debug.Log("Promoted to Heavy!");
-            }
+            // if (holding)
+            // {
+            //    TODO: Add visual feedback  
+            //    UnityEngine.Debug.Log("Promoted to Heavy!");
+            // }
+
         }
     }
 
@@ -47,7 +48,7 @@
         }
     }
 
-    public class LightRecover : AttackRecover
+    public class LightRecover : BaseRecover
     {
         public LightRecover(CharFsm fsm) : base(fsm)
         {

@@ -14,6 +14,7 @@ public class CharOverride : MonoBehaviour
         HATTACKLIGHT,
         HATTACKHEAVY,
         DASH,
+        HBLOCK,
         BLOCKMID,
         BLOCKHIGH
     };
@@ -33,44 +34,44 @@ public class CharOverride : MonoBehaviour
     {
         character = gameObject.GetComponent<CharController>();
         Assert.IsNotNull(character);
-
     }
+
 
     void UpdateAction()
     {
+        const string returnState = "MOVEMENT";
+        Assert.IsTrue(Fsm.dict.ContainsKey(returnState), "Unknown return state: " + returnState);
+
         switch (action)
         {
             case Action.ATTACKMID:
-                if (Current.Name == "MOVEMENT/LOCK")
+                if (Current.Name == returnState)
                 {
-                    var evt = new InputEvent.Attack();
+                    //var evt = new InputEvent.Attack();
                     //Fsm.ChangeState("ATTACK", 0f, evt);
                 }
                 break;
             case Action.ATTACKHIGH:
-                if (Current.Name == "MOVEMENT/LOCK")
+                if (Current.Name == returnState)
                 {
-                    var evt = new InputEvent.Attack(isHigh: true);
+                    //var evt = new InputEvent.Attack(isHigh: true);
                     //Fsm.ChangeState("ATTACK", 0f, evt);
                 }
                 break;
-
             case Action.HATTACKLIGHT:
-                if (Current.Name == "MOVEMENT/LOCK")
+                if (Current.Name == returnState)
                 {
-                    var evt = new InputEvent.Attack();
-                    Fsm.ChangeState("HATTACK", 0f, evt);
+                    Fsm.ChangeState("HATTACK/LIGHT/WINDUP");
                 }
                 break;
              case Action.HATTACKHEAVY:
-                if (Current.Name == "MOVEMENT/LOCK")
+                if (Current.Name == returnState)
                 {
                     Fsm.ChangeState("HATTACK/HEAVY/WINDUP");
                 }
                 break;
- 
             case Action.DASH:
-                if (Current.Name == "MOVEMENT/LOCK")
+                if (Current.Name == returnState)
                 {
                     var stick = new Stick();
                     stick.horizontal = Transform.forward.x;
@@ -79,17 +80,23 @@ public class CharOverride : MonoBehaviour
                     Fsm.ChangeState("DASH", 0f, evt);
                 }
                 break;
-            case Action.BLOCKMID:
-                if (Current.Name == "MOVEMENT/LOCK")
+            case Action.HBLOCK:
+                if (Current.Name == returnState)
                 {
-                    var evt = new InputEvent.Block();
-                    Fsm.ChangeState("BLOCK/MID/WINDUP", 0f, evt);
+                    Fsm.ChangeState("BLOCK/WINDUP");
+                }
+                break;
+            case Action.BLOCKMID:
+                if (Current.Name == returnState)
+                {
+                    //var evt = new InputEvent.Block();
+                    //Fsm.ChangeState("BLOCK/MID/WINDUP", 0f, evt);
                 }
                 break;
             case Action.BLOCKHIGH:
-                if (Current.Name == "MOVEMENT/LOCK")
+                if (Current.Name == returnState)
                 {
-                    var evt = new InputEvent.Block(isHigh: true);
+                    //var evt = new InputEvent.Block(isHigh: true);
                     //Fsm.ChangeState("BLOCK/HIGH/WINDUP", 0f, evt);
                 }
                 break;

@@ -14,7 +14,6 @@ namespace Assets.MovementPrototype.Character.States.DashStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            Character.Look();
             Character.Move(Transform.position + Character.DashVelocity * Time.fixedDeltaTime);
         }
     }

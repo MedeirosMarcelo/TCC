@@ -13,7 +13,6 @@ namespace Assets.MovementPrototype.Character.States.DashStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            Character.Look();
             Vector3 finalVelocity = Character.DashVelocity * (elapsed / totalTime);
             Character.Move(Transform.position + finalVelocity * Time.fixedDeltaTime);
         }

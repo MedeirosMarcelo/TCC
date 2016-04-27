@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
+using System;
 using System.Collections.Generic;
 
 public abstract class BaseFsm : IState
@@ -30,6 +31,7 @@ public abstract class BaseFsm : IState
     public virtual void ChangeState(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
     {
         Assert.IsTrue(dict.ContainsKey(nextStateName), "Unknown next state: " + nextStateName);
+        UnityEngine.Debug.Log(string.Format("{0} >> {1}", lastStateName, nextStateName));
         Current.Exit(lastStateName, nextStateName, additionalDeltaTime, args);
         Current = dict[nextStateName];
         Current.Enter(lastStateName, nextStateName, additionalDeltaTime, args);

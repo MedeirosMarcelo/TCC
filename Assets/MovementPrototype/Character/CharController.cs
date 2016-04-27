@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.SceneManagement;
+﻿using System.Collections;
+﻿using System;
 
 public enum PlayerIndex : int
 {
@@ -53,7 +52,6 @@ public class CharController : MonoBehaviour
         game.characterList.Add(this);
 
         input = new GamePadInput(joystick);
-        fsm = new CharFsm(this);
 
         Stance = SwordStance.Right;
         rbody = GetComponent<Rigidbody>();
@@ -74,12 +72,14 @@ public class CharController : MonoBehaviour
         // Trail init
         SwordTrail = transform.Find("Sword").Find("X-WeaponTrail").GetComponent<Xft.XWeaponTrail>();
         Assert.IsNotNull(SwordTrail);
-        AttackCollider = transform.Find("Sword").Find("Attack Collider").GetComponent<CapsuleCollider>();
         SwordTrail.Init();
         SwordTrail.Deactivate();
 
         currentId += 1;
         id = currentId;
+
+        // Fsm must be last, states will access input, rbody ...
+        fsm = new CharFsm(this);
     }
 
     public void Update()
@@ -97,25 +97,16 @@ public class CharController : MonoBehaviour
         input.FixedUpdate();
     }
 
-    public void ChangeVelocity(Vector3 velocity)
-    {
-        rbody.velocity = velocity;
-    }
-
     public void Move(Vector3 position)
     {
         rbody.MovePosition(position);
     }
-
-    public void LookForward(float lookTurnRate = 1f)
+    public void Forward(Vector3 forward)
     {
-        transform.forward = Vector3.RotateTowards(
-                transform.forward,
-                input.move.vector,
-                maxTurnSpeed * lookTurnRate,
-                1f);
+        transform.forward = forward;
     }
 
+    [Obsolete]
     public void Look(float lookTurnRate = 1f, float lockTurnRate = 1f)
     {
         var vec = input.look.vector;
