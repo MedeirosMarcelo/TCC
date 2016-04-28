@@ -57,7 +57,7 @@ namespace Assets.MovementPrototype.Character.States.HoldBlockStates
                 if (!ReferenceEquals(Character, otherCharacter))
                 {
                     var attackerState = otherCharacter.fsm.Current as BaseSwing;
-                    if (attackerState != null)
+                    if (attackerState != null && !(attackerState is HeavySwing))
                     {
                         Vector3 myForward = Transform.forward;
                         Vector3 otherForward = attackerState.Character.transform.forward;
