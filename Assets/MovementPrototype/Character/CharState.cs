@@ -66,16 +66,21 @@ public abstract class CharState : BaseState
     public override void OnTriggerEnter(Collider collider)
     {
         base.OnTriggerEnter(collider);
-        if (collider.name == "Attack Collider")
+        if (Character.collidedWith != collider.gameObject)
         {
-            var otherCharacter = collider.transform.parent.parent.GetComponent<CharController>();
-            if (!ReferenceEquals(Character, otherCharacter))
+            if (collider.name == "Attack Collider")
             {
-                var attackerState = otherCharacter.fsm.Current as Swing;
-                if (attackerState != null)
+                var otherCharacter = collider.transform.parent.parent.GetComponent<CharController>();
+                if (!ReferenceEquals(Character, otherCharacter))
                 {
-                    Character.bloodAnimator.SetTrigger("Bleed");
-                    Character.ReceiveDamage(attackerState.Damage);
+                    var attackerState = otherCharacter.fsm.Current as Swing;
+                    if (attackerState != null)
+                    {
+                        Character.collidedWith = collider.gameObject;
+                        Character.ResetCollision();
+                        Character.bloodAnimator.SetTrigger("Bleed");
+                        Character.ReceiveDamage(attackerState.Damage);
+                    }
                 }
             }
         }

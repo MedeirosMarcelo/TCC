@@ -19,7 +19,6 @@ public enum SwordStance
 public class CharController : MonoBehaviour
 {
     public PlayerIndex joystick = PlayerIndex.One;
-    public bool canControl = true;
     public int health = 2;
     public int lives = 3;
 
@@ -43,6 +42,21 @@ public class CharController : MonoBehaviour
     public string MovementState { get; set; }
     public SwordStance Stance { get; set; }
     float maxTurnSpeed = Mathf.PI / 30;
+    bool canControl;
+
+    public bool CanControl {
+        get{
+            return canControl;
+        }
+        set{
+            canControl = value;
+            if (!canControl)
+            {
+                input.buffer.Pop<InputEvent>();
+                rbody.velocity = Vector3.zero;
+            }
+        }
+    }
 
     GameManager game;
 
@@ -224,5 +238,17 @@ public class CharController : MonoBehaviour
         pos.y += 0.5f;
         Instantiate(game.PlantedSword, pos, game.PlantedSword.transform.rotation);
         transform.Find("Model").Find("Swords").Find("Sword " + lives).gameObject.SetActive(false);
+    }
+
+    public GameObject collidedWith;
+    public void ResetCollision() 
+    {
+        StartCoroutine("ResetCol");
+    }
+
+    IEnumerator ResetCol() 
+    {
+        yield return new WaitForSeconds(0.3f);
+        collidedWith = null;
     }
 }

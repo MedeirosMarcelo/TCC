@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
         foreach (Player pl in PlayerManager.GetPlayerList())
         {
             pl.Character = characterList[i];
-            pl.Character.canControl = false;
+            pl.Character.CanControl = false;
             pl.Character.joystick = pl.PlayerId;
             i++;
         }
@@ -128,7 +128,7 @@ public class GameManager : MonoBehaviour
         {
             position = Vector3.zero; //currentMap.GetSpawnPosition(type, i);
             SpawnCharacter(pl.Character, position);
-            pl.Character.canControl = false;
+            pl.Character.CanControl = false;
         }
     }
 
@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour
             pl.Character.transform.eulerAngles = spawnRotation[i];
             pl.Character.health = 2;
             pl.Character.fsm.ChangeState("MOVEMENT");
-            pl.Character.canControl = true;
+            pl.Character.CanControl = true;
             i--;
         }
     }
@@ -157,7 +157,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (Player pl in PlayerManager.GetPlayerList())
         {
-            pl.Character.canControl = false;
+            pl.Character.CanControl = false;
         }
     }
 

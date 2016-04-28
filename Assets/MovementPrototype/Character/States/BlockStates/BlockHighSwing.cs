@@ -27,18 +27,23 @@ namespace Assets.MovementPrototype.Character.States.BlockStates
 
         public override void OnTriggerEnter(Collider collider)
         {
-            if (collider.name == "Attack Collider")
+            if (Character.collidedWith != collider.gameObject)
             {
-                var otherCharacter = collider.transform.parent.parent.GetComponent<CharController>();
-                if (!ReferenceEquals(Character, otherCharacter))
+                if (collider.name == "Attack Collider")
                 {
-                    var attackerState = otherCharacter.fsm.Current as AttackSwing;
-                    if (attackerState != null && (attackerState.Name == "DOWN/LIGHT/SWING" ||
-                                                   attackerState.Name == "DOWN/HEAVY/SWING"))
+                    var otherCharacter = collider.transform.parent.parent.GetComponent<CharController>();
+                    if (!ReferenceEquals(Character, otherCharacter))
                     {
-                        Character.ShowBlockSpark(collider.transform.position);
-                        otherCharacter.fsm.ChangeState("STAGGER");
-                        return;
+                        var attackerState = otherCharacter.fsm.Current as AttackSwing;
+                        if (attackerState != null && (attackerState.Name == "DOWN/LIGHT/SWING" ||
+                                                       attackerState.Name == "DOWN/HEAVY/SWING"))
+                        {
+                            Character.collidedWith = collider.gameObject;
+                            Character.ResetCollision();
+                            Character.ShowBlockSpark(collider.transform.position);
+                            otherCharacter.fsm.ChangeState("STAGGER");
+                            return;
+                        }
                     }
                 }
             }

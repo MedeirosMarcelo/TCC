@@ -7,7 +7,8 @@ namespace Assets.MovementPrototype.Character.States.BlockStates
     public class BlockMidSwing : BlockBase
     {
         const float speed = 2f;
-        public BlockMidSwing(CharFsm fsm) : base(fsm)
+        public BlockMidSwing(CharFsm fsm)
+            : base(fsm)
         {
             Name = "BLOCK/MID/SWING";
             nextState = "BLOCK/MID/RECOVER";
@@ -29,25 +30,30 @@ namespace Assets.MovementPrototype.Character.States.BlockStates
 
         public override void OnTriggerEnter(Collider collider)
         {
-            if (collider.name == "Attack Collider")
+            if (Character.collidedWith != collider.gameObject)
             {
-                var otherCharacter = collider.transform.parent.parent.GetComponent<CharController>();
-                if (!ReferenceEquals(Character, otherCharacter))
+                if (collider.name == "Attack Collider")
                 {
-                    var attackerState = otherCharacter.fsm.Current;
-                    if (attackerState is BaseSwing)
+                    var otherCharacter = collider.transform.parent.parent.GetComponent<CharController>();
+                    if (!ReferenceEquals(Character, otherCharacter))
                     {
-                        Character.ShowBlockSpark(collider.transform.position);
-                        otherCharacter.fsm.ChangeState("STAGGER");
-                        if (attackerState is HeavySwing)
+                        var attackerState = otherCharacter.fsm.Current;
+                        if (attackerState is BaseSwing)
                         {
-                            Fsm.ChangeState("STAGGER");
+                            Character.collidedWith = collider.gameObject;
+                            Character.ResetCollision();
+                            Character.ShowBlockSpark(collider.transform.position);
+                            otherCharacter.fsm.ChangeState("STAGGER");
+                            if (attackerState is HeavySwing)
+                            {
+                                Fsm.ChangeState("STAGGER");
+                            }
+                            else
+                            {
+                                Fsm.ChangeState(nextState);
+                            }
+                            return;
                         }
-                        else
-                        {
-                            Fsm.ChangeState(nextState);
-                        }
-                        return;
                     }
                 }
             }

@@ -97,7 +97,7 @@ GameObject:
   - 33: {fileID: 121928924}
   - 65: {fileID: 121928923}
   - 23: {fileID: 121928922}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +172,7 @@ GameObject:
   - 33: {fileID: 190582717}
   - 65: {fileID: 190582716}
   - 23: {fileID: 190582715}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -244,7 +244,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 395894195}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Props
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -327,7 +327,7 @@ GameObject:
   - 33: {fileID: 901085045}
   - 65: {fileID: 901085044}
   - 23: {fileID: 901085043}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -543,11 +543,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 422484, guid: 39db0a9bfa2cfb9429ebbfce40bca1c4, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 11482160, guid: 39db0a9bfa2cfb9429ebbfce40bca1c4, type: 2}
       propertyPath: DecalsParent
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 197180, guid: 39db0a9bfa2cfb9429ebbfce40bca1c4, type: 2}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 39db0a9bfa2cfb9429ebbfce40bca1c4, type: 2}
