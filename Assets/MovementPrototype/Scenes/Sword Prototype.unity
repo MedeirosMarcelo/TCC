@@ -313,6 +313,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11498552, guid: 31b90c1df5456ac4798fc008ef6e50df, type: 2}
+      propertyPath: debugDisableLockToTarget
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 31b90c1df5456ac4798fc008ef6e50df, type: 2}
   m_IsPrefabParent: 0
@@ -713,3 +717,16 @@ MonoBehaviour:
 GameObject:
   m_PrefabParentObject: {fileID: 170760, guid: 31b90c1df5456ac4798fc008ef6e50df, type: 2}
   m_PrefabInternal: {fileID: 554421040}
+--- !u!114 &1823746771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1823746764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d6a251b5646fde4aacb52cacb926561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enable: 1
+  action: 6

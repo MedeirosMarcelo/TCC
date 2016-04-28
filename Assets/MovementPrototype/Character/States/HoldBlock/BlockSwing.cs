@@ -56,20 +56,28 @@ namespace Assets.MovementPrototype.Character.States.HoldBlockStates
                 var otherCharacter = collider.transform.parent.parent.GetComponent<CharController>();
                 if (!ReferenceEquals(Character, otherCharacter))
                 {
-                    var attackerState = otherCharacter.fsm.Current;
-                    if (attackerState is BaseSwing)
+                    var attackerState = otherCharacter.fsm.Current as BaseSwing;
+                    if (attackerState != null)
                     {
-                        Character.ShowBlockSpark(collider.transform.position);
-                        otherCharacter.fsm.ChangeState("STAGGER");
-                        if (attackerState is HeavySwing)
+                        Vector3 myForward = Transform.forward;
+                        Vector3 otherForward = attackerState.Character.transform.forward;
+                        float dot = Vector3.Dot(myForward, otherForward);
+                        float dotAngle = Mathf.Acos(dot) * Mathf.Rad2Deg;
+                        float deltaAngle = Mathf.Abs(Mathf.DeltaAngle(180, dotAngle));
+                        if (dot < 0 && deltaAngle <= defenseAngle / 2f)
                         {
-                            Fsm.ChangeState("STAGGER");
+                            Character.ShowBlockSpark(collider.transform.position);
+                            otherCharacter.fsm.ChangeState("STAGGER");
+                            if (attackerState is HeavySwing)
+                            {
+                                Fsm.ChangeState("STAGGER");
+                            }
+                            else
+                            {
+                                Fsm.ChangeState(nextState);
+                            }
+                            return;
                         }
-                        else
-                        {
-                            Fsm.ChangeState(nextState);
-                        }
-                        return;
                     }
                 }
             }

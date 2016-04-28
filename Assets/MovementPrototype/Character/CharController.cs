@@ -22,6 +22,8 @@ public class CharController : MonoBehaviour
     public int health = 2;
     public int lives = 3;
 
+    public bool debugDisableLockToTarget = false;
+
     public GameObject target;
     public Animator bloodAnimator;
     public Material baseMaterial;

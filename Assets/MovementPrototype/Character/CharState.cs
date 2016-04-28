@@ -23,6 +23,7 @@ public abstract class CharState : BaseState
     protected float maxAcceleration;
     protected float turnRate;
     protected float lockedTurnModifier;
+    protected float defenseAngle;
 
     public CharState(CharFsm fsm)
     {
@@ -42,6 +43,7 @@ public abstract class CharState : BaseState
         maxAcceleration = 2f;
         turnRate = 2f;
         lockedTurnModifier = 0.5f;
+        defenseAngle = 90f;
     }
     public override void PreUpdate()
     {
@@ -93,9 +95,9 @@ public abstract class CharState : BaseState
         const float turnUnit = Mathf.PI / 30; // 12'
         if (turnRate > 0f)
         {
-            if (Input.run > 0.25f)
+            if (Input.run > 0.25f || Character.debugDisableLockToTarget)
             {
-                if (Input.move.isActive)
+                if (Input.move.isActive || Character.debugDisableLockToTarget)
                 {
                     var forward = Vector3.RotateTowards(
                         Transform.forward,

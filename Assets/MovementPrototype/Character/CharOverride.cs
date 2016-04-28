@@ -16,7 +16,8 @@ public class CharOverride : MonoBehaviour
         DASH,
         HBLOCK,
         BLOCKMID,
-        BLOCKHIGH
+        BLOCKHIGH,
+        BLOCKFOREVER
     };
 
     [Header("F9 Enable/Disable")]
@@ -86,11 +87,14 @@ public class CharOverride : MonoBehaviour
                     Fsm.ChangeState("BLOCK/WINDUP");
                 }
                 break;
+            case Action.BLOCKFOREVER:
+                Fsm.ChangeState("BLOCK/SWING");
+                break;
             case Action.BLOCKMID:
                 if (Current.Name == returnState)
                 {
                     //var evt = new InputEvent.Block();
-                    //Fsm.ChangeState("BLOCK/MID/WINDUP", 0f, evt);
+                    //Fsm.ChangeState("BLOCK/SWING");
                 }
                 break;
             case Action.BLOCKHIGH:
