@@ -7,7 +7,7 @@ public abstract class CharState : BaseState
     public BaseInput Input { get; protected set; }
     public Rigidbody Rigidbody { get; protected set; }
     public Transform Transform { get; protected set; }
-    public GameObject Target { get; protected set; }
+    public GameObject Target { get { return Character.target; } protected set { Character.target = value; } }
 
     // Timed state
     protected float elapsed;
@@ -32,7 +32,6 @@ public abstract class CharState : BaseState
         Input = Character.input;
         Rigidbody = Character.rbody;
         Transform = Character.transform;
-        Target = Character.target;
 
         //Movement
         canPlayerMove = false;
@@ -109,12 +108,26 @@ public abstract class CharState : BaseState
             }
             else if (lockedTurnModifier > 0f)
             {
-                var forward = Vector3.RotateTowards(
-                    Transform.forward,
-                    (Target.transform.position - Transform.position).normalized,
-                    turnUnit * turnRate * lockedTurnModifier,
-                    1f);
-                Character.Forward(forward);
+                var vec = Input.look.vector;
+                if (vec.magnitude > 0.25)
+                {
+                    var forward = Vector3.RotateTowards(
+                        Transform.forward,
+                        vec,
+                        turnUnit * turnRate,
+                        1f);
+                    Character.Forward(forward);
+                    Character.ChangeTarget(vec);
+                }
+                else
+                {
+                    var forward = Vector3.RotateTowards(
+                        Transform.forward,
+                        (Target.transform.position - Transform.position).normalized,
+                        turnUnit * turnRate * lockedTurnModifier,
+                        1f);
+                    Character.Forward(forward);
+                }
             }
         }
     }

@@ -50,6 +50,7 @@ public class CharOverride : MonoBehaviour
                 {
                     //var evt = new InputEvent.Attack();
                     //Fsm.ChangeState("ATTACK", 0f, evt);
+                    Fsm.ChangeState("RIGHT/LIGHT/WINDUP");
                 }
                 break;
             case Action.ATTACKHIGH:
@@ -57,6 +58,7 @@ public class CharOverride : MonoBehaviour
                 {
                     //var evt = new InputEvent.Attack(isHigh: true);
                     //Fsm.ChangeState("ATTACK", 0f, evt);
+                    Fsm.ChangeState("DOWN/LIGHT/WINDUP");
                 }
                 break;
             case Action.HATTACKLIGHT:
@@ -95,6 +97,7 @@ public class CharOverride : MonoBehaviour
                 {
                     //var evt = new InputEvent.Block();
                     //Fsm.ChangeState("BLOCK/SWING");
+                    Fsm.ChangeState("BLOCK/MID/WINDUP");
                 }
                 break;
             case Action.BLOCKHIGH:
@@ -102,6 +105,7 @@ public class CharOverride : MonoBehaviour
                 {
                     //var evt = new InputEvent.Block(isHigh: true);
                     //Fsm.ChangeState("BLOCK/HIGH/WINDUP", 0f, evt);
+                    Fsm.ChangeState("BLOCK/HIGH/WINDUP");
                 }
                 break;
         }

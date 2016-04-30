@@ -24,8 +24,10 @@ public abstract class InputEvent
     {
         public bool IsHigh { get; private set; }
         public bool IsHeavy { get; private set; }
-        public Attack(bool isHigh = false, bool isHeavy = false)
+        public Stick Move { get; private set; }
+        public Attack(Stick move, bool isHigh = false, bool isHeavy = false)
         {
+            Move = move;
             IsHigh = isHigh;
             IsHeavy = isHeavy;
         }

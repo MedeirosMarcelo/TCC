@@ -19,7 +19,7 @@
             if (Input.buffer.NextEventIs<InputEvent.Attack>())
             {
                 var evt = Input.buffer.Pop<InputEvent.Attack>();
-                Fsm.ChangeState("HATTACK/LIGHT/WINDUP", 0f, evt);
+                Fsm.ChangeState("ATTACK", 0f, evt); //"HATTACK/LIGHT/WINDUP"
             }
             else if (Input.buffer.NextEventIs<InputEvent.Lunge>())
             {
@@ -29,7 +29,7 @@
             else if (Input.buffer.NextEventIs<InputEvent.Block>())
             {
                 var evt = Input.buffer.Pop<InputEvent.Block>();
-                Fsm.ChangeState("BLOCK/WINDUP", 0f, evt);
+                Fsm.ChangeState("BLOCK/MID/WINDUP", 0f, evt);
             }
             else if (Input.buffer.NextEventIs<InputEvent.Dash>())
             {

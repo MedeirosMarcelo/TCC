@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Assets.MovementPrototype.Character.States.AttackStates
+namespace Assets.MovementPrototype.Character.States.HoldAttackStates
 {
     public class AttackState : ProxyState
     {
@@ -40,7 +40,7 @@ namespace Assets.MovementPrototype.Character.States.AttackStates
                     {
                         Fsm.ChangeState("RIGHT/LIGHT/WINDUP", additionalDeltaTime);
                     }
-                    else if (moveDirection.x > 0.2f)
+                    else
                     {
                         Fsm.ChangeState("LEFT/LIGHT/WINDUP", additionalDeltaTime);
                     }

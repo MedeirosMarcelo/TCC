@@ -12,6 +12,10 @@ internal static class Extension
                 return XInputDotNetPure.PlayerIndex.One;
             case PlayerIndex.Two:
                 return XInputDotNetPure.PlayerIndex.Two;
+            case PlayerIndex.Three:
+                return XInputDotNetPure.PlayerIndex.Three;
+            case PlayerIndex.Four:
+                return XInputDotNetPure.PlayerIndex.Four;
         }
     }
 }
@@ -93,7 +97,7 @@ public class GamePadInput : BaseInput
         }
         else if (attacked)
         {
-            buffer.Push(new InputEvent.Attack());
+            buffer.Push(new InputEvent.Attack(move));
         }
     }
 

@@ -9,6 +9,8 @@ public static class PlayerManager {
     static PlayerManager() {
         AddPlayer(PlayerIndex.One);
         AddPlayer(PlayerIndex.Two);
+        AddPlayer(PlayerIndex.Three);
+        AddPlayer(PlayerIndex.Four);
     }
 
     public static Player AddPlayer(PlayerIndex playerId) {

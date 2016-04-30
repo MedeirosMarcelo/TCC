@@ -7,6 +7,8 @@ public enum PlayerIndex : int
 {
     One = 1,
     Two = 2,
+    Three = 3,
+    Four = 4
 }
 public enum SwordStance
 {
@@ -46,16 +48,22 @@ public class CharController : MonoBehaviour
     float maxTurnSpeed = Mathf.PI / 30;
     bool canControl;
 
-    public bool CanControl {
-        get{
+    public bool CanControl
+    {
+        get
+        {
             return canControl;
         }
-        set{
+        set
+        {
             canControl = value;
             if (!canControl)
             {
+                print("ADSASDASD");
                 input.buffer.Pop<InputEvent>();
                 rbody.velocity = Vector3.zero;
+                rbody.angularVelocity = Vector3.zero;
+                rbody.Sleep();
             }
         }
     }
@@ -103,6 +111,8 @@ public class CharController : MonoBehaviour
         if (canControl)
         {
             input.Update();
+            if (gameObject.name == "Character")
+                print(target);
         }
     }
 
@@ -212,6 +222,7 @@ public class CharController : MonoBehaviour
         float maxDistance = 7.5f;
         GameObject closestChar = null;
         float closestDistance = maxDistance;
+        float closestAngle = maxAngle;
         foreach (CharController child in game.characterList)
         {
             if (child.gameObject != this.gameObject)
@@ -223,7 +234,11 @@ public class CharController : MonoBehaviour
                     if (childDistance < closestDistance)
                     {
                         closestDistance = childDistance;
-                        closestChar = child.gameObject;
+                        if (angle < closestAngle)
+                        {
+                            closestAngle = angle;
+                            closestChar = child.gameObject;
+                        }
                     }
                 }
             }
@@ -243,12 +258,12 @@ public class CharController : MonoBehaviour
     }
 
     public GameObject collidedWith;
-    public void ResetCollision() 
+    public void ResetCollision()
     {
         StartCoroutine("ResetCol");
     }
 
-    IEnumerator ResetCol() 
+    IEnumerator ResetCol()
     {
         yield return new WaitForSeconds(0.3f);
         collidedWith = null;

@@ -24,17 +24,21 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     GameObject characterPrefab;
-    Vector3[] spawnPosition = new Vector3[2];
-    Vector3[] spawnRotation = new Vector3[2];
+    Vector3[] spawnPosition = new Vector3[4];
+    Vector3[] spawnRotation = new Vector3[4];
     Timer timer = new Timer();
 
     void Start()
     {
         spawnPosition[0] = new Vector3(0f, 0.393f, -3f);
         spawnPosition[1] = new Vector3(0f, 0.393f, 3f);
+        spawnPosition[2] = new Vector3(-5f, 0.393f, 3f);
+        spawnPosition[3] = new Vector3(-5f, 0.393f, -3f);
 
         spawnRotation[0] = Vector3.zero;
         spawnRotation[1] = new Vector3(0f, 180, 0f);
+        spawnRotation[2] = new Vector3(0f, 180, 0f);
+        spawnRotation[3] = Vector3.zero;
 
         //-- Provisório até criar sistema de entrada de jogadores.
         int i = 0;
@@ -141,7 +145,7 @@ public class GameManager : MonoBehaviour
 
     void EnterPlayRound()
     {
-        int i = 1;
+        int i = 3;
         foreach (Player pl in PlayerManager.GetPlayerList())
         {
             pl.Character.transform.position = spawnPosition[i];

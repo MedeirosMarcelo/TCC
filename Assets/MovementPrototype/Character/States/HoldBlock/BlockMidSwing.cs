@@ -4,14 +4,14 @@ using HeavySwing = Assets.MovementPrototype.Character.States.HoldAttackStates.He
 
 namespace Assets.MovementPrototype.Character.States.HoldBlockStates
 {
-    public class BlockSwing : AnimatedState
+    public class BlockMidSwing : AnimatedState
     {
         private bool holding;
         private float minSwingTime = 0.3f;
-        public BlockSwing(CharFsm fsm) : base(fsm)
+        public BlockMidSwing(CharFsm fsm) : base(fsm)
         {
-            Name = "BLOCK/SWING";
-            nextState = "BLOCK/RECOVER";
+            Name = "BLOCK/MID/SWING";
+            nextState = "BLOCK/MID/RECOVER";
             totalTime = 0.8f;
             canPlayerMove = true;
             moveSpeed = 0.75f;
