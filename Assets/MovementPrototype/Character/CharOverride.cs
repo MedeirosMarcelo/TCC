@@ -17,6 +17,8 @@ public class CharOverride : MonoBehaviour
         HBLOCK,
         BLOCKMID,
         BLOCKHIGH,
+        BLOCKMIDFOREVER,
+        BLOCKHIGHFOREVER,
         BLOCKFOREVER
     };
 
@@ -107,6 +109,12 @@ public class CharOverride : MonoBehaviour
                     //Fsm.ChangeState("BLOCK/HIGH/WINDUP", 0f, evt);
                     Fsm.ChangeState("BLOCK/HIGH/WINDUP");
                 }
+                break;
+                case Action.BLOCKMIDFOREVER:
+                Fsm.ChangeState("BLOCK/MID/WINDUP");
+                break;
+                    case Action.BLOCKHIGHFOREVER:
+                Fsm.ChangeState("BLOCK/HIGH/WINDUP");
                 break;
         }
 

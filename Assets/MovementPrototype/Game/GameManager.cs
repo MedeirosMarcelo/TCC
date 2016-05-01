@@ -167,13 +167,10 @@ public class GameManager : MonoBehaviour
 
     void EnterRoundEnd()
     {
-        foreach (Player pl in PlayerManager.GetPlayerList())
+        if (CheckGameEnd())
         {
-            if (pl.Character.lives <= 0)
-            {
-                EnterState(GameState.EndGame);
-                return;
-            }
+            EnterState(GameState.EndGame);
+            return;
         }
         StartCoroutine("WaitRestartRound");
     }
@@ -193,6 +190,38 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene("Result");
+    }
+
+    public void CheckEndRound() {
+        int healthyCount = 0;
+        foreach (Player pl in PlayerManager.GetPlayerList())
+        {
+            if (pl.Character.health > 0)
+            {
+                healthyCount++;
+            }
+        }
+        if (healthyCount <= 1)
+        {
+            EnterState(GameState.RoundEnd);
+        }
+    }
+
+    bool CheckGameEnd()
+    {
+        int aliveCount = 0;
+        foreach (Player pl in PlayerManager.GetPlayerList())
+        {
+            if (pl.Character.lives > 0)
+            {
+                aliveCount++;
+            }
+        }
+        if (aliveCount <= 1)
+        {
+            return true;
+        }
+        return false;
     }
 
     //public void Score(PlayerIndex controller) {

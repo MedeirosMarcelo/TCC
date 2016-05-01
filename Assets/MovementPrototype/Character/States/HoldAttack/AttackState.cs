@@ -16,7 +16,7 @@ namespace Assets.MovementPrototype.Character.States.HoldAttackStates
             var evt = args[0] as InputEvent.Attack;
             Assert.IsNotNull(evt);
 
-            if (Input.run >= 0.25f) //Usar LOCKED do BlockBase?
+            if (Input.run >= 0.25f) //TODO: Usar LOCKED do BlockBase?
             {
                 if (Character.Stance == SwordStance.Left)
                 {

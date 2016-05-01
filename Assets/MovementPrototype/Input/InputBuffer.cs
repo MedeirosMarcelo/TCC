@@ -41,6 +41,10 @@ public abstract class InputEvent
             IsHigh = isHigh;
         }
     }
+
+    public class HighStance : InputEvent
+    {
+    }
 }
 
 

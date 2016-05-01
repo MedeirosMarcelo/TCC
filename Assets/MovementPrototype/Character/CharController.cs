@@ -44,7 +44,7 @@ public class CharController : MonoBehaviour
     // Dash state data
     public Vector3 DashVelocity { get; set; }
     public string MovementState { get; set; }
-    public SwordStance Stance { get; set; }
+    public SwordStance Stance;
     float maxTurnSpeed = Mathf.PI / 30;
     bool canControl;
 
@@ -59,7 +59,6 @@ public class CharController : MonoBehaviour
             canControl = value;
             if (!canControl)
             {
-                print("ADSASDASD");
                 input.buffer.Pop<InputEvent>();
                 rbody.velocity = Vector3.zero;
                 rbody.angularVelocity = Vector3.zero;
@@ -111,8 +110,6 @@ public class CharController : MonoBehaviour
         if (canControl)
         {
             input.Update();
-            if (gameObject.name == "Character")
-                print(target);
         }
     }
 
@@ -177,7 +174,7 @@ public class CharController : MonoBehaviour
             lives--;
             fsm.ChangeState("DEATH");
             if (lives > 0) PlantSword();
-            game.EnterState(GameState.RoundEnd);
+            game.CheckEndRound();
         }
     }
 

@@ -16,7 +16,7 @@ namespace Assets.MovementPrototype.Character.States.HoldBlockStates
             canPlayerMove = true;
             moveSpeed = 0.75f;
             turnRate = 0.25f;
-            Animation = "Block Mid";
+            Animation = "BlockMidSwing";
         }
         public override void PreUpdate()
         {
@@ -57,7 +57,8 @@ namespace Assets.MovementPrototype.Character.States.HoldBlockStates
                 if (!ReferenceEquals(Character, otherCharacter))
                 {
                     var attackerState = otherCharacter.fsm.Current as BaseSwing;
-                    if (attackerState != null)
+                    if (attackerState != null && (attackerState.Name != "DOWN/LIGHT/SWING" &&
+                                                  attackerState.Name != "DOWN/HEAVY/SWING"))
                     {
                         Vector3 myForward = Transform.forward;
                         Vector3 otherForward = attackerState.Character.transform.forward;

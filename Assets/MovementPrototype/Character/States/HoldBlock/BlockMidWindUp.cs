@@ -1,6 +1,6 @@
 ﻿namespace Assets.MovementPrototype.Character.States.HoldBlockStates
 {
-    public class BlockMidWindUp : CharState
+    public class BlockMidWindUp : AnimatedState
     {
         public BlockMidWindUp(CharFsm fsm) : base(fsm)
         {
@@ -10,6 +10,7 @@
             canPlayerMove = true;
             moveSpeed = 0.75f;
             turnRate = 0.25f;
+            Animation = "BlockMidWindup";
         }
     }
 }

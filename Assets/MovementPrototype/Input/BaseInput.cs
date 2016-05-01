@@ -28,6 +28,7 @@ public class BaseInput {
     public virtual bool lunge { get; protected set; }
     public virtual bool block { get; protected set; }
     public virtual bool blockHigh { get; protected set; }
+    public virtual bool highStance { get; protected set; }
 
     public virtual InputBuffer buffer { get; private set; }
 
@@ -43,6 +44,7 @@ public class BaseInput {
         lunge = false;
         block = false;
         blockHigh = false;
+        highStance = false;
         run = 0f;
     }
 

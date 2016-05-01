@@ -55,6 +55,10 @@ public class GamePadInput : BaseInput
     {
         get { return state.Buttons.RightShoulder == ButtonState.Pressed && lastState.Buttons.RightShoulder == ButtonState.Released; }
     }
+    bool PressedLS
+    {
+        get { return state.Buttons.LeftShoulder == ButtonState.Pressed && lastState.Buttons.LeftShoulder == ButtonState.Released; }
+    }
     bool PressedRT
     {
         get { return state.Triggers.Right > triggerThreshold && (lastState.Triggers.Right <= triggerThreshold); }
@@ -82,6 +86,9 @@ public class GamePadInput : BaseInput
 
         block = state.Buttons.RightShoulder == ButtonState.Pressed;
         var blocked = PressedRS;
+
+        highStance = state.Buttons.LeftShoulder == ButtonState.Pressed;
+        //var highStanced = PressedRS; //that's not even a word.
 
         dash = state.Buttons.B == ButtonState.Pressed;
         var dashed = PressedB;
