@@ -4,7 +4,8 @@ namespace Assets.MovementPrototype.Character.States
 {
     public class CharDeath : CharState
     {
-        public CharDeath(CharFsm fsm) : base(fsm)
+        public CharDeath(CharFsm fsm)
+            : base(fsm)
         {
             Name = "DEATH";
         }
@@ -12,5 +13,7 @@ namespace Assets.MovementPrototype.Character.States
         {
             Character.animator.Play("Death");
         }
+
+        public override void OnTriggerEnter(Collider collider) { }
     }
 }

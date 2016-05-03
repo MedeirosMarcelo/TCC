@@ -80,6 +80,8 @@ public abstract class CharState : BaseState
                         Character.collidedWith = collider.gameObject;
                         Character.ResetCollision();
                         Character.bloodAnimator.SetTrigger("Bleed");
+                        var swingState = otherCharacter.fsm.Current as Swing;
+                        Fsm.ChangeState("HITSTUN");
                         Character.ReceiveDamage(attackerState.Damage);
                     }
                 }
