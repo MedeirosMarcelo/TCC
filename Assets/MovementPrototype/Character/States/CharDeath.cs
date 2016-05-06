@@ -8,6 +8,7 @@ namespace Assets.MovementPrototype.Character.States
             : base(fsm)
         {
             Name = "DEATH";
+            turnRate = 0f;
         }
         public override void Enter(string lastName, string nextName, float additionalDeltaTime, params object[] args)
         {

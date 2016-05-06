@@ -17,13 +17,18 @@ public abstract class CharState : BaseState
     // Movement state
     protected bool canPlayerMove;
     protected float moveSpeed;
+    protected float runSpeedModifier;
     protected float forwardSpeedModifier;
     protected float backwardSpeedModifier;
     protected float sideSpeedModifier;
     protected float maxAcceleration;
+    protected float runMaxAcceleration;
     protected float turnRate;
+    protected float runTurnModifier;
     protected float lockedTurnModifier;
     protected float defenseAngle;
+
+    const float runThreshold = 0.35f;
 
     public CharState(CharFsm fsm)
     {
@@ -35,12 +40,15 @@ public abstract class CharState : BaseState
 
         //Movement
         canPlayerMove = false;
-        moveSpeed = 3.5f;
+        moveSpeed = 2.5f;
+        runSpeedModifier = 1.25f;
         forwardSpeedModifier = 1f;
         backwardSpeedModifier = 0.5f;
         sideSpeedModifier = 0.75f;
         maxAcceleration = 2f;
+        runMaxAcceleration = 2f;
         turnRate = 2f;
+        runTurnModifier = 0.25f;
         lockedTurnModifier = 0.5f;
         defenseAngle = 90f;
     }
@@ -96,23 +104,25 @@ public abstract class CharState : BaseState
         const float turnUnit = Mathf.PI / 30; // 12'
         if (turnRate > 0f)
         {
-            if (Input.run > 0.25f || Character.debugDisableLockToTarget)
+            if (Input.run > runThreshold || Character.debugDisableLockToTarget)
             {
                 if (Input.move.isActive || Character.debugDisableLockToTarget)
                 {
+                    // Running
                     var forward = Vector3.RotateTowards(
                         Transform.forward,
                         Input.move.vector.normalized,
-                        turnUnit * turnRate,
+                        turnUnit * turnRate * runTurnModifier,
                         1f);
                     Character.Forward(forward);
                 }
             }
             else if (lockedTurnModifier > 0f)
             {
-                var vec = Input.look.vector;
-                if (vec.magnitude > 0.25)
+
+                if (Input.look.isActive)
                 {
+                    var vec = Input.look.vector;
                     var forward = Vector3.RotateTowards(
                         Transform.forward,
                         vec,
@@ -140,6 +150,8 @@ public abstract class CharState : BaseState
             // Calculate the delta velocity
             var acceleration = GetInputVelovity() - Rigidbody.velocity;
             acceleration.y = 0;
+
+
             // Limit acceleration
             if (acceleration.magnitude > maxAcceleration)
             {
@@ -156,8 +168,12 @@ public abstract class CharState : BaseState
         velocity.x *= moveSpeed * sideSpeedModifier;
         velocity.z *= moveSpeed *
             ((Mathf.Sign(velocity.z) > 0) ? forwardSpeedModifier : backwardSpeedModifier);
+
+        if (Input.run > runThreshold) {
+            velocity.z *= runSpeedModifier;
+        }
+
         // We must return a velocity vector relative to the world
         return Transform.TransformDirection(velocity);
-
     }
 }
