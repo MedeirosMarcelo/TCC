@@ -4,6 +4,7 @@ using Swing = Assets.MovementPrototype.Character.States.HoldAttackStates.BaseSwi
 public abstract class CharState : BaseState
 {
     public CharController Character { get; protected set; }
+    public GameManager Game { get; protected set; }
     public BaseInput Input { get; protected set; }
     public Rigidbody Rigidbody { get; protected set; }
     public Transform Transform { get; protected set; }
@@ -34,6 +35,7 @@ public abstract class CharState : BaseState
     {
         Fsm = fsm;
         Character = fsm.Character;
+        Game = Character.game;
         Input = Character.input;
         Rigidbody = Character.rbody;
         Transform = Character.transform;
@@ -77,6 +79,7 @@ public abstract class CharState : BaseState
         base.OnTriggerEnter(collider);
         if (Character.collidedWith != collider.gameObject)
         {
+            UnityEngine.Debug.Log(collider.tag);
             if (collider.name == "Attack Collider")
             {
                 var otherCharacter = collider.transform.parent.parent.GetComponent<CharController>();
@@ -93,6 +96,10 @@ public abstract class CharState : BaseState
                         Character.ReceiveDamage(attackerState.Damage);
                     }
                 }
+            }
+            else if (collider.tag == "Push")
+            {
+                Fsm.ChangeState("LOCKSWORDS");
             }
         }
         // otherwise defer to base
@@ -138,6 +145,7 @@ public abstract class CharState : BaseState
                         (Target.transform.position - Transform.position).normalized,
                         turnUnit * turnRate * lockedTurnModifier,
                         1f);
+                    forward.y = 0f;
                     Character.Forward(forward);
                 }
             }

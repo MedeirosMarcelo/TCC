@@ -1,4 +1,5 @@
-﻿namespace Assets.MovementPrototype.Character.States
+﻿using UnityEngine;
+namespace Assets.MovementPrototype.Character.States
 {
     public class LockSwords : AnimatedState
     {
@@ -18,6 +19,7 @@
 
     public class PushAway : AnimatedState
     {
+        const float speed = 2.5f;
         public PushAway(CharFsm fsm) : base(fsm)
         {
             Name = "PUSHAWAY";
@@ -29,6 +31,12 @@
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
+        }
+
+        public override void FixedUpdate()
+        {
+            base.FixedUpdate();
+            Character.Move(Transform.position + ((-Transform.forward * speed) * Time.fixedDeltaTime));
         }
     }
 }

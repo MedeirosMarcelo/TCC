@@ -193,15 +193,15 @@ public class GameManager : MonoBehaviour
     }
 
     public void CheckEndRound() {
-        int healthyCount = 0;
+        int aliveCount = 0;
         foreach (Player pl in PlayerManager.GetPlayerList())
         {
-            if (pl.Character.health > 0)
+            if (pl.Character.fsm.Current.Name != "DEATH")
             {
-                healthyCount++;
+                aliveCount++;
             }
         }
-        if (healthyCount <= 1)
+        if (aliveCount <= 1)
         {
             EnterState(GameState.RoundEnd);
         }

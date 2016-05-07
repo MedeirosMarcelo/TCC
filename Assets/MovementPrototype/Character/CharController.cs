@@ -34,6 +34,7 @@ public class CharController : MonoBehaviour
 
     public BaseInput input { get; private set; }
     public Rigidbody rbody { get; private set; }
+    public GameManager game { get; private set; }
     public CharFsm fsm { get; private set; }
     public Animator animator { get; private set; }
     public Xft.XWeaponTrail SwordTrail { get; private set; }
@@ -66,8 +67,6 @@ public class CharController : MonoBehaviour
             }
         }
     }
-
-    GameManager game;
 
     public void Awake()
     {
@@ -171,10 +170,7 @@ public class CharController : MonoBehaviour
         StartCoroutine("DelayBlood");
         if (health <= 0)
         {
-            lives--;
             fsm.ChangeState("DEATH");
-            if (lives > 0) PlantSword();
-            game.CheckEndRound();
         }
     }
 
@@ -222,7 +218,7 @@ public class CharController : MonoBehaviour
         float closestAngle = maxAngle;
         foreach (CharController child in game.characterList)
         {
-            if (child.gameObject != this.gameObject)
+            if (child.gameObject != this.gameObject && child.fsm.Current.Name != "DEATH")
             {
                 float angle = Vector3.Angle(direction, child.transform.localPosition - this.transform.localPosition);
                 if (angle <= maxAngle)
