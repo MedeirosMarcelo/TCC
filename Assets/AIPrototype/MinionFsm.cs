@@ -10,7 +10,7 @@ public class MinionFsm : BaseFsm
         Minion = minion;
         var loader = new StateLoader<MinionFsm>();
         loader.LoadStates(this, "Assets.AIPrototype.States");
-        //Assert.IsTrue(dict.ContainsKey(startStateName), "Unknown start state: " + startStateName);
-        //Current = dict[startStateName];
+        Assert.IsTrue(dict.ContainsKey(startStateName), "Unknown start state: " + startStateName);
+        Current = dict[startStateName];
     }
 }
