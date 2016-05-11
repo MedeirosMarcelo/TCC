@@ -4,11 +4,13 @@ namespace Assets.AIPrototype.States
 {
     public class MinionFollow : MinionState
     {
+        TimerBehaviour timer;
         public MinionFollow(MinionFsm fsm) : base(fsm)
         {
             Name = "FOLLOW";
-            nextState = "IDLE";
-            totalTime = 2f;
+            timer = new TimerBehaviour(this);
+            timer.NextState = "IDLE";
+            timer.TotalTime = 2f;
         }
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime = 0, params object[] args)
         {
@@ -18,7 +20,7 @@ namespace Assets.AIPrototype.States
                 return;
             }
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
-            nextState = (Random.value > 0.2) ? "FOLLOW" : "IDLE";
+            timer.NextState = (Random.value > 0.2) ? "FOLLOW" : "IDLE";
             NextDestination();
         }
         const float nextRange = 3f;
@@ -40,9 +42,5 @@ namespace Assets.AIPrototype.States
             diff.y = 0f;
             return (diff.magnitude < targetRange);
         }
-
-
-
-
     }
 }

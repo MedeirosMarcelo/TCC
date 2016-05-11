@@ -2,7 +2,7 @@
 using UnityEngine.Assertions;
 using UnityStandardAssets.Utility;
 
-public class MinionController : MonoBehaviour
+public class MinionController : MonoBehaviour, IHumanoidController
 {
     public Transform Target;
     public WaypointCircuit Lane;
@@ -44,23 +44,6 @@ public class MinionController : MonoBehaviour
         id = currentId;
 #endif
     }
-    public void Update()
-    {
-        /*
-        if (targetReached)
-        {
-            NavAgent.SetDestination(transform.position);
-        }
-        else
-        {
-            if (destinationReached)
-            {
-                NextDestination();
-            }
-            NavAgent.SetDestination(destination);
-        }
-        */
-    }
     public void FixedUpdate()
     {
         Fsm.PreUpdate();
@@ -95,7 +78,7 @@ public class MinionController : MonoBehaviour
         set
         {
             destination = value;
-            print("State = " + Fsm.Current.Name + " SetDestination = " + destination);
+            print("SetDestination = " + destination);
             NavAgent.SetDestination(destination);
         }
     }
