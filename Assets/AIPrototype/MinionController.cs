@@ -2,13 +2,11 @@
 using UnityEngine.Assertions;
 using UnityStandardAssets.Utility;
 
-public class MinionController : MonoBehaviour, IHumanoidController
+public class MinionController : MonoBehaviour
 {
     public Transform Target;
-    public WaypointCircuit Lane;
-
     public int Health { get; private set; }
-    public Rigidbody Rbody { get; private set; }
+    public Rigidbody Rigidbody { get; private set; }
     public MinionFsm Fsm { get; private set; }
     public Animator Animator { get; private set; }
     public MeshRenderer Mesh { get; private set; }
@@ -25,8 +23,8 @@ public class MinionController : MonoBehaviour, IHumanoidController
         Assert.IsNotNull(Target);
 
         Health = 2;
-        Rbody = GetComponent<Rigidbody>();
-        Assert.IsNotNull(Rbody);
+        Rigidbody = GetComponent<Rigidbody>();
+        Assert.IsNotNull(Rigidbody);
         Animator = GetComponent<Animator>();
         Assert.IsNotNull(Animator);
         Mesh = transform.Find("Model").GetComponent<MeshRenderer>();
@@ -51,7 +49,7 @@ public class MinionController : MonoBehaviour, IHumanoidController
     }
     public void Move(Vector3 position)
     {
-        Rbody.MovePosition(position);
+        Rigidbody.MovePosition(position);
     }
     public void Forward(Vector3 forward)
     {

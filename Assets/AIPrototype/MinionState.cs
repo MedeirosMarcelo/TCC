@@ -16,7 +16,7 @@ public abstract class MinionState : BehaviourState
     {
         Fsm = fsm;
         Minion = fsm.Minion;
-        Rigidbody = Minion.Rbody;
+        Rigidbody = Minion.Rigidbody;
         Transform = Minion.transform;
         Animator = Minion.Animator;
     }
