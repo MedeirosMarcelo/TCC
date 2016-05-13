@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Assertions;
 using BaseSwing = Assets.MovementPrototype.Character.States.HoldAttackStates.BaseSwing;
 using HeavySwing = Assets.MovementPrototype.Character.States.HoldAttackStates.HeavySwing;
 
@@ -67,9 +68,12 @@ namespace Assets.MovementPrototype.Character.States.HoldBlockStates
                     if (attackerState != null && (attackerState.Name != "DOWN/LIGHT/SWING" &&
                                                   attackerState.Name != "DOWN/HEAVY/SWING"))
                     {
+                        RaycastHit hitInfo;
+                        Assert.IsTrue(attackerState.GetCollisionPoint(out hitInfo), "IT SHOULD HAVE HIT BUT IT DID NOT HIT SEND HELP");
+
                         Vector3 myForward = Transform.forward.xz();
-                        Vector3 otherForward = (Character.center.position - collider.transform.position).xz();
-                        UnityEngine.Debug.DrawLine(collider.transform.position, Character.center.position, Color.red, 2f);
+                        Vector3 otherForward = (Character.center.position - hitInfo.point).xz();
+                        UnityEngine.Debug.DrawLine(Character.center.position, otherForward * -3f, Color.red, 2f);
                         otherForward.Normalize();
 
                         // Vector3 otherForward = attackerState.Character.transform.forward;

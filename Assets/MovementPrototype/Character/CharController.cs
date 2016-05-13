@@ -50,6 +50,7 @@ public class CharController : MonoBehaviour
     bool canControl;
 
     public Transform center;
+    public Transform swordHilt;
 
     public bool CanControl
     {
@@ -75,6 +76,7 @@ public class CharController : MonoBehaviour
         game = GameObject.Find("GameManager").GetComponent<GameManager>();
         game.characterList.Add(this);
         center = transform.Find("Center");
+        swordHilt = transform.Find("Sword");
 
         input = new GamePadInput(joystick);
 

@@ -12,6 +12,11 @@ namespace Assets.MovementPrototype.Character.States.HoldAttackStates
             turnRate = 0f;
             nextStance = SwordStance.Right;
         }
+        public bool GetCollisionPoint(out RaycastHit hitInfo)
+        {
+            Ray ray = new Ray(Character.swordHilt.position, Character.swordHilt.up);
+            return Physics.SphereCast(ray, Character.AttackCollider.radius * Character.swordHilt.localScale.y, out hitInfo, LayerMask.GetMask("Character", "Sword"));
+        }
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
