@@ -285,7 +285,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 466030, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 151126, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
       propertyPath: m_Name
@@ -411,7 +411,7 @@ Transform:
   - {fileID: 901085046}
   - {fileID: 150908808}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
 --- !u!1001 &776615290
 Prefab:
   m_ObjectHideFlags: 0
@@ -449,19 +449,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 466030, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
       propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 151126, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
-      propertyPath: m_Name
-      value: Character (3)
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 11401560, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
       propertyPath: target
       value: 
       objectReference: {fileID: 187229722}
-    - target: {fileID: 11401560, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
-      propertyPath: joystick
-      value: 3
+    - target: {fileID: 151126, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
+      propertyPath: m_Name
+      value: Character (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 11405232, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
+      propertyPath: Enable
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
@@ -806,7 +806,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
 --- !u!1 &1722679348
 GameObject:
   m_ObjectHideFlags: 0

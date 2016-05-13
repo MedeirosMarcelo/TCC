@@ -49,6 +49,8 @@ public class CharController : MonoBehaviour
     float maxTurnSpeed = Mathf.PI / 30;
     bool canControl;
 
+    public Transform center;
+
     public bool CanControl
     {
         get
@@ -72,6 +74,7 @@ public class CharController : MonoBehaviour
     {
         game = GameObject.Find("GameManager").GetComponent<GameManager>();
         game.characterList.Add(this);
+        center = transform.Find("Center");
 
         input = new GamePadInput(joystick);
 

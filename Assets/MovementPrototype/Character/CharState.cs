@@ -76,10 +76,8 @@ public abstract class CharState : BaseState
     }
     public override void OnTriggerEnter(Collider collider)
     {
-        base.OnTriggerEnter(collider);
         if (Character.collidedWith != collider.gameObject)
         {
-            UnityEngine.Debug.Log(collider.tag);
             if (collider.name == "Attack Collider")
             {
                 var otherCharacter = collider.transform.parent.parent.GetComponent<CharController>();

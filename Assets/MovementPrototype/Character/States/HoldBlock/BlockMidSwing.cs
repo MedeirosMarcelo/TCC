@@ -4,6 +4,13 @@ using HeavySwing = Assets.MovementPrototype.Character.States.HoldAttackStates.He
 
 namespace Assets.MovementPrototype.Character.States.HoldBlockStates
 {
+    public static class VectorExtensions
+    {
+        public static Vector3 xz(this Vector3 v)
+        {
+            return new Vector3(v.x, 0, v.z);
+        }
+    }
     public class BlockMidSwing : AnimatedState
     {
         private bool holding;
@@ -60,13 +67,16 @@ namespace Assets.MovementPrototype.Character.States.HoldBlockStates
                     if (attackerState != null && (attackerState.Name != "DOWN/LIGHT/SWING" &&
                                                   attackerState.Name != "DOWN/HEAVY/SWING"))
                     {
-                        Vector3 myForward = Transform.forward;
-                        Vector3 otherForward = attackerState.Character.transform.forward;
+                        Vector3 myForward = Transform.forward.xz();
+                        Vector3 otherForward = (Character.center.position - collider.transform.position).xz();
+                        UnityEngine.Debug.DrawLine(collider.transform.position, Character.center.position, Color.red, 2f);
+                        otherForward.Normalize();
+
+                        // Vector3 otherForward = attackerState.Character.transform.forward;
                         float dot = Vector3.Dot(myForward, otherForward);
-                        float dotAngle = Mathf.Acos(dot) * Mathf.Rad2Deg;
-                        float deltaAngle = Mathf.Abs(Mathf.DeltaAngle(180, dotAngle));
-                        if (dot < 0 && deltaAngle <= defenseAngle / 2f)
+                        if (dot < Mathf.Cos((180 - (defenseAngle / 2f)) * Mathf.Deg2Rad))
                         {
+                            UnityEngine.Debug.Log("DEFENDED DOT = " + dot);
                             Character.ShowBlockSpark(collider.transform.position);
                             otherCharacter.fsm.ChangeState("STAGGER");
                             if (attackerState is HeavySwing)
@@ -79,9 +89,14 @@ namespace Assets.MovementPrototype.Character.States.HoldBlockStates
                             }
                             return;
                         }
+                        else
+                        {
+                            UnityEngine.Debug.Log("HIT DOT = " + dot);
+                        }
                     }
                 }
             }
+            
             // otherwise defer to base
             base.OnTriggerEnter(collider);
         }
