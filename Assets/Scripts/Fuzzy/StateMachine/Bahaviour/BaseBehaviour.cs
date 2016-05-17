@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-namespace Assets.Scripts.Fuzzy.StateMachine
+namespace Assets.Scripts.Fuzzy.StateMachine.Behaviour
 {
-    public class BaseStateBehaviour : IStateBehaviour
+    public class BaseBehaviour : IStateBehaviour
     {
         public IState State { get; protected set; }
-        public BaseStateBehaviour(IState state)
+        public BaseBehaviour(IState state)
         {
             State = state;
             State.AddBehaviour(this);
