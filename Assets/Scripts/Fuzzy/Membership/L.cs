@@ -2,17 +2,17 @@
 
 namespace Assets.Scripts.Fuzzy.Membership
 {
-    public class LFunction : MembershipFunction<float>
+    public class L : IFunction
     {
         float alpha;
         float beta;
-        public LFunction(float alpha, float beta)
+        public L(float alpha, float beta)
         {
             Debug.Assert(beta > alpha);
             this.alpha = alpha;
             this.beta = beta;
         }
-        public override float Eval(float value)
+        public float Eval(float value)
         {
             if (value <= alpha) // u <= a
             {

@@ -2,14 +2,14 @@
 
 namespace Assets.Scripts.Fuzzy.Membership
 {
-    public class TrapezoidalFunction : MembershipFunction<float>
+    public class Trapezoidal : IFunction
     {
         float alpha;
         float beta;
         float gama;
         float delta;
 
-        public TrapezoidalFunction(float alpha, float beta, float gama, float delta)
+        public Trapezoidal(float alpha, float beta, float gama, float delta)
         {
             Debug.Assert(delta > gama);
             Debug.Assert(gama > beta);
@@ -20,7 +20,7 @@ namespace Assets.Scripts.Fuzzy.Membership
             this.gama = gama;
             this.delta = delta;
         }
-        public override float Eval(float value)
+        public float Eval(float value)
         {
             if (value < alpha) //  u <= a
             {
