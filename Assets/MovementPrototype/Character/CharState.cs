@@ -86,10 +86,12 @@ public abstract class CharState : BaseState
                     var attackerState = otherCharacter.fsm.Current as Swing;
                     if (attackerState != null)
                     {
+                        UnityEngine.Debug.Log("GOT HIT ON STATE " + Debug);
                         Character.collidedWith = collider.gameObject;
                         Character.ResetCollision();
                         Character.bloodAnimator.SetTrigger("Bleed");
                         var swingState = otherCharacter.fsm.Current as Swing;
+                        otherCharacter.fsm.ChangeState("MOVEMENT");
                         Fsm.ChangeState("HITSTUN");
                         Character.ReceiveDamage(attackerState.Damage);
                     }
