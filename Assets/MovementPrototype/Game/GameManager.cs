@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
         {
             pl.Character = characterList[i];
             pl.Character.CanControl = false;
-            pl.Character.joystick = pl.PlayerId;
+            pl.Character.id = pl.PlayerId;
             i++;
         }
         //--

@@ -25,12 +25,16 @@ public class GamePadInput : BaseInput
     GamePadState state;
     GamePadState lastState;
 
-    public PlayerIndex id { get; private set; }
-
-    public GamePadInput(PlayerIndex id)
+    XInputDotNetPure.PlayerIndex xinputId;
+    public override PlayerIndex id
     {
-        this.id = id;
-        name = "GamePad" + id;
+        get { return base.id; }
+        set
+        {
+            base.id = id;
+            xinputId = value.toXInput();
+            name = "GamePad" + value;
+        }
     }
 
     static readonly float triggerThreshold = 0.2f;
@@ -67,7 +71,7 @@ public class GamePadInput : BaseInput
     public override void Update()
     {
         lastState = state;
-        state = GamePad.GetState(id.toXInput());
+        state = GamePad.GetState(xinputId);
 
         buffer.Update();
 
@@ -96,7 +100,7 @@ public class GamePadInput : BaseInput
 
         if (dashed)
         {
-                buffer.Push(new InputEvent.Dash(move));
+            buffer.Push(new InputEvent.Dash(move));
         }
         else if (blocked)
         {

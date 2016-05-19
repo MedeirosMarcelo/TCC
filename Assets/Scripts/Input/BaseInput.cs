@@ -14,7 +14,7 @@ public class Stick {
 }
 
 public class BaseInput {
-
+    public virtual PlayerIndex id { get; set; }
     public virtual string name { get; protected set; }
 
     public virtual Stick move { get; private set; }

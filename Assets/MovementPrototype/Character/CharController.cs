@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Assertions;
-﻿using System.Collections;
-﻿using System;
+using System.Collections;
+using System;
 
 public enum PlayerIndex : int
 {
@@ -20,7 +20,6 @@ public enum SwordStance
 
 public class CharController : MonoBehaviour
 {
-    public PlayerIndex joystick = PlayerIndex.One;
     public int health = 2;
     public int lives = 3;
 
@@ -32,6 +31,11 @@ public class CharController : MonoBehaviour
     public Material dodgeMaterial;
     public GameObject blockSpark;
 
+    public PlayerIndex id
+    {
+        get { return input.id; }
+        set { input.id = value; }
+    }
     public BaseInput input { get; private set; }
     public Rigidbody rbody { get; private set; }
     public GameManager game { get; private set; }
@@ -75,10 +79,11 @@ public class CharController : MonoBehaviour
     {
         game = GameObject.Find("GameManager").GetComponent<GameManager>();
         game.characterList.Add(this);
+
         center = transform.Find("Center");
         swordHilt = transform.Find("Sword");
 
-        input = new GamePadInput(joystick);
+        input = new GamePadInput();
 
         Stance = SwordStance.Right;
         rbody = GetComponent<Rigidbody>();
@@ -103,7 +108,7 @@ public class CharController : MonoBehaviour
         SwordTrail.Deactivate();
 
         currentId += 1;
-        id = currentId;
+        guiId = currentId;
 
         // Fsm must be last, states will access input, rbody ...
         fsm = new CharFsm(this);
@@ -161,12 +166,12 @@ public class CharController : MonoBehaviour
         fsm.OnTriggerEnter(collider);
     }
 
-    int id = 0;
+    int guiId = 0;
     static int currentId = 0;
     void OnGUI()
     {
         string text = input.Debug + "\n" + fsm.Debug;
-        GUI.Label(new Rect((id - 1) * (Screen.width / 2), 0, Screen.width / 2, Screen.height), text);
+        GUI.Label(new Rect((guiId - 1) * (Screen.width / 2), 0, Screen.width / 2, Screen.height), text);
     }
 
     public void ReceiveDamage(int damage)
