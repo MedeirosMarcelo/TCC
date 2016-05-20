@@ -76,31 +76,28 @@ public abstract class CharState : BaseState
     }
     public override void OnTriggerEnter(Collider collider)
     {
-        if (Character.collidedWith != collider.gameObject)
+        if (collider.name == "Attack Collider")
         {
-            if (collider.name == "Attack Collider")
+            var otherCharacter = collider.transform.parent.parent.GetComponent<CharController>();
+            if (!ReferenceEquals(Character, otherCharacter))
             {
-                var otherCharacter = collider.transform.parent.parent.GetComponent<CharController>();
-                if (!ReferenceEquals(Character, otherCharacter))
+                var attackerState = otherCharacter.fsm.Current as Swing;
+                if (attackerState != null && attackerState.CanHit(Character))
                 {
-                    var attackerState = otherCharacter.fsm.Current as Swing;
-                    if (attackerState != null)
-                    {
-                        UnityEngine.Debug.Log("GOT HIT ON STATE " + Debug);
-                        Character.collidedWith = collider.gameObject;
-                        Character.ResetCollision();
-                        Character.bloodAnimator.SetTrigger("Bleed");
-                        var swingState = otherCharacter.fsm.Current as Swing;
-                        otherCharacter.fsm.ChangeState("MOVEMENT");
-                        Fsm.ChangeState("HITSTUN");
-                        Character.ReceiveDamage(attackerState.Damage);
-                    }
+                    UnityEngine.Debug.Log("GOT HIT ON STATE " + Debug);
+                    Character.collidedWith = collider.gameObject;
+                    Character.ResetCollision();
+                    Character.bloodAnimator.SetTrigger("Bleed");
+                    var swingState = otherCharacter.fsm.Current as Swing;
+                    otherCharacter.fsm.ChangeState("MOVEMENT");
+                    Fsm.ChangeState("HITSTUN");
+                    Character.ReceiveDamage(attackerState.Damage);
                 }
             }
-            else if (collider.tag == "Push")
-            {
-                Fsm.ChangeState("LOCKSWORDS");
-            }
+        }
+        else if (collider.tag == "Push")
+        {
+            Fsm.ChangeState("LOCKSWORDS");
         }
         // otherwise defer to base
         base.OnTriggerEnter(collider);
@@ -177,7 +174,8 @@ public abstract class CharState : BaseState
         velocity.z *= moveSpeed *
             ((Mathf.Sign(velocity.z) > 0) ? forwardSpeedModifier : backwardSpeedModifier);
 
-        if (Input.run > runThreshold) {
+        if (Input.run > runThreshold)
+        {
             velocity.z *= runSpeedModifier;
         }
 

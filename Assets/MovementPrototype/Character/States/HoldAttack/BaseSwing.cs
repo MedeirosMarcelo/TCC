@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 namespace Assets.MovementPrototype.Character.States.HoldAttackStates
 {
     public abstract class BaseSwing : AnimatedState
     {
+        List<CharController> haveHitted = new List<CharController>();
+
         const float speed = 2.5f;
         public int Damage { get; protected set; }
         public SwordStance nextStance { get; protected set; }
@@ -28,7 +31,7 @@ namespace Assets.MovementPrototype.Character.States.HoldAttackStates
             capsule.transform.rotation = Character.swordHilt.rotation;
             //capsule.transform.rotation = Quaternion.LookRotation();
             GameObject.Destroy(capsule, 2f);
-            
+
         }
 #endif
         public bool GetCollisionPoint(out RaycastHit hitInfo)
@@ -54,9 +57,22 @@ namespace Assets.MovementPrototype.Character.States.HoldAttackStates
             hitInfo = new RaycastHit();
             return false;
         }
+        public bool CanHit(CharController obj)
+        {
+            if (haveHitted.Contains(obj))
+            {
+                return false;
+            }
+            else
+            {
+                haveHitted.Add(obj);
+                return true;
+            }
+        }
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
+            haveHitted.Clear();
             Character.SwordTrail.Activate();
             Character.AttackCollider.enabled = true;
         }
