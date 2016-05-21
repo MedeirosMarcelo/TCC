@@ -75,6 +75,7 @@ namespace Assets.MovementPrototype.Character.States.HoldAttackStates
             haveHitted.Clear();
             Character.SwordTrail.Activate();
             Character.AttackCollider.enabled = true;
+            AudioManager.Play(ClipType.Attack, Character.audioSource);
         }
         public override void Exit(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {

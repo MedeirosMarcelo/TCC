@@ -38,6 +38,7 @@ public class CharController : MonoBehaviour
     }
     public BaseInput input { get; private set; }
     public Rigidbody rbody { get; private set; }
+    public AudioSource audioSource { get; private set; }
     public GameManager game { get; private set; }
     public CharFsm fsm { get; private set; }
     public Animator animator { get; private set; }
@@ -92,6 +93,8 @@ public class CharController : MonoBehaviour
         Assert.IsNotNull(animator);
         Mesh = transform.Find("Model").GetComponent<MeshRenderer>();
         Assert.IsNotNull(Mesh);
+        audioSource = GetComponent<AudioSource>();
+        Assert.IsNotNull(audioSource);
 
         // Colliders
         AttackCollider = transform.Find("Sword").Find("Attack Collider").GetComponent<CapsuleCollider>();
@@ -178,6 +181,7 @@ public class CharController : MonoBehaviour
     {
         health -= damage;
         StartCoroutine("DelayBlood");
+        AudioManager.Play(ClipType.Hit, audioSource);
         if (health <= 0)
         {
             fsm.ChangeState("DEATH");

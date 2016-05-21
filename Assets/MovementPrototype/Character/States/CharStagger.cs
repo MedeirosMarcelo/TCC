@@ -13,6 +13,7 @@
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {
             Character.SwordTrail.Deactivate();
+            AudioManager.Play(ClipType.Block, Character.audioSource);
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
         }
     }
