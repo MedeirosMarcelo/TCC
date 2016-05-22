@@ -41,6 +41,13 @@ public class GameManager : MonoBehaviour
         spawnRotation[3] = Vector3.zero;
 
         //-- Provisório até criar sistema de entrada de jogadores.
+        if (PlayerManager.GetPlayerList().Count < 4) { //Adiciona players aos characters que não tem.
+            int max = 4 - PlayerManager.GetPlayerList().Count;
+            for (int x = 0; x < max; x++)
+            {
+                PlayerManager.AddPlayer((PlayerIndex)(4 - x));
+            }
+        }
         int i = 0;
         foreach (Player pl in PlayerManager.GetPlayerList())
         {

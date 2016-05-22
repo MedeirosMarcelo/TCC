@@ -7,14 +7,15 @@ public static class PlayerManager {
     static IList<Player> PlayerList = new List<Player>();
 
     static PlayerManager() {
-        AddPlayer(PlayerIndex.One);
-        AddPlayer(PlayerIndex.Two);
-        AddPlayer(PlayerIndex.Three);
-        AddPlayer(PlayerIndex.Four);
+        //AddPlayer(PlayerIndex.One);
+        //AddPlayer(PlayerIndex.Two);
+        //AddPlayer(PlayerIndex.Three);
+        //AddPlayer(PlayerIndex.Four);
     }
 
     public static Player AddPlayer(PlayerIndex playerId) {
         Player pl = new Player(playerId);
+        pl.color = ChoosePlayerColor(playerId);
         PlayerList.Add(pl);
         return pl;
     }
@@ -47,5 +48,20 @@ public static class PlayerManager {
             }
         }
         return null;
+    }
+
+    public static Color ChoosePlayerColor(PlayerIndex index)
+    {
+        switch (index){
+            default:
+            case PlayerIndex.One:
+                return Color.white;
+            case PlayerIndex.Two:
+                return Color.white;
+            case PlayerIndex.Three:
+                return Color.white;
+            case PlayerIndex.Four:
+                return Color.white;
+        }
     }
 }

@@ -25,7 +25,7 @@ public class MainMenu : Menu
             switch (cursorIndex)
             {
                 case 0:
-                    SceneManager.LoadScene("Loading");
+                    SceneManager.LoadScene("Character Selection");
                     break;
                 case 1:
                     optionScreen.SetActive(true);

@@ -44,8 +44,8 @@ public abstract class CharState : BaseState
         canPlayerMove = false;
         moveSpeed = 2.5f;
         runSpeedModifier = 1.25f;
-        forwardSpeedModifier = 1f;
-        backwardSpeedModifier = 0.5f;
+        forwardSpeedModifier = 0.7f;
+        backwardSpeedModifier = 0.35f;
         sideSpeedModifier = 0.75f;
         maxAcceleration = 2f;
         runMaxAcceleration = 2f;
@@ -68,6 +68,7 @@ public abstract class CharState : BaseState
         elapsed += Time.fixedDeltaTime;
         Look();
         PlayerMove();
+        Character.animator.SetFloat("Velocity", Rigidbody.velocity.z);
     }
     public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime = 0f, params object[] args)
     {
@@ -148,6 +149,7 @@ public abstract class CharState : BaseState
             }
         }
     }
+
     void PlayerMove()
     {
         if (canPlayerMove && Input.move.isActive)
@@ -166,6 +168,7 @@ public abstract class CharState : BaseState
             Character.Move(Transform.position + (Rigidbody.velocity * Time.fixedDeltaTime));
         }
     }
+
     Vector3 GetInputVelovity()
     {
         var velocity = Transform.InverseTransformDirection(Input.move.vector);

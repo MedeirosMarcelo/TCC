@@ -135,6 +135,7 @@ public class CharController : MonoBehaviour
     public void Move(Vector3 position)
     {
         rbody.MovePosition(position);
+        animator.SetFloat("Velocity", rbody.velocity.x);
     }
     public void Forward(Vector3 forward)
     {
