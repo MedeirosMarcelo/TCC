@@ -16,32 +16,32 @@ public class GameManager : MonoBehaviour
 {
 
     public IList<CharController> characterList = new List<CharController>();
+    public Transform[] spawn = new Transform[0];
     public byte maxScore = 5;
     public float roundClock;
-    //public Map currentMap;
     public GameState State { get; private set; }
     public GameObject PlantedSword;
 
     [SerializeField]
     GameObject characterPrefab;
-    Vector3[] spawnPosition = new Vector3[4];
-    Vector3[] spawnRotation = new Vector3[4];
+   // Vector3[] spawnPosition = new Vector3[4];
+    //Vector3[] spawnRotation = new Vector3[4];
     Timer timer = new Timer();
 
     void Start()
     {
-        spawnPosition[0] = new Vector3(0f, 0.393f, -3f);
-        spawnPosition[1] = new Vector3(0f, 0.393f, 3f);
-        spawnPosition[2] = new Vector3(-5f, 0.393f, 3f);
-        spawnPosition[3] = new Vector3(-5f, 0.393f, -3f);
+        //spawnPosition[0] = new Vector3(0f, 0.393f, -3f);
+        //spawnPosition[1] = new Vector3(0f, 0.393f, 3f);
+        //spawnPosition[2] = new Vector3(-5f, 0.393f, 3f);
+        //spawnPosition[3] = new Vector3(-5f, 0.393f, -3f);
 
-        spawnRotation[0] = Vector3.zero;
-        spawnRotation[1] = new Vector3(0f, 180, 0f);
-        spawnRotation[2] = new Vector3(0f, 180, 0f);
-        spawnRotation[3] = Vector3.zero;
+        //spawnRotation[0] = Vector3.zero;
+        //spawnRotation[1] = new Vector3(0f, 180, 0f);
+        //spawnRotation[2] = new Vector3(0f, 180, 0f);
+        //spawnRotation[3] = Vector3.zero;
 
         //-- Provisório até criar sistema de entrada de jogadores.
-        if (PlayerManager.GetPlayerList().Count < 4) { //Adiciona players aos characters que não tem.
+        if (PlayerManager.GetPlayerList().Count < 4) { //Adiciona players restantes caso tenha menos de quatro.
             int max = 4 - PlayerManager.GetPlayerList().Count;
             for (int x = 0; x < max; x++)
             {
@@ -152,15 +152,16 @@ public class GameManager : MonoBehaviour
 
     void EnterPlayRound()
     {
-        int i = 3;
+        int i = 0;
+        int max = PlayerManager.GetPlayerList().Count - 1;
         foreach (Player pl in PlayerManager.GetPlayerList())
         {
-            pl.Character.transform.position = spawnPosition[i];
-            pl.Character.transform.eulerAngles = spawnRotation[i];
+            pl.Character.transform.position = spawn[i].position;
+            pl.Character.transform.rotation = spawn[i].rotation;
             pl.Character.health = 2;
             pl.Character.fsm.ChangeState("MOVEMENT");
             pl.Character.CanControl = true;
-            i--;
+            if (i < max) i++;
         }
     }
 
