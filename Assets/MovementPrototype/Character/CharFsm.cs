@@ -9,6 +9,6 @@
         loader.LoadStates(this, "Assets.MovementPrototype.Character.States.DashStates");
         loader.LoadStates(this, "Assets.MovementPrototype.Character.States.HoldAttackStates");
         loader.LoadStates(this, "Assets.MovementPrototype.Character.States.HoldBlockStates");
-        Fsm.Start("MOVEMENT");
+        Start("MOVEMENT");
     }
 }
