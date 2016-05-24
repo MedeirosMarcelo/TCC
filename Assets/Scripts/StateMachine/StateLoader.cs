@@ -19,7 +19,7 @@ public class StateLoader<FsmType>
             foreach (Type t in types)
             {
                 var state = (IState)Activator.CreateInstance(t, fsm);
-                fsm.AddState(state);
+                fsm.AddStates(state);
             }
         }
     }

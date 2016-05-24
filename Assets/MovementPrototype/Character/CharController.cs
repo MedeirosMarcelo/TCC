@@ -174,7 +174,7 @@ public class CharController : MonoBehaviour
     static int currentId = 0;
     void OnGUI()
     {
-        string text = input.Debug + "\n" + fsm.Debug;
+        string text = input.Debug + "\n" + fsm.DebugString;
         GUI.Label(new Rect((guiId - 1) * (Screen.width / 2), 0, Screen.width / 2, Screen.height), text);
     }
 

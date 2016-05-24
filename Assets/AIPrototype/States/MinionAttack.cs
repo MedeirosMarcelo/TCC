@@ -17,7 +17,7 @@ namespace Assets.AIPrototype.States
         }
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime = 0, params object[] args)
         {
-            timer.NextState = (Random.value > 0.2) ? "ATTACK" : "WANDER";
+            //timer.NextState = (Random.value > 0.2) ? "ATTACK" : "WANDER";
             animation.Animation = (Random.value > 0.5) ? "LeftSwing" : "RightSwing";
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
             Minion.SwordCollider.enabled = true;

@@ -1,22 +1,42 @@
-﻿using UnityEngine.Assertions;
+﻿using UnityEngine;
+using Assets.AIPrototype.States;
+using Assets.Scripts.Fuzzy;
+using Assets.Scripts.Fuzzy.Membership;
 
 public class MinionFsm : BaseFsm
 {
     public MinionController Minion { get; protected set; }
-    private string startStateName = "IDLE";
+    // Fuzzy variables
+    public Variable Stamina { get; protected set; }
+    public Variable Bravery { get; protected set; }
+    public Variable Distance { get; protected set; }
 
-    public MinionFsm(MinionController minion) : base()
+    public MinionFsm(MinionController minion)
     {
         Minion = minion;
-        var loader = new StateLoader<MinionFsm>();
-        loader.LoadStates(this, "Assets.AIPrototype.States");
-        Assert.IsTrue(dict.ContainsKey(startStateName), "Unknown start state: " + startStateName);
-        Current = dict[startStateName];
-        Current.Enter("", startStateName, 0f);
+        Stamina = new Variable(
+            new Set("low", new L(0f, 100f)),
+            new Set("high", new Gamma(0f, 100f))
+        );
+        Stamina.Value = 50f;
+        Bravery = new Variable(
+            new Set("low", new L(0f, 1f)),
+            new Set("high", new Gamma(0f, 1f))
+        );
+        Bravery.Value = Random.value;
+        Debug.Log("Minion Bravary = " + Bravery.Value);
+        Distance = new Variable(
+            new Set("close", new L(1f, 2f)),
+            new Set("mid", new Trapezoidal(1f, 2f, 3f, 4f)),
+            new Set("far", new Gamma(3f, 5f))
+        );
+
+        AddStates(new Idle(this), new Advance(this));
+        Start("IDLE");
     }
-    public override void ChangeState(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
+    public override void ChangeState(string nextStateName, float additionalDeltaTime, params object[] args)
     {
-        UnityEngine.Debug.Log(string.Format("{0} >> {1}", lastStateName, nextStateName));
-        base.ChangeState(lastStateName, nextStateName, additionalDeltaTime, args);
+        UnityEngine.Debug.Log(string.Format("{0} >> {1}", Current.Name, nextStateName));
+        base.ChangeState(nextStateName, additionalDeltaTime, args);
     }
 }

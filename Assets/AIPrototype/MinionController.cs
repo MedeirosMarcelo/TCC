@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
-using UnityStandardAssets.Utility;
 
 public class MinionController : MonoBehaviour
 {
@@ -68,46 +67,24 @@ public class MinionController : MonoBehaviour
         }
     }
 
-    // Target follow stuff
-    Vector3 destination;
-    public Vector3 Destination
+    public void SetDestination(Vector3 destination)
     {
-        get { return destination; }
-        set
-        {
-            destination = value;
-            print("SetDestination = " + destination);
-            NavAgent.SetDestination(destination);
-        }
+        NavAgent.Resume();
+        NavAgent.SetDestination(destination);
     }
-
-
-    float targetRange = 0.4f;
-    float destinationRange = 0.3f;
-    bool targetReached
+    public void Stop()
     {
-        get { return InRange(Target.position, targetRange); }
-    }
-    bool destinationReached
-    {
-        get { return InRange(destination, destinationRange); }
-    }
-
-    bool InRange(Vector3 target, float range)
-    {
-        var diff = (target - transform.position);
-        diff.y = 0f;
-        return (diff.magnitude < destinationRange);
+        NavAgent.Stop();
     }
 
 #if UNITY_EDITOR
     void OnDrawGizmos()
     {
-        if (destination != null)
+        if (NavAgent)
         {
             Gizmos.color = Color.blue;
             var start = transform.position;
-            var end = destination;
+            var end = NavAgent.destination;
             start.y = 1f;
             end.y = 1f;
             Gizmos.DrawLine(start, end);
@@ -115,7 +92,7 @@ public class MinionController : MonoBehaviour
     }
     void OnGUI()
     {
-        string text = Fsm.Debug;
+        string text = Fsm.DebugString;
         GUI.Label(new Rect((id - 1) * (Screen.width / 2), 0, Screen.width / 2, Screen.height), text);
     }
 #endif

@@ -15,16 +15,16 @@ public class FuzzyTest : MonoBehaviour
 
     void Example1()
     {
-        var financiamento = new Variable("financiamento",
+        var financiamento = new Variable(
             new Set("inadequado", new L(25f, 40f)),
             new Set("reduzido", new Lambda(30f, 55f, 80f)),
             new Set("adequado", new Gamma(65f, 85f))
         );
-        var rh = new Variable("rh",
+        var rh = new Variable(
             new Set("pequeno", new L(15f, 65f)),
             new Set("grande", new Gamma(25f, 75f))
         );
-        var risco = new Variable("risco",
+        var risco = new Variable(
             new Set("pequeno", new L(25f, 40f)),
             new Set("normal", new Trapezoidal(25f, 45f, 55f, 75f)),
             new Set("alto", new Gamma(60f, 75f))
@@ -52,9 +52,9 @@ public class FuzzyTest : MonoBehaviour
 
     void Example3()
     {
-        var energia = new Variable("energia", new Set("alta", new Gamma(0, 90)));
-        var municao = new Variable("municao", new Set("muita", new Gamma(0, 20)));
-        var estado = new Variable("estado",
+        var energia = new Variable(new Set("alta", new Gamma(0, 90)));
+        var municao = new Variable(new Set("muita", new Gamma(0, 20)));
+        var estado = new Variable(
             new Set("fraco", new L(30f, 60f)),
             new Set("forte", new Gamma(30f, 80f))
         );

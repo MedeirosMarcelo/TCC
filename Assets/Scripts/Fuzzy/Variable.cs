@@ -6,12 +6,10 @@ namespace Assets.Scripts.Fuzzy
     {
         public Dictionary<string, Set> values { get; protected set; }
         public float Value { get; set; }
-        public string Name { get; protected set; }
 
-        public Variable(string name, params Set[] sets)
+        public Variable(params Set[] sets)
         {
             values = new Dictionary<string, Set>();
-            Name = name;
             foreach (var set in sets)
             {
                 Add(set);
