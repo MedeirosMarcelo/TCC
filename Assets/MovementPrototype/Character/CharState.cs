@@ -85,7 +85,7 @@ public abstract class CharState : BaseState
                 var attackerState = otherCharacter.fsm.Current as Swing;
                 if (attackerState != null && attackerState.CanHit(Character))
                 {
-                    UnityEngine.Debug.Log("GOT HIT ON STATE " + Debug);
+                    UnityEngine.Debug.Log("GOT HIT ON STATE " + DebugString);
                     Character.collidedWith = collider.gameObject;
                     Character.ResetCollision();
                     Character.bloodAnimator.SetTrigger("Bleed");

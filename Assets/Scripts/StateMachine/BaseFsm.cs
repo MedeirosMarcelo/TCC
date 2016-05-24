@@ -1,46 +1,46 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
-using System;
 using System.Collections.Generic;
 
-public abstract class BaseFsm : IState
+public abstract class BaseFsm
 {
-    public Dictionary<string, IState> dict;
+    public Dictionary<string, IState> dict = new Dictionary<string, IState>();
     public IState Current { get; protected set; }
-    public string Name { get; protected set; }
-    public string Debug
+    public string DebugString
     {
         get
         {
-            return Name + "/" + Current.Debug;
+            return "/" + Current.DebugString;
         }
     }
     public BaseFsm Fsm { get; protected set; }
 
-    public void AddState(IState state)
+    public void AddStates(params IState[] states)
     {
-        Assert.IsNotNull(state.Name, "State doesnt have a Name: " + state.GetType());
-        dict.Add(state.Name, state);
+        foreach (var state in states)
+        {
+            Assert.IsNotNull(state.Name, "State doesnt have a Name: " + state.GetType());
+            dict.Add(state.Name, state);
+        }
+    }
+    public void Start(string startStateName)
+    {
+        Assert.IsTrue(dict.ContainsKey(startStateName), "Unknown next state: " + startStateName);
+        Current = dict[startStateName];
+        Current.Enter("", startStateName, 0f);
+    }
+    public void Stop()
+    {
+        Current.Exit(Current.Name, "", 0f);
     }
 
-    public virtual void ChangeState(string name, float additionalDeltaTime = 0f, params object[] args)
-    {
-        ChangeState(Current.Name, name, additionalDeltaTime, args);
-    }
-
-    public virtual void ChangeState(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
+    public virtual void ChangeState(string nextStateName, float additionalDeltaTime = 0f, params object[] args)
     {
         Assert.IsTrue(dict.ContainsKey(nextStateName), "Unknown next state: " + nextStateName);
-       // UnityEngine.Debug.Log(string.Format("{0} >> {1}", lastStateName, nextStateName));
+        string lastStateName = Current.Name;
         Current.Exit(lastStateName, nextStateName, additionalDeltaTime, args);
         Current = dict[nextStateName];
         Current.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
-    }
-
-    public BaseFsm(BaseFsm fsm = null)
-    {
-        Fsm = fsm;
-        dict = new Dictionary<string, IState>();
     }
 
     public virtual void PreUpdate()

@@ -3,7 +3,7 @@
 public interface IState
 {
     string Name { get; }
-    string Debug { get; }
+    string DebugString { get; }
     BaseFsm Fsm { get; }
 
     // Evaluate Input and changes the FSM Current State
@@ -14,4 +14,6 @@ public interface IState
     void Exit(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args);
     void OnTriggerEnter(Collider collider);
     void OnCollisionEnter(Collision collision);
+    // Fuzzy States can have multiple StateBehaviours
+    void AddBehaviour(IStateBehaviour behaviour);
 }

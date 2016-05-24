@@ -1,20 +1,16 @@
 ﻿using UnityEngine;
-
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-public abstract class BaseBehaviour
+public class BaseBehaviour : IStateBehaviour
 {
-    public BehaviourState State { get; protected set; }
-    public BaseBehaviour(BehaviourState state)
+    public IState State { get; protected set; }
+    public BaseBehaviour(IState state)
     {
         State = state;
-        State.AddStateBehaviour(this);
+        State.AddBehaviour(this);
     }
     public string Name { get; protected set; }
-    public string Debug
+    public string DebugString
     {
         get { return Name; }
     }

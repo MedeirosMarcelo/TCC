@@ -2,18 +2,20 @@
 
 public class TimerBehaviour : BaseBehaviour
 {
+    public delegate void Callback();
     public float Elapsed { get; protected set; }
     public float TotalTime { get; set; }
-    public string NextState { get; set; }
-    public TimerBehaviour(BehaviourState state) : base(state)
+    public Callback OnFinish { get; set; }
+
+    public TimerBehaviour(IState state) : base(state)
     {
     }
     public override void PreUpdate()
     {
         base.PreUpdate();
-        if (Elapsed >= TotalTime)
+        if (Elapsed >= TotalTime && OnFinish != null)
         {
-           State.Fsm.ChangeState(NextState, TotalTime - Elapsed);
+            OnFinish();
         }
     }
     public override void FixedUpdate()

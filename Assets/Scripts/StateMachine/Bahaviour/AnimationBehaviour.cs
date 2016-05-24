@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+
 public class AnimationBehaviour : BaseBehaviour
 {
     public Animator Animator { get; protected set; }
@@ -7,7 +8,7 @@ public class AnimationBehaviour : BaseBehaviour
     public float AnimationTime { get; set; }
     public string Animation { get; set; }
 
-    public AnimationBehaviour(BehaviourState state, Animator animator) : base(state)
+    public AnimationBehaviour(IState state, Animator animator) : base(state)
     {
         Animator = animator;
     }
@@ -20,6 +21,7 @@ public class AnimationBehaviour : BaseBehaviour
     public override void Exit(string lastStateName, string nextStateName, float additionalDeltaTime = 0f, params object[] args)
     {
         base.Exit(lastStateName, nextStateName, additionalDeltaTime, args);
-        Animator.PlayInFixedTime(Animation, layer: -1 ,fixedTime: 0f);
+        Animator.PlayInFixedTime(Animation, layer: -1, fixedTime: 0f);
     }
 }
+
