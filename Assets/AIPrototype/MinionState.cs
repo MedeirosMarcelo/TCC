@@ -35,7 +35,7 @@ public abstract class MinionState : BaseState
 
     public override void PreUpdate()
     {
-        Distance.Value = (Transform.position - Target.position).magnitude;
+        Distance.Value = (Transform.position - Target.position).xy().magnitude;
         base.PreUpdate();
     }
 
@@ -47,10 +47,18 @@ public abstract class MinionState : BaseState
     public void NextState()
     {
         var advance = Mamdami.And(Distance["far"], Stamina["high"]);
-        Debug.Log("adv = " + advance);
-        if (advance > 0.7f)
+        var circle = Mamdami.And(Distance["mid"], Stamina["high"]);
+        Debug.Log("Distance:" + Distance.ToString() + " Stamina:" + Stamina.ToString());
+        Debug.Log("advance,circle = " + advance + "," + circle);
+
+        if (advance > 0.5f)
         {
             Fsm.ChangeState("ADVANCE");
+            return;
+        }
+        if (circle > 0.5f)
+        {
+            Fsm.ChangeState("CIRCLE");
             return;
         }
         Fsm.ChangeState("IDLE");
@@ -60,7 +68,7 @@ public abstract class MinionState : BaseState
     {
         var forward = Vector3.RotateTowards(
             Transform.forward,
-            (Target.transform.position - Transform.position).normalized,
+            (Target.transform.position - Transform.position).xz().normalized,
             Mathf.Deg2Rad * Minion.NavAgent.angularSpeed * Time.fixedDeltaTime,
             0f);
         Minion.Forward(forward);

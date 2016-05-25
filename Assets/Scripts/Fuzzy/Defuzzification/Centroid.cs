@@ -17,7 +17,7 @@ namespace Assets.Scripts.Fuzzy.Defuzzification
         }
         public float Eval(Dictionary<string, float> inferred)
         {
-            Assert.IsTrue(inferred.Keys.Except(variable.values.Keys).Count() == 0);
+            Assert.IsTrue(inferred.Keys.Except(variable.dict.Keys).Count() == 0);
             float numerator = 0f;
             float denominator = 0f;
 

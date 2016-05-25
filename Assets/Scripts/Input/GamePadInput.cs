@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using XInputDotNetPure;
 
-internal static class Extension
+static class PlayerIndexExtensions
 {
     public static XInputDotNetPure.PlayerIndex toXInput(this PlayerIndex id)
     {

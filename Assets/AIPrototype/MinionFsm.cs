@@ -31,12 +31,12 @@ public class MinionFsm : BaseFsm
             new Set("far", new Gamma(3f, 5f))
         );
 
-        AddStates(new Idle(this), new Advance(this));
+        AddStates(new Idle(this), new Advance(this), new Circle(this));
         Start("IDLE");
     }
     public override void ChangeState(string nextStateName, float additionalDeltaTime, params object[] args)
     {
-        UnityEngine.Debug.Log(string.Format("{0} >> {1}", Current.Name, nextStateName));
+        Debug.Log(string.Format("{0} >> {1}", Current.Name, nextStateName));
         base.ChangeState(nextStateName, additionalDeltaTime, args);
     }
 }
