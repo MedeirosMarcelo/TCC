@@ -6618,7 +6618,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 160588}
-  m_LocalRotation: {x: 0.040629428, y: 0.7168507, z: 0.31239954, w: 0.6219976}
+  m_LocalRotation: {x: 0.040629424, y: 0.71685064, z: 0.3123995, w: 0.62199754}
   m_LocalPosition: {x: -0.00010222308, y: -0.00022862446, z: 0.0002372921}
   m_LocalScale: {x: 0.9999999, y: 0.9999999, z: 0.99999994}
   m_Children:
@@ -8229,7 +8229,7 @@ Animator:
   m_GameObject: {fileID: 147570}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 3cad78539cc78dd4289d650ec282b09e, type: 3}
-  m_Controller: {fileID: 9100000, guid: abb72c5fd0d28634bbd71f154d72bdd3, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5a5c671c32c12434f974a52316b26f97, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -11059,7 +11059,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 5a5c671c32c12434f974a52316b26f97, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 147570}
