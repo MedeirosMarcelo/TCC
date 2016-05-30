@@ -2,6 +2,7 @@
 using UnityEngine.Assertions;
 using BaseSwing = Assets.MovementPrototype.Character.States.HoldAttackStates.BaseSwing;
 using HeavySwing = Assets.MovementPrototype.Character.States.HoldAttackStates.HeavySwing;
+using HeavyAttack = Assets.MovementPrototype.Character.States.HoldAttackStates.HeavyAttack;
 
 namespace Assets.MovementPrototype.Character.States.HoldBlockStates
 {
@@ -20,7 +21,7 @@ namespace Assets.MovementPrototype.Character.States.HoldBlockStates
         {
             Name = "BLOCK/MID/SWING";
             nextState = "BLOCK/MID/RECOVER";
-            totalTime = 0.8f;
+            totalTime = 60000000000000f;
             canPlayerMove = true;
             moveSpeed = 0.75f;
             turnRate = 0.25f;
@@ -68,6 +69,7 @@ namespace Assets.MovementPrototype.Character.States.HoldBlockStates
                     if (attackerState != null && (attackerState.Name != "DOWN/LIGHT/SWING" &&
                                                   attackerState.Name != "DOWN/HEAVY/SWING"))
                     {
+
                         RaycastHit hitInfo;
                         Assert.IsTrue(attackerState.GetCollisionPoint(out hitInfo), "IT SHOULD HAVE HIT BUT IT DID NOT HIT SEND HELP");
 
@@ -79,18 +81,17 @@ namespace Assets.MovementPrototype.Character.States.HoldBlockStates
 
                         // Vector3 otherForward = attackerState.Character.transform.forward;
                         float dot = Vector3.Dot(myForward, otherForward);
-                        if (dot < Mathf.Cos((180 - (defenseAngle / 2f)) * Mathf.Deg2Rad))
+#if false
+                        if (dot > Mathf.Cos((180 - (defenseAngle / 2f)) * Mathf.Deg2Rad))
+#else
+                        if (true)
+#endif
                         {
-                            UnityEngine.Debug.Log("DEFENDED DOT = " + dot);
                             Character.ShowBlockSpark(collider.transform.position);
                             otherCharacter.fsm.ChangeState("STAGGER");
-                            if (attackerState is HeavySwing)
+                            if (attackerState is HeavyAttack)
                             {
                                 Fsm.ChangeState("STAGGER");
-                            }
-                            else
-                            {
-                                Fsm.ChangeState(nextState);
                             }
                             return;
                         }
@@ -101,7 +102,7 @@ namespace Assets.MovementPrototype.Character.States.HoldBlockStates
                     }
                 }
             }
-            
+
             // otherwise defer to base
             base.OnTriggerEnter(collider);
         }
