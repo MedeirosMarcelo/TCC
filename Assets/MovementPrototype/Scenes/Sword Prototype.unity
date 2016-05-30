@@ -559,7 +559,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11405232, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
       propertyPath: Enable
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 166352, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
       propertyPath: m_Layer
@@ -1095,45 +1095,13 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 151126, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
-      propertyPath: m_Name
-      value: Character (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 11401560, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
       propertyPath: target
       value: 
       objectReference: {fileID: 785183323}
-    - target: {fileID: 11401560, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
-      propertyPath: joystick
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11405232, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
-      propertyPath: Enable
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11405232, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
-      propertyPath: action
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 196364, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 166352, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 187952, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 490950, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 470874, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
-      propertyPath: m_RootOrder
-      value: 4
+    - target: {fileID: 151126, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
+      propertyPath: m_Name
+      value: Character (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8db47c960646c3c46a145e93139624d9, type: 2}

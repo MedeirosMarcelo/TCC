@@ -12,7 +12,7 @@ namespace Assets.MovementPrototype.Character.States.HoldBlockStates
         {
             Name = "BLOCK/HIGH/SWING";
             nextState = "BLOCK/HIGH/RECOVER";
-            totalTime = 0.8f;
+            totalTime = 60000000000000f;
             canPlayerMove = true;
             moveSpeed = 0.75f;
             turnRate = 0.25f;
@@ -65,17 +65,14 @@ namespace Assets.MovementPrototype.Character.States.HoldBlockStates
                         float dot = Vector3.Dot(myForward, otherForward);
                         float dotAngle = Mathf.Acos(dot) * Mathf.Rad2Deg;
                         float deltaAngle = Mathf.Abs(Mathf.DeltaAngle(180, dotAngle));
-                        if (dot < 0 && deltaAngle <= defenseAngle / 2f)
+                        // if (dot < 0 && deltaAngle <= defenseAngle / 2f)
+                        if (true)
                         {
                             Character.ShowBlockSpark(collider.transform.position);
-                            otherCharacter.fsm.ChangeState("STAGGER");
-                            if (attackerState is HeavySwing)
+                            Fsm.ChangeState("STAGGER");
+                            if (attackerState as HeavySwing != null)
                             {
-                                Fsm.ChangeState("STAGGER");
-                            }
-                            else
-                            {
-                                Fsm.ChangeState(nextState);
+                                otherCharacter.fsm.ChangeState("STAGGER");
                             }
                             return;
                         }

@@ -13,7 +13,7 @@ namespace Assets.MovementPrototype.Character.States.HoldAttackStates
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            Character.Move(Transform.position + ((Transform.forward * speed) * Time.fixedDeltaTime));
+            //Character.Move(Transform.position + ((Transform.forward * speed) * Time.fixedDeltaTime));
         }
     }
 }

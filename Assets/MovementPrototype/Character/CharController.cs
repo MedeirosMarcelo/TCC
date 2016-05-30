@@ -175,7 +175,8 @@ public class CharController : MonoBehaviour
     void OnGUI()
     {
         string text = input.Debug + "\n" + fsm.DebugString;
-        GUI.Label(new Rect((guiId - 1) * (Screen.width / 2), 0, Screen.width / 2, Screen.height), text);
+        text += "\n" + "Velocity = " + rbody.velocity + " mod = " + rbody.velocity.magnitude.ToString("N2");
+        GUI.Label(new Rect((guiId - 1) * (Screen.width / 4), 0, Screen.width / 4, Screen.height), text);
     }
 
     public void ReceiveDamage(int damage)

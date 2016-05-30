@@ -6,7 +6,7 @@
         {
             Name = "BLOCK/MID/WINDUP";
             nextState = "BLOCK/MID/SWING";
-            totalTime = 0.1f;
+            totalTime = 0.001f;
             canPlayerMove = true;
             moveSpeed = 0.75f;
             turnRate = 0.25f;

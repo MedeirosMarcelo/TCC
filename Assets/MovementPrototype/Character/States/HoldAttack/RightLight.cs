@@ -42,7 +42,7 @@
         {
             Name = "RIGHT/LIGHT/SWING";
             nextState = "RIGHT/LIGHT/RECOVER";
-            totalTime = 0.2f;
+            totalTime = 0.15f;
             Animation = "RightSwing";
             Damage = 1;
             nextStance = SwordStance.Left;
@@ -55,7 +55,7 @@
         {
             Name = "RIGHT/LIGHT/RECOVER";
             nextState = "MOVEMENT";
-            totalTime = 0.2f;
+            totalTime = 0.25f;
             Animation = "RightRecover";
         }
     }
