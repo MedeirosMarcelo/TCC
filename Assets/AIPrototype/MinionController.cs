@@ -70,7 +70,6 @@ public class MinionController : MonoBehaviour
     public void SetDestination(Vector3 destination, bool updateRotation = true)
     {
         Rigidbody.isKinematic = true;
-        Debug.Log("SetDestination: " + Rigidbody.position + " " + destination);
         NavAgent.Resume();
         NavAgent.updateRotation = updateRotation;
         destination.y = transform.position.y;

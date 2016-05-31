@@ -27,8 +27,11 @@ namespace Assets.Scripts.Fuzzy
         }
         public new string ToString()
         {
-            return "[" + string.Join(",", dict.Keys.ToArray()) + "]"
-                + "(" + string.Join(",", dict.Values.Select(item => item.Membership(Value).ToString("N2")).ToArray()) + ")";
+            return "[value;"
+                + string.Join(",", dict.Keys.ToArray())
+                + "](" + Value.ToString("N2") + ";"
+                + string.Join(",", dict.Values.Select(item => item.Membership(Value).ToString("N2")).ToArray())
+                + ")";
         
         }
     }

@@ -35,21 +35,26 @@ public abstract class MinionState : BaseState
 
     public override void PreUpdate()
     {
-        Distance.Value = (Transform.position - Target.position).xy().magnitude;
+        Distance.Value = (Transform.position - Target.position).xz().magnitude;
         base.PreUpdate();
     }
 
     public override void FixedUpdate()
     {
         base.FixedUpdate();
-        Stamina.Value = Mathf.Clamp(Stamina.Value - staminaCost, 0f, 100f);
+    }
+    public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime = 0, params object[] args)
+    {
+        base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
+        Stamina.Value = Mathf.Clamp(Stamina.Value - staminaCost, 0f, 1f);
     }
     public void NextState()
     {
         var advance = Mamdami.And(Distance["far"], Stamina["high"]);
         var circle = Mamdami.And(Distance["mid"], Stamina["high"]);
+        var attack = Mamdami.And(Distance["close"], Stamina["high"]);
         Debug.Log("Distance:" + Distance.ToString() + " Stamina:" + Stamina.ToString());
-        Debug.Log("advance,circle = " + advance + "," + circle);
+        Debug.Log("advance,circle,attack = " + advance + "," + circle + "," + attack);
 
         if (advance > 0.5f)
         {
@@ -59,6 +64,11 @@ public abstract class MinionState : BaseState
         if (circle > 0.5f)
         {
             Fsm.ChangeState("CIRCLE");
+            return;
+        }
+        if (attack > 0.5f)
+        {
+            Fsm.ChangeState("ATTACK/WINDUP");
             return;
         }
         Fsm.ChangeState("IDLE");

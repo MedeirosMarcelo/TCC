@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Assets.AIPrototype.States;
+using Assets.AIPrototype.States.Attack;
 using Assets.Scripts.Fuzzy;
 using Assets.Scripts.Fuzzy.Membership;
 
@@ -15,8 +16,8 @@ public class MinionFsm : BaseFsm
     {
         Minion = minion;
         Stamina = new Variable(
-            new Set("low", new L(0f, 100f)),
-            new Set("high", new Gamma(0f, 100f))
+            new Set("low", new L(0f, 1f)),
+            new Set("high", new Gamma(0f, 1f))
         );
         Stamina.Value = 50f;
         Bravery = new Variable(
@@ -28,10 +29,16 @@ public class MinionFsm : BaseFsm
         Distance = new Variable(
             new Set("close", new L(1f, 2f)),
             new Set("mid", new Trapezoidal(1f, 2f, 3f, 4f)),
-            new Set("far", new Gamma(3f, 5f))
+            new Set("far", new Gamma(3f, 4f))
         );
 
-        AddStates(new Idle(this), new Advance(this), new Circle(this));
+        AddStates(new Idle(this),
+                  new Advance(this),
+                  new Circle(this),
+                  new WindUp(this),
+                  new Swing(this),
+                  new Recover(this)
+                  );
         Start("IDLE");
     }
     public override void ChangeState(string nextStateName, float additionalDeltaTime, params object[] args)
