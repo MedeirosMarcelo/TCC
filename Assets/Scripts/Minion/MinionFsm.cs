@@ -39,11 +39,13 @@ namespace Assets.Scripts.Minion
                       new Circle(this),
                       new WindUp(this),
                       new Swing(this),
-                      new Recover(this)
+                      new Recover(this),
+                      new End(this),
+                      new Death(this)
                       );
             Start("IDLE");
         }
-        public override void ChangeState(string nextStateName, float additionalDeltaTime, params object[] args)
+        public override void ChangeState(string nextStateName, float additionalDeltaTime = 0f, params object[] args)
         {
             //Debug.Log(string.Format("{0} >> {1}", Current.Name, nextStateName));
             base.ChangeState(nextStateName, additionalDeltaTime, args);

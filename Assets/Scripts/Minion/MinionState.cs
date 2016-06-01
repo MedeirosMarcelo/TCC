@@ -10,7 +10,7 @@ namespace Assets.Scripts.Minion
         public Rigidbody Rigidbody { get; protected set; }
         public Transform Transform { get; protected set; }
         public Animator Animator { get; private set; }
-        public Transform Target
+        public ITargetable Target
         {
             get { return Minion.Target; }
             protected set { Minion.Target = value; }
@@ -37,19 +37,69 @@ namespace Assets.Scripts.Minion
 
         public override void PreUpdate()
         {
-            Distance.Value = (Transform.position - Target.position).xz().magnitude;
-            base.PreUpdate();
-        }
-
-        public override void FixedUpdate()
-        {
-            base.FixedUpdate();
+            UpdateTarget();
+            if (Target.IsDead)
+            {
+                // If updated target is dead we are out of targets
+                Fsm.ChangeState("END");
+            }
+            else
+            {
+                Distance.Value = (Transform.position - Target.Transform.position).xz().magnitude;
+                // After updating basics update behaviours
+                base.PreUpdate();
+            }
         }
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime = 0, params object[] args)
         {
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
             Stamina.Value = Mathf.Clamp(Stamina.Value - staminaCost, 0f, 1f);
         }
+
+        public override void OnTriggerEnter(Collider collider)
+        {
+            if (collider.name == "Sword")
+            {
+                Minion.ReceiveDamage(1);
+                Debug.Log("DMG");
+            }
+            // otherwise defer to base
+            base.OnTriggerEnter(collider);
+        }
+
+        void UpdateTarget()
+        {
+
+            if (Target != null && !Target.IsDead)
+            {
+                // If current target is valid ther is no need to update it
+                return;
+            }
+
+            float minDistance = float.PositiveInfinity;
+            ITargetable closer = null;
+            foreach (var team in Minion.Team.OtherTeams)
+            {
+                foreach (var target in team.Targets)
+                {
+                    if (!target.IsDead)
+                    {
+                        var distance = (target.Transform.position - Transform.position).magnitude;
+                        if (distance < minDistance)
+                        {
+                            minDistance = distance;
+                            closer = target;
+                        }
+                    }
+                }
+            }
+            if (closer != null)
+            {
+                // Update target only if found one
+                Target = closer;
+            }
+        }
+
         public void NextState()
         {
             var advance = Mamdami.And(Distance["far"], Stamina["high"]);
@@ -80,7 +130,7 @@ namespace Assets.Scripts.Minion
         {
             var forward = Vector3.RotateTowards(
                 Transform.forward,
-                (Target.transform.position - Transform.position).xz().normalized,
+                (Target.Transform.transform.position - Transform.position).xz().normalized,
                 Mathf.Deg2Rad * Minion.NavAgent.angularSpeed * Time.fixedDeltaTime,
                 0f);
             Minion.Forward(forward);

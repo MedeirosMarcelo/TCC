@@ -141,30 +141,6 @@ public class CharController : MonoBehaviour
     {
         transform.forward = forward;
     }
-
-    [Obsolete]
-    public void Look(float lookTurnRate = 1f, float lockTurnRate = 1f)
-    {
-        var vec = input.look.vector;
-        if (vec.magnitude > 0.25)
-        {
-            transform.forward = Vector3.RotateTowards(
-                transform.forward,
-                vec,
-                maxTurnSpeed * lookTurnRate,
-                1f);
-            ChangeTarget(vec);
-        }
-        else
-        {
-            transform.forward = Vector3.RotateTowards(
-                transform.forward,
-                (target.transform.position - transform.position).normalized,
-                maxTurnSpeed * lockTurnRate,
-                1f);
-        }
-    }
-
     void OnTriggerEnter(Collider collider)
     {
         fsm.OnTriggerEnter(collider);

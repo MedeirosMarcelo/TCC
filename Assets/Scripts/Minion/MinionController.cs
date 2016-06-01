@@ -1,11 +1,15 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
+using Assets.Scripts.Game;
+using System;
 
 namespace Assets.Scripts.Minion
 {
-    public class MinionController : MonoBehaviour
+    public class MinionController : MonoBehaviour, ITargetable
     {
-        public Transform Target;
+        public ITargetable Target;
+
+        public bool Active { get; set; }
         public int Health { get; private set; }
         public Rigidbody Rigidbody { get; private set; }
         public MinionFsm Fsm { get; private set; }
@@ -14,6 +18,11 @@ namespace Assets.Scripts.Minion
         public CapsuleCollider SwordCollider { get; private set; }
         public NavMeshAgent NavAgent { get; private set; }
 
+        // Itargetable
+        public Team Team { get; set; }
+        public bool IsDead { get { return (Health <= 0); } }
+        public Transform Transform { get { return transform; } }
+
 #if UNITY_EDITOR
         int id = 0;
         static int currentId = 0;
@@ -21,8 +30,6 @@ namespace Assets.Scripts.Minion
 
         public void Awake()
         {
-            Assert.IsNotNull(Target);
-
             Health = 2;
             Rigidbody = GetComponent<Rigidbody>();
             Assert.IsNotNull(Rigidbody);
@@ -43,6 +50,7 @@ namespace Assets.Scripts.Minion
             id = currentId;
 #endif
         }
+
         public void FixedUpdate()
         {
             Fsm.PreUpdate();
@@ -65,7 +73,7 @@ namespace Assets.Scripts.Minion
             Health -= damage;
             if (Health <= 0)
             {
-                //fsm.ChangeState("DEATH");
+                Fsm.ChangeState("DEATH");
             }
         }
 
@@ -86,7 +94,7 @@ namespace Assets.Scripts.Minion
 #if UNITY_EDITOR
         void OnDrawGizmos()
         {
-            if (NavAgent)
+            if (NavAgent && !IsDead)
             {
                 Gizmos.color = Color.blue;
                 var start = transform.position;
@@ -99,7 +107,7 @@ namespace Assets.Scripts.Minion
         void OnGUI()
         {
             string text = Fsm.DebugString;
-            GUI.Label(new Rect((id - 1) * (Screen.width / 2), 0, Screen.width / 2, Screen.height), text);
+            GUI.Label(new Rect(0f, (id - 1) * (Screen.height / 20), Screen.width , Screen.height / 20), text);
         }
 #endif
     }

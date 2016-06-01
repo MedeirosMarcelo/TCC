@@ -19,7 +19,7 @@
         }
         void UpdateDestination()
         {
-            Minion.SetDestination(Target.position, updateRotation: false);
+            Minion.SetDestination(Target.Transform.position, updateRotation: false);
         }
         public override void Exit(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {

@@ -26,11 +26,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 474036}
   - 54: {fileID: 5432486}
-  - 65: {fileID: 6546436}
   - 95: {fileID: 9517320}
   - 195: {fileID: 19537324}
   - 114: {fileID: 11442666}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Minion
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -46,7 +45,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 437562}
   - 136: {fileID: 13692380}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Sword
   m_TagString: Sword
   m_Icon: {fileID: 0}
@@ -63,6 +62,7 @@ GameObject:
   - 4: {fileID: 498038}
   - 33: {fileID: 3300144}
   - 23: {fileID: 2396354}
+  - 136: {fileID: 13655544}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -80,7 +80,7 @@ GameObject:
   - 4: {fileID: 426686}
   - 33: {fileID: 3379240}
   - 23: {fileID: 2355686}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,8 +130,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 121444}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000016292068}
-  m_LocalPosition: {x: 0, y: 0.38764513, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.047086, y: 0.5, z: -4.833541}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 498038}
@@ -265,18 +265,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!65 &6546436
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 121444}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 0.5, y: 1.32, z: 0.25}
-  m_Center: {x: 0, y: 0.785, z: 0}
 --- !u!95 &9517320
 Animator:
   serializedVersion: 3
@@ -288,7 +276,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: abb72c5fd0d28634bbd71f154d72bdd3, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -305,7 +293,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bf59bb99eb94ad41bae6a4eaa78b81a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 0}
+--- !u!136 &13655544
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 125626}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &13692380
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -326,7 +326,7 @@ NavMeshAgent:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 121444}
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.3
   m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50

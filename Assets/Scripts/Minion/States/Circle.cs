@@ -24,18 +24,18 @@ namespace Assets.Scripts.Minion.States
         }
         void UpdateDestination()
         {
-            var relativePos = (Transform.position - Target.position); // minion position relative to target 
-            if (Vector3.Dot(relativePos.normalized, Target.forward) < -0.9f)
+            var relativePos = (Transform.position - Target.Transform.position); // minion position relative to target 
+            if (Vector3.Dot(relativePos.normalized, Target.Transform.forward) < -0.9f)
             {
                 // When dot < -0.9 minion is behind target so just follow;
-                Minion.SetDestination(Target.position, updateRotation: false);
+                Minion.SetDestination(Target.Transform.position, updateRotation: false);
             }
             else
             {
                 // rotate the relativePos around the target towards it's back 
-                var destination = Vector3.RotateTowards(relativePos, Target.forward, -angleStep, 0f);
+                var destination = Vector3.RotateTowards(relativePos, Target.Transform.forward, -angleStep, 0f);
                 destination = destination * spiralStep; // close in as we go around
-                destination += Target.position;         // get the global destination
+                destination += Target.Transform.position;         // get the global destination
                 Minion.SetDestination(destination, updateRotation: false);
             }
         }
