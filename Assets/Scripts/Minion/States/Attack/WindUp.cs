@@ -1,4 +1,4 @@
-﻿namespace Assets.AIPrototype.States.Attack
+﻿namespace Assets.Scripts.Minion.States.Attack
 {
     public class WindUp : MinionState
     {

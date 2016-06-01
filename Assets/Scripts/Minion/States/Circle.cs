@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.AIPrototype.States
+namespace Assets.Scripts.Minion.States
 {
     public class Circle : MinionState
     {

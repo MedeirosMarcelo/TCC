@@ -1,4 +1,4 @@
-﻿namespace Assets.AIPrototype.States
+﻿namespace Assets.Scripts.Minion.States
 {
     public class Idle : MinionState
     {
