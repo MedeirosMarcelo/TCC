@@ -80,11 +80,7 @@ namespace Assets.Scripts.Character.States.Block
 
                         // Vector3 otherForward = attackerState.Character.transform.forward;
                         float dot = Vector3.Dot(myForward, otherForward);
-#if false
-                        if (dot > Mathf.Cos((180 - (defenseAngle / 2f)) * Mathf.Deg2Rad))
-#else
-                        if (true)
-#endif
+                        if (Mathf.Abs(Vector3.Angle(myForward, otherForward)) <= defenseAngle / 2f)
                         {
                             Character.ShowBlockSpark(collider.transform.position);
                             otherCharacter.fsm.ChangeState("STAGGER");

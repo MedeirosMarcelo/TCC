@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
-using BaseSwing = Assets.Scripts.Character.States.Attack.BaseSwing;
-using HeavySwing = Assets.Scripts.Character.States.Attack.HeavySwing;
-
+using UnityEngine.Assertions;
 namespace Assets.Scripts.Character.States.Block
 {
+    using BaseSwing = Attack.BaseSwing;
+    using HeavySwing = Attack.HeavySwing;
+
+
     public class BlockHighSwing : AnimatedState
     {
         private bool holding;
@@ -60,19 +62,17 @@ namespace Assets.Scripts.Character.States.Block
                     if (attackerState != null && (attackerState.Name == "DOWN/LIGHT/SWING" ||
                                                   attackerState.Name == "DOWN/HEAVY/SWING"))
                     {
-                        Vector3 myForward = Transform.forward;
-                        Vector3 otherForward = attackerState.Character.transform.forward;
-                        float dot = Vector3.Dot(myForward, otherForward);
-                        float dotAngle = Mathf.Acos(dot) * Mathf.Rad2Deg;
-                        float deltaAngle = Mathf.Abs(Mathf.DeltaAngle(180, dotAngle));
-                        // if (dot < 0 && deltaAngle <= defenseAngle / 2f)
-                        if (true)
+                        RaycastHit hitInfo;
+                        Assert.IsTrue(attackerState.GetCollisionPoint(out hitInfo), "IT SHOULD HAVE HIT BUT IT DID NOT HIT SEND HELP");
+                        Vector3 myForward = Transform.forward.xz().normalized;
+                        Vector3 otherForward = (hitInfo.point - Transform.position).xz().normalized;
+                        if (Mathf.Abs(Vector3.Angle(myForward, otherForward)) <= defenseAngle / 2f)
                         {
                             Character.ShowBlockSpark(collider.transform.position);
-                            Fsm.ChangeState("STAGGER");
+                            otherCharacter.fsm.ChangeState("STAGGER");
                             if (attackerState as HeavySwing != null)
                             {
-                                otherCharacter.fsm.ChangeState("STAGGER");
+                                Fsm.ChangeState("STAGGER");
                             }
                             return;
                         }

@@ -20,7 +20,7 @@ namespace Assets.Scripts.Character.States.Attack
 #if UNITY_EDITOR
         private void DrawSphereCast(Vector3 origin, float radius, Vector3 direction, float distance, params object[] args)
         {
-            UnityEngine.Debug.Log("DRAWING");
+            Debug.Log("DRAWING");
             GameObject capsule = GameObject.CreatePrimitive(PrimitiveType.Capsule);
             capsule.GetComponent<Collider>().enabled = false;
             Vector3 destination = origin + direction.normalized * distance;
@@ -39,17 +39,17 @@ namespace Assets.Scripts.Character.States.Attack
             float radius = Character.AttackCollider.radius * Character.swordHilt.lossyScale.y;
             float distance = Character.AttackCollider.height * Character.swordHilt.lossyScale.z;
 #if UNITY_EDITOR
-            UnityEngine.Debug.DrawLine(Character.swordHilt.position, Character.swordHilt.position + Character.swordHilt.up, Color.yellow, 2f);
+            Debug.DrawLine(Character.swordHilt.position, Character.swordHilt.position + Character.swordHilt.up, Color.yellow, 2f);
             DrawSphereCast(Character.swordHilt.position, radius, Character.swordHilt.up, distance + radius * 2f);
 #endif
             RaycastHit[] hits = Physics.SphereCastAll(Character.swordHilt.position, radius, Character.swordHilt.up, distance + radius * 2f, LayerMask.GetMask("Hitbox", "Sword"));
             foreach (RaycastHit hit in hits)
             {
-                if (hit.collider.gameObject != Character.gameObject)
+                if (hit.collider.transform.root.gameObject != Character.gameObject)
                 {
                     hitInfo = hit;
-                    UnityEngine.Debug.DrawLine(hitInfo.point, hitInfo.point + Vector3.up, Color.magenta, 2f);
-                    UnityEngine.Debug.Log("HIT POINT: " + hitInfo.point.ToString());
+                    Debug.DrawLine(hitInfo.point, hitInfo.point + Vector3.up * 2, Color.magenta, 2f);
+                    Debug.Log("HIT POINT: " + hitInfo.point.ToString());
                     return true;
                 }
             }
