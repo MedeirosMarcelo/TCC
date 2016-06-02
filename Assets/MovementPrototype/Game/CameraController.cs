@@ -1,23 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class CameraController : MonoBehaviour {
 
     public float minDistance = 32f;
     public float maxDistance = 40f;
     public float distance = 32f;
-    public Vector3 positionOffset;
+
     public float margin = 1f;
     public float lerpAmount = 5f;   
     public Rect frustum;
 
-    GameManager gameManager;
+    List<CharController> characters;
     Camera camera;
 	// Use this for initialization
 	void Start () {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        camera = GetComponent<Camera>();
+        camera = Camera.main;
+        characters = GameObject.FindGameObjectsWithTag("Player").Select(obj => obj.GetComponent<CharController>()).ToList();
 	}
 	
 	// Update is called once per frame
@@ -27,13 +29,16 @@ public class CameraController : MonoBehaviour {
         float maxX = float.MinValue;
         float maxZ = float.MinValue;
 
-        foreach (CharController character in gameManager.characterList)
+        foreach (CharController character in characters)
         {
-            Vector3 position = character.transform.position;
-            minX = Mathf.Min(minX, position.x);
-            minZ = Mathf.Min(minZ, position.z);
-            maxX = Mathf.Max(maxX, position.x);
-            maxZ = Mathf.Max(maxZ, position.z);
+            if (character.health > 0)
+            {
+                Vector3 position = character.transform.position;
+                minX = Mathf.Min(minX, position.x);
+                minZ = Mathf.Min(minZ, position.z);
+                maxX = Mathf.Max(maxX, position.x);
+                maxZ = Mathf.Max(maxZ, position.z);
+            }
         }
 
         frustum = new Rect(minX - margin, minZ - margin, (maxX - minX) + 2*margin, (maxZ - minZ) + 2*margin);
@@ -46,6 +51,10 @@ public class CameraController : MonoBehaviour {
         float width = height * camera.aspect;
         distance = height * 0.5f / Mathf.Tan(camera.fieldOfView * 0.5f * Mathf.Deg2Rad);
         float clampedDist = Mathf.Clamp(distance, minDistance, maxDistance);
-        transform.position = Vector3.Lerp(transform.position, new Vector3(frustum.center.x, clampedDist, frustum.center.y), Time.deltaTime * lerpAmount);
+        Vector3 towards = Quaternion.Euler(camera.transform.rotation.eulerAngles.x - 90, 0, 0) * Vector3.up;
+        Debug.DrawLine(Vector3.zero, towards * 3f, Color.blue, 2f);
+        Vector3 destination = new Vector3(frustum.center.x, 0, frustum.center.y);
+        transform.position = Vector3.Lerp(transform.position, destination + towards * clampedDist, Time.deltaTime * lerpAmount);
 	}
+    
 }
