@@ -569,6 +569,10 @@ Prefab:
       propertyPath: m_Layer
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 499718, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6550820, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
@@ -623,6 +627,10 @@ Prefab:
     - target: {fileID: 11401560, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
       propertyPath: debugBall
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9533954, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
+      propertyPath: m_UpdateMode
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
@@ -1106,7 +1114,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1722679348}
-  m_LocalRotation: {x: -0.49999782, y: 0.0025973953, z: -0.0014996071, w: -0.8660215}
+  m_LocalRotation: {x: 0.50000006, y: 0, z: 0, w: 0.8660254}
   m_LocalPosition: {x: 0.24100031, y: 16.24, z: -8.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1118,16 +1126,15 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1722679348}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17177647f85c46c4baddc47d8a5c7948, type: 3}
+  m_Script: {fileID: 11500000, guid: 18405a0afcd68af4b81ed0ff546c9da0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDistance: 29.1
+  minDistance: 10
   maxDistance: 40
   distance: 32
-  positionOffset: {x: 0, y: -9, z: -15.5}
-  margin: 1
+  margin: 2
   lerpAmount: 5
   frustum:
     serializedVersion: 2
@@ -1202,50 +1209,18 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 151126, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
-      propertyPath: m_Name
-      value: Character (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 11401560, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
       propertyPath: target
       value: 
       objectReference: {fileID: 785183323}
-    - target: {fileID: 11401560, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
-      propertyPath: joystick
-      value: 2
+    - target: {fileID: 151126, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
+      propertyPath: m_Name
+      value: Character (1)
       objectReference: {fileID: 0}
     - target: {fileID: 11405232, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
       propertyPath: Enable
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 11405232, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
-      propertyPath: action
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 196364, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 166352, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 187952, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 490950, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 470874, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 11401560, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
-      propertyPath: debugBall
-      value: 
-      objectReference: {fileID: 1752030306}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8db47c960646c3c46a145e93139624d9, type: 2}
   m_IsPrefabParent: 0
