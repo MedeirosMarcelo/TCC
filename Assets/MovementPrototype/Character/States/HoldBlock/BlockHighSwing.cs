@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Assertions;
 using BaseSwing = Assets.MovementPrototype.Character.States.HoldAttackStates.BaseSwing;
 using HeavySwing = Assets.MovementPrototype.Character.States.HoldAttackStates.HeavySwing;
 
@@ -60,19 +61,17 @@ namespace Assets.MovementPrototype.Character.States.HoldBlockStates
                     if (attackerState != null && (attackerState.Name == "DOWN/LIGHT/SWING" ||
                                                   attackerState.Name == "DOWN/HEAVY/SWING"))
                     {
-                        Vector3 myForward = Transform.forward;
-                        Vector3 otherForward = attackerState.Character.transform.forward;
-                        float dot = Vector3.Dot(myForward, otherForward);
-                        float dotAngle = Mathf.Acos(dot) * Mathf.Rad2Deg;
-                        float deltaAngle = Mathf.Abs(Mathf.DeltaAngle(180, dotAngle));
-                        // if (dot < 0 && deltaAngle <= defenseAngle / 2f)
-                        if (true)
+                        RaycastHit hitInfo;
+                        Assert.IsTrue(attackerState.GetCollisionPoint(out hitInfo), "IT SHOULD HAVE HIT BUT IT DID NOT HIT SEND HELP");
+                        Vector3 myForward = Transform.forward.xz().normalized;
+                        Vector3 otherForward = (hitInfo.point - Transform.position).xz().normalized;
+                        if (Mathf.Abs(Vector3.Angle(myForward, otherForward)) <= defenseAngle / 2f)
                         {
                             Character.ShowBlockSpark(collider.transform.position);
-                            Fsm.ChangeState("STAGGER");
+                            otherCharacter.fsm.ChangeState("STAGGER");
                             if (attackerState as HeavySwing != null)
                             {
-                                otherCharacter.fsm.ChangeState("STAGGER");
+                                Fsm.ChangeState("STAGGER");
                             }
                             return;
                         }

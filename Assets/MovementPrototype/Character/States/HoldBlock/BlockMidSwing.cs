@@ -72,20 +72,9 @@ namespace Assets.MovementPrototype.Character.States.HoldBlockStates
 
                         RaycastHit hitInfo;
                         Assert.IsTrue(attackerState.GetCollisionPoint(out hitInfo), "IT SHOULD HAVE HIT BUT IT DID NOT HIT SEND HELP");
-
                         Vector3 myForward = Transform.forward.xz().normalized;
                         Vector3 otherForward = (hitInfo.point - Transform.position).xz().normalized;
-                        
-                        UnityEngine.Debug.DrawLine(hitInfo.point, hitInfo.point + Vector3.up, Color.black, 2f);
-                        //UnityEngine.Debug.DrawLine(Character.center.position, otherForward, Color.red, 2f);
-
-                        // Vector3 otherForward = attackerState.Character.transform.forward;
-                        float dot = Vector3.Dot(myForward, otherForward);
-#if false
-                        if (dot > Mathf.Cos((180 - (defenseAngle / 2f)) * Mathf.Deg2Rad))
-#else
                         if (Mathf.Abs(Vector3.Angle(myForward, otherForward)) <= defenseAngle/2f)
-#endif
                         {
                             Character.ShowBlockSpark(collider.transform.position);
                             otherCharacter.fsm.ChangeState("STAGGER");
@@ -94,10 +83,6 @@ namespace Assets.MovementPrototype.Character.States.HoldBlockStates
                                 Fsm.ChangeState("STAGGER");
                             }
                             return;
-                        }
-                        else
-                        {
-                            UnityEngine.Debug.Log("HIT DOT = " + dot);
                         }
                     }
                 }

@@ -114,7 +114,7 @@ public class CharOverride : MonoBehaviour
                 Fsm.ChangeState("BLOCK/MID/SWING");
                 break;
                     case Action.BLOCKHIGHFOREVER:
-                Fsm.ChangeState("BLOCK/HIGH/WINDUP");
+                Fsm.ChangeState("BLOCK/HIGH/SWING");
                 break;
         }
 
