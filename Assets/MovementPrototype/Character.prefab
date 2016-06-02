@@ -199,6 +199,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &166454
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 499718}
+  - 136: {fileID: 13699392}
+  m_Layer: 13
+  m_Name: Hitbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &179760
 GameObject:
   m_ObjectHideFlags: 1
@@ -491,6 +507,7 @@ Transform:
   m_Children:
   - {fileID: 465198}
   - {fileID: 477722}
+  - {fileID: 499718}
   m_Father: {fileID: 466030}
   m_RootOrder: 1
 --- !u!4 &470874
@@ -558,6 +575,18 @@ Transform:
   - {fileID: 455548}
   m_Father: {fileID: 466624}
   m_RootOrder: 3
+--- !u!4 &499718
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 166454}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 467528}
+  m_RootOrder: 2
 --- !u!23 &2320606
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -904,7 +933,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: abb72c5fd0d28634bbd71f154d72bdd3, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -962,7 +991,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Enable: 0
-  action: 0
+  action: 8
 --- !u!114 &11496968
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1010,6 +1039,19 @@ CapsuleCollider:
   m_Height: 23.72
   m_Direction: 1
   m_Center: {x: 0, y: 12.1, z: 0}
+--- !u!136 &13699392
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 166454}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.000000059604645, z: 0}
 --- !u!198 &19840470
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -2556,7 +2598,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: Enable
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 151126}
