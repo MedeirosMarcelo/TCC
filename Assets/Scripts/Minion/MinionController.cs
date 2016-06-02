@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
 using Assets.Scripts.Game;
-using System;
+using Assets.Scripts.Common;
 
 namespace Assets.Scripts.Minion
 {

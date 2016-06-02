@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Assets.Scripts.Fuzzy;
 using Assets.Scripts.Fuzzy.Operators;
+using Assets.Scripts.Common;
 
 namespace Assets.Scripts.Minion
 {
@@ -61,7 +62,6 @@ namespace Assets.Scripts.Minion
             if (collider.name == "Sword")
             {
                 Minion.ReceiveDamage(1);
-                Debug.Log("DMG");
             }
             // otherwise defer to base
             base.OnTriggerEnter(collider);

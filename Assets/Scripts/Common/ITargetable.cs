@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Assets.Scripts.Game;
 
-namespace Assets.Scripts.Minion
+namespace Assets.Scripts.Common
 {
     public interface ITargetable
     {

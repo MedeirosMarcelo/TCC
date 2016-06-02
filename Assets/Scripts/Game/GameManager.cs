@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
-// Assets
-using Assets.Scripts.Minion;
 
 
 namespace Assets.Scripts.Game

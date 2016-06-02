@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
 using System.Collections.Generic;
-using System.Linq;
 using Assets.Scripts.Minion;
+using Assets.Scripts.Common;
 
 namespace Assets.Scripts.Game
 {
+    using CharacterController = Character.CharacterController;
+
     public class Team
     {
         private const float spawnDistance = 2f;
@@ -15,7 +17,7 @@ namespace Assets.Scripts.Game
             get { return manager.Teams.FindAll(t => t != this); }
         }
         public Transform Spawn { get; private set; }
-        public CharController Leader { get; private set; }
+        public CharacterController Leader { get; private set; }
         public List<MinionController> Minions { get; private set; }
         public List<ITargetable> Targets { get; private set; }
         public Team(GameManager manager, Transform spawn)
@@ -27,16 +29,15 @@ namespace Assets.Scripts.Game
         }
         public void SpawnCharacter(GameObject prefab, Player player)
         {
-#if false
+
             Assert.IsNotNull(prefab, "Missing character prefab");
             var obj = Object.Instantiate(prefab, Spawn.position, Spawn.rotation) as GameObject;
             Assert.IsNotNull(obj, "Failed to instantiate character");
-            var character = obj.GetComponent<CharController>();
+            var character = obj.GetComponent<CharacterController>();
             Assert.IsNotNull(character, "New character missing CharController");
             Leader = character;
             Targets.Add(character);
             character.Team = this;
-#endif
         }
         public void SpawnMinion(GameObject prefab, Vector3 position)
         {
