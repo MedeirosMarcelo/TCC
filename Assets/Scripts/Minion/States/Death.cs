@@ -11,6 +11,7 @@ namespace Assets.Scripts.Minion.States
         public override void Enter(string lastName, string nextName, float additionalDeltaTime, params object[] args)
         {
             Minion.Stop();
+            Rigidbody.isKinematic = true;
             Animator.Play("Death");
         }
         public override void PreUpdate()
