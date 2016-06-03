@@ -16,10 +16,5 @@ namespace Assets.Scripts.Character.States.Dash
             Vector3 finalVelocity = Character.DashVelocity * (elapsed / totalTime);
             Character.Move(Transform.position + finalVelocity * Time.fixedDeltaTime);
         }
-        public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
-        {
-            base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
-            Character.ApplyDodgeMaterial();
-        }
     }
 }

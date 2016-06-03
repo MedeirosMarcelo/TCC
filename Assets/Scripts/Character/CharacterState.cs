@@ -12,7 +12,7 @@ namespace Assets.Scripts.Character
         public BaseInput Input { get; protected set; }
         public Rigidbody Rigidbody { get; protected set; }
         public Transform Transform { get; protected set; }
-        public ITargetable Target { get { return Character.target; } protected set { Character.target = value; } }
+        public ITargetable Target { get { return Character.Target; } protected set { Character.Target = value; } }
 
         // Timed state
         protected float elapsed;
@@ -88,9 +88,7 @@ namespace Assets.Scripts.Character
                     var attackerState = otherCharacter.fsm.Current as Swing;
                     if (attackerState != null && attackerState.CanHit(Character))
                     {
-                        UnityEngine.Debug.Log("GOT HIT ON STATE " + DebugString);
-                        Character.collidedWith = collider.gameObject;
-                        Character.ResetCollision();
+                        Debug.Log("GOT HIT ON STATE " + DebugString);
                         Character.bloodAnimator.SetTrigger("Bleed");
                         var swingState = otherCharacter.fsm.Current as Swing;
                         otherCharacter.fsm.ChangeState("MOVEMENT");
@@ -112,9 +110,9 @@ namespace Assets.Scripts.Character
             const float turnUnit = Mathf.PI / 30; // 12'
             if (turnRate > 0f)
             {
-                if (Input.run > runThreshold || Character.debugDisableLockToTarget)
+                if (Input.run > runThreshold)
                 {
-                    if (Input.move.isActive || Character.debugDisableLockToTarget)
+                    if (Input.move.isActive)
                     {
                         // Running
                         var forward = Vector3.RotateTowards(

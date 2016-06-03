@@ -4,6 +4,8 @@ using System.Linq;
 
 namespace Assets.Scripts.Game
 {
+    using CharacterController = Character.CharacterController;
+
     public class CameraController : MonoBehaviour
     {
 
@@ -15,13 +17,11 @@ namespace Assets.Scripts.Game
         public float lerpAmount = 5f;
         public Rect frustum;
 
-        List<CharController> characters;
         new Camera camera;
         // Use this for initialization
         void Start()
         {
             camera = Camera.main;
-            characters = GameObject.FindGameObjectsWithTag("Player").Select(obj => obj.GetComponent<CharController>()).ToList();
         }
 
         // Update is called once per frame
@@ -32,9 +32,10 @@ namespace Assets.Scripts.Game
             float maxX = float.MinValue;
             float maxZ = float.MinValue;
 
-            foreach (CharController character in characters)
+            var characters = PlayerManager.GetPlayerList().Select(p => p.Character);
+            foreach (var character in characters)
             {
-                if (character.health > 0)
+                if (!character.IsDead)
                 {
                     Vector3 position = character.transform.position;
                     minX = Mathf.Min(minX, position.x);

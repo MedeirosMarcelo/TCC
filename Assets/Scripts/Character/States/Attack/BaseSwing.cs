@@ -27,7 +27,7 @@ namespace Assets.Scripts.Character.States.Attack
             Vector3 midPoint = (origin + destination) / 2f;
             capsule.transform.position = midPoint;
             capsule.transform.localScale = new Vector3(radius, Vector3.Distance(origin, destination) / 2f, radius);
-            capsule.transform.rotation = Character.swordHilt.rotation;
+            capsule.transform.rotation = Character.sword.rotation;
             //capsule.transform.rotation = Quaternion.LookRotation();
             GameObject.Destroy(capsule, 2f);
 
@@ -35,14 +35,14 @@ namespace Assets.Scripts.Character.States.Attack
 #endif
         public bool GetCollisionPoint(out RaycastHit hitInfo)
         {
-            Ray ray = new Ray(Character.swordHilt.position, Character.swordHilt.up);
-            float radius = Character.AttackCollider.radius * Character.swordHilt.lossyScale.y;
-            float distance = Character.AttackCollider.height * Character.swordHilt.lossyScale.z;
+            Ray ray = new Ray(Character.sword.position, Character.sword.up);
+            float radius = Character.AttackCollider.radius * Character.sword.lossyScale.y;
+            float distance = Character.AttackCollider.height * Character.sword.lossyScale.z;
 #if UNITY_EDITOR
-            Debug.DrawLine(Character.swordHilt.position, Character.swordHilt.position + Character.swordHilt.up, Color.yellow, 2f);
-            DrawSphereCast(Character.swordHilt.position, radius, Character.swordHilt.up, distance + radius * 2f);
+            Debug.DrawLine(Character.sword.position, Character.sword.position + Character.sword.up, Color.yellow, 2f);
+            DrawSphereCast(Character.sword.position, radius, Character.sword.up, distance + radius * 2f);
 #endif
-            RaycastHit[] hits = Physics.SphereCastAll(Character.swordHilt.position, radius, Character.swordHilt.up, distance + radius * 2f, LayerMask.GetMask("Hitbox", "Sword"));
+            RaycastHit[] hits = Physics.SphereCastAll(Character.sword.position, radius, Character.sword.up, distance + radius * 2f, LayerMask.GetMask("Hitbox", "Sword"));
             foreach (RaycastHit hit in hits)
             {
                 if (hit.collider.transform.root.gameObject != Character.gameObject)

@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
-
 
 namespace Assets.Scripts.Game
 {
@@ -16,7 +16,7 @@ namespace Assets.Scripts.Game
     }
     public class GameManager : MonoBehaviour
     {
-        [Header("Game Config")]
+        [Header("Config")]
         public Transform[] spawns = new Transform[0];
         public int maxScore = 5;
         public int minionPerTeam = 5;
@@ -108,13 +108,18 @@ namespace Assets.Scripts.Game
 
         void LoadTeams()
         {
-            foreach (var spawn in spawns)
+            var players = PlayerManager.GetPlayerList();
+            Assert.IsTrue(spawns.Length >= players.Count, "More player than spawn points");
+
+            var spawn = (spawns as IEnumerable<Transform>).GetEnumerator();
+            foreach (var player in players)
             {
-                var team = new Team(this, spawn);
+                spawn.MoveNext();
+                var team = new Team(this, spawn.Current);
                 Teams.Add(team);
-                //team.SpawnCharacter(characterPrefab, player);
+                team.SpawnCharacter(characterPrefab, player);
                 team.SpawnMinions(minionPrefab, minionPerTeam);
-                //player.Character.CanControl = false;
+                player.Character.CanControl = false;
             }
         }
 
@@ -175,7 +180,7 @@ namespace Assets.Scripts.Game
             int aliveCount = 0;
             foreach (Player pl in PlayerManager.GetPlayerList())
             {
-                if (pl.Character.lives > 0)
+                if (pl.Character.Lives > 0)
                 {
                     aliveCount++;
                 }

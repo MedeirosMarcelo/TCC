@@ -73,7 +73,7 @@ namespace Assets.Scripts.Character.States.Block
                         Assert.IsTrue(attackerState.GetCollisionPoint(out hitInfo), "IT SHOULD HAVE HIT BUT IT DID NOT HIT SEND HELP");
 
                         Vector3 myForward = Transform.forward.xz().normalized;
-                        Vector3 otherForward = (hitInfo.point - otherCharacter.swordHilt.position).xz().normalized;
+                        Vector3 otherForward = (hitInfo.point - otherCharacter.sword.position).xz().normalized;
 
                         UnityEngine.Debug.DrawLine(hitInfo.point, hitInfo.point + Vector3.up, Color.black, 2f);
                         //UnityEngine.Debug.DrawLine(Character.center.position, otherForward, Color.red, 2f);

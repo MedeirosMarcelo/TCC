@@ -18,6 +18,7 @@ public enum SwordStance
 }
 
 
+[Obsolete]
 public class CharController : MonoBehaviour
 {
     public int health = 2;

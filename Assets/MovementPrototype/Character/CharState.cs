@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Swing = Assets.MovementPrototype.Character.States.HoldAttackStates.BaseSwing;
 
+[Obsolete]
 public abstract class CharState : BaseState
 {
     public CharController Character { get; protected set; }

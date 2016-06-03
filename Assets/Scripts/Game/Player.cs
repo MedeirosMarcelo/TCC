@@ -2,6 +2,8 @@
 
 namespace Assets.Scripts.Game
 {
+    using CharacterController = Character.CharacterController;
+
     public enum PlayerIndex : int
     {
         One = 1,
@@ -13,7 +15,7 @@ namespace Assets.Scripts.Game
     {
         public PlayerIndex Id { get; private set; }
         public Color Color { get; set; }
-        public CharController Character { get; set; }
+        public CharacterController Character { get; set; }
 
         public Player(PlayerIndex playerId)
         {

@@ -35,6 +35,7 @@ namespace Assets.Scripts.Game
             Assert.IsNotNull(obj, "Failed to instantiate character");
             var character = obj.GetComponent<CharacterController>();
             Assert.IsNotNull(character, "New character missing CharController");
+            player.Character = character;
             Leader = character;
             Targets.Add(character);
             character.Team = this;
