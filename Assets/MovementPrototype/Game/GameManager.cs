@@ -26,10 +26,14 @@ public class GameManager : MonoBehaviour
     GameObject characterPrefab;
    // Vector3[] spawnPosition = new Vector3[4];
     //Vector3[] spawnRotation = new Vector3[4];
+    AudioSource[] audioSource;
     Timer timer = new Timer();
 
     void Start()
     {
+        audioSource = GetComponents<AudioSource>();
+        AudioManager.Play(ClipType.ArenaEnvironment, audioSource[0]);
+        AudioManager.Play(ClipType.ArenaBGM, audioSource[1]);
         //spawnPosition[0] = new Vector3(0f, 0.393f, -3f);
         //spawnPosition[1] = new Vector3(0f, 0.393f, 3f);
         //spawnPosition[2] = new Vector3(-5f, 0.393f, 3f);
