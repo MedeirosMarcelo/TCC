@@ -3237,7 +3237,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 185804}
-  m_LocalRotation: {x: 0.71910256, y: 0.29589486, z: 0.28910935, w: 0.5583491}
+  m_LocalRotation: {x: 0.7191025, y: 0.29589483, z: 0.28910932, w: 0.558349}
   m_LocalPosition: {x: 0.00031888546, y: -0.00021414383, z: 0.010308986}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -4207,7 +4207,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 155962}
-  m_LocalRotation: {x: 0.71910256, y: 0.29589486, z: 0.28910935, w: 0.5583491}
+  m_LocalRotation: {x: 0.7191025, y: 0.29589483, z: 0.28910932, w: 0.558349}
   m_LocalPosition: {x: -0.0010468139, y: -0.0017628295, z: 0.0101133995}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5402,7 +5402,7 @@ Animator:
   m_Avatar: {fileID: 9000000, guid: c1595a55c635fe447aa840aead933a79, type: 3}
   m_Controller: {fileID: 9100000, guid: f24936a9d6c47a246a57ca66c84be792, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -8259,6 +8259,10 @@ Prefab:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 5a5c671c32c12434f974a52316b26f97, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 147570}

@@ -59,7 +59,7 @@ namespace Assets.Scripts.Minion
 
         public override void OnTriggerEnter(Collider collider)
         {
-            if (collider.name == "Sword")
+            if (collider.CompareTag("AttackCollider") || collider.CompareTag("CharacterAttackCollider"))
             {
                 Minion.ReceiveDamage(1);
             }

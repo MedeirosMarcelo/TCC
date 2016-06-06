@@ -17,6 +17,7 @@ namespace Assets.Scripts.Minion
         public MeshRenderer Mesh { get; private set; }
         public CapsuleCollider SwordCollider { get; private set; }
         public NavMeshAgent NavAgent { get; private set; }
+        public AudioSource Audio { get; private set; }
 
         // Itargetable
         public Team Team { get; set; }
@@ -41,6 +42,8 @@ namespace Assets.Scripts.Minion
             Assert.IsNotNull(SwordCollider);
             NavAgent = GetComponent<NavMeshAgent>();
             Assert.IsNotNull(NavAgent);
+            Audio = GetComponent<AudioSource>();
+            Assert.IsNotNull(Audio);
 
             // Fsm must be last
             Fsm = new MinionFsm(this);
@@ -70,6 +73,7 @@ namespace Assets.Scripts.Minion
         }
         public void ReceiveDamage(int damage)
         {
+            AudioManager.Play(ClipType.Hit, Audio);
             Health -= damage;
             if (Health <= 0)
             {

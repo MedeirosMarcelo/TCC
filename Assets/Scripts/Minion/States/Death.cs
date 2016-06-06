@@ -10,6 +10,11 @@ namespace Assets.Scripts.Minion.States
         }
         public override void Enter(string lastName, string nextName, float additionalDeltaTime, params object[] args)
         {
+            Minion.Rigidbody.isKinematic = true;
+            foreach (var collider in Minion.gameObject.GetComponentsInChildren<Collider>())
+            {
+                collider.enabled = false;
+            }
             Minion.Stop();
             Rigidbody.isKinematic = true;
             Animator.Play("Death");

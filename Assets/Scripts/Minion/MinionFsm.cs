@@ -27,7 +27,7 @@ namespace Assets.Scripts.Minion
                 new Set("high", new Gamma(0f, 1f))
             );
             Bravery.Value = Random.value;
-            Debug.Log("Minion Bravary = " + Bravery.Value);
+            //Debug.Log("Minion Bravary = " + Bravery.Value);
             Distance = new Variable(
                 new Set("close", new L(1f, 2f)),
                 new Set("mid", new Trapezoidal(1f, 2f, 3f, 4f)),

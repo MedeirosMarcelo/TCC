@@ -12,9 +12,13 @@ namespace Assets.Scripts.Character.States
         }
         public override void Enter(string lastName, string nextName, float additionalDeltaTime, params object[] args)
         {
+            Character.rbody.isKinematic = true;
+            foreach (var collider in Character.gameObject.GetComponentsInChildren<Collider>())
+            {
+                collider.enabled = false;
+            }
             Character.animator.Play("Death");
             Character.Die();
-
         }
 
         public override void OnTriggerEnter(Collider collider) { }
