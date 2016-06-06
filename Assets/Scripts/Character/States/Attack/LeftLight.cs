@@ -9,9 +9,10 @@ namespace Assets.Scripts.Character.States.Attack
         public LeftLightWindUp(CharacterFsm fsm) : base(fsm)
         {
             Name = "LEFT/LIGHT/WINDUP";
-            timer.OnFinish = () => Fsm.ChangeState(holding ? "LEFT/HEAVY/WINDUP" : "LEFT/LIGHT/SWING");
             timer.TotalTime = 0.25f;
-            //Animation = "LeftWindup";
+            timer.OnFinish = () => Fsm.ChangeState(holding ? "LEFT/HEAVY/WINDUP" : "LEFT/LIGHT/SWING");
+            animation.TotalTime = 0.25f;
+            animation.Name = "AttackHorizontalWindup";
         }
         public override void PreUpdate()
         {
@@ -45,7 +46,8 @@ namespace Assets.Scripts.Character.States.Attack
             Name = "LEFT/LIGHT/SWING";
             timer.TotalTime = 0.15f;
             timer.OnFinish = () => Fsm.ChangeState("LEFT/LIGHT/RECOVER");
-            //Animation = "LeftSwing";
+            animation.TotalTime = 0.15f;
+            animation.Name = "AttackHorizontalSwing";
             Damage = 1;
             Direction = AttackDirection.Horizontal;
             IsHeavy = false;
@@ -60,7 +62,8 @@ namespace Assets.Scripts.Character.States.Attack
             Name = "LEFT/LIGHT/RECOVER";
             timer.TotalTime = 0.25f;
             timer.OnFinish = () => Fsm.ChangeState("MOVEMENT");
-            //Animation = "LeftRecover";
+            animation.TotalTime = 0.25f;
+            animation.Name = "AttackHorizontalRecover";
         }
     }
 }

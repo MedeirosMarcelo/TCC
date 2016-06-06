@@ -4,12 +4,12 @@
     public abstract class BaseWindUp : CharacterState
     {
         public TimerBehaviour timer { get; protected set; }
-        public AnimationBehaviour animator { get; protected set; }
+        public AnimationBehaviour animation { get; protected set; }
         const float speed = 1.5f;
         public BaseWindUp(CharacterFsm fsm) : base(fsm)
         {
             timer = new TimerBehaviour(this);
-            animator = new AnimationBehaviour(this, Character.animator);
+            animation = new AnimationBehaviour(this, Character.animator);
             turnRate = 0f;
         }
     }

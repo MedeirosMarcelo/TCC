@@ -12,6 +12,7 @@ namespace Assets.Scripts.Common
         bool IsHeavy { get; }
         AttackDirection Direction { get; }
         int Damage { get; }
+        bool CanHit(ITargetable target);
         bool GetCollisionPoint(out RaycastHit hitInfo);
         void Blocked();
     }

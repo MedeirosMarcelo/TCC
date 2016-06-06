@@ -10,7 +10,7 @@ namespace Assets.Scripts.Character.States.Attack
             Name = "DOWN/LIGHT/WINDUP";
             timer.TotalTime = 0.25f;
             timer.OnFinish = () => Fsm.ChangeState(holding ? "DOWN/HEAVY/SWING" : "DOWN/HEAVY/WINDUP");
-            animator.Name = "AttackVertical";
+            animation.Name = "AttackVertical";
         }
         public override void PreUpdate()
         {

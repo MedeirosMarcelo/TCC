@@ -3,7 +3,7 @@ using Assets.Scripts.Common;
 
 namespace Assets.Scripts.Character
 {
-    using Swing = States.Attack.BaseSwing;
+    using GameManager = Game.GameManager;
     using BaseInput = Input.BaseInput;
 
     public abstract class CharacterState : BaseState
@@ -81,21 +81,15 @@ namespace Assets.Scripts.Character
         }
         public override void OnTriggerEnter(Collider collider)
         {
-            if (collider.name == "Attack Collider")
+            IAttack attack;
+            if (collider.IsAttack(out attack))
             {
-                var otherCharacter = collider.transform.parent.parent.GetComponent<CharacterController>();
-                if (!ReferenceEquals(Character, otherCharacter))
+
+                if (attack != null && attack.CanHit(Character))
                 {
-                    var attackerState = otherCharacter.fsm.Current as Swing;
-                    if (attackerState != null && attackerState.CanHit(Character))
-                    {
-                        Debug.Log("GOT HIT ON STATE " + DebugString);
-                        Character.bloodAnimator.SetTrigger("Bleed");
-                        var swingState = otherCharacter.fsm.Current as Swing;
-                        otherCharacter.fsm.ChangeState("MOVEMENT");
-                        Fsm.ChangeState("HITSTUN");
-                        Character.ReceiveDamage(attackerState.Damage);
-                    }
+                    Character.ReceiveDamage(attack.Damage);
+                    Character.bloodAnimator.SetTrigger("Bleed");
+                    Fsm.ChangeState("HITSTUN");
                 }
             }
             else if (collider.tag == "Push")

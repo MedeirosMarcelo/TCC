@@ -23,6 +23,7 @@ public static class Extensions
     }
     public static bool IsAttack(this Collider collider, out IAttack attack)
     {
+        Debug.Log("Collider is=" + collider.name);
         if (collider.gameObject.tag == "CharacterAttackCollider")
         {
             var character = collider.transform.root.GetComponent<CharacterController>();

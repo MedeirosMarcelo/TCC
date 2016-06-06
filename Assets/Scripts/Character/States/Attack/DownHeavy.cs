@@ -9,7 +9,7 @@ namespace Assets.Scripts.Character.States.Attack
             Name = "DOWN/HEAVY/WINDUP";
             timer.TotalTime = 0.4f; //this will come after lightWindUp
             timer.OnFinish = () => Fsm.ChangeState("DOWN/HEAVY/SWING");
-            animator.Name = "AttackVertical";
+            animation.Name = "AttackVertical";
         }
     }
     public class DownHeavySwing : BaseSwing

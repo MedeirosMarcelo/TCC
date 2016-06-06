@@ -13,6 +13,7 @@ public class Stick {
     }
 }
 
+[System.Obsolete]
 public class BaseInput {
     public virtual PlayerIndex id { get; set; }
     public virtual string name { get; protected set; }

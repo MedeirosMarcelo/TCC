@@ -15,7 +15,7 @@ namespace Assets.Scripts.Character.States
             Character.animator.Play("Death");
             Character.Die();
 
-       }
+        }
 
         public override void OnTriggerEnter(Collider collider) { }
 
@@ -23,7 +23,7 @@ namespace Assets.Scripts.Character.States
         {
             Vector3 pos = Character.transform.position;
             pos.y += 0.5f;
-            GameObject.Instantiate(Game.PlantedSword, pos, Game.PlantedSword.transform.rotation);
+            GameObject.Instantiate(Character.swordPrefab, pos, Character.swordPrefab.transform.rotation);
             Character.transform.Find("Model").Find("Swords").Find("Sword " + Character.Lives).gameObject.SetActive(false);
         }
     }

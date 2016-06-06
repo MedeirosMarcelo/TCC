@@ -13,7 +13,7 @@ namespace Assets.Scripts.Character.States.Attack
 
         public TimerBehaviour timer { get; protected set; }
         public AnimationBehaviour animation { get; protected set; }
-        List<CharacterController> haveHitted = new List<CharacterController>();
+        List<ITargetable> haveHitted = new List<ITargetable>();
 
         const float speed = 2.5f;
 
@@ -63,7 +63,7 @@ namespace Assets.Scripts.Character.States.Attack
             hitInfo = new RaycastHit();
             return false;
         }
-        public bool CanHit(CharacterController obj)
+        public bool CanHit(ITargetable obj)
         {
             if (haveHitted.Contains(obj))
             {
