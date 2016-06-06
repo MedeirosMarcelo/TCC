@@ -32,8 +32,11 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         audioSource = GetComponents<AudioSource>();
-        AudioManager.Play(ClipType.ArenaEnvironment, audioSource[0]);
-        AudioManager.Play(ClipType.ArenaBGM, audioSource[1]);
+        if (audioSource.Length > 1)
+        {
+            AudioManager.Play(ClipType.ArenaEnvironment, audioSource[0]);
+            AudioManager.Play(ClipType.ArenaBGM, audioSource[1]);
+        }
         //spawnPosition[0] = new Vector3(0f, 0.393f, -3f);
         //spawnPosition[1] = new Vector3(0f, 0.393f, 3f);
         //spawnPosition[2] = new Vector3(-5f, 0.393f, 3f);

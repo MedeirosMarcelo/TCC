@@ -9,7 +9,8 @@ public enum ClipType
     Footsteps,
     ArenaEnvironment,
     MenuBGM,
-    ArenaBGM
+    ArenaBGM,
+    PlayerJoinBGM
 }
 
 public static class AudioManager
@@ -24,6 +25,7 @@ public static class AudioManager
 
     static AudioClip arenaBGM;
     static AudioClip menuBGM;
+    static AudioClip playerJoinBGM;
 
     static AudioClip UICursorMove;
     static AudioClip UICursorSelection;
@@ -49,8 +51,9 @@ public static class AudioManager
 
         arenaEnvironment = Resources.Load("Audio/Sfx/Environmental - Wind") as AudioClip;
 
-        menuBGM = Resources.Load("Audio/Music/phat-Perc09-05-140") as AudioClip;
+        menuBGM = Resources.Load("Audio/Music/Menu Intro") as AudioClip;
         arenaBGM = Resources.Load("Audio/Music/phat-Perc09-05-140") as AudioClip;
+        playerJoinBGM = Resources.Load("Audio/Music/Menu ErHu") as AudioClip;
 
         UICursorMove = Resources.Load("Audio/Sfx/UI/Cursor Move") as AudioClip;
         UICursorSelection = Resources.Load("Audio/Sfx/UI/Cursor Selection") as AudioClip;
