@@ -3,6 +3,7 @@ using UnityEngine.Assertions;
 
 namespace Assets.Scripts.Character.States.Attack
 {
+    using InputEvent = Input.InputEvent;
     public class AttackState : ProxyState
     {
         public AttackState(CharacterFsm fsm)

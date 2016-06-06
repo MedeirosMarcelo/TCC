@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using System;
 
 public enum GameState
 {
@@ -12,6 +13,7 @@ public enum GameState
     EndGame
 }
 
+[Obsolete] 
 public class GameManager : MonoBehaviour
 {
 

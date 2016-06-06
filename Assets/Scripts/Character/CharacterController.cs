@@ -6,6 +6,10 @@ using Assets.Scripts.Common;
 
 namespace Assets.Scripts.Character
 {
+    using PlayerIndex = Game.PlayerIndex;
+    using BaseInput = Input.BaseInput;
+    using InputEvent = Input.InputEvent;
+    using GamePadInput = Input.GamePadInput;
     using GameManager = Game.GameManager;
     using WeaponTrail = Xft.XWeaponTrail;
 
@@ -43,7 +47,7 @@ namespace Assets.Scripts.Character
         public SwordStance Stance { get; set; }
         public int Health { get; private set; }
         public int Lives { get; private set; }
-        public PlayerIndex id
+        public PlayerIndex Id
         {
             get { return input.id; }
             set { input.id = value; }
@@ -170,6 +174,7 @@ namespace Assets.Scripts.Character
         }
         public void Die()
         {
+            Health = 0;
             Lives--;
             if (Lives > 0)
             {
@@ -230,7 +235,8 @@ namespace Assets.Scripts.Character
             Vector3 pos = transform.position;
             pos.y += 0.5f;
             Instantiate(swordPrefab, pos, swordPrefab.transform.rotation);
-            transform.Find("Model").Find("Swords").Find("Sword " + Lives).gameObject.SetActive(false);
+            // TODO: disable swords.
+            // transform.Find("Model").Find("Swords").Find("Sword " + Lives).gameObject.SetActive(false);
         }
 #if UNITY_EDITOR
         void OnGUI()

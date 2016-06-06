@@ -2,6 +2,7 @@
 
 namespace Assets.Scripts.Character.States.Dash
 {
+    using InputEvent = Input.InputEvent;
     public class DashState : ProxyState
     {
         const float speed = 16f;

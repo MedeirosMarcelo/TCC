@@ -39,6 +39,7 @@ namespace Assets.Scripts.Game
             Leader = character;
             Targets.Add(character);
             character.Team = this;
+            character.Id = player.Id;
         }
         public void SpawnMinion(GameObject prefab, Vector3 position)
         {

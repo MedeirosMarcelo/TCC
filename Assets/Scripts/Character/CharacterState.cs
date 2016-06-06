@@ -4,6 +4,7 @@ using Assets.Scripts.Common;
 namespace Assets.Scripts.Character
 {
     using Swing = States.Attack.BaseSwing;
+    using BaseInput = Input.BaseInput;
 
     public abstract class CharacterState : BaseState
     {

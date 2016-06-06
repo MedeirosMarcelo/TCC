@@ -1,5 +1,7 @@
 ﻿namespace Assets.Scripts.Character.States
 {
+    using InputEvent = Input.InputEvent;
+
     public class Movement : CharacterState
     {
         SwordStance currentStance;

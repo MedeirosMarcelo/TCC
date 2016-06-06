@@ -6,7 +6,6 @@ namespace Assets.Scripts
 
     public class PitDeath : MonoBehaviour
     {
-
         void OnCollisionEnter(Collision col)
         {
             if (col.gameObject.tag == "Player")
