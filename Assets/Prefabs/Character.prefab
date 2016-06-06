@@ -204,7 +204,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 468090}
   - 136: {fileID: 13653038}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Block High Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1851,7 +1851,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 455390}
   - 136: {fileID: 13640976}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Block Mid Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2262,9 +2262,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 427280}
   - 136: {fileID: 13672160}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Attack Collider
-  m_TagString: Sword
+  m_TagString: CharacterAttackCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
