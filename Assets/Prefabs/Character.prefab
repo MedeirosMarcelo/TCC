@@ -2264,7 +2264,7 @@ GameObject:
   - 136: {fileID: 13672160}
   m_Layer: 0
   m_Name: Attack Collider
-  m_TagString: Untagged
+  m_TagString: AttackCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3237,7 +3237,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 185804}
-  m_LocalRotation: {x: 0.71910256, y: 0.29589486, z: 0.28910935, w: 0.5583491}
+  m_LocalRotation: {x: 0.7191025, y: 0.29589483, z: 0.28910932, w: 0.558349}
   m_LocalPosition: {x: 0.00031888546, y: -0.00021414383, z: 0.010308986}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3471,7 +3471,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 147570}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 24.717655, y: -12.5, z: 4.432411}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 451694}
@@ -4207,7 +4207,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 155962}
-  m_LocalRotation: {x: 0.71910256, y: 0.29589486, z: 0.28910935, w: 0.5583491}
+  m_LocalRotation: {x: 0.7191025, y: 0.29589483, z: 0.28910932, w: 0.558349}
   m_LocalPosition: {x: -0.0010468139, y: -0.0017628295, z: 0.0101133995}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Common;
+using UnityEngine;
+using UnityEngine.Assertions;
+using CharacterController = Assets.Scripts.Character.CharacterController;
+using MinionController = Assets.Scripts.Minion.MinionController;
 
 public static class Extensions
 {
@@ -17,4 +21,26 @@ public static class Extensions
         v.x = 0;
         return v;
     }
+    public static bool IsAttack(this Collider collider, out IAttack attack)
+    {
+        if (collider.gameObject.tag == "CharacterAttackCollider")
+        {
+            var character = collider.transform.root.GetComponent<CharacterController>();
+            Assert.IsNotNull(character);
+            attack = character.fsm.Current as IAttack;
+        }
+        else if (collider.gameObject.tag == "MinionAttackCollider")
+        {
+            var minion = collider.transform.root.GetComponent<MinionController>();
+            Assert.IsNotNull(minion);
+            attack = minion.Fsm.Current as IAttack;
+        }
+        else
+
+        {
+            attack = null;
+        }
+        return (attack != null);
+    }
+
 }

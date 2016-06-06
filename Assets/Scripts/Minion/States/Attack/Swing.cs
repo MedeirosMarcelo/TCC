@@ -13,8 +13,8 @@
             timer.OnFinish = () => Fsm.ChangeState("ATTACK/RECOVER");
 
             animation = new AnimationBehaviour(this, Animator);
-            animation.AnimationTime = 0.15f;
-            animation.Animation = "LeftSwing";
+            animation.TotalTime = 0.15f;
+            animation.Name = "LeftSwing";
         }
         public override void FixedUpdate()
         {

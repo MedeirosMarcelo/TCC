@@ -1,4 +1,7 @@
-﻿namespace Assets.Scripts.Character.States.Attack
+﻿using System;
+using Assets.Scripts.Common;
+
+namespace Assets.Scripts.Character.States.Attack
 {
     public class RightLightWindUp : BaseWindUp
     {
@@ -6,8 +9,9 @@
         public RightLightWindUp(CharacterFsm fsm) : base(fsm)
         {
             Name = "RIGHT/LIGHT/WINDUP";
-            totalTime = 0.25f;
-            Animation = "RightWindup";
+            timer.TotalTime = 0.25f;
+            timer.OnFinish = () => Fsm.ChangeState(holding ? "RIGHT/HEAVY/WINDUP" : "RIGHT/LIGHT/SWING");
+            //Animation = "RightWindup";
         }
         public override void PreUpdate()
         {
@@ -15,13 +19,11 @@
             if (holding && Character.input.attack == false)
             {
                 holding = false;
-                nextState = "RIGHT/LIGHT/SWING";
             }
         }
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
-            nextState = "RIGHT/HEAVY/WINDUP"; // holding attack leads to a heavy
             holding = true;
         }
         public override void Exit(string lastStateName, string nextStateName, float additionalDeltaTime = 0, params object[] args)
@@ -35,28 +37,28 @@
 
         }
     }
-
     public class RightLightSwing : BaseSwing
     {
         public RightLightSwing(CharacterFsm fsm) : base(fsm)
         {
             Name = "RIGHT/LIGHT/SWING";
-            nextState = "RIGHT/LIGHT/RECOVER";
-            totalTime = 0.15f;
-            Animation = "RightSwing";
+            timer.TotalTime = 0.15f;
+            timer.OnFinish = () => Fsm.ChangeState("RIGHT/LIGHT/RECOVER");
+            //Animation = "RightSwing";
             Damage = 1;
+            Direction = AttackDirection.Horizontal;
+            IsHeavy = false;
             nextStance = SwordStance.Left;
         }
-    }
-
+   }
     public class RightLightRecover : BaseRecover
     {
         public RightLightRecover(CharacterFsm fsm) : base(fsm)
         {
             Name = "RIGHT/LIGHT/RECOVER";
-            nextState = "MOVEMENT";
-            totalTime = 0.25f;
-            Animation = "RightRecover";
+            timer.TotalTime = 0.25f;
+            timer.OnFinish = () => Fsm.ChangeState("MOVEMENT");
+            //Animation = "RightRecover";
         }
     }
 }

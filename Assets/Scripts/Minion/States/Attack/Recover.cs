@@ -13,8 +13,8 @@
             timer.OnFinish = () => NextState();
 
             animation = new AnimationBehaviour(this, Animator);
-            animation.AnimationTime = 0.55f;
-            animation.Animation = "LeftRecover";
+            animation.TotalTime = 0.55f;
+            animation.Name = "LeftRecover";
         }
     }
 }

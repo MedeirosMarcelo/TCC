@@ -1,28 +1,28 @@
-﻿namespace Assets.Scripts.Character.States.Attack
-{
-    public interface HeavyAttack
-    {
+﻿using Assets.Scripts.Common;
 
-    }
+namespace Assets.Scripts.Character.States.Attack
+{
     public class RightHeavyWindUp : BaseWindUp
     {
         public RightHeavyWindUp(CharacterFsm fsm) : base(fsm)
         {
             Name = "RIGHT/HEAVY/WINDUP";
-            nextState = "RIGHT/HEAVY/SWING";
-            totalTime = 0.35f; //this will come after lightWindUp
-            Animation = "RightWindup";
+            timer.TotalTime = 0.35f; //this will come after lightWindUp
+            timer.OnFinish = () => Fsm.ChangeState("RIGHT/HEAVY/SWING");
+            //Animation = "RightWindup";
         }
     }
-    public class RightHeavySwing : BaseSwing, HeavyAttack
+    public class RightHeavySwing : BaseSwing
     {
         public RightHeavySwing(CharacterFsm fsm) : base(fsm)
         {
             Name = "RIGHT/HEAVY/SWING";
-            nextState = "RIGHT/HEAVY/RECOVER";
-            totalTime = 0.2f;
+            timer.TotalTime = 0.2f;
+            timer.OnFinish = () => Fsm.ChangeState("RIGHT/HEAVY/RECOVER");
+            //Animation = "RightSwing";
             Damage = 2;
-            Animation = "RightSwing";
+            Direction = AttackDirection.Horizontal;
+            IsHeavy = true;
             nextStance = SwordStance.Left;
          }
     }
@@ -31,9 +31,9 @@
         public RightHeavyRecover(CharacterFsm fsm) : base(fsm)
         {
             Name = "RIGHT/HEAVY/RECOVER";
-            nextState = "MOVEMENT";
-            totalTime = 0.5f;
-            Animation = "RightRecover";
+            timer.TotalTime = 0.5f;
+            timer.OnFinish = () => Fsm.ChangeState("MOVEMENT");
+            //Animation = "RightRecover";
         }
     }
 }

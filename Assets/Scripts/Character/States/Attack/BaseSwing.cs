@@ -1,17 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using Assets.Scripts.Common;
 
 namespace Assets.Scripts.Character.States.Attack
 {
-    public abstract class BaseSwing : AnimatedState
+
+    public abstract class BaseSwing : CharacterState, IAttack
     {
+        public AttackDirection Direction { get; protected set; }
+        public bool IsHeavy { get; protected set; }
+        public int Damage { get; protected set; }
+
+        public TimerBehaviour timer { get; protected set; }
+        public AnimationBehaviour animation { get; protected set; }
         List<CharacterController> haveHitted = new List<CharacterController>();
 
         const float speed = 2.5f;
-        public int Damage { get; protected set; }
+
         public SwordStance nextStance { get; protected set; }
         public BaseSwing(CharacterFsm fsm) : base(fsm)
         {
+            timer = new TimerBehaviour(this);
+            animation = new AnimationBehaviour(this, Character.animator);
             turnRate = 0f;
             nextStance = SwordStance.Right;
         }
@@ -20,7 +30,6 @@ namespace Assets.Scripts.Character.States.Attack
 #if UNITY_EDITOR
         private void DrawSphereCast(Vector3 origin, float radius, Vector3 direction, float distance, params object[] args)
         {
-            Debug.Log("DRAWING");
             GameObject capsule = GameObject.CreatePrimitive(PrimitiveType.Capsule);
             capsule.GetComponent<Collider>().enabled = false;
             Vector3 destination = origin + direction.normalized * distance;
@@ -28,9 +37,7 @@ namespace Assets.Scripts.Character.States.Attack
             capsule.transform.position = midPoint;
             capsule.transform.localScale = new Vector3(radius, Vector3.Distance(origin, destination) / 2f, radius);
             capsule.transform.rotation = Character.sword.rotation;
-            //capsule.transform.rotation = Quaternion.LookRotation();
-            GameObject.Destroy(capsule, 2f);
-
+            Object.Destroy(capsule, 2f);
         }
 #endif
         public bool GetCollisionPoint(out RaycastHit hitInfo)
@@ -67,6 +74,10 @@ namespace Assets.Scripts.Character.States.Attack
                 haveHitted.Add(obj);
                 return true;
             }
+        }
+        public void Blocked()
+        {
+            Fsm.ChangeState("STAGGER");
         }
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {

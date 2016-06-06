@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Common;
 
 namespace Assets.Scripts.Character.States.Attack
 {
@@ -8,8 +8,9 @@ namespace Assets.Scripts.Character.States.Attack
         public DownLightWindUp(CharacterFsm fsm) : base(fsm)
         {
             Name = "DOWN/LIGHT/WINDUP";
-            totalTime = 0.25f;
-            Animation = "DownWindup";
+            timer.TotalTime = 0.25f;
+            timer.OnFinish = () => Fsm.ChangeState(holding ? "DOWN/HEAVY/SWING" : "DOWN/HEAVY/WINDUP");
+            animator.Name = "AttackVertical";
         }
         public override void PreUpdate()
         {
@@ -17,13 +18,11 @@ namespace Assets.Scripts.Character.States.Attack
             if (holding && Character.input.attack == false)
             {
                 holding = false;
-                nextState = "DOWN/LIGHT/SWING";
             }
         }
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
-            nextState = "DOWN/HEAVY/WINDUP"; // holding attack leads to a heavy
             holding = true;
         }
         public override void Exit(string lastStateName, string nextStateName, float additionalDeltaTime = 0, params object[] args)
@@ -37,27 +36,25 @@ namespace Assets.Scripts.Character.States.Attack
 
         }
     }
-
     public class DownLightSwing : BaseSwing
     {
         public DownLightSwing(CharacterFsm fsm) : base(fsm)
         {
             Name = "DOWN/LIGHT/SWING";
-            nextState = "DOWN/LIGHT/RECOVER";
-            totalTime = 0.2f;
-            Animation = "DownSwing";
+            timer.TotalTime = 0.2f;
+            timer.OnFinish = () => Fsm.ChangeState("DOWN/LIGHT/RECOVER");
             Damage = 1;
+            Direction = AttackDirection.Vertical;
+            IsHeavy = false;
         }
     }
-
     public class DownLightRecover : BaseRecover
     {
         public DownLightRecover(CharacterFsm fsm) : base(fsm)
         {
             Name = "DOWN/LIGHT/RECOVER";
-            nextState = "MOVEMENT";
-            totalTime = 0.2f;
-            Animation = "DownRecover";
+            timer.TotalTime = 0.2f;
+            timer.OnFinish = () => Fsm.ChangeState("MOVEMENT");
         }
     }
 }

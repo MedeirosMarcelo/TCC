@@ -1,13 +1,15 @@
-﻿namespace Assets.Scripts.Character.States.Attack
+﻿using Assets.Scripts.Common;
+
+namespace Assets.Scripts.Character.States.Attack
 {
     public class DownHeavyWindUp : BaseWindUp
     {
         public DownHeavyWindUp(CharacterFsm fsm) : base(fsm)
         {
             Name = "DOWN/HEAVY/WINDUP";
-            nextState = "DOWN/HEAVY/SWING";
-            totalTime = 0.4f; //this will come after lightWindUp
-            Animation = "DownWindup";
+            timer.TotalTime = 0.4f; //this will come after lightWindUp
+            timer.OnFinish = () => Fsm.ChangeState("DOWN/HEAVY/SWING");
+            animator.Name = "AttackVertical";
         }
     }
     public class DownHeavySwing : BaseSwing
@@ -15,20 +17,20 @@
         public DownHeavySwing(CharacterFsm fsm) : base(fsm)
         {
             Name = "DOWN/HEAVY/SWING";
-            nextState = "DOWN/HEAVY/RECOVER";
-            totalTime = 0.3f;
+            timer.TotalTime = 0.3f;
+            timer.OnFinish = () => Fsm.ChangeState("DOWN/HEAVY/RECOVER");
             Damage = 2;
-            Animation = "DownSwing";
-         }
+            Direction = AttackDirection.Vertical;
+            IsHeavy = true;
+        }
     }
     public class DownHeavyRecover : BaseRecover
     {
         public DownHeavyRecover(CharacterFsm fsm) : base(fsm)
         {
             Name = "DOWN/HEAVY/RECOVER";
-            nextState = "MOVEMENT";
-            totalTime = 0.3f;
-            Animation = "DownRecover";
+            timer.TotalTime = 0.3f;
+            timer.OnFinish = () => Fsm.ChangeState("MOVEMENT");
         }
     }
 }

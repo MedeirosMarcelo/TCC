@@ -1,4 +1,7 @@
-﻿namespace Assets.Scripts.Character.States.Attack
+﻿using Assets.Scripts.Common;
+using UnityEngine;
+
+namespace Assets.Scripts.Character.States.Attack
 {
     public class LeftLightWindUp : BaseWindUp
     {
@@ -6,8 +9,9 @@
         public LeftLightWindUp(CharacterFsm fsm) : base(fsm)
         {
             Name = "LEFT/LIGHT/WINDUP";
-            totalTime = 0.25f;
-            Animation = "LeftWindup";
+            timer.OnFinish = () => Fsm.ChangeState(holding ? "LEFT/HEAVY/WINDUP" : "LEFT/LIGHT/SWING");
+            timer.TotalTime = 0.25f;
+            //Animation = "LeftWindup";
         }
         public override void PreUpdate()
         {
@@ -15,13 +19,11 @@
             if (holding && Character.input.attack == false)
             {
                 holding = false;
-                nextState = "LEFT/LIGHT/SWING";
             }
         }
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
-            nextState = "LEFT/HEAVY/WINDUP"; // holding attack leads to a heavy
             holding = true;
         }
         public override void Exit(string lastStateName, string nextStateName, float additionalDeltaTime = 0, params object[] args)
@@ -41,10 +43,12 @@
         public LeftLightSwing(CharacterFsm fsm) : base(fsm)
         {
             Name = "LEFT/LIGHT/SWING";
-            nextState = "LEFT/LIGHT/RECOVER";
-            totalTime = 0.15f;
-            Animation = "LeftSwing";
+            timer.TotalTime = 0.15f;
+            timer.OnFinish = () => Fsm.ChangeState("LEFT/LIGHT/RECOVER");
+            //Animation = "LeftSwing";
             Damage = 1;
+            Direction = AttackDirection.Horizontal;
+            IsHeavy = false;
             nextStance = SwordStance.Right;
         }
     }
@@ -54,9 +58,9 @@
         public LeftLightRecover(CharacterFsm fsm) : base(fsm)
         {
             Name = "LEFT/LIGHT/RECOVER";
-            nextState = "MOVEMENT";
-            totalTime = 0.25f;
-            Animation = "LeftRecover";
+            timer.TotalTime = 0.25f;
+            timer.OnFinish = () => Fsm.ChangeState("MOVEMENT");
+            //Animation = "LeftRecover";
         }
     }
 }

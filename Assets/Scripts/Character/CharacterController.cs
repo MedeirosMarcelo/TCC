@@ -178,7 +178,7 @@ namespace Assets.Scripts.Character
             Lives--;
             if (Lives > 0)
             {
-               PlantSword();
+                PlantSword();
             }
             game.CheckEndRound();
         }
@@ -241,8 +241,16 @@ namespace Assets.Scripts.Character
 #if UNITY_EDITOR
         void OnGUI()
         {
-            string text = input.Debug + "\n" + fsm.DebugString;
+            string text = "";
+//            text +=  input.Debug + "\n";
+            text += fsm.DebugString;
             text += "\n" + "Velocity = " + rbody.velocity + " mod = " + rbody.velocity.magnitude.ToString("N2");
+            text += "\n";
+            foreach (var minion in Team.Minions)
+            {
+                text += "\n" + minion.Fsm.DebugString;
+            }
+            GUI.contentColor = Color.black;
             GUI.Label(new Rect((guiId - 1) * (Screen.width / 4), 0, Screen.width / 4, Screen.height), text);
         }
 #endif

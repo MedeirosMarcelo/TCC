@@ -6,8 +6,7 @@ namespace Assets.Scripts.Character.States.Attack
     using InputEvent = Input.InputEvent;
     public class AttackState : ProxyState
     {
-        public AttackState(CharacterFsm fsm)
-            : base(fsm)
+        public AttackState(CharacterFsm fsm) : base(fsm)
         {
             Name = "ATTACK";
         }

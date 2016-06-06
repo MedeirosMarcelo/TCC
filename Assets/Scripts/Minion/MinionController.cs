@@ -104,11 +104,6 @@ namespace Assets.Scripts.Minion
                 Gizmos.DrawLine(start, end);
             }
         }
-        void OnGUI()
-        {
-            string text = Fsm.DebugString;
-            GUI.Label(new Rect(0f, (id - 1) * (Screen.height / 20), Screen.width , Screen.height / 20), text);
-        }
 #endif
     }
 }

@@ -1,11 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
+using Assets.Scripts.Common;
+
 namespace Assets.Scripts.Character.States.Block
 {
-    using BaseSwing = Attack.BaseSwing;
-    using HeavySwing = Attack.HeavySwing;
-
-
     public class BlockHighSwing : AnimatedState
     {
         private bool holding;
@@ -53,29 +51,24 @@ namespace Assets.Scripts.Character.States.Block
         }
         public override void OnTriggerEnter(Collider collider)
         {
-            if (collider.name == "Attack Collider")
+            IAttack attack;
+            if (collider.IsAttack(out attack))
             {
-                var otherCharacter = collider.transform.parent.parent.GetComponent<CharacterController>();
-                if (!ReferenceEquals(Character, otherCharacter))
+                if (attack != null && attack.Direction == AttackDirection.Horizontal)
                 {
-                    var attackerState = otherCharacter.fsm.Current as BaseSwing;
-                    if (attackerState != null && (attackerState.Name == "DOWN/LIGHT/SWING" ||
-                                                  attackerState.Name == "DOWN/HEAVY/SWING"))
+                    RaycastHit hitInfo;
+                    Assert.IsTrue(attack.GetCollisionPoint(out hitInfo), "IT SHOULD HAVE HIT BUT IT DID NOT HIT SEND HELP");
+                    Vector3 myForward = Transform.forward.xz().normalized;
+                    Vector3 otherForward = (hitInfo.point - Transform.position).xz().normalized;
+                    if (Mathf.Abs(Vector3.Angle(myForward, otherForward)) <= defenseAngle / 2f)
                     {
-                        RaycastHit hitInfo;
-                        Assert.IsTrue(attackerState.GetCollisionPoint(out hitInfo), "IT SHOULD HAVE HIT BUT IT DID NOT HIT SEND HELP");
-                        Vector3 myForward = Transform.forward.xz().normalized;
-                        Vector3 otherForward = (hitInfo.point - Transform.position).xz().normalized;
-                        if (Mathf.Abs(Vector3.Angle(myForward, otherForward)) <= defenseAngle / 2f)
+                        Character.ShowBlockSpark(collider.transform.position);
+                        attack.Blocked();
+                        if (attack.IsHeavy)
                         {
-                            Character.ShowBlockSpark(collider.transform.position);
-                            otherCharacter.fsm.ChangeState("STAGGER");
-                            if (attackerState as HeavySwing != null)
-                            {
-                                Fsm.ChangeState("STAGGER");
-                            }
-                            return;
+                            Fsm.ChangeState("STAGGER");
                         }
+                        return;
                     }
                 }
             }
