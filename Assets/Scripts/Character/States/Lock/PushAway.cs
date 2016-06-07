@@ -4,7 +4,7 @@ namespace Assets.Scripts.Character.States.Lock
 {
     public class PushAway : AnimatedState
     {
-        const float speed = 2.5f;
+        const float speed = 1.5f;
         public PushAway(CharacterFsm fsm) : base(fsm)
         {
             Name = "LOCK/PUSHAWAY";

@@ -76,9 +76,6 @@ namespace Assets.Scripts.Character
         public Team Team { get; set; }
         public bool IsDead { get { return (Health <= 0); } }
         public Transform Transform { get { return transform; } }
-        // Dash Proprieties
-        public Vector3 DashVelocity { get; set; }
-        public string MovementState { get; set; }
 
         // Editor Variables
 #if UNITY_EDITOR
@@ -148,8 +145,12 @@ namespace Assets.Scripts.Character
         }
         public void Move(Vector3 position)
         {
+            rbody.velocity = (position - rbody.position) / Time.fixedDeltaTime;
             rbody.MovePosition(position);
-            animator.SetFloat("Velocity", rbody.velocity.x);
+
+            var velocity = Transform.InverseTransformDirection(rbody.velocity);
+            animator.SetFloat("ForwardSpeed", velocity.z);
+            animator.SetFloat("RightSpeed", velocity.x);
         }
         public void Forward(Vector3 forward)
         {

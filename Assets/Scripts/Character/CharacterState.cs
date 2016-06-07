@@ -72,7 +72,6 @@ namespace Assets.Scripts.Character
             elapsed += Time.fixedDeltaTime;
             Look();
             PlayerMove();
-            Character.animator.SetFloat("Velocity", Rigidbody.velocity.z);
         }
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime = 0f, params object[] args)
         {
@@ -148,30 +147,27 @@ namespace Assets.Scripts.Character
 
         void PlayerMove()
         {
-            if (canPlayerMove && Input.move.isActive)
+            if (canPlayerMove)
             {
-                // Calculate the delta velocity
-                var acceleration = GetInputVelovity() - Rigidbody.velocity;
-                acceleration.y = 0;
-
-
-                // Limit acceleration
-                if (acceleration.magnitude > maxAcceleration)
+                if (Input.move.isActive)
                 {
-                    acceleration = acceleration.normalized * maxAcceleration;
-                }
-                Rigidbody.velocity += acceleration;
-                Character.Move(Transform.position + (Rigidbody.velocity * Time.fixedDeltaTime));
+                    // Calculate the delta velocity
+                    var acceleration = GetInputVelovity() - Rigidbody.velocity;
+                    acceleration.y = 0;
 
-                var velocity = Transform.InverseTransformDirection(Rigidbody.velocity);
-                var forwardSpeed = velocity.z / maxAcceleration;
-                var rightSpeed = velocity.x / maxAcceleration;
-                Character.animator.SetFloat("ForwardSpeed", forwardSpeed);
-                Character.animator.SetFloat("RightSpeed", rightSpeed);
-            } else
-            {
-                Character.animator.SetFloat("ForwardSpeed", 0f);
-                Character.animator.SetFloat("RightSpeed", 0f);
+
+                    // Limit acceleration
+                    if (acceleration.magnitude > maxAcceleration)
+                    {
+                        acceleration = acceleration.normalized * maxAcceleration;
+                    }
+                    Rigidbody.velocity += acceleration;
+                    Character.Move(Transform.position + (Rigidbody.velocity * Time.fixedDeltaTime));
+                }
+                else
+                {
+                    Character.Move(Transform.position);
+                }
             }
         }
 
