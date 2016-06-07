@@ -1,4 +1,6 @@
-﻿namespace Assets.Scripts.Character
+﻿using UnityEngine;
+
+namespace Assets.Scripts.Character
 {
     public class CharacterFsm : BaseFsm
     {

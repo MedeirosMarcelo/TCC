@@ -91,15 +91,15 @@ namespace Assets.Scripts.Character
                     Fsm.ChangeState("HITSTUN");
                 }
             }
-            else if (collider.tag == "Push")
+            else if ((collider.tag == "Push") && Fsm.Current.Name != "LOCK/LOCKSWORDS" && Fsm.Current.Name != "LOCK/PUSHAWAY")
             {
-                Fsm.ChangeState("LOCK/LOCKSWORDS");
+                Fsm.ChangeState("LOCK/LOCKSWORDS", 0, collider);
             }
             // otherwise defer to base
             base.OnTriggerEnter(collider);
         }
 
-        public void Look()
+        public virtual void Look()
         {
             const float turnUnit = Mathf.PI / 30; // 12'
             if (turnRate > 0f)

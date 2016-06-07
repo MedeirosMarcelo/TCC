@@ -36,6 +36,7 @@ namespace Assets.Scripts.Character
         public CharacterFsm fsm { get; private set; }
         public Animator animator { get; private set; }
         public WeaponTrail SwordTrail { get; private set; }
+        public Collider PushCollider { get; private set; }
         public SkinnedMeshRenderer Head { get; private set; }
         public SkinnedMeshRenderer Eyes { get; private set; }
         public SkinnedMeshRenderer Body { get; private set; }
@@ -97,6 +98,8 @@ namespace Assets.Scripts.Character
             Assert.IsNotNull(rbody);
             animator = GetComponent<Animator>();
             Assert.IsNotNull(animator);
+            PushCollider = transform.Find("PushCollider").GetComponent<Collider>();
+            Assert.IsNotNull(PushCollider);
 
             Head = transform.Find("Model").Find("head").GetComponent<SkinnedMeshRenderer>();
             Assert.IsNotNull(Head);
@@ -218,9 +221,9 @@ namespace Assets.Scripts.Character
                     {
                         var angle = Vector3.Angle(direction, target.Transform.position - Transform.position);
                         var distance = Vector3.Distance(Transform.position, target.Transform.position);
-                        if (angle <= maxAngle && distance < maxDistance)
+                        if ((angle <= maxAngle && distance < maxDistance))
                         {
-                            if (angle < closestAngle)
+                            if ((angle < closestAngle))
                             {
                                 closestAngle = angle;
                                 nextTarget = target;
