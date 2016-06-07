@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Common;
-using UnityEngine;
 
 namespace Assets.Scripts.Character.States.Attack
 {
@@ -9,9 +8,11 @@ namespace Assets.Scripts.Character.States.Attack
         public LeftLightWindUp(CharacterFsm fsm) : base(fsm)
         {
             Name = "LEFT/LIGHT/WINDUP";
+
             timer.TotalTime = 0.25f;
             timer.OnFinish = () => Fsm.ChangeState(holding ? "LEFT/HEAVY/WINDUP" : "LEFT/LIGHT/SWING");
-            animation.TotalTime = 0.25f;
+
+            animation.TotalTime = 0.6f; // Windup includes Heavy 
             animation.Name = "AttackHorizontalWindup";
         }
         public override void PreUpdate()
@@ -44,14 +45,17 @@ namespace Assets.Scripts.Character.States.Attack
         public LeftLightSwing(CharacterFsm fsm) : base(fsm)
         {
             Name = "LEFT/LIGHT/SWING";
+            nextStance = SwordStance.Right;
+
             timer.TotalTime = 0.15f;
             timer.OnFinish = () => Fsm.ChangeState("LEFT/LIGHT/RECOVER");
+
             animation.TotalTime = 0.15f;
             animation.Name = "AttackHorizontalSwing";
+
             Damage = 1;
             Direction = AttackDirection.Horizontal;
             IsHeavy = false;
-            nextStance = SwordStance.Right;
         }
     }
 
@@ -60,8 +64,10 @@ namespace Assets.Scripts.Character.States.Attack
         public LeftLightRecover(CharacterFsm fsm) : base(fsm)
         {
             Name = "LEFT/LIGHT/RECOVER";
+
             timer.TotalTime = 0.25f;
             timer.OnFinish = () => Fsm.ChangeState("MOVEMENT");
+
             animation.TotalTime = 0.25f;
             animation.Name = "AttackHorizontalRecover";
         }

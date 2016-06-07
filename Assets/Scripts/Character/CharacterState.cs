@@ -166,6 +166,7 @@ namespace Assets.Scripts.Character
                 }
                 else
                 {
+                    // If input is none stop character;
                     Character.Move(Transform.position);
                 }
             }

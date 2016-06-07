@@ -8,8 +8,11 @@ namespace Assets.Scripts.Character.States.Attack
         public DownLightWindUp(CharacterFsm fsm) : base(fsm)
         {
             Name = "DOWN/LIGHT/WINDUP";
+
             timer.TotalTime = 0.25f;
             timer.OnFinish = () => Fsm.ChangeState(holding ? "DOWN/HEAVY/SWING" : "DOWN/HEAVY/WINDUP");
+
+            animation.TotalTime = 0.65f;
             animation.Name = "AttackVertical";
         }
         public override void PreUpdate()
@@ -41,8 +44,13 @@ namespace Assets.Scripts.Character.States.Attack
         public DownLightSwing(CharacterFsm fsm) : base(fsm)
         {
             Name = "DOWN/LIGHT/SWING";
+
+
             timer.TotalTime = 0.2f;
             timer.OnFinish = () => Fsm.ChangeState("DOWN/LIGHT/RECOVER");
+
+            // animation should be running
+
             Damage = 1;
             Direction = AttackDirection.Vertical;
             IsHeavy = false;
@@ -53,8 +61,11 @@ namespace Assets.Scripts.Character.States.Attack
         public DownLightRecover(CharacterFsm fsm) : base(fsm)
         {
             Name = "DOWN/LIGHT/RECOVER";
+
             timer.TotalTime = 0.2f;
             timer.OnFinish = () => Fsm.ChangeState("MOVEMENT");
+
+            // animation should be running
         }
     }
 }

@@ -9,9 +9,12 @@ namespace Assets.Scripts.Character.States.Attack
         public RightLightWindUp(CharacterFsm fsm) : base(fsm)
         {
             Name = "RIGHT/LIGHT/WINDUP";
+
             timer.TotalTime = 0.25f;
             timer.OnFinish = () => Fsm.ChangeState(holding ? "RIGHT/HEAVY/WINDUP" : "RIGHT/LIGHT/SWING");
-            //Animation = "RightWindup";
+
+            animation.TotalTime = 0.6f; // Windup includes Heavy 
+            animation.Name = "AttackHorizontalWindup";
         }
         public override void PreUpdate()
         {
@@ -42,13 +45,17 @@ namespace Assets.Scripts.Character.States.Attack
         public RightLightSwing(CharacterFsm fsm) : base(fsm)
         {
             Name = "RIGHT/LIGHT/SWING";
+            nextStance = SwordStance.Left;
+
             timer.TotalTime = 0.15f;
             timer.OnFinish = () => Fsm.ChangeState("RIGHT/LIGHT/RECOVER");
-            //Animation = "RightSwing";
+
+            animation.TotalTime = 0.15f;
+            animation.Name = "AttackHorizontalSwing";
+
             Damage = 1;
             Direction = AttackDirection.Horizontal;
             IsHeavy = false;
-            nextStance = SwordStance.Left;
         }
    }
     public class RightLightRecover : BaseRecover
@@ -56,9 +63,12 @@ namespace Assets.Scripts.Character.States.Attack
         public RightLightRecover(CharacterFsm fsm) : base(fsm)
         {
             Name = "RIGHT/LIGHT/RECOVER";
+
             timer.TotalTime = 0.25f;
             timer.OnFinish = () => Fsm.ChangeState("MOVEMENT");
-            //Animation = "RightRecover";
+
+            animation.TotalTime = 0.25f;
+            animation.Name = "AttackHorizontalRecover";
         }
     }
 }

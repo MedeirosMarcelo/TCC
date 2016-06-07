@@ -145,8 +145,11 @@ namespace Assets.Scripts.Character
         }
         public void Move(Vector3 position)
         {
-            rbody.velocity = (position - rbody.position) / Time.fixedDeltaTime;
+            var moveVelocity = (position - rbody.position) / Time.fixedDeltaTime;
             rbody.MovePosition(position);
+
+            moveVelocity.y = rbody.velocity.y; // we preserve vertical acceleration;
+            rbody.velocity = moveVelocity;
 
             var velocity = Transform.InverseTransformDirection(rbody.velocity);
             animator.SetFloat("ForwardSpeed", velocity.z);

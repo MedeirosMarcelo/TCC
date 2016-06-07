@@ -19,13 +19,13 @@ public class AnimationBehaviour : BaseBehaviour
     public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime = 0f, params object[] args)
     {
         base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
-        if (TotalTime != 0f)
-        {
-            Animator.SetFloat("Speed", 1f / TotalTime);
-        }
         if (Name != "")
         {
             Animator.CrossFade(Name, CrossFadeTime);
+        }
+        if (TotalTime != 0f)
+        {
+            Animator.SetFloat("Speed", 1f / TotalTime);
         }
     }
 }

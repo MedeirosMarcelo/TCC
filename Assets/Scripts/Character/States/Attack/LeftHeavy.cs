@@ -7,9 +7,11 @@ namespace Assets.Scripts.Character.States.Attack
         public LeftHeavyWindUp(CharacterFsm fsm) : base(fsm)
         {
             Name = "LEFT/HEAVY/WINDUP";
+
             timer.TotalTime = 0.35f; //this will come after lightWindUp
             timer.OnFinish = () => Fsm.ChangeState("LEFT/HEAVY/SWING");
-            //Animation = "LeftWindup";
+
+            // animation should be already playing
         }
     }
     public class LeftHeavySwing : BaseSwing
@@ -17,13 +19,17 @@ namespace Assets.Scripts.Character.States.Attack
         public LeftHeavySwing(CharacterFsm fsm) : base(fsm)
         {
             Name = "LEFT/HEAVY/SWING";
+            nextStance = SwordStance.Right;
+
             timer.TotalTime = 0.2f;
             timer.OnFinish = () => Fsm.ChangeState("LEFT/HEAVY/RECOVER");
-            //Animation = "LeftSwing";
+
+            animation.TotalTime = 0.2f;
+            animation.Name = "AttackHorizontalSwing";
+
             Damage = 2;
             Direction = AttackDirection.Horizontal;
             IsHeavy = true;
-            nextStance = SwordStance.Right;
         }
     }
     public class LeftHeavyRecover : BaseRecover
@@ -31,9 +37,12 @@ namespace Assets.Scripts.Character.States.Attack
         public LeftHeavyRecover(CharacterFsm fsm) : base(fsm)
         {
             Name = "LEFT/HEAVY/RECOVER";
+
             timer.TotalTime = 0.5f;
             timer.OnFinish = () => Fsm.ChangeState("MOVEMENT");
-            //Animation = "LeftRecover";
+
+            animation.TotalTime = 0.5f;
+            animation.Name = "AttackHorizontalRecover";
         }
     }
 }
