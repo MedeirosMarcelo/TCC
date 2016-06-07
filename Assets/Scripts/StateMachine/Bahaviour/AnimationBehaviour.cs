@@ -21,13 +21,14 @@ public class AnimationBehaviour : BaseBehaviour
         }
         if (Name != "")
         {
-            Animator.PlayInFixedTime(Name);
+            Animator.Play(Name);
+            //Animator.PlayInFixedTime(Name);
         }
     }
     public override void Exit(string lastStateName, string nextStateName, float additionalDeltaTime = 0f, params object[] args)
     {
         base.Exit(lastStateName, nextStateName, additionalDeltaTime, args);
-        Animator.PlayInFixedTime(Name, layer: -1, fixedTime: 0f);
+        //Animator.PlayInFixedTime(Name, layer: -1, fixedTime: 0f);
     }
 }
 

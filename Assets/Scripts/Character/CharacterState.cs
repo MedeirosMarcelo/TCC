@@ -162,6 +162,16 @@ namespace Assets.Scripts.Character
                 }
                 Rigidbody.velocity += acceleration;
                 Character.Move(Transform.position + (Rigidbody.velocity * Time.fixedDeltaTime));
+
+                var velocity = Transform.InverseTransformDirection(Rigidbody.velocity);
+                var forwardSpeed = velocity.z / maxAcceleration;
+                var rightSpeed = velocity.x / maxAcceleration;
+                Character.animator.SetFloat("ForwardSpeed", forwardSpeed);
+                Character.animator.SetFloat("RightSpeed", rightSpeed);
+            } else
+            {
+                Character.animator.SetFloat("ForwardSpeed", 0f);
+                Character.animator.SetFloat("RightSpeed", 0f);
             }
         }
 

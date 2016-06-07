@@ -242,9 +242,10 @@ namespace Assets.Scripts.Character
         void OnGUI()
         {
             string text = "";
-//            text +=  input.Debug + "\n";
+            //text +=  input.Debug + "\n";
             text += fsm.DebugString;
             text += "\n" + "Velocity = " + rbody.velocity + " mod = " + rbody.velocity.magnitude.ToString("N2");
+            text += "\n" + "ForwardSpeed = " + animator.GetFloat("ForwardSpeed").ToString("N2") + " RightSpeed = " + animator.GetFloat("RightSpeed").ToString("N2");
             text += "\n";
             foreach (var minion in Team.Minions)
             {

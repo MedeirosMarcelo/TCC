@@ -21,13 +21,12 @@
 
         public override void PreUpdate()
         {
-            ChangeStanceAnimation();
-
             if (Input.highStance)
             {
                 Character.Stance = SwordStance.High;
             }
-            else {
+            else
+            {
                 Character.Stance = SwordStance.Right;
             }
 
@@ -64,10 +63,15 @@
                 base.PreUpdate();
             }
         }
-
-        void ChangeStanceAnimation() 
+        public override void FixedUpdate()
         {
-            if (currentStance != Character.Stance) 
+            base.FixedUpdate();
+            ChangeStanceAnimation();
+        }
+
+        void ChangeStanceAnimation()
+        {
+            if (currentStance != Character.Stance)
             {
                 currentStance = Character.Stance;
                 PlayStanceAnimation(currentStance);
@@ -81,15 +85,15 @@
                 default:
                 case SwordStance.Left:
                 case SwordStance.Right:
-                    if (!Character.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+                    if (!Character.animator.GetCurrentAnimatorStateInfo(0).IsName("MoveLow"))
                     {
-                        Character.animator.Play("Idle");
+                        Character.animator.Play("MoveLow");
                     }
                     break;
                 case SwordStance.High:
-                    if (!Character.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle High"))
+                    if (!Character.animator.GetCurrentAnimatorStateInfo(0).IsName("MoveHigh"))
                     {
-                        Character.animator.Play("Idle High");
+                        Character.animator.Play("MoveHigh");
                     }
                     break;
             }
