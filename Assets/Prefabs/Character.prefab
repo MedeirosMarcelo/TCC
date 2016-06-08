@@ -1370,6 +1370,7 @@ GameObject:
   - 95: {fileID: 9595064}
   - 82: {fileID: 8292926}
   - 114: {fileID: 11447714}
+  - 114: {fileID: 11440422}
   m_Layer: 0
   m_Name: Character
   m_TagString: Player
@@ -3224,7 +3225,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 199820}
-  m_LocalRotation: {x: 0.040629424, y: 0.71685064, z: 0.3123995, w: 0.62199754}
+  m_LocalRotation: {x: 0.040629428, y: 0.7168507, z: 0.31239954, w: 0.6219976}
   m_LocalPosition: {x: -0.010222307, y: -0.022862444, z: 0.023729209}
   m_LocalScale: {x: 0.9999999, y: 0.9999999, z: 0.99999994}
   m_Children:
@@ -5432,6 +5433,55 @@ MonoBehaviour:
   Fps: 60
   MyColor: {r: 1, g: 1, b: 1, a: 1}
   MyMaterial: {fileID: 2100000, guid: 75f756109f216ad409ff1a5ea7dd7b2c, type: 2}
+--- !u!114 &11440422
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 147570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 755c28433d8f1784398b80cf3a33121d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clipNames:
+  - HitStun
+  - Stagger
+  - BlockHigh
+  - BlockMid
+  - AttackHorizontalWindup
+  - AttackHorizontalRecover
+  - AttackHorizontalSwing
+  - BlockHighStagger
+  - BlockMidStagger
+  - AttackHorizontalReturn
+  - MoveLow
+  - MoveHigh
+  - Dash
+  - AttackVerticalWindup
+  - AttackVerticalRecover
+  - AttackVerticalSwing
+  - AttackVerticalReturn
+  - Defeat
+  clipDurations:
+  - 0
+  - 0
+  - 0.7666667
+  - 0.6
+  - 0.6
+  - 0.4666667
+  - 0.16666667
+  - 0.36666667
+  - 0.36666667
+  - 0.5666667
+  - 1.6866668
+  - 1.6800001
+  - 0.7800001
+  - 0.6
+  - 0.4666667
+  - 0.20000002
+  - 0.5666667
+  - 1.6666667
 --- !u!114 &11447714
 MonoBehaviour:
   m_ObjectHideFlags: 1
