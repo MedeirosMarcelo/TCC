@@ -51,7 +51,7 @@ namespace Assets.Scripts.Character.States.Attack
             timer.TotalTime = 0.15f;
             timer.OnFinish = () => Fsm.ChangeState("LEFT/LIGHT/RECOVER");
 
-            animation.TotalTime = 0.15f;
+            animation.TotalTime = 0.2f;
             animation.PlayTime = 0.15f;
             animation.Name = "AttackHorizontalSwing";
 
@@ -72,7 +72,7 @@ namespace Assets.Scripts.Character.States.Attack
             timer.TotalTime = 0.25f;
             timer.OnFinish = () => Fsm.ChangeState("MOVEMENT");
 
-            animation.TotalTime = 0.25f;
+            animation.TotalTime = 0.5f;
             animation.PlayTime = 0.25f;
             animation.Name = "AttackHorizontalRecover";
         }

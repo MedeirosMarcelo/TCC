@@ -14,7 +14,7 @@ namespace Assets.Scripts.Character.States.Attack
 
             animation.TotalTime = 0.65f;
             animation.PlayTime = 0.65f;
-            animation.Name = "AttackVertical";
+            animation.Name = "AttackVerticalWindup";
         }
         public override void PreUpdate()
         {
@@ -49,7 +49,9 @@ namespace Assets.Scripts.Character.States.Attack
             timer.TotalTime = 0.2f;
             timer.OnFinish = () => Fsm.ChangeState("DOWN/LIGHT/RECOVER");
 
-            // animation should be running
+            animation.TotalTime = 0.3f;
+            animation.PlayTime = 0.2f;
+            animation.Name = "AttackVerticalSwing";
 
             Displacement = 0.8f;
 
@@ -67,7 +69,9 @@ namespace Assets.Scripts.Character.States.Attack
             timer.TotalTime = 0.2f;
             timer.OnFinish = () => Fsm.ChangeState("MOVEMENT");
 
-            // animation should be running
+            animation.TotalTime = 0.3f;
+            animation.PlayTime = 0.2f;
+            animation.Name = "AttackVerticalRecover";
         }
     }
 }

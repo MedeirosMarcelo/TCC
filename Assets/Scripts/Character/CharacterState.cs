@@ -147,32 +147,26 @@ namespace Assets.Scripts.Character
         {
             if (canPlayerMove)
             {
-                if (Input.move.isActive)
-                {
-                    // Calculate the delta velocity
-                    var acceleration = GetInputVelovity() - Character.Velocity;
-                    acceleration.y = 0;
+                // Calculate the delta velocity
+                var acceleration = GetInputVelovity() - Character.Velocity;
+                acceleration.y = 0;
 
 
-                    // Limit acceleration
-                    if (acceleration.magnitude > maxAcceleration)
-                    {
-                        acceleration = acceleration.normalized * maxAcceleration;
-                    }
-                    Character.Velocity += acceleration;
-                    Character.Move(Transform.position + (Character.Velocity * Time.fixedDeltaTime));
-                }
-                else
+                // Limit acceleration
+                if (acceleration.magnitude > maxAcceleration)
                 {
-                    // If input is none stop character;
-                    Character.Move(Transform.position);
+                    acceleration = acceleration.normalized * maxAcceleration;
                 }
+                Character.Velocity += acceleration;
+                Character.Move(Transform.position + (Character.Velocity * Time.fixedDeltaTime));
             }
         }
 
         Vector3 GetInputVelovity()
         {
-            var velocity = Transform.InverseTransformDirection(Input.move.vector);
+            var velocity = Input.move.isActive ?  Input.move.vector : Vector3.zero;
+
+            velocity = Transform.InverseTransformDirection(Input.move.vector);
             // Now velocity is relative to the character so X is side to side and Z is front/back
             velocity.x *= moveSpeed * sideSpeedModifier;
             velocity.z *= moveSpeed *
