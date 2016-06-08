@@ -11,7 +11,6 @@ namespace Assets.Scripts.Character
         public CharacterController Character { get; protected set; }
         public GameManager Game { get; protected set; }
         public BaseInput Input { get; protected set; }
-        public Rigidbody Rigidbody { get; protected set; }
         public Transform Transform { get; protected set; }
         public ITargetable Target { get { return Character.Target; } protected set { Character.Target = value; } }
 
@@ -41,18 +40,17 @@ namespace Assets.Scripts.Character
             Fsm = fsm;
             Character = fsm.Character;
             Input = Character.input;
-            Rigidbody = Character.rbody;
             Transform = Character.transform;
 
             //Movement
             canPlayerMove = false;
-            moveSpeed = 2.5f;
+            moveSpeed = 5f;
             runSpeedModifier = 1.25f;
-            forwardSpeedModifier = 0.7f;
-            backwardSpeedModifier = 0.35f;
-            sideSpeedModifier = 0.75f;
-            maxAcceleration = 2f;
-            runMaxAcceleration = 2f;
+            forwardSpeedModifier = 0.75f;
+            backwardSpeedModifier = 0.45f;
+            sideSpeedModifier = 0.65f;
+            maxAcceleration = 0.3f;
+            runMaxAcceleration = 0.3f;
             turnRate = 2f;
             runTurnModifier = 0.25f;
             lockedTurnModifier = 0.5f;
@@ -152,7 +150,7 @@ namespace Assets.Scripts.Character
                 if (Input.move.isActive)
                 {
                     // Calculate the delta velocity
-                    var acceleration = GetInputVelovity() - Rigidbody.velocity;
+                    var acceleration = GetInputVelovity() - Character.Velocity;
                     acceleration.y = 0;
 
 
@@ -161,8 +159,8 @@ namespace Assets.Scripts.Character
                     {
                         acceleration = acceleration.normalized * maxAcceleration;
                     }
-                    Rigidbody.velocity += acceleration;
-                    Character.Move(Transform.position + (Rigidbody.velocity * Time.fixedDeltaTime));
+                    Character.Velocity += acceleration;
+                    Character.Move(Transform.position + (Character.Velocity * Time.fixedDeltaTime));
                 }
                 else
                 {

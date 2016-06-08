@@ -9,10 +9,10 @@ public class BaseBehaviour : IStateBehaviour
         State = state;
         State.AddBehaviour(this);
     }
-    public string Name { get; protected set; }
+    public string BehaviourName { get; protected set; }
     public string DebugString
     {
-        get { return Name; }
+        get { return BehaviourName; }
     }
     public virtual void PreUpdate()
     {

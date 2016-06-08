@@ -3,7 +3,7 @@
 public interface IStateBehaviour
 {
     string DebugString { get; }
-    string Name { get; }
+    string BehaviourName { get; }
     IState State { get; }
 
     void PreUpdate();

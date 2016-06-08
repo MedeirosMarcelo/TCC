@@ -5,7 +5,6 @@
     {
         public TimerBehaviour timer { get; protected set; }
         public AnimationBehaviour animation { get; protected set; }
-        const float speed = 1.5f;
         public BaseWindUp(CharacterFsm fsm) : base(fsm)
         {
             timer = new TimerBehaviour(this);

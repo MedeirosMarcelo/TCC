@@ -13,6 +13,7 @@ namespace Assets.Scripts.Character.States.Attack
             timer.OnFinish = () => Fsm.ChangeState(holding ? "LEFT/HEAVY/WINDUP" : "LEFT/LIGHT/SWING");
 
             animation.TotalTime = 0.6f; // Windup includes Heavy 
+            animation.PlayTime = 0.6f;
             animation.Name = "AttackHorizontalWindup";
         }
         public override void PreUpdate()
@@ -51,7 +52,10 @@ namespace Assets.Scripts.Character.States.Attack
             timer.OnFinish = () => Fsm.ChangeState("LEFT/LIGHT/RECOVER");
 
             animation.TotalTime = 0.15f;
+            animation.PlayTime = 0.15f;
             animation.Name = "AttackHorizontalSwing";
+
+            Displacement = 0.8f;
 
             Damage = 1;
             Direction = AttackDirection.Horizontal;
@@ -69,6 +73,7 @@ namespace Assets.Scripts.Character.States.Attack
             timer.OnFinish = () => Fsm.ChangeState("MOVEMENT");
 
             animation.TotalTime = 0.25f;
+            animation.PlayTime = 0.25f;
             animation.Name = "AttackHorizontalRecover";
         }
     }

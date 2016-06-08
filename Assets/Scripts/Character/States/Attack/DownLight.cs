@@ -10,9 +10,10 @@ namespace Assets.Scripts.Character.States.Attack
             Name = "DOWN/LIGHT/WINDUP";
 
             timer.TotalTime = 0.25f;
-            timer.OnFinish = () => Fsm.ChangeState(holding ? "DOWN/HEAVY/SWING" : "DOWN/HEAVY/WINDUP");
+            timer.OnFinish = () => Fsm.ChangeState(holding ? "DOWN/HEAVY/SWING" : "DOWN/LIGHT/SWING");
 
             animation.TotalTime = 0.65f;
+            animation.PlayTime = 0.65f;
             animation.Name = "AttackVertical";
         }
         public override void PreUpdate()
@@ -45,11 +46,12 @@ namespace Assets.Scripts.Character.States.Attack
         {
             Name = "DOWN/LIGHT/SWING";
 
-
             timer.TotalTime = 0.2f;
             timer.OnFinish = () => Fsm.ChangeState("DOWN/LIGHT/RECOVER");
 
             // animation should be running
+
+            Displacement = 0.8f;
 
             Damage = 1;
             Direction = AttackDirection.Vertical;

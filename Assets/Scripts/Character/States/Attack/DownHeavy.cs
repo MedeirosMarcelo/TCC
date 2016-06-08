@@ -12,6 +12,7 @@ namespace Assets.Scripts.Character.States.Attack
             timer.OnFinish = () => Fsm.ChangeState("DOWN/HEAVY/SWING");
 
             animation.TotalTime = 1f;
+            animation.PlayTime = 0.65f;
             // animation should be running
         }
     }
@@ -26,6 +27,8 @@ namespace Assets.Scripts.Character.States.Attack
 
             // animation should be running
 
+            Displacement = 0.8f;
+
             Damage = 2;
             Direction = AttackDirection.Vertical;
             IsHeavy = true;
@@ -37,10 +40,10 @@ namespace Assets.Scripts.Character.States.Attack
         {
             Name = "DOWN/HEAVY/RECOVER";
 
-            // animation should be running
-
             timer.TotalTime = 0.3f;
             timer.OnFinish = () => Fsm.ChangeState("MOVEMENT");
+
+            // animation should be running
         }
     }
 }

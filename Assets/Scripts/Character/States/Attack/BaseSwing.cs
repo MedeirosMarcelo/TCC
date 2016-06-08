@@ -15,13 +15,14 @@ namespace Assets.Scripts.Character.States.Attack
         public AnimationBehaviour animation { get; protected set; }
         List<ITargetable> haveHitted = new List<ITargetable>();
 
-        const float speed = 2.5f;
+        public float Displacement { get; protected set; }
 
         public SwordStance nextStance { get; protected set; }
         public BaseSwing(CharacterFsm fsm) : base(fsm)
         {
             timer = new TimerBehaviour(this);
             animation = new AnimationBehaviour(this, Character.animator);
+            Displacement = 0f;
             turnRate = 0f;
             nextStance = SwordStance.Right;
         }
@@ -92,10 +93,12 @@ namespace Assets.Scripts.Character.States.Attack
             base.Exit(lastStateName, nextStateName, additionalDeltaTime, args);
             Character.AttackCollider.enabled = false;
             Character.Stance = nextStance;
+            Character.Move(Transform.position);
         }
         public override void FixedUpdate()
         {
             base.FixedUpdate();
+            float speed = Displacement / timer.TotalTime;
             Character.Move(Transform.position + ((Transform.forward * speed) * Time.fixedDeltaTime));
         }
     }

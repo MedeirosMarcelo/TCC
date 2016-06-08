@@ -9,6 +9,7 @@ public class TimerBehaviour : BaseBehaviour
 
     public TimerBehaviour(IState state) : base(state)
     {
+        BehaviourName = "TimerBehaviour";
     }
     public override void PreUpdate()
     {

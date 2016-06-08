@@ -46,6 +46,7 @@ namespace Assets.Scripts.Character
         // Internal State
         public ITargetable Target { get; set; }
         public SwordStance Stance { get; set; }
+        public Vector3 Velocity { get; set; }
         public int Health { get; private set; }
         public int Lives { get; private set; }
         public PlayerIndex Id
@@ -86,6 +87,7 @@ namespace Assets.Scripts.Character
 
         public void Awake()
         {
+            Velocity = Vector3.zero;
             Health = 2;
             Lives = 3;
             input = new GamePadInput();
@@ -148,15 +150,12 @@ namespace Assets.Scripts.Character
         }
         public void Move(Vector3 position)
         {
-            var moveVelocity = (position - rbody.position) / Time.fixedDeltaTime;
+            Velocity = (position - rbody.position) / Time.fixedDeltaTime;
             rbody.MovePosition(position);
 
-            moveVelocity.y = rbody.velocity.y; // we preserve vertical acceleration;
-            rbody.velocity = moveVelocity;
-
-            var velocity = Transform.InverseTransformDirection(rbody.velocity);
-            animator.SetFloat("ForwardSpeed", velocity.z);
-            animator.SetFloat("RightSpeed", velocity.x);
+            var localVelocity = Transform.InverseTransformDirection(Velocity);
+            animator.SetFloat("ForwardSpeed", localVelocity.z);
+            animator.SetFloat("RightSpeed", localVelocity.x);
         }
         public void Forward(Vector3 forward)
         {
@@ -251,7 +250,6 @@ namespace Assets.Scripts.Character
             string text = "";
             //text +=  input.Debug + "\n";
             text += fsm.DebugString;
-            text += "\n" + "Velocity = " + rbody.velocity + " mod = " + rbody.velocity.magnitude.ToString("N2");
             text += "\n" + "ForwardSpeed = " + animator.GetFloat("ForwardSpeed").ToString("N2") + " RightSpeed = " + animator.GetFloat("RightSpeed").ToString("N2");
             text += "\n";
             foreach (var minion in Team.Minions)

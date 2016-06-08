@@ -10,7 +10,7 @@ namespace Assets.Scripts.Character.States
         private AnimationBehaviour animation;
         private Vector3 baseVelocity;
 
-        private const float maxSpeed = 6f;
+        private const float maxSpeed = 16f;
         private const float t_accel = 0.04f;
         private const float t_plateau = 0.04f;
         private const float t_deccel = 0.04f;
