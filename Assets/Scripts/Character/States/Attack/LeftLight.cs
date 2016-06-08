@@ -12,8 +12,8 @@ namespace Assets.Scripts.Character.States.Attack
             timer.TotalTime = 0.25f;
             timer.OnFinish = () => Fsm.ChangeState(holding ? "LEFT/HEAVY/WINDUP" : "LEFT/LIGHT/SWING");
 
-            animation.TotalTime = 0.6f; // Windup includes Heavy 
-            animation.PlayTime = 0.6f;
+            animation.PlayTime = 0.6f; // Windup includes Heavy 
+            animation.TotalTime = 0.6f;
             animation.Name = "AttackHorizontalWindup";
         }
         public override void PreUpdate()

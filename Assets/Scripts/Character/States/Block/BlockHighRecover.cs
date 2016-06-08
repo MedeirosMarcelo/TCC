@@ -1,16 +1,13 @@
 ﻿namespace Assets.Scripts.Character.States.Block
 {
-    public class BlockHighRecover : AnimatedState
+    public class BlockHighRecover : BlockRecover
     {
         public BlockHighRecover(CharacterFsm fsm) : base(fsm)
         {
             Name = "BLOCK/HIGH/RECOVER";
-            nextState = "MOVEMENT";
-            totalTime = 0.1f;
-            canPlayerMove = true;
-            moveSpeed = 0.5f;
-            turnRate = 0.25f;
-            Animation = "BlockHighRecover";
+
+            timer.TotalTime = 0.1f;
+            timer.OnFinish = () => Fsm.ChangeState("MOVEMENT");
         }
     }
 }

@@ -4,49 +4,12 @@ using Assets.Scripts.Common;
 
 namespace Assets.Scripts.Character.States.Block
 {
-    public class BlockMidSwing : AnimatedState
+    public class BlockMidSwing : BlockSwing
     {
-        private bool holding;
-        private float minSwingTime = 0.3f;
         public BlockMidSwing(CharacterFsm fsm) : base(fsm)
         {
             Name = "BLOCK/MID/SWING";
             nextState = "BLOCK/MID/RECOVER";
-            totalTime = 60000000000000f;
-            canPlayerMove = true;
-            moveSpeed = 0.75f;
-            turnRate = 0.25f;
-            Animation = "BlockMidSwing";
-        }
-        public override void PreUpdate()
-        {
-            base.PreUpdate();
-            if (holding)
-            {
-                if (Character.input.block == false)
-                {
-                    holding = false;
-                }
-            }
-            else
-            {
-                if (elapsed > minSwingTime)
-                {
-                    Fsm.ChangeState(nextState);
-                }
-            }
-        }
-        public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
-        {
-            base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
-            Character.BlockMidCollider.enabled = true;
-            holding = true;
-        }
-        public override void Exit(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
-        {
-            base.Exit(lastStateName, nextStateName, additionalDeltaTime, args);
-            Character.BlockMidCollider.enabled = false;
-
         }
         public override void OnTriggerEnter(Collider collider)
         {

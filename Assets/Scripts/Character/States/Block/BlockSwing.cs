@@ -1,21 +1,20 @@
-﻿using UnityEngine;
-using Assets.Scripts.Common;
-
-namespace Assets.Scripts.Character.States.Block
+﻿namespace Assets.Scripts.Character.States.Block
 {
-    public class BlockSwing : AnimatedState
+    public abstract class BlockSwing : CharacterState
     {
+        private TimerBehaviour timer;
         private bool holding;
-        private float minSwingTime = 0.3f;
+        private bool locked;
+        protected new string nextState;
         public BlockSwing(CharacterFsm fsm) : base(fsm)
         {
-            Name = "BLOCK/SWING";
-            nextState = "BLOCK/RECOVER";
-            totalTime = 0.8f;
             canPlayerMove = true;
             moveSpeed = 0.75f;
             turnRate = 0.25f;
-            Animation = "Block Mid";
+
+            timer = new TimerBehaviour(this);
+            timer.TotalTime = 0.3f;
+            timer.OnFinish = () => locked = false;
         }
         public override void PreUpdate()
         {
@@ -29,7 +28,7 @@ namespace Assets.Scripts.Character.States.Block
             }
             else
             {
-                if (elapsed > minSwingTime)
+                if (!locked)
                 {
                     Fsm.ChangeState(nextState);
                 }
@@ -40,6 +39,7 @@ namespace Assets.Scripts.Character.States.Block
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
             Character.BlockMidCollider.enabled = true;
             holding = true;
+            locked = true;
         }
         public override void Exit(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {

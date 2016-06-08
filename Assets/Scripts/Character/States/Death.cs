@@ -17,7 +17,7 @@ namespace Assets.Scripts.Character.States
             {
                 collider.enabled = false;
             }
-            Character.animator.Play("Death");
+            Character.animator.Play("Defeat");
             Character.Die();
         }
 

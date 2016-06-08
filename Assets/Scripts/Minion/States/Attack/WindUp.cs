@@ -13,7 +13,7 @@
             timer.OnFinish = () => Fsm.ChangeState("ATTACK/SWING");
 
             animation = new AnimationBehaviour(this, Animator);
-            animation.TotalTime = 0.35f;
+            animation.PlayTime = 0.35f;
             animation.Name = "LeftWindup";
         }
         public override void FixedUpdate()
