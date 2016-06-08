@@ -12,6 +12,7 @@ namespace Assets.Scripts.Character
     using GamePadInput = Input.GamePadInput;
     using GameManager = Game.GameManager;
     using WeaponTrail = Xft.XWeaponTrail;
+    using DecalPainter = Blood.DecalPainter;
 
     public enum SwordStance
     {
