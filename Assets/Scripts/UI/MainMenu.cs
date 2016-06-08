@@ -33,6 +33,9 @@ public class MainMenu : Menu
                     break;
                 case 2:
                     Application.Quit();
+#if UNITY_EDITOR
+                    UnityEditor.EditorApplication.isPlaying = false;
+#endif
                     break;
                 default:
                     break;

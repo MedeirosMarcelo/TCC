@@ -14,10 +14,20 @@ public class Options : Menu
         base.Start();
     }
 
+    private float previousXAxis;
+    private float xAxis;
+
     public override void Update()
     {
+        UpdateAxis();
         ActivateOption();
         base.Update();
+    }
+
+    void UpdateAxis()
+    {
+        previousXAxis = xAxis;
+        xAxis = Input.GetAxis("HorizontalJoy");
     }
 
     void ActivateOption()

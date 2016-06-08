@@ -108,6 +108,7 @@ namespace Assets.Scripts.Game
 
         void LoadTeams()
         {
+            Debug.Log("LOADING TEAMS WITH: " + PlayerManager.GetPlayerList().Count);
             var players = PlayerManager.GetPlayerList();
             Assert.IsTrue(spawns.Length >= players.Count, "More player than spawn points");
 

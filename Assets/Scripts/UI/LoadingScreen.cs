@@ -12,7 +12,7 @@ public class LoadingScreen : MonoBehaviour
         progressBar = transform.Find("Slider").GetComponent<Slider>();
 
         print("Loading...");
-        StartCoroutine("LoadLevelWithProgress", "Sword Prototype");
+        StartCoroutine("LoadLevelWithProgress", "Arena");
     }
 
     IEnumerator LoadLevelWithProgress(string levelToLoad)

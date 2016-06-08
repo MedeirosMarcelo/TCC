@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("STARTING WITH: " + PlayerManager.GetPlayerList().Count);
         audioSource = GetComponents<AudioSource>();
         if (audioSource.Length > 1)
         {
@@ -143,6 +144,7 @@ public class GameManager : MonoBehaviour
 
     void LoadPlayers()
     {
+        Debug.Log("LOADING: " + PlayerManager.GetPlayerList().Count);
         Vector3 position;
         foreach (Player pl in PlayerManager.GetPlayerList())
         {

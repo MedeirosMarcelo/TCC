@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
+[Obsolete]
 public static class PlayerManager {
 
     static IList<Player> PlayerList = new List<Player>();

@@ -11,6 +11,9 @@ public class Menu : MonoBehaviour {
     public IList<Text> options = new List<Text>();
     protected int cursorIndex = 0;
 
+    private float yAxis;
+    private float previousYAxis;
+    
     public virtual void Start()
     {
         cursorIndex = 0;
@@ -19,8 +22,25 @@ public class Menu : MonoBehaviour {
 
     public virtual void Update()
     {
+        UpdateAxis();
         ControlCursor();
         MoveCursor();
+    }
+
+    void UpdateAxis()
+    {
+        previousYAxis = yAxis;
+        yAxis = Input.GetAxis("VerticalJoy");
+    }
+
+    bool PressedDown()
+    {
+        return previousYAxis >= 0 && yAxis < 0;
+    }
+
+    bool PressedUp()
+    {
+        return previousYAxis <= 0 && yAxis > 0;
     }
 
     void LoadMenu()
@@ -38,9 +58,10 @@ public class Menu : MonoBehaviour {
         }
     }
 
+    
     void ControlCursor()
     {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.DownArrow) || PressedDown())
         {
             DeselectOption(options[cursorIndex]);
             cursorIndex++;
@@ -50,7 +71,7 @@ public class Menu : MonoBehaviour {
             }
             SelectOption(options[cursorIndex]);
         }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        else if (Input.GetKeyDown(KeyCode.UpArrow) || PressedUp())
         {
             DeselectOption(options[cursorIndex]);
             cursorIndex--;
