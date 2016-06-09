@@ -54,7 +54,7 @@ public abstract class CharState : BaseState
         turnRate = 2f;
         runTurnModifier = 0.25f;
         lockedTurnModifier = 0.5f;
-        defenseAngle = 90f;
+        defenseAngle = 180f;
     }
     public override void PreUpdate()
     {

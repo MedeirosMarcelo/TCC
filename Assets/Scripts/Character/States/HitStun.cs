@@ -1,11 +1,12 @@
 ﻿namespace Assets.Scripts.Character.States
 {
-    public class HitStun : CharacterState
+    public class HitStun : AnimatedState
     {
         public HitStun(CharacterFsm fsm) : base(fsm)
         {
             Name = "HITSTUN";
             nextState = "MOVEMENT";
+            Animation = "HitStun";
             totalTime = 0.2f;
         }
 

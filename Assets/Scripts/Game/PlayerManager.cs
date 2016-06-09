@@ -10,9 +10,12 @@ namespace Assets.Scripts.Game
         static PlayerManager()
         {
             GameManager gm = GameObject.FindObjectOfType<GameManager>();
-            for (int i = 0; i < gm.debugAddPlayers; i++)
+            if (gm != null)
             {
-                AddPlayer((PlayerIndex)i + 1);
+                for (int i = 0; i < gm.debugAddPlayers; i++)
+                {
+                    AddPlayer((PlayerIndex)i + 1);
+                }
             }
         }
         public static void Reset()

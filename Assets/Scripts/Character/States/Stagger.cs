@@ -11,7 +11,7 @@ namespace Assets.Scripts.Character.States
             Name = "STAGGER";
             nextState = "MOVEMENT";
             totalTime = 0.5f;
-            Animation = "DownWindup";
+            Animation = "Stagger";
             Speed = -1f;
         }
 

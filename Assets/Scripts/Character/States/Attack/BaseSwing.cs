@@ -37,27 +37,32 @@ namespace Assets.Scripts.Character.States.Attack
             Vector3 midPoint = (origin + destination) / 2f;
             capsule.transform.position = midPoint;
             capsule.transform.localScale = new Vector3(radius, Vector3.Distance(origin, destination) / 2f, radius);
-            capsule.transform.rotation = Character.sword.rotation;
+            capsule.transform.rotation = Character.AttackCollider.transform.rotation;
             Object.Destroy(capsule, 2f);
         }
 #endif
         public bool GetCollisionPoint(out RaycastHit hitInfo)
         {
-            Ray ray = new Ray(Character.sword.position, Character.sword.up);
-            float radius = Character.AttackCollider.radius * Character.sword.lossyScale.y;
-            float distance = Character.AttackCollider.height * Character.sword.lossyScale.z;
+            Ray ray = new Ray(Character.AttackCollider.transform.position, Character.AttackCollider.transform.up);
+            float radius = Character.AttackCollider.radius * Character.AttackCollider.transform.lossyScale.y;
+            float distance = Character.AttackCollider.height * Character.AttackCollider.transform.lossyScale.z;
 #if UNITY_EDITOR
-            Debug.DrawLine(Character.sword.position, Character.sword.position + Character.sword.up, Color.yellow, 2f);
-            DrawSphereCast(Character.sword.position, radius, Character.sword.up, distance + radius * 2f);
+            Debug.DrawLine(Character.AttackCollider.transform.position, Character.AttackCollider.transform.position + Character.AttackCollider.transform.up, Color.yellow, 2f);
+            DrawSphereCast(Character.AttackCollider.transform.position, radius, Character.AttackCollider.transform.up, distance + radius * 2f);
 #endif
-            RaycastHit[] hits = Physics.SphereCastAll(Character.sword.position, radius, Character.sword.up, distance + radius * 2f, LayerMask.GetMask("Hitbox", "Sword"));
+            RaycastHit[] hits = Physics.SphereCastAll(Character.AttackCollider.transform.position, radius, Character.AttackCollider.transform.up, distance + radius * 2f, LayerMask.GetMask("Hitbox", "Sword"));
             foreach (RaycastHit hit in hits)
             {
                 if (hit.collider.transform.root.gameObject != Character.gameObject)
                 {
                     hitInfo = hit;
+                    if (hitInfo.point == Vector3.zero)
+                    {
+                        continue;
+                    }
                     Debug.DrawLine(hitInfo.point, hitInfo.point + Vector3.up * 2, Color.magenta, 2f);
                     Debug.Log("HIT POINT: " + hitInfo.point.ToString());
+                    Debug.Log("HIT: " + hit.collider.transform.root.gameObject.name);
                     return true;
                 }
             }
