@@ -24,7 +24,7 @@ namespace Assets.Scripts.Game
 
         [Header("Prefabs")]
         [SerializeField]
-        GameObject characterPrefab;
+        List<GameObject> characterPrefabs;
         [SerializeField]
         GameObject minionPrefab;
         [SerializeField]
@@ -131,14 +131,16 @@ namespace Assets.Scripts.Game
             Assert.IsTrue(spawns.Length >= players.Count, "More player than spawn points");
 
             var spawn = (spawns as IEnumerable<Transform>).GetEnumerator();
+            int i = 0;
             foreach (var player in players)
             {
                 spawn.MoveNext();
                 var team = new Team(this, spawn.Current);
                 Teams.Add(team);
-                team.SpawnCharacter(characterPrefab, player);
+                team.SpawnCharacter(characterPrefabs[i], player);
                 team.SpawnMinions(minionPrefab, minionPerTeam);
                 player.Character.CanControl = false;
+                i++;
             }
         }
 
