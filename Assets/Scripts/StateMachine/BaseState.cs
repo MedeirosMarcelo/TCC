@@ -33,6 +33,7 @@ public abstract class BaseState : IState
     {
         foreach (var behaviour in behaviours)
         {
+            //Debug.Log("Enter " + behaviour.BehaviourName + " on " + Name);
             behaviour.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
         }
     }
