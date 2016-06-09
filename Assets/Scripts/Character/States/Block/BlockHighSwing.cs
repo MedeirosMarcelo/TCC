@@ -16,7 +16,7 @@ namespace Assets.Scripts.Character.States.Block
             IAttack attack;
             if (collider.IsAttack(out attack))
             {
-                if (attack != null && attack.Direction == AttackDirection.Horizontal)
+                if (attack != null && attack.Direction == AttackDirection.Vertical)
                 {
                     RaycastHit hitInfo;
                     Assert.IsTrue(attack.GetCollisionPoint(out hitInfo), "IT SHOULD HAVE HIT BUT IT DID NOT HIT SEND HELP");
