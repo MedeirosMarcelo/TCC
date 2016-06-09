@@ -290,6 +290,11 @@ namespace Assets.Scripts.Character
             // TODO: disable swords.
             // transform.Find("Model").Find("Swords").Find("Sword " + Lives).gameObject.SetActive(false);
         }
+
+        public void PlayFootsteps()
+        {
+            AudioManager.Play(ClipType.Footsteps, audioSource);
+        }
 #if UNITY_EDITOR
         void OnGUI()
         {
