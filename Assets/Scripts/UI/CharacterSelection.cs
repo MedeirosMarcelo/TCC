@@ -9,7 +9,7 @@ namespace Assets.Scripts.UI
 
     public class CharacterSelection : MonoBehaviour
     {
-        
+
         GameObject StartPrompt;
         GameObject[] playerAreaActive = new GameObject[4];
         GameObject[] playerAreaInactive = new GameObject[4];
@@ -22,11 +22,6 @@ namespace Assets.Scripts.UI
             playerAreaActive[1] = transform.Find("Panel").Find("Player 2 Area").Find("Active").gameObject;
             playerAreaActive[2] = transform.Find("Panel").Find("Player 3 Area").Find("Active").gameObject;
             playerAreaActive[3] = transform.Find("Panel").Find("Player 4 Area").Find("Active").gameObject;
-
-            playerAreaInactive[0] = transform.Find("Panel").Find("Player 1 Area").Find("Inactive").gameObject;
-            playerAreaInactive[1] = transform.Find("Panel").Find("Player 2 Area").Find("Inactive").gameObject;
-            playerAreaInactive[2] = transform.Find("Panel").Find("Player 3 Area").Find("Inactive").gameObject;
-            playerAreaInactive[3] = transform.Find("Panel").Find("Player 4 Area").Find("Inactive").gameObject;
         }
 
         void Update()
@@ -38,6 +33,13 @@ namespace Assets.Scripts.UI
 
         void ControlInput()
         {
+
+            if (PlayerManager.GetPlayerList().Count == 0
+                && Input.GetKeyDown(KeyCode.JoystickButton1))
+            {
+                SceneManager.LoadScene("Main Menu");
+            }
+
             if (Input.GetKeyDown(KeyCode.Joystick1Button0))
             {
                 if (!playerAreaActive[0].activeSelf)
