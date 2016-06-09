@@ -19,8 +19,17 @@ namespace Assets.Scripts.UI
         // Update is called once per frame
         void Update()
         {
-            var winner = PlayerManager.GetPlayerList().Where(player => player.Character.Lives > 0).First();
-            title.text = "WINNER: Player " + winner.Id;
+            var winners = PlayerManager.GetPlayerList().Where(player => player.Character.Lives > 0);
+            if (winners.Count() > 0)
+            {
+                var winner = winners.First();
+                title.text = "WINNER: Player " + winner.Id;
+            }
+            else
+            {
+                title.text = "NO CONTEST";
+            }
+            
         }
     }
 }

@@ -33,6 +33,7 @@ namespace Assets.Scripts.Game
             float maxZ = float.MinValue;
 
             var characters = PlayerManager.GetPlayerList().Select(p => p.Character);
+            bool anybodyAlive = false;
             foreach (var character in characters)
             {
                 if (!character.IsDead)
@@ -42,23 +43,27 @@ namespace Assets.Scripts.Game
                     minZ = Mathf.Min(minZ, position.z);
                     maxX = Mathf.Max(maxX, position.x);
                     maxZ = Mathf.Max(maxZ, position.z);
+                    anybodyAlive = true;
                 }
             }
 
-            frustum = new Rect(minX - margin, minZ - margin, (maxX - minX) + 2 * margin, (maxZ - minZ) + 2 * margin);
-            Debug.DrawLine(new Vector3(frustum.x, 1, frustum.y), new Vector3(frustum.xMax, 1, frustum.y));
-            Debug.DrawLine(new Vector3(frustum.x, 1, frustum.y), new Vector3(frustum.x, 1, frustum.yMax));
-            Debug.DrawLine(new Vector3(frustum.xMax, 1, frustum.y), new Vector3(frustum.xMax, 1, frustum.yMax));
-            Debug.DrawLine(new Vector3(frustum.x, 1, frustum.yMax), new Vector3(frustum.xMax, 1, frustum.yMax));
+            if (anybodyAlive)
+            {
+                frustum = new Rect(minX - margin, minZ - margin, (maxX - minX) + 2 * margin, (maxZ - minZ) + 2 * margin);
+                Debug.DrawLine(new Vector3(frustum.x, 1, frustum.y), new Vector3(frustum.xMax, 1, frustum.y));
+                Debug.DrawLine(new Vector3(frustum.x, 1, frustum.y), new Vector3(frustum.x, 1, frustum.yMax));
+                Debug.DrawLine(new Vector3(frustum.xMax, 1, frustum.y), new Vector3(frustum.xMax, 1, frustum.yMax));
+                Debug.DrawLine(new Vector3(frustum.x, 1, frustum.yMax), new Vector3(frustum.xMax, 1, frustum.yMax));
 
-            float height = Mathf.Max(frustum.height, frustum.width / camera.aspect);
-            float width = height * camera.aspect;
-            distance = height * 0.5f / Mathf.Tan(camera.fieldOfView * 0.5f * Mathf.Deg2Rad);
-            float clampedDist = Mathf.Clamp(distance, minDistance, maxDistance);
-            Vector3 towards = Quaternion.Euler(camera.transform.rotation.eulerAngles.x - 90, 0, 0) * Vector3.up;
-            Debug.DrawLine(Vector3.zero, towards * 3f, Color.blue, 2f);
-            Vector3 destination = new Vector3(frustum.center.x, 0, frustum.center.y);
-            transform.position = Vector3.Lerp(transform.position, destination + towards * clampedDist, Time.deltaTime * lerpAmount);
+                float height = Mathf.Max(frustum.height, frustum.width / camera.aspect);
+                float width = height * camera.aspect;
+                distance = height * 0.5f / Mathf.Tan(camera.fieldOfView * 0.5f * Mathf.Deg2Rad);
+                float clampedDist = Mathf.Clamp(distance, minDistance, maxDistance);
+                Vector3 towards = Quaternion.Euler(camera.transform.rotation.eulerAngles.x - 90, 0, 0) * Vector3.up;
+                Debug.DrawLine(Vector3.zero, towards * 3f, Color.blue, 2f);
+                Vector3 destination = new Vector3(frustum.center.x, 0, frustum.center.y);
+                transform.position = Vector3.Lerp(transform.position, destination + towards * clampedDist, Time.deltaTime * lerpAmount);
+            }
         }
 
     }
