@@ -85,16 +85,10 @@
                 default:
                 case SwordStance.Left:
                 case SwordStance.Right:
-                    if (!Character.animator.GetCurrentAnimatorStateInfo(0).IsName("MoveLow"))
-                    {
-                        Character.animator.Play("MoveLow");
-                    }
+                    Character.animator.CrossFade("MoveLow", 0.3f, -1, 0);
                     break;
                 case SwordStance.High:
-                    if (!Character.animator.GetCurrentAnimatorStateInfo(0).IsName("MoveHigh"))
-                    {
-                        Character.animator.Play("MoveHigh");
-                    }
+                    Character.animator.CrossFade("MoveHigh", 0.3f, -1, 0);
                     break;
             }
         }
