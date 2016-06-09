@@ -13,12 +13,20 @@ namespace Assets.Scripts.Character.States
         public override void Enter(string lastName, string nextName, float additionalDeltaTime, params object[] args)
         {
             Character.rbody.isKinematic = true;
-            foreach (var collider in Character.gameObject.GetComponentsInChildren<Collider>())
-            {
-                collider.enabled = false;
-            }
+            Character.transform.Find("Hitbox").gameObject.SetActive(false);
+            Character.transform.Find("PushCollider").gameObject.SetActive(false);
+            Character.AttackCollider.enabled = false;
             Character.animator.Play("Defeat");
             Character.Die();
+        }
+
+        public override void Exit(string lastStateName, string nextStateName, float additionalDeltaTime = 0, params object[] args)
+        {
+            Character.rbody.isKinematic = false;
+            Character.transform.Find("Hitbox").gameObject.SetActive(true);
+            Character.transform.Find("PushCollider").gameObject.SetActive(true);
+            Character.AttackCollider.enabled = true;
+            base.Exit(lastStateName, nextStateName, additionalDeltaTime, args);
         }
 
         public override void OnTriggerEnter(Collider collider) { }

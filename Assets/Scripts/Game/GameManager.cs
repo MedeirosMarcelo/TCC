@@ -26,9 +26,22 @@ namespace Assets.Scripts.Game
         GameObject characterPrefab;
         [SerializeField]
         GameObject minionPrefab;
+        [SerializeField]
+        GameObject resultOverlay;
 
         // Private state 
-        public GameState State { get; private set; }
+        public GameState state;
+        public GameState State
+        {
+            get
+            {
+                return state;
+            }
+            private set
+            {
+                state = value;
+            }
+        }
         public List<Team> Teams { get; private set; }
 
         void Awake() {
@@ -53,7 +66,7 @@ namespace Assets.Scripts.Game
                     EnterState(GameState.PreRound);
                     break;
                 case GameState.PreRound:
-                    EnterState(GameState.PlayRound);
+                    EnterPreRound();
                     break;
                 case GameState.PlayRound:
                     EnterPlayRound();
@@ -108,7 +121,6 @@ namespace Assets.Scripts.Game
 
         void LoadTeams()
         {
-            Debug.Log("LOADING TEAMS WITH: " + PlayerManager.GetPlayerList().Count);
             var players = PlayerManager.GetPlayerList();
             Assert.IsTrue(spawns.Length >= players.Count, "More player than spawn points");
 
@@ -122,6 +134,19 @@ namespace Assets.Scripts.Game
                 team.SpawnMinions(minionPrefab, minionPerTeam);
                 player.Character.CanControl = false;
             }
+        }
+
+        void EnterPreRound()
+        {
+            var players = PlayerManager.GetPlayerList();
+            Assert.IsTrue(spawns.Length >= players.Count, "More player than spawn points");
+            var spawn = (spawns as IEnumerable<Transform>).GetEnumerator();
+            foreach (var player in players)
+            {
+                spawn.MoveNext();
+                player.Character.Reset(spawn.Current);
+            }
+            EnterState(GameState.PlayRound);
         }
 
         void EnterPlayRound()
@@ -159,25 +184,28 @@ namespace Assets.Scripts.Game
         IEnumerator ShowResultScreen()
         {
             yield return new WaitForSeconds(1.5f);
-            SceneManager.LoadScene("Result");
+            resultOverlay.SetActive(true);
         }
         public void CheckEndRound()
         {
+            Debug.Log("Checking round end");
             int aliveCount = 0;
             foreach (Player pl in PlayerManager.GetPlayerList())
             {
-                if (pl.Character.fsm.Current.Name != "DEATH")
+                if (!pl.Character.IsDead)
                 {
                     aliveCount++;
                 }
             }
             if (aliveCount <= 1)
             {
+                Debug.Log("ENDING ROUND");
                 EnterState(GameState.RoundEnd);
             }
         }
         bool CheckGameEnd()
         {
+            Debug.Log("Checking game end");
             int aliveCount = 0;
             foreach (Player pl in PlayerManager.GetPlayerList())
             {

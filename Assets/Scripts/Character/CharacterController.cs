@@ -189,6 +189,15 @@ namespace Assets.Scripts.Character
             }
             game.CheckEndRound();
         }
+
+        public void Reset(Transform spawnPoint)
+        {
+            Health = 2;
+            fsm.ChangeState("MOVEMENT");
+            Transform.position = spawnPoint.position;
+            Transform.rotation = spawnPoint.rotation;
+        }
+
         public void ShowBlockSpark(Vector3 position)
         {
             Vector3 pos = new Vector3(position.x, position.y + 0.6f, position.z + 0.4f);

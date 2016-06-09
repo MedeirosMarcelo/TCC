@@ -157,7 +157,7 @@ MonoBehaviour:
   - {fileID: 487070}
   - {fileID: 479124}
   maxScore: 5
-  minionPerTeam: 3
+  minionPerTeam: 0
   characterPrefab: {fileID: 147570, guid: 72f476dfd6746304b960fc52b1f860ec, type: 2}
   minionPrefab: {fileID: 121444, guid: e1a7c2d897fc60a4291a6be2fdce90a2, type: 2}
 --- !u!1001 &100100000

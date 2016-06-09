@@ -91,10 +91,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22a20a4ae7b9e6d43af231d0df2b145d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDistance: 10
-  maxDistance: 30
+  minDistance: 6
+  maxDistance: 15
   distance: 32
-  margin: 2
+  margin: 2.5
   lerpAmount: 5
   frustum:
     serializedVersion: 2

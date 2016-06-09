@@ -23,7 +23,7 @@ public class ResultOverlay : Menu
             switch (cursorIndex)
             {
                 case 0:
-                    SceneManager.LoadScene("Arena");
+                    SceneManager.LoadScene("Loading");
                     break;
                 case 1:
                     SceneManager.LoadScene("Main Menu");
