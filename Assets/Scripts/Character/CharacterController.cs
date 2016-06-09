@@ -70,7 +70,6 @@ namespace Assets.Scripts.Character
                     input.buffer.Pop<InputEvent>();
                     rbody.velocity = Vector3.zero;
                     rbody.angularVelocity = Vector3.zero;
-                    Velocity = Vector3.zero;
                     rbody.Sleep();
                 }
             }
@@ -194,7 +193,7 @@ namespace Assets.Scripts.Character
         public void Reset(Transform spawnPoint)
         {
             Health = 2;
-            fsm.ChangeState("MOVEMENT", 0, true);
+            fsm.ChangeState("MOVEMENT");
             Transform.position = spawnPoint.position;
             Transform.rotation = spawnPoint.rotation;
         }

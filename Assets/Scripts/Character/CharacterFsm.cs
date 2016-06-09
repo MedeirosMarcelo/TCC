@@ -18,19 +18,6 @@ namespace Assets.Scripts.Character
         public override void ChangeState(string nextStateName, float additionalDeltaTime = 0f, params object[] args)
         {
             //UnityEngine.Debug.Log(string.Format("{0} >> {1}", Current.Name, nextStateName));
-            
-            if (Current.Name == "DEATH")
-            {
-                bool reset = false;
-                if (args.Length > 0 && args[0].GetType() == typeof(bool))
-                {
-                    reset = (bool)args[0];
-                }
-                if (!reset)
-                {
-                    return;
-                }
-            }
             base.ChangeState(nextStateName, additionalDeltaTime, args);
         }
     }

@@ -49,12 +49,12 @@ namespace Assets.Scripts.UI
                     Leave(PlayerIndex.One);
             }
 
-            if (Input.GetKeyDown(KeyCode.Joystick2Button0) || Input.GetKeyDown(KeyCode.LeftControl))
+            if (Input.GetKeyDown(KeyCode.Joystick2Button0))
             {
                 if (!playerAreaActive[1].activeSelf)
                     Join(PlayerIndex.Two);
             }
-            else if (Input.GetKeyDown(KeyCode.Joystick2Button1) || Input.GetKeyDown(KeyCode.LeftAlt))
+            else if (Input.GetKeyDown(KeyCode.Joystick2Button1))
             {
                 if (playerAreaActive[1].activeSelf)
                     Leave(PlayerIndex.Two);
