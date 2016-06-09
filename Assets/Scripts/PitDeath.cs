@@ -10,7 +10,7 @@ namespace Assets.Scripts
         {
             if (col.gameObject.tag == "Player")
             {
-                col.gameObject.GetComponent<CharacterController>().fsm.ChangeState("DEATH");
+                col.gameObject.GetComponent<CharacterController>().Die();
             }
         }
     }

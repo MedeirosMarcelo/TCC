@@ -180,7 +180,7 @@ namespace Assets.Scripts.Game
         }
         IEnumerator WaitRestartRound()
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1.5f);
             EnterState(GameState.PreRound);
         }
         void EnterEndGame()
@@ -194,8 +194,11 @@ namespace Assets.Scripts.Game
         }
         public void CheckEndRound()
         {
-            if (Teams.All(team => team.Leader.Ended))
+            // If theres only one other team with leader alive, it wins
+            var playingTeams = Teams.Where(team => !team.Leader.Ended);
+            if (playingTeams.Count() == 1)
             {
+                playingTeams.First().Leader.Win();
                 EnterState(GameState.RoundEnd);
             }
         }

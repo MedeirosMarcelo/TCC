@@ -14,6 +14,7 @@ namespace Assets.Scripts.Character
     using WeaponTrail = Xft.XWeaponTrail;
     using DecalPainter = Blood.DecalPainter;
     using System.Linq;
+    using System.Collections.Generic;
 
     public enum SwordStance
     {
@@ -27,6 +28,7 @@ namespace Assets.Scripts.Character
         [Header("Config:")]
         public Animator bloodAnimator;
         public Transform sword;
+        public List<GameObject> lifeCounters;
         [Header("Prefabs:")]
         public GameObject sparkPrefab;
         public GameObject swordPrefab;
@@ -203,13 +205,6 @@ namespace Assets.Scripts.Character
             transform.Find("PushCollider").gameObject.SetActive(false);
             AttackCollider.enabled = false;
             fsm.ChangeState("DEFEAT");
-
-            // If theres only one other team with leader alive, it wins
-            var playingTeams = Team.OtherTeams.Where(team => !Team.Leader.Ended);
-            if (playingTeams.Count() == 1)
-            {
-                playingTeams.First().Leader.Win();
-            }
         }
         public void End()
         {
@@ -218,16 +213,25 @@ namespace Assets.Scripts.Character
         }
         public void Reset(Transform spawnPoint)
         {
-            Ended = false;
-            Health = 2;
-            rbody.isKinematic = false;
+            if (Lives > 0)
+            {
+                Ended = false;
+                Health = 2;
+                rbody.isKinematic = false;
 
-            Transform.position = spawnPoint.position;
-            Transform.rotation = spawnPoint.rotation;
+                Transform.position = spawnPoint.position;
+                Transform.rotation = spawnPoint.rotation;
 
-            transform.Find("Hitbox").gameObject.SetActive(true);
-            transform.Find("PushCollider").gameObject.SetActive(true);
-            fsm.ChangeState("MOVEMENT");
+                transform.Find("Hitbox").gameObject.SetActive(true);
+                transform.Find("PushCollider").gameObject.SetActive(true);
+
+                for (int i = 0; i < lifeCounters.Count; i++)
+                {
+                    lifeCounters[i].SetActive(Lives >= i + 1);
+                }
+
+                fsm.ChangeState("MOVEMENT");
+            }
         }
 
         public void ShowBlockSpark(Vector3 position)
