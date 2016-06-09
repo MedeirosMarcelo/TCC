@@ -9,10 +9,11 @@ namespace Assets.Scripts.Game
         static List<Player> PlayerList = new List<Player>();
         static PlayerManager()
         {
-            //AddPlayer(PlayerIndex.One);
-            //AddPlayer(PlayerIndex.Two);
-            //AddPlayer(PlayerIndex.Three);
-            //AddPlayer(PlayerIndex.Four);
+            GameManager gm = GameObject.FindObjectOfType<GameManager>();
+            for (int i = 0; i < gm.debugAddPlayers; i++)
+            {
+                AddPlayer((PlayerIndex)i + 1);
+            }
         }
         public static void Reset()
         {

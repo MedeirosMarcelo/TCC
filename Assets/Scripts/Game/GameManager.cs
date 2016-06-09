@@ -18,6 +18,7 @@ namespace Assets.Scripts.Game
     public class GameManager : MonoBehaviour
     {
         [Header("Config")]
+        public int debugAddPlayers = 0;
         public Transform[] spawns = new Transform[0];
         public int maxScore = 5;
         public int minionPerTeam = 5;
