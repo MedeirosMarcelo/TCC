@@ -17,6 +17,7 @@ namespace Assets.Scripts.Character.States
             Character.transform.Find("PushCollider").gameObject.SetActive(false);
             Character.AttackCollider.enabled = false;
             Character.animator.Play("Defeat");
+            AudioManager.Play(ClipType.Dead, Character.audioSource);
             Character.Die();
         }
 

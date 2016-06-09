@@ -25,6 +25,7 @@ public class MainMenu : Menu
             switch (cursorIndex)
             {
                 case 0:
+                    AudioManager.Play(ClipType.GUIStartGame, audioSource);
                     SceneManager.LoadScene("Character Selection");
                     break;
                 case 1:

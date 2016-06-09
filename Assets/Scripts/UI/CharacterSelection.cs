@@ -13,10 +13,13 @@ namespace Assets.Scripts.UI
         GameObject StartPrompt;
         GameObject[] playerAreaActive = new GameObject[4];
         GameObject[] playerAreaInactive = new GameObject[4];
+        AudioSource audioSource;
 
         void Start()
         {
             StartPrompt = transform.Find("Panel").Find("Start Prompt").gameObject;
+            audioSource = GetComponent<AudioSource>();
+            AudioManager.Play(ClipType.GUIStartGame, audioSource);
 
             playerAreaActive[0] = transform.Find("Panel").Find("Player 1 Area").Find("Active").gameObject;
             playerAreaActive[1] = transform.Find("Panel").Find("Player 2 Area").Find("Active").gameObject;
@@ -128,6 +131,7 @@ namespace Assets.Scripts.UI
             int id = (int)index - 1;
             PlayerManager.AddPlayer(index);
             playerAreaActive[id].SetActive(true);
+            AudioManager.Play(ClipType.GUIPlayerJoin, audioSource);
         }
 
         void Leave(PlayerIndex index)
@@ -140,6 +144,7 @@ namespace Assets.Scripts.UI
         void StartGame()
         {
             Debug.Log(PlayerManager.GetPlayerList().Count);
+            AudioManager.Play(ClipType.GUIStartGame, audioSource);
             SceneManager.LoadScene("Loading");
         }
     }

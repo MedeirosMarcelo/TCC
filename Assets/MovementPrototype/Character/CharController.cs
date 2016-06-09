@@ -161,6 +161,7 @@ public class CharController : MonoBehaviour
         health -= damage;
         StartCoroutine("DelayBlood");
         AudioManager.Play(ClipType.Hit, audioSource);
+        AudioManager.Play(ClipType.Hurt, audioSource);
         if (health <= 0)
         {
             fsm.ChangeState("DEATH");

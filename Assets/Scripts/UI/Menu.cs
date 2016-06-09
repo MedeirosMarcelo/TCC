@@ -10,12 +10,14 @@ public class Menu : MonoBehaviour {
     public float cursorSpeed = 1f;
     public IList<Text> options = new List<Text>();
     protected int cursorIndex = 0;
+    protected AudioSource audioSource;
 
     private float yAxis;
     private float previousYAxis;
     
     public virtual void Start()
     {
+        audioSource = transform.parent.parent.GetComponent<AudioSource>();
         cursorIndex = 0;
         LoadMenu();
     }
@@ -65,6 +67,7 @@ public class Menu : MonoBehaviour {
         {
             DeselectOption(options[cursorIndex]);
             cursorIndex++;
+            AudioManager.Play(ClipType.GUICursor, audioSource);
             if (cursorIndex > options.Count - 1)
             {
                 cursorIndex = 0;
@@ -73,6 +76,7 @@ public class Menu : MonoBehaviour {
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow) || PressedUp())
         {
+            AudioManager.Play(ClipType.GUICursor, audioSource);
             DeselectOption(options[cursorIndex]);
             cursorIndex--;
             if (cursorIndex < 0)

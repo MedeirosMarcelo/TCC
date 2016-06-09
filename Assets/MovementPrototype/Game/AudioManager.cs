@@ -7,19 +7,29 @@ public enum ClipType
     Hit,
     Block,
     Footsteps,
+    Dash,
+    Hurt,
+    Dead,
     ArenaEnvironment,
     MenuBGM,
     ArenaBGM,
-    PlayerJoinBGM
+    PlayerJoinBGM,
+    GUICursor,
+    GUIPlayerJoin,
+    GUIStartGame
 }
 
 public static class AudioManager
 {
-    static IList<AudioClip> attack = new List<AudioClip>();
+    static IList<AudioClip> swing = new List<AudioClip>();
+    static IList<AudioClip> swingMetal = new List<AudioClip>();
     static IList<AudioClip> block = new List<AudioClip>();
-    static AudioClip hit;
-    static AudioClip hit2;
+    static IList<AudioClip> hit = new List<AudioClip>();
     static IList<AudioClip> footSteps = new List<AudioClip>();
+    static IList<AudioClip> dash = new List<AudioClip>();
+    static IList<AudioClip> femaleHurt = new List<AudioClip>();
+    static IList<AudioClip> femaleDead = new List<AudioClip>();
+    static IList<AudioClip> femaleAttacking = new List<AudioClip>();
 
     static AudioClip arenaEnvironment;
 
@@ -27,21 +37,29 @@ public static class AudioManager
     static AudioClip menuBGM;
     static AudioClip playerJoinBGM;
 
-    static AudioClip UICursorMove;
-    static AudioClip UICursorSelection;
-    static AudioClip UIMenuStart;
-    static AudioClip UIPlayerJoined;
-    static AudioClip UIGameStart;
+    static AudioClip UICursor;
+    static AudioClip UIPlayerJoin;
+    static AudioClip UIStartGame;
 
     static AudioManager()
     {
-        attack.Add(Resources.Load("Audio/Sfx/Sword/Sword Swing 1") as AudioClip);
-        attack.Add(Resources.Load("Audio/Sfx/Sword/Sword Swing 2") as AudioClip);
-        attack.Add(Resources.Load("Audio/Sfx/Sword/Sword Swing 3") as AudioClip);
+        swing.Add(Resources.Load("Audio/Sfx/Sword/Sword Swing 1") as AudioClip);
+        swing.Add(Resources.Load("Audio/Sfx/Sword/Sword Swing 2") as AudioClip);
+        swing.Add(Resources.Load("Audio/Sfx/Sword/Sword Swing 3") as AudioClip);
+
+        block.Add(Resources.Load("Audio/Sfx/Sword/Sword Block 1") as AudioClip);
         block.Add(Resources.Load("Audio/Sfx/Sword/Sword Block 2") as AudioClip);
-        block.Add(Resources.Load("Audio/Sfx/Sword/Sword Block 3") as AudioClip);
-        hit = Resources.Load("Audio/Sfx/Sword/Sword Hit") as AudioClip;
-        hit2 = Resources.Load("Audio/Sfx/Sword/Sword Hit 2") as AudioClip;
+
+        hit.Add(Resources.Load("Audio/Sfx/Sword/Sword Hit 1") as AudioClip);
+        //hit.Add(Resources.Load("Audio/Sfx/Sword/Sword Hit 2") as AudioClip); ANTIGO!
+        hit.Add(Resources.Load("Audio/Sfx/Sword/Sword Hit 3") as AudioClip);
+        hit.Add(Resources.Load("Audio/Sfx/Sword/Sword Hit 4") as AudioClip);
+        hit.Add(Resources.Load("Audio/Sfx/Sword/Sword Hit 5") as AudioClip);
+
+        swingMetal.Add(Resources.Load("Audio/Sfx/Sword/Sword Swing&Metal 1") as AudioClip);
+        swingMetal.Add(Resources.Load("Audio/Sfx/Sword/Sword Swing&Metal 2") as AudioClip);
+        swingMetal.Add(Resources.Load("Audio/Sfx/Sword/Sword Swing&Metal 3") as AudioClip);
+
         footSteps.Add(Resources.Load("Audio/Sfx/Footsteps/Footsteps 1") as AudioClip);
         footSteps.Add(Resources.Load("Audio/Sfx/Footsteps/Footsteps 2") as AudioClip);
         footSteps.Add(Resources.Load("Audio/Sfx/Footsteps/Footsteps 3") as AudioClip);
@@ -49,17 +67,34 @@ public static class AudioManager
         footSteps.Add(Resources.Load("Audio/Sfx/Footsteps/Footsteps 5") as AudioClip);
         footSteps.Add(Resources.Load("Audio/Sfx/Footsteps/Footsteps 6") as AudioClip);
 
-        arenaEnvironment = Resources.Load("Audio/Sfx/Environmental - Wind") as AudioClip;
+        dash.Add(Resources.Load("Audio/Sfx/Dash/Dash 1") as AudioClip);
+        dash.Add(Resources.Load("Audio/Sfx/Dash/Dash 2") as AudioClip);
+        dash.Add(Resources.Load("Audio/Sfx/Dash/Dash 3") as AudioClip);
+        dash.Add(Resources.Load("Audio/Sfx/Dash/Dash 4") as AudioClip);
+
+        femaleHurt.Add(Resources.Load("Audio/Sfx/Female/Female Hurt 1") as AudioClip);
+        femaleHurt.Add(Resources.Load("Audio/Sfx/Female/Female Hurt 2") as AudioClip);
+        femaleHurt.Add(Resources.Load("Audio/Sfx/Female/Female Hurt 3") as AudioClip);
+        femaleHurt.Add(Resources.Load("Audio/Sfx/Female/Female Hurt 4") as AudioClip);
+
+        femaleDead.Add(Resources.Load("Audio/Sfx/Female/Female Dead 1") as AudioClip);
+        femaleDead.Add(Resources.Load("Audio/Sfx/Female/Female Dead 2") as AudioClip);
+
+        femaleAttacking.Add(Resources.Load("Audio/Sfx/Female/Female Attacking 1") as AudioClip);
+        femaleAttacking.Add(Resources.Load("Audio/Sfx/Female/Female Attacking 2") as AudioClip);
+        femaleAttacking.Add(Resources.Load("Audio/Sfx/Female/Female Attacking 3") as AudioClip);
+        femaleAttacking.Add(Resources.Load("Audio/Sfx/Female/Female Attacking 4") as AudioClip);
+
+
+        arenaEnvironment = Resources.Load("Audio/Sfx/Arena Ambient Wind") as AudioClip;
 
         menuBGM = Resources.Load("Audio/Music/Menu Intro") as AudioClip;
-        arenaBGM = Resources.Load("Audio/Music/phat-Perc09-05-140") as AudioClip;
+        arenaBGM = Resources.Load("Audio/Music/Arena BGM") as AudioClip;
         playerJoinBGM = Resources.Load("Audio/Music/Menu ErHu") as AudioClip;
 
-        UICursorMove = Resources.Load("Audio/Sfx/UI/Cursor Move") as AudioClip;
-        UICursorSelection = Resources.Load("Audio/Sfx/UI/Cursor Selection") as AudioClip;
-        UIMenuStart = Resources.Load("Audio/Sfx/UI/Menu Start") as AudioClip;
-        UIPlayerJoined = Resources.Load("Audio/Sfx/UI/Player Joined") as AudioClip;
-        UIGameStart = Resources.Load("Audio/Sfx/UI/Game Start") as AudioClip;
+        UICursor = Resources.Load("Audio/Sfx/UI/GUI Cursor") as AudioClip;
+        UIPlayerJoin = Resources.Load("Audio/Sfx/UI/GUI Player Join") as AudioClip;
+        UIStartGame = Resources.Load("Audio/Sfx/UI/GUI Start Game") as AudioClip;
     }
 
     public static void Play(ClipType name, AudioSource source)
@@ -67,16 +102,27 @@ public static class AudioManager
         switch (name)
         {
             case ClipType.Attack:
-                source.PlayOneShot(GetRandomClip(attack));
+                source.PlayOneShot(GetRandomClip(swingMetal));
+                AudioClip clip = MaybeGetRandomClip(femaleAttacking);
+                if (clip) source.PlayOneShot(clip);
                 break;
             case ClipType.Hit:
-                source.PlayOneShot(hit2);
+                source.PlayOneShot(GetRandomClip(hit));
                 break;
             case ClipType.Block:
                 source.PlayOneShot(GetRandomClip(block));
                 break;
             case ClipType.Footsteps:
                 source.PlayOneShot(GetRandomClip(footSteps));
+                break;
+            case ClipType.Dash:
+                source.PlayOneShot(GetRandomClip(dash));
+                break;
+            case ClipType.Hurt:
+                source.PlayOneShot(GetRandomClip(femaleHurt));
+                break;
+            case ClipType.Dead:
+                source.PlayOneShot(GetRandomClip(femaleDead));
                 break;
             case ClipType.ArenaEnvironment:
                 source.volume = 0.2f;
@@ -90,29 +136,17 @@ public static class AudioManager
                 source.volume = 0.5f;
                 PlayLooping(arenaBGM, source);
                 break;
+            case ClipType.GUICursor:
+                source.PlayOneShot(UICursor);
+                break;
+            case ClipType.GUIPlayerJoin:
+                source.PlayOneShot(UIPlayerJoin);
+                break;
+            case ClipType.GUIStartGame:
+                source.PlayOneShot(UIStartGame);
+                break;
         }
     }
-
-    //static void PlayAttack(AudioSource source)
-    //{
-    //    source.PlayOneShot(GetRandomClip(attack));
-    //}
-
-    //static void PlayBlock(AudioSource source)
-    //{
-    //    source.PlayOneShot(GetRandomClip(block));
-    //}
-
-    //static void PlayHit(AudioSource source)
-    //{
-    //    source.PlayOneShot(hit2);
-    //}
-
-    //static void PlayArenaEnvironment(AudioSource source)
-    //{
-    //    source.loop = true;
-    //    source.PlayOneShot(arenaEnviroment);
-    //}
 
     static void PlayLooping(AudioClip clip, AudioSource source)
     {
@@ -122,7 +156,21 @@ public static class AudioManager
         source.Play();
     }
 
-    static AudioClip GetRandomClip(IList<AudioClip> clip) {
+    static AudioClip GetRandomClip(IList<AudioClip> clip)
+    {
         return clip[Random.Range(0, clip.Count)];
+    }
+
+    static AudioClip MaybeGetRandomClip(IList<AudioClip> clip)
+    {
+        int rnd = Random.Range(0, 11);
+        if (rnd > 6)
+        {
+            return clip[Random.Range(0, clip.Count)];
+        }
+        else
+        {
+            return null;
+        }
     }
 }

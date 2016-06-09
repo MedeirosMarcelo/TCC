@@ -41,6 +41,7 @@ namespace Assets.Scripts.Character.States
             var evt = args[0] as InputEvent.Dash;
             Assert.IsNotNull(evt);
             baseVelocity = evt.Move.vector.normalized * maxSpeed;
+            AudioManager.Play(ClipType.Dash, Character.audioSource);
         }
 
         static private float TrapezoidalFunciton(float time)
