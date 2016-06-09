@@ -14,12 +14,17 @@ namespace Assets.Scripts.Game
             //AddPlayer(PlayerIndex.Three);
             //AddPlayer(PlayerIndex.Four);
         }
+        public static void Reset()
+        {
+            PlayerList.Clear();
+        }
 
         public static Player AddPlayer(PlayerIndex playerId)
         {
             Player pl = new Player(playerId);
             pl.Color = ChoosePlayerColor(playerId);
             PlayerList.Add(pl);
+            PlayerList = PlayerList.OrderBy(p => p.Id).ToList();
             return pl;
         }
 
