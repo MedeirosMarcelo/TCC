@@ -28,6 +28,7 @@ namespace Assets.Scripts.Game
         GameObject minionPrefab;
         [SerializeField]
         GameObject resultOverlay;
+        AudioSource[] audioSource;
 
         // Private state 
         public GameState state;
@@ -49,6 +50,9 @@ namespace Assets.Scripts.Game
         }
         void Start()
         {
+            audioSource = GetComponents<AudioSource>();
+            //AudioManager.Play(ClipType.ArenaEnvironment, audioSource[0]);
+            //AudioManager.Play(ClipType.ArenaBGM, audioSource[1]);
             EnterState(GameState.Load);
         }
         void Update()

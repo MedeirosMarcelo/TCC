@@ -133,7 +133,7 @@ public static class AudioManager
                 PlayLooping(menuBGM, source);
                 break;
             case ClipType.ArenaBGM:
-                source.volume = 0.5f;
+                source.volume = 0.8f;
                 PlayLooping(arenaBGM, source);
                 break;
             case ClipType.GUICursor:
