@@ -18,13 +18,14 @@ namespace Assets.Scripts.Game
     public class GameManager : MonoBehaviour
     {
         [Header("Config")]
+        public int debugAddPlayers = 0;
         public Transform[] spawns = new Transform[0];
         public int maxScore = 5;
         public int minionPerTeam = 5;
 
         [Header("Prefabs")]
         [SerializeField]
-        GameObject characterPrefab;
+        List<GameObject> characterPrefabs;
         [SerializeField]
         GameObject minionPrefab;
         [SerializeField]
@@ -131,14 +132,16 @@ namespace Assets.Scripts.Game
             Assert.IsTrue(spawns.Length >= players.Count, "More player than spawn points");
 
             var spawn = (spawns as IEnumerable<Transform>).GetEnumerator();
+            int i = 0;
             foreach (var player in players)
             {
                 spawn.MoveNext();
                 var team = new Team(this, spawn.Current);
                 Teams.Add(team);
-                team.SpawnCharacter(characterPrefab, player);
+                team.SpawnCharacter(characterPrefabs[i], player);
                 team.SpawnMinions(minionPrefab, minionPerTeam);
                 player.Character.CanControl = false;
+                i++;
             }
         }
 
