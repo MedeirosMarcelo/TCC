@@ -13,6 +13,7 @@ namespace Assets.Scripts.Character
     using GameManager = Game.GameManager;
     using WeaponTrail = Xft.XWeaponTrail;
     using DecalPainter = Blood.DecalPainter;
+    using System.Linq;
 
     public enum SwordStance
     {
@@ -50,6 +51,7 @@ namespace Assets.Scripts.Character
         public Vector3 Velocity { get; set; }
         public int Health { get; private set; }
         public int Lives { get; private set; }
+        public bool Ended { get; private set; }
         public PlayerIndex Id
         {
             get { return input.id; }
@@ -76,10 +78,13 @@ namespace Assets.Scripts.Character
             }
         }
 
+
         // Itargetable Proprieties
         public Team Team { get; set; }
         public bool IsDead { get { return (Health <= 0); } }
         public Transform Transform { get { return transform; } }
+
+
 
         // Editor Variables
 #if UNITY_EDITOR
@@ -92,6 +97,7 @@ namespace Assets.Scripts.Character
             Velocity = Vector3.zero;
             Health = 2;
             Lives = 3;
+            Ended = false;
             input = new GamePadInput();
             Stance = SwordStance.Right;
             Target = this; // guarantee target will not be null
@@ -177,26 +183,51 @@ namespace Assets.Scripts.Character
             AudioManager.Play(ClipType.Hit, audioSource);
             if (Health <= 0)
             {
-                fsm.ChangeState("DEATH");
+                Die();
             }
+        }
+        public void Win()
+        {
+            rbody.isKinematic = true;
+            transform.Find("Hitbox").gameObject.SetActive(false);
+            transform.Find("PushCollider").gameObject.SetActive(false);
+            AttackCollider.enabled = false;
+            fsm.ChangeState("WIN");
         }
         public void Die()
         {
             Health = 0;
             Lives--;
-            if (Lives > 0)
+            rbody.isKinematic = true;
+            transform.Find("Hitbox").gameObject.SetActive(false);
+            transform.Find("PushCollider").gameObject.SetActive(false);
+            AttackCollider.enabled = false;
+            fsm.ChangeState("DEFEAT");
+
+            // If theres only one other team with leader alive, it wins
+            var playingTeams = Team.OtherTeams.Where(team => !Team.Leader.Ended);
+            if (playingTeams.Count() == 1)
             {
-                PlantSword();
+                playingTeams.First().Leader.Win();
             }
+        }
+        public void End()
+        {
+            Ended = true;
             game.CheckEndRound();
         }
-
         public void Reset(Transform spawnPoint)
         {
+            Ended = false;
             Health = 2;
-            fsm.ChangeState("MOVEMENT", 0, true);
+            rbody.isKinematic = false;
+
             Transform.position = spawnPoint.position;
             Transform.rotation = spawnPoint.rotation;
+
+            transform.Find("Hitbox").gameObject.SetActive(true);
+            transform.Find("PushCollider").gameObject.SetActive(true);
+            fsm.ChangeState("MOVEMENT");
         }
 
         public void ShowBlockSpark(Vector3 position)
@@ -268,7 +299,7 @@ namespace Assets.Scripts.Character
                 text += "\n" + minion.Fsm.DebugString;
             }
             GUI.contentColor = Color.black;
-            GUI.Label(new Rect((guiId - 1) * (Screen.width / 4), 0, Screen.width / 4, Screen.height), text);
+            GUI.Label(new Rect((((guiId - 1) % 4)) * (Screen.width / 4), 0, Screen.width / 4, Screen.height), text);
         }
 #endif
     }

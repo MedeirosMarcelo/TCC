@@ -3,6 +3,7 @@ using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Assets.Scripts.Game
 {
@@ -45,7 +46,8 @@ namespace Assets.Scripts.Game
         }
         public List<Team> Teams { get; private set; }
 
-        void Awake() {
+        void Awake()
+        {
             Teams = new List<Team>();
         }
         void Start()
@@ -178,7 +180,7 @@ namespace Assets.Scripts.Game
         }
         IEnumerator WaitRestartRound()
         {
-            yield return new WaitForSeconds(4f);
+            yield return new WaitForSeconds(0.5f);
             EnterState(GameState.PreRound);
         }
         void EnterEndGame()
@@ -192,37 +194,14 @@ namespace Assets.Scripts.Game
         }
         public void CheckEndRound()
         {
-            Debug.Log("Checking round end");
-            int aliveCount = 0;
-            foreach (Player pl in PlayerManager.GetPlayerList())
+            if (Teams.All(team => team.Leader.Ended))
             {
-                if (!pl.Character.IsDead)
-                {
-                    aliveCount++;
-                }
-            }
-            if (aliveCount <= 1)
-            {
-                Debug.Log("ENDING ROUND");
                 EnterState(GameState.RoundEnd);
             }
         }
         bool CheckGameEnd()
         {
-            Debug.Log("Checking game end");
-            int aliveCount = 0;
-            foreach (Player pl in PlayerManager.GetPlayerList())
-            {
-                if (pl.Character.Lives > 0)
-                {
-                    aliveCount++;
-                }
-            }
-            if (aliveCount <= 1)
-            {
-                return true;
-            }
-            return false;
+            return (Teams.Where(team => team.Leader.Lives > 0).Count() <= 1);
         }
     }
 }

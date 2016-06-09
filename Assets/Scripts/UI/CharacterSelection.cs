@@ -143,7 +143,6 @@ namespace Assets.Scripts.UI
 
         void StartGame()
         {
-            Debug.Log(PlayerManager.GetPlayerList().Count);
             AudioManager.Play(ClipType.GUIStartGame, audioSource);
             SceneManager.LoadScene("Loading");
         }

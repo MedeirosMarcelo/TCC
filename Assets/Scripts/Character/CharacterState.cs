@@ -84,9 +84,9 @@ namespace Assets.Scripts.Character
 
                 if (attack != null && attack.CanHit(Character))
                 {
-                    Character.ReceiveDamage(attack.Damage);
                     Character.bloodAnimator.SetTrigger("Bleed");
                     Fsm.ChangeState("HITSTUN");
+                    Character.ReceiveDamage(attack.Damage);
                 }
             }
             else if ((collider.tag == "Push") && Fsm.Current.Name != "LOCK/LOCKSWORDS" && Fsm.Current.Name != "LOCK/PUSHAWAY")
