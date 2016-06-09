@@ -139,7 +139,6 @@ namespace Assets.Scripts.UI
 
         void StartGame()
         {
-            Debug.Log(PlayerManager.GetPlayerList().Count);
             SceneManager.LoadScene("Loading");
         }
     }

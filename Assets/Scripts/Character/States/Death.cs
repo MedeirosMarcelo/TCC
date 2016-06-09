@@ -4,24 +4,32 @@ namespace Assets.Scripts.Character.States
 {
     public class Death : CharacterState
     {
-        public Death(CharacterFsm fsm)
-            : base(fsm)
+        //public TimerBehaviour timer { get; protected set; }
+        public AnimationBehaviour animation { get; protected set; }
+        public Death(CharacterFsm fsm) : base(fsm)
         {
             Name = "DEATH";
             turnRate = 0f;
+
+            //timer = new TimerBehaviour(this);
+            animation = new AnimationBehaviour(this, Character.animator);
+            animation.TotalTime = 3.067f;
+            animation.PlayTime = 3.067f;
+            animation.Name = "Defeat";
         }
-        public override void Enter(string lastName, string nextName, float additionalDeltaTime, params object[] args)
+        public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime = 0, params object[] args)
         {
+            base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
             Character.rbody.isKinematic = true;
             Character.transform.Find("Hitbox").gameObject.SetActive(false);
             Character.transform.Find("PushCollider").gameObject.SetActive(false);
             Character.AttackCollider.enabled = false;
-            Character.animator.Play("Defeat");
             Character.Die();
         }
 
         public override void Exit(string lastStateName, string nextStateName, float additionalDeltaTime = 0, params object[] args)
         {
+            base.Exit(lastStateName, nextStateName, additionalDeltaTime, args);
             Character.rbody.isKinematic = false;
             Character.transform.Find("Hitbox").gameObject.SetActive(true);
             Character.transform.Find("PushCollider").gameObject.SetActive(true);
@@ -30,13 +38,5 @@ namespace Assets.Scripts.Character.States
         }
 
         public override void OnTriggerEnter(Collider collider) { }
-
-        void PlantSword()
-        {
-            Vector3 pos = Character.transform.position;
-            pos.y += 0.5f;
-            GameObject.Instantiate(Character.swordPrefab, pos, Character.swordPrefab.transform.rotation);
-            Character.transform.Find("Model").Find("Swords").Find("Sword " + Character.Lives).gameObject.SetActive(false);
-        }
     }
 }

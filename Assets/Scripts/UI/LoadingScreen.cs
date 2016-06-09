@@ -10,8 +10,6 @@ public class LoadingScreen : MonoBehaviour
     void Start()
     {
         progressBar = transform.Find("Slider").GetComponent<Slider>();
-
-        print("Loading...");
         StartCoroutine("LoadLevelWithProgress", "Arena");
     }
 
@@ -20,7 +18,6 @@ public class LoadingScreen : MonoBehaviour
         var async = SceneManager.LoadSceneAsync(levelToLoad);
         while (!async.isDone)
         {
-            print("%: " + async.progress);
             if (progressBar) progressBar.value = async.progress;
             yield return null;
         }
