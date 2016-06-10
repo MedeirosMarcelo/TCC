@@ -19,20 +19,18 @@ namespace Assets.Scripts.Character.States.Block
                 if (attack != null && attack.Direction == AttackDirection.Vertical)
                 {
                     RaycastHit hitInfo;
-                    if (attack.GetCollisionPoint(out hitInfo))
+                    Assert.IsTrue(attack.GetCollisionPoint(out hitInfo), "IT SHOULD HAVE HIT BUT IT DID NOT HIT SEND HELP");
+                    Vector3 myForward = Transform.forward.xz().normalized;
+                    Vector3 otherForward = (hitInfo.point - Transform.position).xz().normalized;
+                    if (Mathf.Abs(Vector3.Angle(myForward, otherForward)) <= defenseAngle / 2f)
                     {
-                        Vector3 myForward = Transform.forward.xz().normalized;
-                        Vector3 otherForward = (hitInfo.point - Transform.position).xz().normalized;
-                        if (Mathf.Abs(Vector3.Angle(myForward, otherForward)) <= defenseAngle / 2f && attack.CanHit(Character))
+                        Character.ShowBlockSpark(collider.transform.position);
+                        attack.Blocked();
+                        if (attack.IsHeavy)
                         {
-                            Character.ShowBlockSpark(collider.transform.position);
-                            attack.Blocked();
-                            if (attack.IsHeavy)
-                            {
-                                Fsm.ChangeState("STAGGER");
-                            }
-                            return;
+                            Fsm.ChangeState("STAGGER");
                         }
+                        return;
                     }
                 }
             }

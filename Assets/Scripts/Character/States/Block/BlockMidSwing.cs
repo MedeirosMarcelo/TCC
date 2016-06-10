@@ -25,7 +25,7 @@ namespace Assets.Scripts.Character.States.Block
                         Vector3 otherForward = (hitInfo.point - Transform.position).xz().normalized;
                         Debug.DrawLine(hitInfo.point, hitInfo.point + Vector3.up, Color.black, 2f);
                         float dot = Vector3.Dot(myForward, otherForward);
-                        if (Mathf.Abs(Vector3.Angle(myForward, otherForward)) <= defenseAngle / 2f && attack.CanHit(Character))
+                        if (Mathf.Abs(Vector3.Angle(myForward, otherForward)) <= defenseAngle / 2f)
                         {
                             Character.ShowBlockSpark(collider.transform.position);
                             attack.Blocked();

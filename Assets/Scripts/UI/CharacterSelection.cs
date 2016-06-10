@@ -17,6 +17,7 @@ namespace Assets.Scripts.UI
 
         void Start()
         {
+            PlayerManager.Reset();
             StartPrompt = transform.Find("Panel").Find("Start Prompt").gameObject;
             audioSource = GetComponent<AudioSource>();
             AudioManager.Play(ClipType.GUIStartGame, audioSource);

@@ -60,6 +60,11 @@ namespace Assets.Scripts.Game
         }
         void Update()
         {
+            if (UnityEngine.Input.GetKeyDown(KeyCode.JoystickButton6)
+                || UnityEngine.Input.GetKeyDown(KeyCode.Escape))
+            {
+                SceneManager.LoadScene("Main Menu");
+            }
             UpdateState();
         }
         public void EnterState(GameState newState)

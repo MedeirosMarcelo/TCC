@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.Animations;
+#endif
 using System.Linq;
+
 
 [RequireComponent(typeof(Animator))]
 public class AnimationIndex : MonoBehaviour {
@@ -59,6 +62,7 @@ public class AnimationIndex : MonoBehaviour {
 #endif
 }
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(AnimationIndex))]
 public class AnimationIndexEditor : Editor
 {
@@ -77,3 +81,4 @@ public class AnimationIndexEditor : Editor
         }
     }
 }
+#endif
