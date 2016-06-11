@@ -7,9 +7,12 @@ using UnityEngine.SceneManagement;
 public class MainMenu : Menu
 {
     GameObject optionScreen;
+    AudioSource source;
 
     public override void Start() {
         optionScreen = transform.parent.Find("Options").gameObject;
+        source = transform.parent.parent.GetComponent<AudioSource>();
+        AudioManager.Play(ClipType.MenuBGM, source);
         base.Start();
     }
 

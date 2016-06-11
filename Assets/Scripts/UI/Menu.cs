@@ -14,6 +14,8 @@ public class Menu : MonoBehaviour
 
     private float yAxis;
     private float previousYAxis;
+    private float xAxis;
+    private float previousXAxis;
 
     public virtual void Start()
     {
@@ -37,16 +39,28 @@ public class Menu : MonoBehaviour
     {
         previousYAxis = yAxis;
         yAxis = Input.GetAxis("VerticalJoy");
+        previousXAxis = xAxis;
+        xAxis = Input.GetAxis("HorizontalJoy");
     }
 
-    bool PressedDown()
+    public bool PressedDown()
     {
         return previousYAxis >= 0 && yAxis < 0;
     }
 
-    bool PressedUp()
+    public bool PressedUp()
     {
         return previousYAxis <= 0 && yAxis > 0;
+    }
+
+    public bool PressedLeft()
+    {
+        return previousXAxis >= 0 && xAxis < 0;
+    }
+
+    public bool PressedRight()
+    {
+        return previousXAxis <= 0 && xAxis > 0;
     }
 
     void LoadMenu()

@@ -125,16 +125,18 @@ public static class AudioManager
                 source.PlayOneShot(GetRandomClip(femaleDead));
                 break;
             case ClipType.ArenaEnvironment:
-                source.volume = 0.2f;
                 PlayLooping(arenaEnvironment, source);
+                source.volume = 0.2f;
                 break;
             case ClipType.MenuBGM:
-                source.volume = 0.5f;
                 PlayLooping(menuBGM, source);
+                source.volume = 0.5f;
+                GetMenuVolume(source, "Music");
                 break;
             case ClipType.ArenaBGM:
-                source.volume = 0.8f;
                 PlayLooping(arenaBGM, source);
+                source.volume = 0.8f;
+                GetMenuVolume(source, "Music");
                 break;
             case ClipType.GUICursor:
                 source.PlayOneShot(UICursor);
@@ -151,7 +153,6 @@ public static class AudioManager
     static void PlayLooping(AudioClip clip, AudioSource source)
     {
         source.loop = true;
-        source.volume = 0.2f;
         source.clip = clip;
         source.Play();
     }
@@ -172,5 +173,10 @@ public static class AudioManager
         {
             return null;
         }
+    }
+
+    static void GetMenuVolume(AudioSource source, string prefKey) {
+        source.volume *= ((float)PlayerPrefs.GetInt(prefKey)) * 0.01f;
+        UnityEngine.Debug.Log(source.volume + " " + ((float)PlayerPrefs.GetInt(prefKey)) * 0.01f);
     }
 }
