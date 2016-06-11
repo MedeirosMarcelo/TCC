@@ -31,7 +31,7 @@ namespace Assets.Scripts.Character.States
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            Vector3 velocity = baseVelocity * TrapezoidalFunciton(timer.Elapsed);
+            Vector3 velocity = baseVelocity * TrapezoidalFunction(timer.Elapsed);
             Character.Move(Transform.position + (velocity * Time.fixedDeltaTime));
         }
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime = 0, params object[] args)
@@ -40,11 +40,17 @@ namespace Assets.Scripts.Character.States
             Assert.IsTrue(args.Length == 1);
             var evt = args[0] as InputEvent.Dash;
             Assert.IsNotNull(evt);
-            baseVelocity = evt.Move.vector.normalized * maxSpeed;
+            baseVelocity = GetDashVelocity(evt);
             AudioManager.Play(ClipType.Dash, Character.audioSource);
         }
 
-        static private float TrapezoidalFunciton(float time)
+        Vector3 GetDashVelocity(InputEvent.Dash evt) {
+            Vector3 dashVelocity = evt.Move.vector.normalized;
+            if (dashVelocity == Vector3.zero) dashVelocity = -Character.transform.forward;
+            return dashVelocity * maxSpeed;
+        }
+
+        static private float TrapezoidalFunction(float time)
         {
             // This is the curve of dash velocity, a Trapezoidal Function
             // 1 |   .----.

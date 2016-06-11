@@ -177,6 +177,5 @@ public static class AudioManager
 
     static void GetMenuVolume(AudioSource source, string prefKey) {
         source.volume *= ((float)PlayerPrefs.GetInt(prefKey)) * 0.01f;
-        UnityEngine.Debug.Log(source.volume + " " + ((float)PlayerPrefs.GetInt(prefKey)) * 0.01f);
     }
 }

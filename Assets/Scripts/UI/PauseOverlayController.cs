@@ -16,8 +16,7 @@ public class PauseOverlayController : MonoBehaviour {
 
     void Control()
     {
-        if (UnityEngine.Input.GetKeyDown(KeyCode.JoystickButton7) ||
-            UnityEngine.Input.GetKeyDown(KeyCode.Escape))
+        if (UnityEngine.Input.GetKeyDown(KeyCode.JoystickButton7))
         {
             if (!pause)
             {

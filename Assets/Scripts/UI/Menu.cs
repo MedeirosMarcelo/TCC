@@ -82,7 +82,8 @@ public class Menu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.DownArrow) || PressedDown())
         {
-            DeselectOption(options[cursorIndex]);
+            if (this.transform.parent.parent.name == "Main Menu")
+                DeselectOption(options[cursorIndex]);
             cursorIndex++;
             AudioManager.Play(ClipType.GUICursor, audioSource);
             if (cursorIndex > options.Count - 1)
@@ -93,9 +94,10 @@ public class Menu : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow) || PressedUp())
         {
-            AudioManager.Play(ClipType.GUICursor, audioSource);
-            DeselectOption(options[cursorIndex]);
+            if (this.transform.parent.parent.name == "Main Menu")
+                DeselectOption(options[cursorIndex]);
             cursorIndex--;
+            AudioManager.Play(ClipType.GUICursor, audioSource);
             if (cursorIndex < 0)
             {
                 cursorIndex = options.Count - 1;
