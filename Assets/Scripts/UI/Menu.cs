@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Menu : MonoBehaviour {
-
+public class Menu : MonoBehaviour
+{
     public Image cursor;
     public float cursorSpeed = 1f;
     public IList<Text> options = new List<Text>();
@@ -14,10 +14,14 @@ public class Menu : MonoBehaviour {
 
     private float yAxis;
     private float previousYAxis;
-    
+
     public virtual void Start()
     {
-        audioSource = transform.parent.parent.GetComponent<AudioSource>();
+        if (this.transform.parent.parent.name == "Main Menu")
+            audioSource = transform.parent.parent.GetComponent<AudioSource>();
+        else
+            audioSource = transform.parent.parent.parent.GetComponent<AudioSource>();
+
         cursorIndex = 0;
         LoadMenu();
     }
@@ -60,7 +64,6 @@ public class Menu : MonoBehaviour {
         }
     }
 
-    
     void ControlCursor()
     {
         if (Input.GetKeyDown(KeyCode.DownArrow) || PressedDown())
