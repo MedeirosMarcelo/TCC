@@ -10,10 +10,10 @@ namespace Assets.Scripts.Character.States
         private AnimationBehaviour animation;
         private Vector3 baseVelocity;
 
-        private const float maxSpeed = 16f;
-        private const float t_accel = 0.04f;
-        private const float t_plateau = 0.04f;
-        private const float t_deccel = 0.04f;
+        private const float maxSpeed = 9f;
+        private const float t_accel = 0.08f;
+        private const float t_plateau = 0.08f;
+        private const float t_deccel = 0.08f;
         private const float t_recover = 0.2f;
 
         public DashState(CharacterFsm fsm) : base(fsm)
@@ -28,12 +28,7 @@ namespace Assets.Scripts.Character.States
             animation = new AnimationBehaviour(this, Character.animator);
             animation.Name = "Dash";
         }
-        public override void FixedUpdate()
-        {
-            base.FixedUpdate();
-            Vector3 velocity = baseVelocity * TrapezoidalFunction(timer.Elapsed);
-            Character.Move(Transform.position + (velocity * Time.fixedDeltaTime));
-        }
+
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime = 0, params object[] args)
         {
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
@@ -44,10 +39,41 @@ namespace Assets.Scripts.Character.States
             AudioManager.Play(ClipType.Dash, Character.audioSource);
         }
 
-        Vector3 GetDashVelocity(InputEvent.Dash evt) {
+        Vector3 GetDashVelocity(InputEvent.Dash evt)
+        {
             Vector3 dashVelocity = evt.Move.vector.normalized;
-            if (dashVelocity == Vector3.zero) dashVelocity = -Character.transform.forward;
+            if (dashVelocity == Vector3.zero) dashVelocity = Character.transform.forward;
             return dashVelocity * maxSpeed;
+        }
+
+        public override void FixedUpdate()
+        {
+            base.FixedUpdate();
+            Vector3 velocity = baseVelocity * TrapezoidalFunction(timer.Elapsed);
+            Character.Move(Transform.position + (velocity * Time.fixedDeltaTime));
+
+            float recoverStart = t_accel + t_plateau + t_deccel;
+            if (timer.Elapsed > recoverStart)
+            {
+                if (Input.buffer.NextEventIs<InputEvent.Attack>())
+                {
+                    var evt = Input.buffer.Pop<InputEvent.Attack>();
+                    Fsm.ChangeState("ATTACK", 0f, evt);
+                }
+                else if (Input.buffer.NextEventIs<InputEvent.Block>())
+                {
+                    if (Character.Stance == SwordStance.High)
+                    {
+                        var evt = Input.buffer.Pop<InputEvent.Block>();
+                        Fsm.ChangeState("BLOCK/HIGH/WINDUP", 0f, evt);
+                    }
+                    else
+                    {
+                        var evt = Input.buffer.Pop<InputEvent.Block>();
+                        Fsm.ChangeState("BLOCK/MID/WINDUP", 0f, evt);
+                    }
+                }
+            }
         }
 
         static private float TrapezoidalFunction(float time)

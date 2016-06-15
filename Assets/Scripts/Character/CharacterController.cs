@@ -81,7 +81,7 @@ namespace Assets.Scripts.Character
         }
 
 
-        // Itargetable Proprieties
+        // Itargetable Properties
         public Team Team { get; set; }
         public bool IsDead { get { return (Health <= 0); } }
         public Transform Transform { get { return transform; } }
