@@ -7,13 +7,14 @@ namespace Assets.Scripts.Character.States.Attack
 
     public abstract class BaseSwing : CharacterState, IAttack
     {
+        List<ITargetable> haveHitted = new List<ITargetable>();
         public AttackDirection Direction { get; protected set; }
         public bool IsHeavy { get; protected set; }
         public int Damage { get; protected set; }
 
+
         public TimerBehaviour timer { get; protected set; }
         public AnimationBehaviour animation { get; protected set; }
-        List<ITargetable> haveHitted = new List<ITargetable>();
 
         public float Displacement { get; protected set; }
 
@@ -27,7 +28,6 @@ namespace Assets.Scripts.Character.States.Attack
             nextStance = SwordStance.Right;
         }
 
-        // tiago pirando com diretivas de compilador em 3... 2... 1...
 #if UNITY_EDITOR
         private void DrawSphereCast(Vector3 origin, float radius, Vector3 direction, float distance, params object[] args)
         {

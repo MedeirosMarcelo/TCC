@@ -81,7 +81,6 @@ namespace Assets.Scripts.Character
             IAttack attack;
             if (collider.IsAttack(out attack))
             {
-
                 if (attack != null && attack.CanHit(Character))
                 {
                     Character.bloodAnimator.SetTrigger("Bleed");

@@ -38,13 +38,20 @@ namespace Assets.Scripts.Minion
 
         public override void PreUpdate()
         {
-            UpdateTarget();
-            if (Target.IsDead)
+            if (Target == null || Target.IsDead)
             {
-                // If updated target is dead we are out of targets
-                Fsm.ChangeState("END");
+                var closest = Minion.ClosestTarget(); ;
+                if (closest == null)
+                {
+                    Fsm.ChangeState("END");
+                } else
+                {
+                    Target = closest;
+                }
             }
-            else
+
+
+            if (Target != null && !Target.IsDead)
             {
                 Distance.Value = (Transform.position - Target.Transform.position).xz().magnitude;
                 // After updating basics update behaviours
@@ -59,7 +66,8 @@ namespace Assets.Scripts.Minion
 
         public override void OnTriggerEnter(Collider collider)
         {
-            if (collider.CompareTag("AttackCollider") || collider.CompareTag("CharacterAttackCollider"))
+            Debug.Log("OnTriggerEnter");
+            if (collider.CompareTag("MinionAttackCollider") || collider.CompareTag("CharacterAttackCollider"))
             {
                 Minion.ReceiveDamage(1);
             }
@@ -70,34 +78,6 @@ namespace Assets.Scripts.Minion
         void UpdateTarget()
         {
 
-            if (Target != null && !Target.IsDead)
-            {
-                // If current target is valid ther is no need to update it
-                return;
-            }
-
-            float minDistance = float.PositiveInfinity;
-            ITargetable closer = null;
-            foreach (var team in Minion.Team.OtherTeams)
-            {
-                foreach (var target in team.Targets)
-                {
-                    if (!target.IsDead)
-                    {
-                        var distance = (target.Transform.position - Transform.position).magnitude;
-                        if (distance < minDistance)
-                        {
-                            minDistance = distance;
-                            closer = target;
-                        }
-                    }
-                }
-            }
-            if (closer != null)
-            {
-                // Update target only if found one
-                Target = closer;
-            }
         }
 
         public void NextState()

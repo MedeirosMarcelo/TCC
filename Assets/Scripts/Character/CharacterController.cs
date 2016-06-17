@@ -13,7 +13,6 @@ namespace Assets.Scripts.Character
     using GameManager = Game.GameManager;
     using WeaponTrail = Xft.XWeaponTrail;
     using DecalPainter = Blood.DecalPainter;
-    using System.Linq;
     using System.Collections.Generic;
 
     public enum SwordStance
@@ -86,7 +85,9 @@ namespace Assets.Scripts.Character
         public bool IsDead { get { return (Health <= 0); } }
         public Transform Transform { get { return transform; } }
 
-
+        // Spawn
+        public Vector3 SpawnPosition { get; private set; }
+        public Quaternion SpawnRotation { get; private set; }
 
         // Editor Variables
 #if UNITY_EDITOR
@@ -103,33 +104,35 @@ namespace Assets.Scripts.Character
             input = new GamePadInput();
             Stance = SwordStance.Right;
             Target = this; // guarantee target will not be null
+            SpawnPosition = Transform.position;
+            SpawnRotation = Transform.rotation;
 
             game = GameObject.Find("GameManager").GetComponent<GameManager>();
-            Assert.IsNotNull(game);
+            Assert.IsFalse(game == null);
             rbody = GetComponent<Rigidbody>();
-            Assert.IsNotNull(rbody);
+            Assert.IsFalse(rbody == null);
             animator = GetComponent<Animator>();
-            Assert.IsNotNull(animator);
+            Assert.IsFalse(animator == null);
             PushCollider = transform.Find("PushCollider").GetComponent<Collider>();
-            Assert.IsNotNull(PushCollider);
+            Assert.IsFalse(PushCollider == null);
 
             Head = transform.Find("Model").Find("head").GetComponent<SkinnedMeshRenderer>();
-            Assert.IsNotNull(Head);
+            Assert.IsFalse(Head == null);
             Eyes = transform.Find("Model").Find("eyes").GetComponent<SkinnedMeshRenderer>();
-            Assert.IsNotNull(Eyes);
+            Assert.IsFalse(Eyes == null);
             Body = transform.Find("Model").Find("body").GetComponent<SkinnedMeshRenderer>();
-            Assert.IsNotNull(Body);
+            Assert.IsFalse(Body == null);
 
             audioSource = GetComponent<AudioSource>();
-            Assert.IsNotNull(audioSource);
+            Assert.IsFalse(audioSource == null);
             AttackCollider = sword.Find("Attack Collider").GetComponent<CapsuleCollider>();
-            Assert.IsNotNull(AttackCollider);
+            Assert.IsFalse(AttackCollider == null);
             BlockMidCollider = sword.Find("Block Mid Collider").GetComponent<CapsuleCollider>();
-            Assert.IsNotNull(BlockMidCollider);
+            Assert.IsFalse(BlockMidCollider == null);
             BlockHighCollider = sword.Find("Block High Collider").GetComponent<CapsuleCollider>();
-            Assert.IsNotNull(BlockHighCollider);
+            Assert.IsFalse(BlockHighCollider == null);
             SwordTrail = sword.Find("X-WeaponTrail").GetComponent<Xft.XWeaponTrail>();
-            Assert.IsNotNull(SwordTrail);
+            Assert.IsFalse(SwordTrail == null);
             // Trail init
             SwordTrail.Init();
             SwordTrail.Deactivate();
@@ -204,6 +207,7 @@ namespace Assets.Scripts.Character
             transform.Find("Hitbox").gameObject.SetActive(false);
             transform.Find("PushCollider").gameObject.SetActive(false);
             AttackCollider.enabled = false;
+            Team.Defeat();
             fsm.ChangeState("DEFEAT");
         }
         public void End()
@@ -211,7 +215,7 @@ namespace Assets.Scripts.Character
             Ended = true;
             game.CheckEndRound();
         }
-        public void Reset(Transform spawnPoint)
+        public void Reset()
         {
             if (Lives > 0)
             {
@@ -219,8 +223,8 @@ namespace Assets.Scripts.Character
                 Health = 2;
                 rbody.isKinematic = false;
 
-                Transform.position = spawnPoint.position;
-                Transform.rotation = spawnPoint.rotation;
+                Transform.position = SpawnPosition;
+                Transform.rotation = SpawnRotation;
 
                 transform.Find("Hitbox").gameObject.SetActive(true);
                 transform.Find("PushCollider").gameObject.SetActive(true);

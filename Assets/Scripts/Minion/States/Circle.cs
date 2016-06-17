@@ -28,7 +28,7 @@ namespace Assets.Scripts.Minion.States
             if (Vector3.Dot(relativePos.normalized, Target.Transform.forward) < -0.9f)
             {
                 // When dot < -0.9 minion is behind target so just follow;
-                Minion.SetDestination(Target.Transform.position, updateRotation: false);
+                Minion.UpdateDestination(Target.Transform.position, updateRotation: false);
             }
             else
             {
@@ -36,7 +36,7 @@ namespace Assets.Scripts.Minion.States
                 var destination = Vector3.RotateTowards(relativePos, Target.Transform.forward, -angleStep, 0f);
                 destination = destination * spiralStep; // close in as we go around
                 destination += Target.Transform.position;         // get the global destination
-                Minion.SetDestination(destination, updateRotation: false);
+                Minion.UpdateDestination(destination, updateRotation: false);
             }
         }
         public override void Exit(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)

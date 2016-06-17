@@ -8,17 +8,9 @@ namespace Assets.Scripts.Minion.States
         {
             Name = "END";
         }
-        public override void PreUpdate()
-        {
-        }
-        public override void FixedUpdate()
-        {
-        }
-        public override void OnCollisionEnter(Collision collision)
-        {
-        }
-        public override void OnTriggerEnter(Collider colllider)
-        {
-        }
+        public override void PreUpdate() { }
+        public override void FixedUpdate() { }
+        public override void OnCollisionEnter(Collision collision) { }
+        public override void OnTriggerEnter(Collider colllider) { }
     }
 }

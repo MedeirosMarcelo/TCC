@@ -14,7 +14,7 @@
 
             animation = new AnimationBehaviour(this, Animator);
             animation.PlayTime = 0.35f;
-            animation.Name = "LeftWindup";
+            animation.Name = "AttackHorizontalWindup";
         }
         public override void FixedUpdate()
         {

@@ -301,15 +301,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9fb3e628efff2342aa781d4040f82db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugAddPlayers: 2
   spawns:
   - {fileID: 426540}
   - {fileID: 444716}
   - {fileID: 487070}
   - {fileID: 479124}
   maxScore: 5
-  minionPerTeam: 0
-  characterPrefab: {fileID: 147570, guid: 72f476dfd6746304b960fc52b1f860ec, type: 2}
-  minionPrefab: {fileID: 121444, guid: e1a7c2d897fc60a4291a6be2fdce90a2, type: 2}
+  minionPerTeam: 2
+  characterPrefabs:
+  - {fileID: 125970, guid: 6f58f41ef8459924182a0f29720eb6d3, type: 2}
+  - {fileID: 148454, guid: 321aa8fb31b7e6946a7a2b9729f8dad0, type: 2}
+  - {fileID: 157282, guid: be1b6330ac5fef046931c376448823cf, type: 2}
+  - {fileID: 116890, guid: f2ec310d0130c924c830e7950e06de7d, type: 2}
+  minionPrefab: {fileID: 197116, guid: 3a5d819965be68043927a9b945214310, type: 2}
   resultOverlay: {fileID: 0}
   state: 0
 --- !u!1001 &100100000

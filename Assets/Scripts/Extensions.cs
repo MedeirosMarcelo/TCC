@@ -23,21 +23,19 @@ public static class Extensions
     }
     public static bool IsAttack(this Collider collider, out IAttack attack)
     {
-        //Debug.Log("Collider is=" + collider.name);
         if (collider.gameObject.tag == "CharacterAttackCollider")
         {
             var character = collider.transform.root.GetComponent<CharacterController>();
-            Assert.IsNotNull(character);
+            Assert.IsFalse(character == null);
             attack = character.fsm.Current as IAttack;
         }
-        else if (collider.gameObject.tag == "AttackCollider")
+        else if (collider.gameObject.tag == "MinionAttackCollider")
         {
             var minion = collider.transform.root.GetComponent<MinionController>();
-            Assert.IsNotNull(minion);
+            Assert.IsFalse(minion == null);
             attack = minion.Fsm.Current as IAttack;
         }
         else
-
         {
             attack = null;
         }

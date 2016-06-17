@@ -40,8 +40,9 @@ namespace Assets.Scripts.Minion
                       new WindUp(this),
                       new Swing(this),
                       new Recover(this),
-                      new End(this),
-                      new Death(this)
+                      new Defeat(this),
+                      new Win(this),
+                      new End(this)
                       );
             Start("IDLE");
         }

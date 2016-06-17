@@ -20,6 +20,7 @@
         {
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
             Minion.Stop();
+            Minion.Animator.CrossFade("MoveLow", 0.3f, -1, 0);
         }
     }
 }

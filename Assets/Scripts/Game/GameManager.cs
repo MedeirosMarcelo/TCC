@@ -152,13 +152,10 @@ namespace Assets.Scripts.Game
 
         void EnterPreRound()
         {
-            var players = PlayerManager.GetPlayerList();
-            Assert.IsTrue(spawns.Length >= players.Count, "More player than spawn points");
-            var spawn = (spawns as IEnumerable<Transform>).GetEnumerator();
-            foreach (var player in players)
+            Assert.IsTrue(spawns.Length >= Teams.Count, "More player than spawn points");
+            foreach (var team in Teams)
             {
-                spawn.MoveNext();
-                player.Character.Reset(spawn.Current);
+                team.Reset();
             }
             EnterState(GameState.PlayRound);
         }
@@ -204,9 +201,11 @@ namespace Assets.Scripts.Game
         {
             // If theres only one other team with leader alive, it wins
             var playingTeams = Teams.Where(team => !team.Leader.Ended);
-            if (playingTeams.Count() == 1)
+            if (playingTeams.Count() <= 1)
             {
-                playingTeams.First().Leader.Win();
+                if (playingTeams.Count() == 1) {
+                    playingTeams.First().Win();
+                }
                 EnterState(GameState.RoundEnd);
             }
         }

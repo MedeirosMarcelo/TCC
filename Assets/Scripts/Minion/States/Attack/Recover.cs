@@ -14,7 +14,7 @@
 
             animation = new AnimationBehaviour(this, Animator);
             animation.PlayTime = 0.55f;
-            animation.Name = "LeftRecover";
+            animation.Name = "AttackHorizontalRecover";
         }
     }
 }
