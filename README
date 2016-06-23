@@ -1,9 +1,22 @@
+Bonetti:
+- Adicionar modelo minion
+- Comportamento safezone mais passivo (range grande)
+- Adicionar NavmeshAgente no player
 
-Feature:
+Diogo:
+- Revisar defesa minion->player
 
-- Minions AI
-- Minions Life Cycle
-- Close combat
- - Lock swords and Push 
- - Min Range for attack
+Marcelo:
+- Trocar espada
+- Espada cravada no cenario
+- Sangue não ficar flutuando
+- Tirar o dash da blendtree
+
+Guilherme:
+- Bandeira
+- Telas
+
+Natanael:
+- Modelo minion
+- Animação sacar espada
 
