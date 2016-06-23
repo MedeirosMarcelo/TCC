@@ -8,6 +8,8 @@ namespace Assets.Scripts.Minion
     using System.Collections.Generic;
     using System.Linq;
     using DecalPainter = Blood.DecalPainter;
+    using WeaponTrail = Xft.XWeaponTrail;
+
     public class MinionController : MonoBehaviour, ITargetable
     {
         [Header("Config:")]
@@ -18,6 +20,8 @@ namespace Assets.Scripts.Minion
         public NavMeshAgent NavAgent { get; private set; }
         public Animator Animator { get; private set; }
         public AudioSource Audio { get; private set; }
+        public WeaponTrail SwordTrail { get; private set; }
+
         public Collider Hitbox { get; private set; }
         public Collider PushCollider { get; private set; }
         public CapsuleCollider AttackCollider { get; private set; }
@@ -62,6 +66,12 @@ namespace Assets.Scripts.Minion
             Assert.IsFalse(PushCollider == null);
             AttackCollider = sword.Find("Attack Collider").GetComponent<CapsuleCollider>();
             Assert.IsFalse(AttackCollider == null);
+
+            SwordTrail = sword.Find("X-WeaponTrail").GetComponent<WeaponTrail>();
+            Assert.IsFalse(SwordTrail == null);
+            // Trail init
+            SwordTrail.Init();
+            SwordTrail.Deactivate();
 
             Fsm = new MinionFsm(this);
         }
