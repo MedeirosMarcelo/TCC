@@ -10,32 +10,31 @@ namespace Assets.Scripts.Minion
     {
         public MinionController Minion { get; protected set; }
         // Fuzzy variables
-        public Variable Stamina { get; protected set; }
-        public Variable Bravery { get; protected set; }
         public Variable Distance { get; protected set; }
+        public Variable Threat { get; protected set; }
+        public Variable Stress { get; protected set; }
 
         public MinionFsm(MinionController minion)
         {
             Minion = minion;
-            Stamina = new Variable(
-                new Set("low", new L(0f, 1f)),
-                new Set("high", new Gamma(0f, 1f))
-            );
-            Stamina.Value = 50f;
-            Bravery = new Variable(
-                new Set("low", new L(0f, 1f)),
-                new Set("high", new Gamma(0f, 1f))
-            );
-            Bravery.Value = Random.value;
-            //Debug.Log("Minion Bravary = " + Bravery.Value);
             Distance = new Variable(
                 new Set("close", new L(1f, 2f)),
                 new Set("mid", new Trapezoidal(1f, 2f, 3f, 4f)),
                 new Set("far", new Gamma(3f, 4f))
             );
+            Threat = new Variable(
+                new Set("danger", new L(2f, 3f)),
+                new Set("vigilant", new Trapezoidal(2f, 3f, 4f, 7f)),
+                new Set("safe", new Gamma(4f, 7f))
+            );
+            Stress = new Variable(
+                new Set("relaxed", new L(-1f, 1f)),
+                new Set("stressed", new Gamma(-1f, 1f))
+            );
 
             AddStates(new Idle(this),
                       new Advance(this),
+                      new Retreat(this),
                       new Circle(this),
                       new WindUp(this),
                       new Swing(this),

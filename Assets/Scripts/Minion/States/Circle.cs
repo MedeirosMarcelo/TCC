@@ -11,7 +11,6 @@ namespace Assets.Scripts.Minion.States
         public Circle(MinionFsm fsm) : base(fsm)
         {
             Name = "CIRCLE";
-            staminaCost = 0.05f; // uses 5% of stamina each follow second
             timer = new TimerBehaviour(this);
             timer.TotalTime = 1f;
             timer.OnFinish = () => NextState();

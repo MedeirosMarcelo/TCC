@@ -647,6 +647,7 @@ GameObject:
   - 114: {fileID: 11498816}
   - 114: {fileID: 11414258}
   - 114: {fileID: 11427806}
+  - 195: {fileID: 19565478}
   m_Layer: 0
   m_Name: CharacterYellow
   m_TagString: Player
@@ -6744,6 +6745,26 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.051188543, y: -0.14415604, z: 1.7413085}
     m_Extent: {x: 0.19267797, y: 0.22874981, z: 0.26347828}
   m_DirtyAABB: 0
+--- !u!195 &19565478
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 116890}
+  m_Enabled: 1
+  m_Radius: 0.3
+  m_Speed: 1.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 90
+  m_StoppingDistance: 0.5
+  m_AutoTraverseOffMeshLink: 0
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: -0.1
+  m_WalkableMask: 1
+  m_ObstacleAvoidanceType: 4
 --- !u!198 &19835750
 ParticleSystem:
   m_ObjectHideFlags: 1

@@ -1,11 +1,11 @@
 ﻿namespace Assets.Scripts.Minion.States
 {
-    public class Advance : MinionState
+    public class Retreat : MinionState
     {
         TimerBehaviour timer;
-        public Advance(MinionFsm fsm) : base(fsm)
+        public Retreat(MinionFsm fsm) : base(fsm)
         {
-            Name = "ADVANCE";
+            Name = "RETREAT";
             timer = new TimerBehaviour(this);
             timer.TotalTime = 1f;
             timer.OnFinish = () => NextState();
@@ -18,7 +18,8 @@
         }
         void UpdateDestination()
         {
-            Minion.UpdateDestination(Target.Transform.position, updateRotation: false);
+            Minion.UpdateDestination(Transform.position - (Transform.forward * 2f),
+                                     updateRotation: false);
         }
         public override void Exit(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {

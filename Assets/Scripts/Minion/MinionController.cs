@@ -137,7 +137,8 @@ namespace Assets.Scripts.Minion
         {
             if (Team.Leader.Lives > 0)
             {
-                Health = 2;
+                Health = 1;
+                Fsm.Stress.Value = 0f;
                 Rigidbody.isKinematic = false;
                 Transform.position = SpawnPosition;
                 Transform.rotation = SpawnRotation;
@@ -182,6 +183,25 @@ namespace Assets.Scripts.Minion
                             minDistance = distance;
                             closest = target;
                         }
+                    }
+                }
+            }
+            return closest;
+        }
+        public ITargetable ClosestTargetLeader()
+        {
+            float minDistance = float.PositiveInfinity;
+            ITargetable closest = null;
+            foreach (var team in Team.OtherTeams)
+            {
+                var target = team.Leader;
+                if (!target.IsDead)
+                {
+                    var distance = (target.Transform.position - Transform.position).magnitude;
+                    if (distance < minDistance)
+                    {
+                        minDistance = distance;
+                        closest = target;
                     }
                 }
             }

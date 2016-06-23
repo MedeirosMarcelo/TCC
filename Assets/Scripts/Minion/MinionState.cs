@@ -17,11 +17,12 @@ namespace Assets.Scripts.Minion
             protected set { Minion.Target = value; }
         }
         // Fuzzy Variables
-        public Variable Stamina { get; protected set; }
-        public Variable Bravery { get; protected set; }
         public Variable Distance { get; protected set; }
+        public Variable Threat { get; protected set; }
+        public Variable Stress { get; protected set; }
 
-        // How much stamina this state drains per FixedUpdate
+        // How much stamina this state drains (on Enter)
+        [System.Obsolete]
         protected float staminaCost;
 
         public MinionState(MinionFsm fsm)
@@ -31,37 +32,10 @@ namespace Assets.Scripts.Minion
             Rigidbody = Minion.Rigidbody;
             Transform = Minion.transform;
             Animator = Minion.Animator;
-            Stamina = fsm.Stamina;
-            Bravery = fsm.Bravery;
+
             Distance = fsm.Distance;
-        }
-
-        public override void PreUpdate()
-        {
-            if (Target == null || Target.IsDead)
-            {
-                var closest = Minion.ClosestTarget(); ;
-                if (closest == null)
-                {
-                    Fsm.ChangeState("END");
-                } else
-                {
-                    Target = closest;
-                }
-            }
-
-
-            if (Target != null && !Target.IsDead)
-            {
-                Distance.Value = (Transform.position - Target.Transform.position).xz().magnitude;
-                // After updating basics update behaviours
-                base.PreUpdate();
-            }
-        }
-        public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime = 0, params object[] args)
-        {
-            base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
-            Stamina.Value = Mathf.Clamp(Stamina.Value - staminaCost, 0f, 1f);
+            Threat = fsm.Threat;
+            Stress = fsm.Stress;
         }
 
         public override void OnTriggerEnter(Collider collider)
@@ -75,35 +49,124 @@ namespace Assets.Scripts.Minion
             base.OnTriggerEnter(collider);
         }
 
-        void UpdateTarget()
+        public override void PreUpdate()
         {
-
+            if (Target == null || Target.IsDead)
+            {
+                var closest = Minion.ClosestTarget(); ;
+                if (closest == null)
+                {
+                    Fsm.ChangeState("END");
+                }
+                else
+                {
+                    Target = closest;
+                }
+            }
+            base.PreUpdate();
         }
-
         public void NextState()
         {
-            var advance = Mamdami.And(Distance["far"], Stamina["high"]);
-            var circle = Mamdami.And(Distance["mid"], Stamina["high"]);
-            var attack = Mamdami.And(Distance["close"], Stamina["high"]);
-            //Debug.Log("Distance:" + Distance.ToString() + " Stamina:" + Stamina.ToString());
-            //Debug.Log("advance,circle,attack = " + advance + "," + circle + "," + attack);
+            var closest = Minion.ClosestTarget();
+            Threat.Value = (Transform.position - closest.Transform.position).xz().magnitude;
 
-            if (advance > 0.5f)
+            if (Threat["danger"] > Mamdami.And(Threat["vigilant"],
+                                               Threat["safe"]))
             {
-                Fsm.ChangeState("ADVANCE");
-                return;
+                Danger();
             }
-            if (circle > 0.5f)
+            else if (Threat["vigilant"] > Mamdami.And(Threat["danger"],
+                                                      Threat["safe"]))
             {
-                Fsm.ChangeState("CIRCLE");
-                return;
+                Vigilant();
             }
-            if (attack > 0.5f)
+            else
+            {
+                Safe();
+            }
+            Stress.Value = Mathf.Clamp(Stress.Value, -2f, 2f);
+        }
+        public void Danger()
+        {
+            // stress
+            Stress.Value += Random.Range(0.2f, 0.4f);
+            // target
+            if (Distance["close"] > Mamdami.And(Distance["mid"], Distance["far"]))
+            {
+                TargetClosest();
+            }
+            // state
+            if (Stress["stressed"] == 1f)
+            {
+                Fsm.ChangeState("RETREAT");
+            }
+            else if (Stress["relaxed"] == 1f)
             {
                 Fsm.ChangeState("ATTACK/WINDUP");
-                return;
             }
-            Fsm.ChangeState("IDLE");
+            else
+            {
+                Fsm.ChangeState((Random.value > 0.5f) ? "CIRCLE" : "ATTACK/WINDUP");
+            }
+        }
+        public void Vigilant()
+        {
+            // stress
+            Stress.Value += Random.Range(-0.1f, 0.1f);
+            // target
+            if (Distance["far"] > Mamdami.And(Distance["close"], Distance["mid"]))
+            {
+                TargetClosest();
+            }
+            // state
+            if (Stress["stressed"] == 1f)
+            {
+                Fsm.ChangeState("RETREAT");
+            }
+            else if (Stress["relaxed"] == 1f)
+            {
+                Fsm.ChangeState("ADVANCE");
+            }
+            else
+            {
+                Fsm.ChangeState((Random.value > 0.5f) ? "CIRCLE" : "IDLE");
+            }
+        }
+        public void Safe()
+        {
+            // stress
+            Stress.Value += Random.Range(-0.3f, -0.1f);
+            // target
+            TargetClosestLeader();
+            // state
+            if (Stress["stressed"] == 1f)
+            {
+                Fsm.ChangeState("IDLE");
+            }
+            else if (Stress["relaxed"] == 1f)
+            {
+                Fsm.ChangeState((Random.value > 0.5f) ? "ADVANCE" : "IDLE");
+            }
+            else
+            {
+                Fsm.ChangeState((Random.value > 0.5f) ? "CIRCLE" : "IDLE");
+            }
+        }
+        public void TargetClosest()
+        {
+            var closest = Minion.ClosestTarget();
+            if (closest != null && closest != Target)
+            {
+                Target = closest;
+            }
+        }
+        public void TargetClosestLeader()
+        {
+            var closest = Minion.ClosestTargetLeader();
+            if (closest != null && closest != Target)
+            {
+                Target = closest;
+            }
         }
 
         public void Look()

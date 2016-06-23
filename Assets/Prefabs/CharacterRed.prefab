@@ -1564,6 +1564,7 @@ GameObject:
   - 114: {fileID: 11485086}
   - 114: {fileID: 11439414}
   - 114: {fileID: 11453822}
+  - 195: {fileID: 19580046}
   m_Layer: 0
   m_Name: CharacterRed
   m_TagString: Player
@@ -6743,6 +6744,26 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.39695024, y: 0.20966892, z: 0.8142365}
     m_Extent: {x: 0.28223902, y: 0.55324537, z: 0.3697509}
   m_DirtyAABB: 0
+--- !u!195 &19580046
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 157282}
+  m_Enabled: 1
+  m_Radius: 0.3
+  m_Speed: 1.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 90
+  m_StoppingDistance: 0.5
+  m_AutoTraverseOffMeshLink: 0
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: -0.1
+  m_WalkableMask: 1
+  m_ObstacleAvoidanceType: 4
 --- !u!198 &19879892
 ParticleSystem:
   m_ObjectHideFlags: 1
