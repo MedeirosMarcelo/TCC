@@ -13,7 +13,7 @@
             timer.TotalTime = 1.367f;
             timer.OnFinish = () => Fsm.ChangeState("END");
 
-            animation = new AnimationBehaviour(this, Character.animator);
+            animation = new AnimationBehaviour(this, Character.Animator);
             animation.TotalTime = 1.367f;
             animation.PlayTime = 1.367f;
             animation.Name = "Win";

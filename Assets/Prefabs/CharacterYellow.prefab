@@ -1704,14 +1704,14 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 448420}
-  - 65: {fileID: 6599774}
+  - 136: {fileID: 13675824}
   m_Layer: 11
-  m_Name: PushCollider
+  m_Name: TooCloseBox
   m_TagString: Push
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &157128
 GameObject:
   m_ObjectHideFlags: 1
@@ -3123,7 +3123,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 167098}
-  m_LocalRotation: {x: 0.040629428, y: 0.7168507, z: 0.31239954, w: 0.6219976}
+  m_LocalRotation: {x: 0.040629424, y: 0.71685064, z: 0.3123995, w: 0.62199754}
   m_LocalPosition: {x: -0.010222307, y: -0.022862444, z: 0.023729209}
   m_LocalScale: {x: 0.9999999, y: 0.9999999, z: 0.99999994}
   m_Children:
@@ -5295,18 +5295,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
---- !u!65 &6599774
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 157006}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 0.19, y: 2, z: 0.3}
-  m_Center: {x: 0.06, y: 1, z: 0.5}
 --- !u!82 &8213724
 AudioSource:
   m_ObjectHideFlags: 1
@@ -5475,6 +5463,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bloodAnimator: {fileID: 9518056}
   sword: {fileID: 476200}
+  bloodAnimator: {fileID: 9518056}
+  sword: {fileID: 476200}
   lifeCounters:
   - {fileID: 126578}
   - {fileID: 175602}
@@ -5530,6 +5520,19 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.33
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0.05, y: 1, z: 0.12}
+--- !u!136 &13675824
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 157006}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.6
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.05, y: 1, z: 0.12}

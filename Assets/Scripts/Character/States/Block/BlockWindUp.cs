@@ -11,7 +11,7 @@
             turnRate = 0.25f;
 
             timer = new TimerBehaviour(this);
-            animation = new AnimationBehaviour(this, Character.animator);
+            animation = new AnimationBehaviour(this, Character.Animator);
         }
     }
 }

@@ -150,7 +150,6 @@ namespace Assets.Scripts.Character
                 var acceleration = GetInputVelovity() - Character.Velocity;
                 acceleration.y = 0;
 
-
                 // Limit acceleration
                 if (acceleration.magnitude > maxAcceleration)
                 {

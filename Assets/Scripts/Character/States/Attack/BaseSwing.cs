@@ -22,7 +22,7 @@ namespace Assets.Scripts.Character.States.Attack
         public BaseSwing(CharacterFsm fsm) : base(fsm)
         {
             timer = new TimerBehaviour(this);
-            animation = new AnimationBehaviour(this, Character.animator);
+            animation = new AnimationBehaviour(this, Character.Animator);
             Displacement = 0f;
             turnRate = 0f;
             nextStance = SwordStance.Right;
@@ -91,7 +91,7 @@ namespace Assets.Scripts.Character.States.Attack
             haveHitted.Clear();
             Character.SwordTrail.Activate();
             Character.AttackCollider.enabled = true;
-            AudioManager.Play(ClipType.Attack, Character.audioSource);
+            AudioManager.Play(ClipType.Attack, Character.Audio);
         }
         public override void Exit(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {

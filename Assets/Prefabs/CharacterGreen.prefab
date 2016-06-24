@@ -1249,14 +1249,14 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 444790}
-  - 65: {fileID: 6506484}
+  - 136: {fileID: 13618208}
   m_Layer: 11
-  m_Name: PushCollider
+  m_Name: TooCloseBox
   m_TagString: Push
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &145310
 GameObject:
   m_ObjectHideFlags: 1
@@ -5295,18 +5295,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
---- !u!65 &6506484
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 145020}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 0.19, y: 2, z: 0.3}
-  m_Center: {x: 0.06, y: 1, z: 0.5}
 --- !u!82 &8255390
 AudioSource:
   m_ObjectHideFlags: 1
@@ -5449,6 +5437,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bloodAnimator: {fileID: 9586530}
   sword: {fileID: 424078}
+  bloodAnimator: {fileID: 9586530}
+  sword: {fileID: 424078}
   lifeCounters:
   - {fileID: 141622}
   - {fileID: 173806}
@@ -5481,6 +5471,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clipNames: []
   clipDurations: []
+--- !u!136 &13618208
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 145020}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.6
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0.05, y: 1, z: 0.12}
 --- !u!136 &13619806
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -20,7 +20,6 @@ namespace Assets.Scripts.Character.States.Lock
 
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {
-            Character.PushCollider.enabled = false;
             Assert.IsTrue(args.Length > 0);
             Assert.IsTrue(args[0] is Collider);
             collider = (Collider)args[0];
@@ -32,7 +31,6 @@ namespace Assets.Scripts.Character.States.Lock
 
         public override void Exit(string lastStateName, string nextStateName, float additionalDeltaTime = 0, params object[] args)
         {
-            Character.PushCollider.enabled = true;
             base.Exit(lastStateName, nextStateName, additionalDeltaTime, args);
         }
 

@@ -27,7 +27,7 @@ public static class Extensions
         {
             var character = collider.transform.root.GetComponent<CharacterController>();
             Assert.IsFalse(character == null);
-            attack = character.fsm.Current as IAttack;
+            attack = character.Fsm.Current as IAttack;
         }
         else if (collider.gameObject.tag == "MinionAttackCollider")
         {

@@ -10,8 +10,8 @@
         {
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
             UnityEngine.Debug.Log("Playing " + Animation + " for " + totalTime.ToString("N2") + "s");
-            Character.animator.SetFloat("Speed", 1f / totalTime);
-            Character.animator.Play(Animation);
+            Character.Animator.SetFloat("Speed", 1f / totalTime);
+            Character.Animator.Play(Animation);
         }
     }
 }

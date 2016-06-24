@@ -38,7 +38,7 @@ namespace Assets.Scripts.Minion.States.Attack
         }
         void UpdateDestination()
         {
-            Minion.UpdateDestination(Target.Transform.position, updateRotation: false);
+            Minion.NavmeshMove(Target.Transform.position, updateRotation: false);
         }
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {

@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.Assertions;
-using System.Collections;
+using System.Collections.Generic;
 using Assets.Scripts.Game;
 using Assets.Scripts.Common;
 
@@ -11,9 +11,6 @@ namespace Assets.Scripts.Character
     using InputEvent = Input.InputEvent;
     using GamePadInput = Input.GamePadInput;
     using GameManager = Game.GameManager;
-    using WeaponTrail = Xft.XWeaponTrail;
-    using DecalPainter = Blood.DecalPainter;
-    using System.Collections.Generic;
 
     public enum SwordStance
     {
@@ -22,35 +19,29 @@ namespace Assets.Scripts.Character
         High
     }
 
-    public class CharacterController : MonoBehaviour, ITargetable
+    public class CharacterController : Humanoid.HumanoidController
     {
         [Header("Config:")]
-        public Animator bloodAnimator;
-        public Transform sword;
         public List<GameObject> lifeCounters;
+
         [Header("Prefabs:")]
         public GameObject sparkPrefab;
         public GameObject swordPrefab;
+
         // Proprieties
         public BaseInput input { get; private set; }
-        public Rigidbody rbody { get; private set; }
-        public AudioSource audioSource { get; private set; }
+        public CharacterFsm Fsm { get; private set; }
         public GameManager game { get; private set; }
-        public CharacterFsm fsm { get; private set; }
-        public Animator animator { get; private set; }
-        public WeaponTrail SwordTrail { get; private set; }
-        public Collider PushCollider { get; private set; }
+
         public SkinnedMeshRenderer Head { get; private set; }
         public SkinnedMeshRenderer Eyes { get; private set; }
         public SkinnedMeshRenderer Body { get; private set; }
-        public CapsuleCollider AttackCollider { get; private set; }
+
         public CapsuleCollider BlockMidCollider { get; private set; }
         public CapsuleCollider BlockHighCollider { get; private set; }
+
         // Internal State
-        public ITargetable Target { get; set; }
         public SwordStance Stance { get; set; }
-        public Vector3 Velocity { get; set; }
-        public int Health { get; private set; }
         public int Lives { get; private set; }
         public bool Ended { get; private set; }
         public PlayerIndex Id
@@ -71,23 +62,13 @@ namespace Assets.Scripts.Character
                 if (!canControl)
                 {
                     input.buffer.Pop<InputEvent>();
-                    rbody.velocity = Vector3.zero;
-                    rbody.angularVelocity = Vector3.zero;
+                    Rigidbody.velocity = Vector3.zero;
+                    Rigidbody.angularVelocity = Vector3.zero;
                     Velocity = Vector3.zero;
-                    rbody.Sleep();
+                    Rigidbody.Sleep();
                 }
             }
         }
-
-
-        // Itargetable Properties
-        public Team Team { get; set; }
-        public bool IsDead { get { return (Health <= 0); } }
-        public Transform Transform { get { return transform; } }
-
-        // Spawn
-        public Vector3 SpawnPosition { get; private set; }
-        public Quaternion SpawnRotation { get; private set; }
 
         // Editor Variables
 #if UNITY_EDITOR
@@ -95,26 +76,18 @@ namespace Assets.Scripts.Character
         private static int currentId = 0;
 #endif
 
-        public void Awake()
+        protected override void Awake()
         {
-            Velocity = Vector3.zero;
-            Health = 2;
+            base.Awake();
+            StartingHealth = 2;
             Lives = 3;
             Ended = false;
             input = new GamePadInput();
             Stance = SwordStance.Right;
             Target = this; // guarantee target will not be null
-            SpawnPosition = Transform.position;
-            SpawnRotation = Transform.rotation;
 
             game = GameObject.Find("GameManager").GetComponent<GameManager>();
             Assert.IsFalse(game == null);
-            rbody = GetComponent<Rigidbody>();
-            Assert.IsFalse(rbody == null);
-            animator = GetComponent<Animator>();
-            Assert.IsFalse(animator == null);
-            PushCollider = transform.Find("PushCollider").GetComponent<Collider>();
-            Assert.IsFalse(PushCollider == null);
 
             Head = transform.Find("Model").Find("head").GetComponent<SkinnedMeshRenderer>();
             Assert.IsFalse(Head == null);
@@ -123,26 +96,17 @@ namespace Assets.Scripts.Character
             Body = transform.Find("Model").Find("body").GetComponent<SkinnedMeshRenderer>();
             Assert.IsFalse(Body == null);
 
-            audioSource = GetComponent<AudioSource>();
-            Assert.IsFalse(audioSource == null);
-            AttackCollider = sword.Find("Attack Collider").GetComponent<CapsuleCollider>();
-            Assert.IsFalse(AttackCollider == null);
             BlockMidCollider = sword.Find("Block Mid Collider").GetComponent<CapsuleCollider>();
             Assert.IsFalse(BlockMidCollider == null);
             BlockHighCollider = sword.Find("Block High Collider").GetComponent<CapsuleCollider>();
             Assert.IsFalse(BlockHighCollider == null);
-            SwordTrail = sword.Find("X-WeaponTrail").GetComponent<Xft.XWeaponTrail>();
-            Assert.IsFalse(SwordTrail == null);
-            // Trail init
-            SwordTrail.Init();
-            SwordTrail.Deactivate();
 
 #if UNITY_EDITOR
             currentId += 1;
             guiId = currentId;
 #endif
             // Fsm must be last, states will access input, rbody ...
-            fsm = new CharacterFsm(this);
+            Fsm = new CharacterFsm(this);
         }
         void Start()
         {
@@ -157,104 +121,54 @@ namespace Assets.Scripts.Character
         }
         public void FixedUpdate()
         {
-            fsm.PreUpdate();
-            fsm.FixedUpdate();
+            Fsm.PreUpdate();
+            Fsm.FixedUpdate();
             input.FixedUpdate();
-        }
-        public void Move(Vector3 position)
-        {
-            Velocity = (position - rbody.position) / Time.fixedDeltaTime;
-            rbody.MovePosition(position);
-
-            var localVelocity = Transform.InverseTransformDirection(Velocity);
-            animator.SetFloat("ForwardSpeed", localVelocity.z);
-            animator.SetFloat("RightSpeed", localVelocity.x);
-        }
-        public void Forward(Vector3 forward)
-        {
-            if (forward != Vector3.zero)
-            {
-                transform.forward = forward;
-            }
         }
         void OnTriggerEnter(Collider collider)
         {
-            fsm.OnTriggerEnter(collider);
+            Fsm.OnTriggerEnter(collider);
         }
-        public void ReceiveDamage(int damage)
+        void OnCollisionEnter(Collision collision)
         {
-            Health -= damage;
-            StartCoroutine("DelayBlood");
-            AudioManager.Play(ClipType.Hit, audioSource);
-            if (Health <= 0)
-            {
-                Die();
-            }
+            Fsm.OnCollisionEnter(collision);
         }
-        public void Win()
+        // Round
+        public override void Win()
         {
-            rbody.isKinematic = true;
-            transform.Find("Hitbox").gameObject.SetActive(false);
-            transform.Find("PushCollider").gameObject.SetActive(false);
-            AttackCollider.enabled = false;
-            fsm.ChangeState("WIN");
+            base.Win();
+            Fsm.ChangeState("WIN");
         }
-        public void Die()
+        public override void Die()
         {
-            Health = 0;
-            Lives--;
-            rbody.isKinematic = true;
-            transform.Find("Hitbox").gameObject.SetActive(false);
-            transform.Find("PushCollider").gameObject.SetActive(false);
-            AttackCollider.enabled = false;
+            base.Die();
             Team.Defeat();
-            fsm.ChangeState("DEFEAT");
+            Fsm.ChangeState("DEFEAT");
+        }
+       public override void Reset()
+        {
+            base.Reset();
+            if (Lives > 0)
+            {
+                Ended = false;
+                for (int i = 0; i < lifeCounters.Count; i++)
+                {
+                    lifeCounters[i].SetActive(Lives >= i + 1);
+                }
+                Fsm.ChangeState("MOVEMENT");
+            }
         }
         public void End()
         {
             Ended = true;
             game.CheckEndRound();
         }
-        public void Reset()
-        {
-            if (Lives > 0)
-            {
-                Ended = false;
-                Health = 2;
-                rbody.isKinematic = false;
-
-                Transform.position = SpawnPosition;
-                Transform.rotation = SpawnRotation;
-
-                transform.Find("Hitbox").gameObject.SetActive(true);
-                transform.Find("PushCollider").gameObject.SetActive(true);
-
-                for (int i = 0; i < lifeCounters.Count; i++)
-                {
-                    lifeCounters[i].SetActive(Lives >= i + 1);
-                }
-
-                fsm.ChangeState("MOVEMENT");
-            }
-        }
-
         public void ShowBlockSpark(Vector3 position)
         {
             Vector3 pos = new Vector3(position.x, position.y + 0.6f, position.z + 0.4f);
             Instantiate(sparkPrefab, pos, sparkPrefab.transform.rotation);
         }
-        IEnumerator DelayBlood()
-        {
-            yield return new WaitForSeconds(0.1f);
-            Paint();
-        }
-        public void Paint()
-        {
-            Vector3 pos = transform.position * 1.1f;
-            pos.z = transform.position.z - 0.5f;
-            pos.y = transform.position.y + 0.5f;
-            DecalPainter.Instance.Paint(pos, Color.gray, 10);
-        }
+        // Target
         public void ChangeTarget(Vector3 direction)
         {
             const float maxAngle = 45f;
@@ -286,26 +200,17 @@ namespace Assets.Scripts.Character
                 Target = nextTarget;
             }
         }
-        public void PlantSword()
-        {
-            Vector3 pos = transform.position;
-            pos.y += 0.5f;
-            Instantiate(swordPrefab, pos, swordPrefab.transform.rotation);
-            // TODO: disable swords.
-            // transform.Find("Model").Find("Swords").Find("Sword " + Lives).gameObject.SetActive(false);
-        }
-
         public void PlayFootsteps()
         {
-            AudioManager.Play(ClipType.Footsteps, audioSource);
+            AudioManager.Play(ClipType.Footsteps, Audio);
         }
 #if UNITY_EDITOR
         void OnGUI()
         {
             string text = "";
             //text +=  input.Debug + "\n";
-            text += fsm.DebugString;
-            text += "\n" + "ForwardSpeed = " + animator.GetFloat("ForwardSpeed").ToString("N2") + " RightSpeed = " + animator.GetFloat("RightSpeed").ToString("N2");
+            text += Fsm.DebugString;
+            text += "\n" + "ForwardSpeed = " + Animator.GetFloat("ForwardSpeed").ToString("N2") + " RightSpeed = " + Animator.GetFloat("RightSpeed").ToString("N2");
             text += "\n";
             foreach (var minion in Team.Minions)
             {

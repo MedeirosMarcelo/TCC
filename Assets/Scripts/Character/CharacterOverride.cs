@@ -21,7 +21,7 @@ namespace Assets.Scripts.Character
         public Action action = Action.BLOCKMID;
 
         CharacterController character;
-        BaseFsm Fsm { get { return character.fsm; } }
+        BaseFsm Fsm { get { return character.Fsm; } }
         IState Current { get { return Fsm.Current; } }
 
         void Start()

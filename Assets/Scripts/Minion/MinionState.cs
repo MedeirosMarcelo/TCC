@@ -40,7 +40,6 @@ namespace Assets.Scripts.Minion
 
         public override void OnTriggerEnter(Collider collider)
         {
-            Debug.Log("OnTriggerEnter");
             if (collider.CompareTag("MinionAttackCollider") || collider.CompareTag("CharacterAttackCollider"))
             {
                 Minion.ReceiveDamage(1);

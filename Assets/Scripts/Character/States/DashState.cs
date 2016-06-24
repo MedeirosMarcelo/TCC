@@ -25,7 +25,7 @@ namespace Assets.Scripts.Character.States
             timer.TotalTime = t_accel + t_plateau + t_deccel + t_recover;
             timer.OnFinish = () => Fsm.ChangeState("MOVEMENT");
 
-            animation = new AnimationBehaviour(this, Character.animator);
+            animation = new AnimationBehaviour(this, Character.Animator);
             animation.Name = "Dash";
         }
 
@@ -36,7 +36,7 @@ namespace Assets.Scripts.Character.States
             var evt = args[0] as InputEvent.Dash;
             Assert.IsNotNull(evt);
             baseVelocity = GetDashVelocity(evt);
-            AudioManager.Play(ClipType.Dash, Character.audioSource);
+            AudioManager.Play(ClipType.Dash, Character.Audio);
         }
 
         Vector3 GetDashVelocity(InputEvent.Dash evt)

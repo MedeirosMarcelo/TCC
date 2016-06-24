@@ -18,7 +18,7 @@ namespace Assets.Scripts.Character.States
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {
             Character.SwordTrail.Deactivate();
-            AudioManager.Play(ClipType.Block, Character.audioSource);
+            AudioManager.Play(ClipType.Block, Character.Audio);
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
         }
         public override void FixedUpdate()

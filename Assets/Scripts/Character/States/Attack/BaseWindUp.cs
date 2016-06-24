@@ -9,7 +9,7 @@
         public BaseWindUp(CharacterFsm fsm) : base(fsm)
         {
             timer = new TimerBehaviour(this);
-            animation = new AnimationBehaviour(this, Character.animator);
+            animation = new AnimationBehaviour(this, Character.Animator);
             turnRate = 0f;
         }
 
