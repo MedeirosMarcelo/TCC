@@ -11,6 +11,26 @@ namespace Assets.Scripts.Character.States.Block
             Name = "BLOCK/MID/SWING";
             nextState = "BLOCK/MID/RECOVER";
         }
+
+        public override void OnCollisionEnter(Collision collision)
+        {
+            IAttack attack;
+            if (collision.collider.IsAttack(out attack))
+            {
+
+            }
+            Debug.Log("Collision contsacts=" + collision.contacts.Length);
+            foreach(var contact in collision.contacts)
+            {
+                Debug.Log("Colllider this="+ contact.thisCollider.name
+                          + " parent=" + contact.thisCollider.transform.root.name
+                          + " other" + contact.otherCollider.name
+                          + " parent=" + contact.otherCollider.transform.root.name);
+
+                Debug.DrawLine(contact.point, contact.point + (Vector3.up * 5f), Color.yellow, 5f);
+            }
+        }
+
         public override void OnTriggerEnter(Collider collider)
         {
             IAttack attack;

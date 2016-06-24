@@ -106,5 +106,7 @@ namespace Assets.Scripts.Character.States.Attack
             float speed = Displacement / timer.TotalTime;
             Character.Move(Transform.position + ((Transform.forward * speed) * Time.fixedDeltaTime));
         }
+
+
     }
 }

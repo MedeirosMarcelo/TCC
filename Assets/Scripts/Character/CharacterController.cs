@@ -181,6 +181,10 @@ namespace Assets.Scripts.Character
         {
             fsm.OnTriggerEnter(collider);
         }
+        void OnCollisionEnter(Collision collision)
+        {
+            fsm.OnCollisionEnter(collision);
+        }
         public void ReceiveDamage(int damage)
         {
             Health -= damage;
