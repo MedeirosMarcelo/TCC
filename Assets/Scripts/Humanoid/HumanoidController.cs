@@ -168,7 +168,23 @@ namespace Assets.Scripts.Humanoid
             {
                 Die();
             }
+            AudioManager.Play(ClipType.Hit, Audio);
         }
+
+        public void PlayFootsteps()
+        {
+            AudioManager.Play(ClipType.Footsteps, Audio);
+            //AnimatorStateInfo currentState = Animator.GetCurrentAnimatorStateInfo(0);
+            //UnityEngine.Debug.Log("STEP " + " " + currentState.normalizedTime + " " + currentState.shortNameHash + " " + Animator.StringToHash("MoveLow"));
+            //if (currentState.normalizedTime > 0.2f && currentState.normalizedTime < 0.25f)
+            //{
+            //    AudioManager.Play(ClipType.Footsteps, Audio);
+            //}
+            //x = 1/maxFrames
+            // 1 - 65
+            // x - 1
+        }
+
         private void Bleed()
         {
             Vector3 pos = transform.position * 1.1f;

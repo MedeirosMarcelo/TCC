@@ -181,7 +181,7 @@ GameObject:
   - 33: {fileID: 3332654}
   - 23: {fileID: 2337984}
   - 64: {fileID: 6498452}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: CoinCollisionCage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5308,6 +5308,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_LocalPosition.y
       value: 4.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

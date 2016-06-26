@@ -200,10 +200,8 @@ namespace Assets.Scripts.Character
                 Target = nextTarget;
             }
         }
-        public void PlayFootsteps()
-        {
-            AudioManager.Play(ClipType.Footsteps, Audio);
-        }
+
+        
 #if UNITY_EDITOR
         void OnGUI()
         {

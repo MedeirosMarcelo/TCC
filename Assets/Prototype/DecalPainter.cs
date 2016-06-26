@@ -105,7 +105,6 @@ public class DecalPainter : MonoBehaviour {
 #endif
 
         RaycastHit hit;
-        int layerMask = 1 << 55;
         // Generate multiple decals in once
         int n = 0;
         while (n < drops) {
@@ -115,7 +114,7 @@ public class DecalPainter : MonoBehaviour {
             if (dir.z < 0) dir.z = Random.Range(0f, 1f);
 
             // Raycast around the position to splash everwhere we can
-            if (Physics.Raycast(location, dir, out hit, SplashRange, layerMask, QueryTriggerInteraction.Ignore))
+            if (Physics.Raycast(location, dir, out hit, SplashRange))
             {
                 PaintDecal(hit, color, scaleBonus);
 

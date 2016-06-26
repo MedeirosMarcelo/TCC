@@ -14,6 +14,7 @@ namespace Assets.Scripts.Blood
         public float SplashRange = 1.5f;
         public int PoolSize = 300;
         public bool ClickToPaint;
+        public LayerMask layerMask;
 
         private Transform[] paintDecals;
         private int currentPoolIndex;
@@ -26,8 +27,9 @@ namespace Assets.Scripts.Blood
 
         void Awake()
         {
-            materials = new List<Material>();
+            layerMask = LayerMask.GetMask("Coin");
 
+            materials = new List<Material>();
             if (Instance != null) Debug.LogError("More than one Painter has been instanciated in this scene!");
             Instance = this;
 
@@ -62,7 +64,6 @@ namespace Assets.Scripts.Blood
             mDrawDebug = true;
 #endif
             RaycastHit hit;
-
             // Generate multiple decals in once
             int n = 0;
             while (n < drops)
@@ -73,7 +74,7 @@ namespace Assets.Scripts.Blood
                 if (dir.z < 0) dir.z = Random.Range(0f, 1f);
 
                 // Raycast around the position to splash everwhere we can
-                if (Physics.Raycast(location, dir, out hit, SplashRange, LayerMask.GetMask("Coin"), QueryTriggerInteraction.Ignore))
+                if (Physics.Raycast(location, dir, out hit, SplashRange, layerMask))
                 {
                     PaintDecal(hit, color, scaleBonus);
 #if UNITY_EDITOR
