@@ -26,7 +26,7 @@ namespace Assets.Scripts.Character.States
             timer.OnFinish = () => Fsm.ChangeState("MOVEMENT");
 
             animation = new AnimationBehaviour(this, Character.Animator);
-            animation.Name = "Dash";
+            animation.Name = "New Dash Forward";
         }
 
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime = 0, params object[] args)
@@ -35,6 +35,7 @@ namespace Assets.Scripts.Character.States
             Assert.IsTrue(args.Length == 1);
             var evt = args[0] as InputEvent.Dash;
             Assert.IsNotNull(evt);
+            SetDashAnimation(evt);
             baseVelocity = GetDashVelocity(evt);
             AudioManager.Play(ClipType.Dash, Character.Audio);
         }
@@ -44,6 +45,31 @@ namespace Assets.Scripts.Character.States
             Vector3 dashVelocity = evt.Move.vector.normalized;
             if (dashVelocity == Vector3.zero) dashVelocity = Character.transform.forward;
             return dashVelocity * maxSpeed;
+        }
+
+        void SetDashAnimation(InputEvent.Dash evt)
+        {
+            Vector3 dashVelocity = evt.Move.vector.normalized;
+            UnityEngine.Debug.Log(dashVelocity);
+            if (dashVelocity == Character.transform.forward) {
+                animation.Name = "New Dash Forward";
+            }
+            else if (dashVelocity == -Character.transform.forward)
+            {
+                animation.Name = "New Dash Back";
+            }
+            else if (dashVelocity == Character.transform.right)
+            {
+                animation.Name = "New Dash Right";
+            }
+            else if (dashVelocity == -Character.transform.right)
+            {
+                animation.Name = "New Dash Left";
+            }
+            else {
+                UnityEngine.Debug.Log("NOPE!");
+            }
+            UnityEngine.Debug.Log(animation.Name);
         }
 
         public override void FixedUpdate()

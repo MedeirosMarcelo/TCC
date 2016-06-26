@@ -32,11 +32,11 @@ namespace Assets.Scripts.UI
                         pauseControl.Pause(false);
                         break;
                     case 1:
-                        SceneManager.LoadScene("Loading");
+                        SceneManager.LoadScene("Loading", LoadSceneMode.Single);
                         break;
                     case 2:
                         PlayerManager.Reset();
-                        SceneManager.LoadScene("Main Menu");
+                        SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
                         break;
                     default:
                         break;
