@@ -329,7 +329,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 149666}
-  m_LocalRotation: {x: 0, y: 0.09826987, z: 0, w: 0.9951598}
+  m_LocalRotation: {x: 0, y: 0.55252343, z: 0, w: 0.83349735}
   m_LocalPosition: {x: 8.516869, y: -0.25, z: 3.3581715}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -421,7 +421,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 188716}
-  m_LocalRotation: {x: 0, y: -0.09826987, z: 0, w: 0.9951598}
+  m_LocalRotation: {x: 0, y: -0.43582335, z: 0, w: 0.9000322}
   m_LocalPosition: {x: -6.9626145, y: -0.25, z: 6.042475}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -459,7 +459,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 112146}
-  m_LocalRotation: {x: 0, y: -0.09826987, z: 0, w: 0.9951598}
+  m_LocalRotation: {x: 0, y: -0.55252314, z: 0, w: 0.8334976}
   m_LocalPosition: {x: -8.516869, y: -0.25, z: 3.3581715}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -509,7 +509,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100410}
-  m_LocalRotation: {x: 0, y: 0.09826987, z: 0, w: 0.9951598}
+  m_LocalRotation: {x: 0, y: 0.43582347, z: 0, w: 0.9000322}
   m_LocalPosition: {x: 6.962615, y: -0.25, z: 6.042475}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -941,8 +941,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: -0.0000009536743, y: -0.054082394, z: -0.18755543}
-    m_Extent: {x: 0.7500002, y: 0.28771698, z: 1.8429792}
+    m_Center: {x: 0.000000044703484, y: -0.05408287, z: -0.18755543}
+    m_Extent: {x: 0.7500005, y: 0.5380372, z: 1.8429797}
   m_DirtyAABB: 0
 --- !u!137 &13720688
 SkinnedMeshRenderer:
@@ -1015,8 +1015,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0, y: -0.054083347, z: -0.18755543}
-    m_Extent: {x: 0.7500002, y: 0.28771698, z: 1.8429792}
+    m_Center: {x: 0.000000029802322, y: -0.05408287, z: -0.18755543}
+    m_Extent: {x: 0.7500008, y: 0.7297317, z: 1.8429797}
   m_DirtyAABB: 0
 --- !u!137 &13752542
 SkinnedMeshRenderer:
@@ -1052,8 +1052,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: -0.00000047683716, y: -0.054083347, z: -0.18755543}
-    m_Extent: {x: 0.7500001, y: 0.28771675, z: 1.8429794}
+    m_Center: {x: 0.000000029802322, y: -0.05408287, z: -0.18755543}
+    m_Extent: {x: 0.7500007, y: 0.72973174, z: 1.8429797}
   m_DirtyAABB: 0
 --- !u!137 &13761216
 SkinnedMeshRenderer:
@@ -1126,8 +1126,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0, y: -0.054082394, z: -0.18755543}
-    m_Extent: {x: 0.7500001, y: 0.28771675, z: 1.8429794}
+    m_Center: {x: 0.000000044703484, y: -0.05408287, z: -0.18755543}
+    m_Extent: {x: 0.7500005, y: 0.5380385, z: 1.8429797}
   m_DirtyAABB: 0
 --- !u!183 &18325796
 Cloth:
@@ -1141,7 +1141,7 @@ Cloth:
   m_UseTethers: 1
   m_UseGravity: 1
   m_Damping: 0
-  m_ExternalAcceleration: {x: -6, y: 0, z: -2}
+  m_ExternalAcceleration: {x: -4, y: 0, z: -2}
   m_RandomAcceleration: {x: 2, y: 0, z: 1}
   m_WorldVelocityScale: 0.5
   m_WorldAccelerationScale: 1
@@ -1622,7 +1622,7 @@ Cloth:
   m_UseTethers: 1
   m_UseGravity: 1
   m_Damping: 0
-  m_ExternalAcceleration: {x: -6, y: 0, z: -2}
+  m_ExternalAcceleration: {x: -4, y: 0, z: -2}
   m_RandomAcceleration: {x: 2, y: 0, z: 1}
   m_WorldVelocityScale: 0.5
   m_WorldAccelerationScale: 1
@@ -2585,7 +2585,7 @@ Cloth:
   m_UseTethers: 1
   m_UseGravity: 1
   m_Damping: 0
-  m_ExternalAcceleration: {x: -6, y: 0, z: -2}
+  m_ExternalAcceleration: {x: -4, y: 0, z: -2}
   m_RandomAcceleration: {x: 2, y: 0, z: 1}
   m_WorldVelocityScale: 0.5
   m_WorldAccelerationScale: 1
@@ -3547,7 +3547,7 @@ Cloth:
   m_UseTethers: 1
   m_UseGravity: 1
   m_Damping: 0
-  m_ExternalAcceleration: {x: -6, y: 0, z: -2}
+  m_ExternalAcceleration: {x: -4, y: 0, z: -2}
   m_RandomAcceleration: {x: 2, y: 0, z: 1}
   m_WorldVelocityScale: 0.5
   m_WorldAccelerationScale: 1
