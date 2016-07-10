@@ -26,7 +26,7 @@ namespace Assets.Scripts.Character.States
             timer.OnFinish = () => Fsm.ChangeState("MOVEMENT");
 
             animation = new AnimationBehaviour(this, Character.Animator);
-            animation.Name = "New Dash Forward";
+            animation.Name = "DashForward";
         }
 
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime = 0, params object[] args)
@@ -49,27 +49,29 @@ namespace Assets.Scripts.Character.States
 
         void SetDashAnimation(InputEvent.Dash evt)
         {
-            Vector3 dashVelocity = evt.Move.vector.normalized;
-            UnityEngine.Debug.Log(dashVelocity);
-            if (dashVelocity == Character.transform.forward) {
-                animation.Name = "New Dash Forward";
-            }
-            else if (dashVelocity == -Character.transform.forward)
+            var dashVelocity = Transform.InverseTransformDirection(evt.Move.vector.normalized);
+            if (Mathf.Abs(dashVelocity.z) > Mathf.Abs(dashVelocity.x))
             {
-                animation.Name = "New Dash Back";
+                if (dashVelocity.z > 0)
+                {
+                    animation.Name = "DashForward";
+                }
+                else
+                {
+                    animation.Name = "DashBack";
+                }
             }
-            else if (dashVelocity == Character.transform.right)
+            else
             {
-                animation.Name = "New Dash Right";
+                if (dashVelocity.x > 0)
+                {
+                    animation.Name = "DashRight";
+                }
+                else
+                {
+                    animation.Name = "DashLeft";
+                }
             }
-            else if (dashVelocity == -Character.transform.right)
-            {
-                animation.Name = "New Dash Left";
-            }
-            else {
-                UnityEngine.Debug.Log("NOPE!");
-            }
-            UnityEngine.Debug.Log(animation.Name);
         }
 
         public override void FixedUpdate()
