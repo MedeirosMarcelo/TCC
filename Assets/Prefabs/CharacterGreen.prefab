@@ -1645,7 +1645,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 401730}
-  - 95: {fileID: 9591610}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -5384,23 +5383,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &9591610
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 154756}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: ac1b590b8fec0f14fa09fdceb2c43641, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &9598550
 Animator:
   serializedVersion: 3
@@ -5409,7 +5391,7 @@ Animator:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 148454}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 062ee49f54be0d6478d700811a4722fb, type: 3}
+  m_Avatar: {fileID: 9000000, guid: ac1b590b8fec0f14fa09fdceb2c43641, type: 3}
   m_Controller: {fileID: 9100000, guid: f24936a9d6c47a246a57ca66c84be792, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 1
@@ -5432,9 +5414,9 @@ MonoBehaviour:
   bloodAnimator: {fileID: 9586530}
   sword: {fileID: 409972}
   lifeCounters:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 152912}
+  - {fileID: 119332}
+  - {fileID: 167988}
   sparkPrefab: {fileID: 135638, guid: 4bfa5014b96dbe24e9f524bf2a83db08, type: 2}
   swordPrefab: {fileID: 197910, guid: 545a6e55f8104684cb89185df0e30b8a, type: 2}
 --- !u!114 &11449198
