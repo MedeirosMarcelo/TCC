@@ -44,6 +44,7 @@ namespace Assets.Scripts.Character
         public SwordStance Stance { get; set; }
         public int Lives { get; private set; }
         public bool Ended { get; private set; }
+        public bool Defeated { get; private set; }
         public PlayerIndex Id
         {
             get { return input.id; }
@@ -82,6 +83,7 @@ namespace Assets.Scripts.Character
             StartingHealth = 2;
             Lives = 3;
             Ended = false;
+            Defeated = false;
             input = new GamePadInput();
             Stance = SwordStance.Right;
             Target = this; // guarantee target will not be null
@@ -144,18 +146,29 @@ namespace Assets.Scripts.Character
             base.Die();
             Team.Defeat();
             Fsm.ChangeState("DEFEAT");
+            Defeated = true;
+            Lives--;
         }
-       public override void Reset()
+        public override void Reset()
         {
             base.Reset();
             if (Lives > 0)
             {
-                Ended = false;
+                /*
                 for (int i = 0; i < lifeCounters.Count; i++)
                 {
                     lifeCounters[i].SetActive(Lives >= i + 1);
+                }*/
+                if (Defeated)
+                {
+                    Fsm.ChangeState("STAND");
                 }
-                Fsm.ChangeState("MOVEMENT");
+                else
+                {
+                    Fsm.ChangeState("MOVEMENT");
+                }
+                Ended = false;
+                Defeated = false;
             }
         }
         public void End()
@@ -200,8 +213,28 @@ namespace Assets.Scripts.Character
                 Target = nextTarget;
             }
         }
+        // Change Sword
+        public void DropSword()
+        {
+            /*
+            var currentSword = lifeCounters[lifeCounters.Count - (Lives + 1)];
+            currentSword.transform.SetParent(null);
+            Debug.Log("Current=" + currentSword.name);
+            */
+        }
+        public void GrabSword()
+        {
+            /*
+            var nextSword = lifeCounters[lifeCounters.Count - (Lives)];
+            var grip = sword.transform.parent;
+            nextSword.transform.position = grip.position;
+            nextSword.transform.rotation = grip.rotation;
+            nextSword.transform.SetParent(grip);
+            Debug.Log("Next=" + nextSword);
+            */
+        }
 
-        
+
 #if UNITY_EDITOR
         void OnGUI()
         {
