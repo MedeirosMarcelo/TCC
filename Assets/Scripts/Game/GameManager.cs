@@ -69,6 +69,7 @@ namespace Assets.Scripts.Game
         }
         public void EnterState(GameState newState)
         {
+            Debug.Log("Enter= " + newState + " Was in =" + State);
             ExitState(State);
             State = newState;
             switch (State)
@@ -181,24 +182,24 @@ namespace Assets.Scripts.Game
                 EnterState(GameState.EndGame);
                 return;
             }
-            StartCoroutine("WaitRestartRound");
+            Invoke("RestartRound", 1.5f);
         }
-        IEnumerator WaitRestartRound()
+        void RestartRound()
         {
-            yield return new WaitForSeconds(1.5f);
             EnterState(GameState.PreRound);
         }
         void EnterEndGame()
         {
-            StartCoroutine("ShowResultScreen");
+            Invoke("ShowResultScreen",1.5f);
         }
-        IEnumerator ShowResultScreen()
+        void ShowResultScreen()
         {
-            yield return new WaitForSeconds(1.5f);
             resultOverlay.SetActive(true);
         }
         public void CheckEndRound()
         {
+            if (State != GameState.RoundEnd)
+            {
             // If theres only one other team with leader alive, it wins
             var playingTeams = Teams.Where(team => !team.Leader.Ended);
             if (playingTeams.Count() <= 1)
@@ -207,6 +208,7 @@ namespace Assets.Scripts.Game
                     playingTeams.First().Win();
                 }
                 EnterState(GameState.RoundEnd);
+            }
             }
         }
         bool CheckGameEnd()
