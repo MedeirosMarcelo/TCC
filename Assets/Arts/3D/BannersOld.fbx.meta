@@ -1,27 +1,22 @@
 fileFormatVersion: 2
-guid: 5647831def3aa5342be6a761664058ea
-timeCreated: 1465312948
+guid: a0a6c5dd0e0bb2a4aa150cbcda1e4807
+timeCreated: 1466646137
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: CurveSword
-    100002: LongSword
-    100004: Sword
-    100006: //RootNode
-    400000: CurveSword
-    400002: LongSword
-    400004: Sword
-    400006: //RootNode
-    2300000: CurveSword
-    2300002: LongSword
-    2300004: Sword
-    3300000: CurveSword
-    3300002: LongSword
-    3300004: Sword
-    4300000: CurveSword
-    4300002: LongSword
-    4300004: Sword
+    100000: Banner
+    100002: //RootNode
+    100004: Pole
+    400000: Banner
+    400002: //RootNode
+    400004: Pole
+    2300000: Banner
+    2300002: Pole
+    3300000: Banner
+    3300002: Pole
+    4300000: Pole
+    4300002: Banner
   materials:
     importMaterials: 1
     materialName: 0
