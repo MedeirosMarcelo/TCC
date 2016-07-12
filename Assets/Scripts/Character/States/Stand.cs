@@ -11,11 +11,8 @@
             turnRate = 0f;
 
             timer = new TimerBehaviour(this);
-            timer.TotalTime = 2f;
+            timer.TotalTime = 3.733f;
             timer.OnFinish = () => {
-                UnityEngine.Debug.Log(Character.name);
-                Character.GrabSword();
-                timer.TotalTime = 3.733f;
                 timer.OnFinish = () => Fsm.ChangeState("MOVEMENT");
             };
 

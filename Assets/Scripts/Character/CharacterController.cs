@@ -22,7 +22,8 @@ namespace Assets.Scripts.Character
     public class CharacterController : Humanoid.HumanoidController
     {
         [Header("Config:")]
-        public List<GameObject> lifeCounters;
+        public List<GameObject> HandSwords;
+        public List<GameObject> BackSwords;
 
         [Header("Prefabs:")]
         public GameObject sparkPrefab;
@@ -102,6 +103,9 @@ namespace Assets.Scripts.Character
             Assert.IsFalse(BlockMidCollider == null);
             BlockHighCollider = sword.Find("Block High Collider").GetComponent<CapsuleCollider>();
             Assert.IsFalse(BlockHighCollider == null);
+
+            HandSwords[1].SetActive(false);
+            HandSwords[2].SetActive(false);
 
 #if UNITY_EDITOR
             currentId += 1;
@@ -216,25 +220,21 @@ namespace Assets.Scripts.Character
         // Change Sword
         public void DropSword()
         {
-            /*
-            var currentSword = lifeCounters[lifeCounters.Count - (Lives + 1)];
-            currentSword.transform.SetParent(null);
-            Debug.Log("Current=" + currentSword.name);
-            */
+            Debug.Log("Drop");
+            var handSword = HandSwords[HandSwords.Count - (Lives + 1)];
+            handSword.transform.SetParent(null);
+            Debug.Log("Hand=" + handSword.name);
+            Invoke("GrabSword", 2f);
         }
         public void GrabSword()
         {
-            /*
-            var nextSword = lifeCounters[lifeCounters.Count - (Lives)];
-            var grip = sword.transform.parent;
-            nextSword.transform.position = grip.position;
-            nextSword.transform.rotation = grip.rotation;
-            nextSword.transform.SetParent(grip);
-            Debug.Log("Next=" + nextSword);
-            */
+            Debug.Log("Grab");
+            var handSword = HandSwords[HandSwords.Count - Lives]; // 1,2
+            var backSword = BackSwords[BackSwords.Count - Lives]; // 0,1
+            handSword.SetActive(true);
+            backSword.SetActive(false);
+            Debug.Log("Hand=" + handSword + " Back=" + backSword);
         }
-
-
 #if UNITY_EDITOR
         void OnGUI()
         {

@@ -849,6 +849,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &126592
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 455702}
+  m_Layer: 0
+  m_Name: sword 02
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &126782
 GameObject:
   m_ObjectHideFlags: 1
@@ -859,6 +874,22 @@ GameObject:
   - 4: {fileID: 463920}
   m_Layer: 0
   m_Name: DEF-shoulder.L
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &126898
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 496578}
+  - 137: {fileID: 13724084}
+  m_Layer: 0
+  m_Name: sword_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2146,6 +2177,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &177900
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 470022}
+  - 137: {fileID: 13711212}
+  m_Layer: 0
+  m_Name: sword_02
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &178896
 GameObject:
   m_ObjectHideFlags: 1
@@ -2397,6 +2444,21 @@ GameObject:
   - 4: {fileID: 460890}
   m_Layer: 0
   m_Name: DEF-f_index.01.L.01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &187590
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 412192}
+  m_Layer: 0
+  m_Name: sword 03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3045,6 +3107,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 432140}
   m_RootOrder: 1
+--- !u!4 &412192
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 187590}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 496578}
+  m_Father: {fileID: 469654}
+  m_RootOrder: 3
 --- !u!4 &413362
 Transform:
   m_ObjectHideFlags: 1
@@ -3202,12 +3277,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 123212}
-  m_LocalRotation: {x: 0.7071068, y: -0.00000008455713, z: -0.000000084557115, w: 0.7071067}
-  m_LocalPosition: {x: 0.8487152, y: 0, z: 0.816184}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 451732}
   m_Father: {fileID: 462054}
-  m_RootOrder: 7
+  m_RootOrder: 8
 --- !u!4 &418750
 Transform:
   m_ObjectHideFlags: 1
@@ -3633,7 +3709,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 485832}
   m_Father: {fileID: 469654}
   m_RootOrder: 1
 --- !u!4 &433486
@@ -3969,7 +4046,7 @@ Transform:
   m_LocalScale: {x: 0.9999999, y: 0.9999999, z: 1}
   m_Children: []
   m_Father: {fileID: 469654}
-  m_RootOrder: 2
+  m_RootOrder: 4
 --- !u!4 &447244
 Transform:
   m_ObjectHideFlags: 1
@@ -4088,9 +4165,6 @@ Transform:
   - {fileID: 448798}
   - {fileID: 408680}
   - {fileID: 485344}
-  - {fileID: 485832}
-  - {fileID: 498636}
-  - {fileID: 451732}
   m_Father: {fileID: 434608}
   m_RootOrder: 4
 --- !u!4 &450016
@@ -4152,12 +4226,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 134184}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 0.8525824, y: 0.8743043, z: -0.000000019909432}
+  m_LocalRotation: {x: -0.7071068, y: 0.00000008455712, z: 0.00000008455712, w: 0.7071067}
+  m_LocalPosition: {x: 0.003867209, y: 0.058120247, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 449568}
-  m_RootOrder: 6
+  m_Father: {fileID: 418378}
+  m_RootOrder: 0
 --- !u!4 &452810
 Transform:
   m_ObjectHideFlags: 1
@@ -4208,7 +4282,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 462054}
-  m_RootOrder: 8
+  m_RootOrder: 6
 --- !u!4 &454850
 Transform:
   m_ObjectHideFlags: 1
@@ -4236,6 +4310,19 @@ Transform:
   - {fileID: 431590}
   m_Father: {fileID: 415964}
   m_RootOrder: 3
+--- !u!4 &455702
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 126592}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 470022}
+  m_Father: {fileID: 469654}
+  m_RootOrder: 2
 --- !u!4 &455766
 Transform:
   m_ObjectHideFlags: 1
@@ -4272,12 +4359,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 183554}
-  m_LocalRotation: {x: 0.7071069, y: -0.000000084557094, z: -0.00000008455713, w: 0.7071067}
-  m_LocalPosition: {x: 1.1352054, y: 0.00000005960464, z: 0.817606}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 498636}
   m_Father: {fileID: 462054}
-  m_RootOrder: 6
+  m_RootOrder: 7
 --- !u!4 &456804
 Transform:
   m_ObjectHideFlags: 1
@@ -4441,9 +4529,9 @@ Transform:
   - {fileID: 492732}
   - {fileID: 407580}
   - {fileID: 431740}
+  - {fileID: 454038}
   - {fileID: 456376}
   - {fileID: 418378}
-  - {fileID: 454038}
   m_Father: {fileID: 485344}
   m_RootOrder: 0
 --- !u!4 &462990
@@ -4685,6 +4773,8 @@ Transform:
   m_Children:
   - {fileID: 418100}
   - {fileID: 433032}
+  - {fileID: 455702}
+  - {fileID: 412192}
   - {fileID: 447070}
   m_Father: {fileID: 413530}
   m_RootOrder: 0
@@ -4726,6 +4816,18 @@ Transform:
   m_LocalScale: {x: 1, y: 0.9999996, z: 0.99999994}
   m_Children: []
   m_Father: {fileID: 429034}
+  m_RootOrder: 0
+--- !u!4 &470022
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 177900}
+  m_LocalRotation: {x: -0.7071068, y: 0.000000084557094, z: 0.00000008455712, w: 0.7071067}
+  m_LocalPosition: {x: 0, y: 0.05705464, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 455702}
   m_RootOrder: 0
 --- !u!4 &470100
 Transform:
@@ -4990,12 +5092,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 162898}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 1.3701948, y: 0.87444854, z: -0.000000025893074}
+  m_LocalRotation: {x: -0.5041537, y: 0.0016244948, z: -0.86343384, w: 0.017565072}
+  m_LocalPosition: {x: -0.614048, y: -0.11438891, z: 0.64652187}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 449568}
-  m_RootOrder: 4
+  m_Father: {fileID: 433032}
+  m_RootOrder: 0
 --- !u!4 &488116
 Transform:
   m_ObjectHideFlags: 1
@@ -5226,6 +5328,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 422956}
   m_RootOrder: 0
+--- !u!4 &496578
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 126898}
+  m_LocalRotation: {x: -0.7071068, y: 0.00000008455712, z: 0.00000008455712, w: 0.7071067}
+  m_LocalPosition: {x: 0.003867209, y: 0.058120247, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 412192}
+  m_RootOrder: 0
 --- !u!4 &496812
 Transform:
   m_ObjectHideFlags: 1
@@ -5271,12 +5385,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 109928}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 1.1352054, y: 0.8746607, z: -0.00000003230256}
+  m_LocalRotation: {x: -0.7071068, y: 0.000000084557094, z: 0.00000008455712, w: 0.7071067}
+  m_LocalPosition: {x: 0, y: 0.05705464, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 449568}
-  m_RootOrder: 5
+  m_Father: {fileID: 456376}
+  m_RootOrder: 0
 --- !u!54 &5480704
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -5460,8 +5574,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bloodAnimator: {fileID: 9518056}
   sword: {fileID: 418100}
-  lifeCounters:
+  HandSwords:
   - {fileID: 192468}
+  - {fileID: 126592}
+  - {fileID: 187590}
+  BackSwords:
   - {fileID: 183554}
   - {fileID: 123212}
   sparkPrefab: {fileID: 135638, guid: 4bfa5014b96dbe24e9f524bf2a83db08, type: 2}
@@ -5720,8 +5837,8 @@ SkinnedMeshRenderer:
   - {fileID: 417268}
   - {fileID: 418750}
   - {fileID: 433032}
-  - {fileID: 456376}
-  - {fileID: 418378}
+  - {fileID: 455702}
+  - {fileID: 412192}
   - {fileID: 488116}
   - {fileID: 409160}
   - {fileID: 438624}
@@ -5924,6 +6041,410 @@ SkinnedMeshRenderer:
   - {fileID: 433032}
   - {fileID: 456376}
   - {fileID: 418378}
+  - {fileID: 488116}
+  - {fileID: 409160}
+  - {fileID: 438624}
+  - {fileID: 429802}
+  - {fileID: 454038}
+  m_BlendShapeWeights: []
+  m_RootBone: {fileID: 462054}
+  m_AABB:
+    m_Center: {x: 0.8938352, y: -0.00000005401671, z: 1.3885612}
+    m_Extent: {x: 0.16274938, y: 0.024724465, z: 0.7987022}
+  m_DirtyAABB: 0
+--- !u!137 &13711212
+SkinnedMeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 177900}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 2100000, guid: d55e82b9731e17b40be72282ca521283, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  serializedVersion: 2
+  m_Quality: 0
+  m_UpdateWhenOffscreen: 0
+  m_Mesh: {fileID: 4300002, guid: ac1b590b8fec0f14fa09fdceb2c43641, type: 3}
+  m_Bones:
+  - {fileID: 462054}
+  - {fileID: 431740}
+  - {fileID: 420570}
+  - {fileID: 402648}
+  - {fileID: 444436}
+  - {fileID: 432140}
+  - {fileID: 463092}
+  - {fileID: 411602}
+  - {fileID: 430786}
+  - {fileID: 469904}
+  - {fileID: 482418}
+  - {fileID: 456040}
+  - {fileID: 469598}
+  - {fileID: 449146}
+  - {fileID: 465210}
+  - {fileID: 438054}
+  - {fileID: 493194}
+  - {fileID: 465930}
+  - {fileID: 455766}
+  - {fileID: 446796}
+  - {fileID: 485204}
+  - {fileID: 462024}
+  - {fileID: 463390}
+  - {fileID: 480662}
+  - {fileID: 463508}
+  - {fileID: 445990}
+  - {fileID: 460890}
+  - {fileID: 420856}
+  - {fileID: 467888}
+  - {fileID: 427798}
+  - {fileID: 493694}
+  - {fileID: 408108}
+  - {fileID: 450596}
+  - {fileID: 433486}
+  - {fileID: 470100}
+  - {fileID: 441942}
+  - {fileID: 479024}
+  - {fileID: 461632}
+  - {fileID: 492048}
+  - {fileID: 418864}
+  - {fileID: 485456}
+  - {fileID: 413362}
+  - {fileID: 464516}
+  - {fileID: 423132}
+  - {fileID: 438912}
+  - {fileID: 425228}
+  - {fileID: 420026}
+  - {fileID: 470396}
+  - {fileID: 414204}
+  - {fileID: 443788}
+  - {fileID: 476406}
+  - {fileID: 473894}
+  - {fileID: 415084}
+  - {fileID: 468076}
+  - {fileID: 496404}
+  - {fileID: 491624}
+  - {fileID: 476158}
+  - {fileID: 439638}
+  - {fileID: 439886}
+  - {fileID: 408144}
+  - {fileID: 414066}
+  - {fileID: 463920}
+  - {fileID: 424952}
+  - {fileID: 469438}
+  - {fileID: 429034}
+  - {fileID: 441242}
+  - {fileID: 415964}
+  - {fileID: 455306}
+  - {fileID: 431590}
+  - {fileID: 484670}
+  - {fileID: 428418}
+  - {fileID: 439584}
+  - {fileID: 440514}
+  - {fileID: 432310}
+  - {fileID: 411486}
+  - {fileID: 404650}
+  - {fileID: 428920}
+  - {fileID: 493786}
+  - {fileID: 437666}
+  - {fileID: 485074}
+  - {fileID: 488642}
+  - {fileID: 415600}
+  - {fileID: 436676}
+  - {fileID: 435074}
+  - {fileID: 447398}
+  - {fileID: 494222}
+  - {fileID: 401436}
+  - {fileID: 484644}
+  - {fileID: 418954}
+  - {fileID: 453100}
+  - {fileID: 456804}
+  - {fileID: 451590}
+  - {fileID: 469188}
+  - {fileID: 417242}
+  - {fileID: 490154}
+  - {fileID: 448714}
+  - {fileID: 496812}
+  - {fileID: 436894}
+  - {fileID: 466192}
+  - {fileID: 489904}
+  - {fileID: 431296}
+  - {fileID: 407936}
+  - {fileID: 463290}
+  - {fileID: 476062}
+  - {fileID: 449164}
+  - {fileID: 458996}
+  - {fileID: 436736}
+  - {fileID: 410248}
+  - {fileID: 495598}
+  - {fileID: 413530}
+  - {fileID: 469654}
+  - {fileID: 447070}
+  - {fileID: 469948}
+  - {fileID: 458720}
+  - {fileID: 457774}
+  - {fileID: 402884}
+  - {fileID: 404976}
+  - {fileID: 418832}
+  - {fileID: 460518}
+  - {fileID: 469778}
+  - {fileID: 426888}
+  - {fileID: 422026}
+  - {fileID: 424302}
+  - {fileID: 497992}
+  - {fileID: 417894}
+  - {fileID: 447280}
+  - {fileID: 458234}
+  - {fileID: 452810}
+  - {fileID: 468070}
+  - {fileID: 435396}
+  - {fileID: 403774}
+  - {fileID: 451026}
+  - {fileID: 405108}
+  - {fileID: 450016}
+  - {fileID: 459938}
+  - {fileID: 424998}
+  - {fileID: 433788}
+  - {fileID: 422956}
+  - {fileID: 496518}
+  - {fileID: 430808}
+  - {fileID: 401256}
+  - {fileID: 432838}
+  - {fileID: 453518}
+  - {fileID: 420784}
+  - {fileID: 454850}
+  - {fileID: 484882}
+  - {fileID: 496070}
+  - {fileID: 498632}
+  - {fileID: 407580}
+  - {fileID: 474556}
+  - {fileID: 492732}
+  - {fileID: 467668}
+  - {fileID: 461756}
+  - {fileID: 479770}
+  - {fileID: 482568}
+  - {fileID: 417268}
+  - {fileID: 418750}
+  - {fileID: 433032}
+  - {fileID: 455702}
+  - {fileID: 412192}
+  - {fileID: 488116}
+  - {fileID: 409160}
+  - {fileID: 438624}
+  - {fileID: 429802}
+  - {fileID: 454038}
+  m_BlendShapeWeights: []
+  m_RootBone: {fileID: 462054}
+  m_AABB:
+    m_Center: {x: 1.1352484, y: -0.00000026635826, z: 1.3925505}
+    m_Extent: {x: 0.059387565, y: 0.030480627, z: 0.80247647}
+  m_DirtyAABB: 0
+--- !u!137 &13724084
+SkinnedMeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 126898}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 2100000, guid: d55e82b9731e17b40be72282ca521283, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  serializedVersion: 2
+  m_Quality: 0
+  m_UpdateWhenOffscreen: 0
+  m_Mesh: {fileID: 4300000, guid: ac1b590b8fec0f14fa09fdceb2c43641, type: 3}
+  m_Bones:
+  - {fileID: 462054}
+  - {fileID: 431740}
+  - {fileID: 420570}
+  - {fileID: 402648}
+  - {fileID: 444436}
+  - {fileID: 432140}
+  - {fileID: 463092}
+  - {fileID: 411602}
+  - {fileID: 430786}
+  - {fileID: 469904}
+  - {fileID: 482418}
+  - {fileID: 456040}
+  - {fileID: 469598}
+  - {fileID: 449146}
+  - {fileID: 465210}
+  - {fileID: 438054}
+  - {fileID: 493194}
+  - {fileID: 465930}
+  - {fileID: 455766}
+  - {fileID: 446796}
+  - {fileID: 485204}
+  - {fileID: 462024}
+  - {fileID: 463390}
+  - {fileID: 480662}
+  - {fileID: 463508}
+  - {fileID: 445990}
+  - {fileID: 460890}
+  - {fileID: 420856}
+  - {fileID: 467888}
+  - {fileID: 427798}
+  - {fileID: 493694}
+  - {fileID: 408108}
+  - {fileID: 450596}
+  - {fileID: 433486}
+  - {fileID: 470100}
+  - {fileID: 441942}
+  - {fileID: 479024}
+  - {fileID: 461632}
+  - {fileID: 492048}
+  - {fileID: 418864}
+  - {fileID: 485456}
+  - {fileID: 413362}
+  - {fileID: 464516}
+  - {fileID: 423132}
+  - {fileID: 438912}
+  - {fileID: 425228}
+  - {fileID: 420026}
+  - {fileID: 470396}
+  - {fileID: 414204}
+  - {fileID: 443788}
+  - {fileID: 476406}
+  - {fileID: 473894}
+  - {fileID: 415084}
+  - {fileID: 468076}
+  - {fileID: 496404}
+  - {fileID: 491624}
+  - {fileID: 476158}
+  - {fileID: 439638}
+  - {fileID: 439886}
+  - {fileID: 408144}
+  - {fileID: 414066}
+  - {fileID: 463920}
+  - {fileID: 424952}
+  - {fileID: 469438}
+  - {fileID: 429034}
+  - {fileID: 441242}
+  - {fileID: 415964}
+  - {fileID: 455306}
+  - {fileID: 431590}
+  - {fileID: 484670}
+  - {fileID: 428418}
+  - {fileID: 439584}
+  - {fileID: 440514}
+  - {fileID: 432310}
+  - {fileID: 411486}
+  - {fileID: 404650}
+  - {fileID: 428920}
+  - {fileID: 493786}
+  - {fileID: 437666}
+  - {fileID: 485074}
+  - {fileID: 488642}
+  - {fileID: 415600}
+  - {fileID: 436676}
+  - {fileID: 435074}
+  - {fileID: 447398}
+  - {fileID: 494222}
+  - {fileID: 401436}
+  - {fileID: 484644}
+  - {fileID: 418954}
+  - {fileID: 453100}
+  - {fileID: 456804}
+  - {fileID: 451590}
+  - {fileID: 469188}
+  - {fileID: 417242}
+  - {fileID: 490154}
+  - {fileID: 448714}
+  - {fileID: 496812}
+  - {fileID: 436894}
+  - {fileID: 466192}
+  - {fileID: 489904}
+  - {fileID: 431296}
+  - {fileID: 407936}
+  - {fileID: 463290}
+  - {fileID: 476062}
+  - {fileID: 449164}
+  - {fileID: 458996}
+  - {fileID: 436736}
+  - {fileID: 410248}
+  - {fileID: 495598}
+  - {fileID: 413530}
+  - {fileID: 469654}
+  - {fileID: 447070}
+  - {fileID: 469948}
+  - {fileID: 458720}
+  - {fileID: 457774}
+  - {fileID: 402884}
+  - {fileID: 404976}
+  - {fileID: 418832}
+  - {fileID: 460518}
+  - {fileID: 469778}
+  - {fileID: 426888}
+  - {fileID: 422026}
+  - {fileID: 424302}
+  - {fileID: 497992}
+  - {fileID: 417894}
+  - {fileID: 447280}
+  - {fileID: 458234}
+  - {fileID: 452810}
+  - {fileID: 468070}
+  - {fileID: 435396}
+  - {fileID: 403774}
+  - {fileID: 451026}
+  - {fileID: 405108}
+  - {fileID: 450016}
+  - {fileID: 459938}
+  - {fileID: 424998}
+  - {fileID: 433788}
+  - {fileID: 422956}
+  - {fileID: 496518}
+  - {fileID: 430808}
+  - {fileID: 401256}
+  - {fileID: 432838}
+  - {fileID: 453518}
+  - {fileID: 420784}
+  - {fileID: 454850}
+  - {fileID: 484882}
+  - {fileID: 496070}
+  - {fileID: 498632}
+  - {fileID: 407580}
+  - {fileID: 474556}
+  - {fileID: 492732}
+  - {fileID: 467668}
+  - {fileID: 461756}
+  - {fileID: 479770}
+  - {fileID: 482568}
+  - {fileID: 417268}
+  - {fileID: 418750}
+  - {fileID: 433032}
+  - {fileID: 455702}
+  - {fileID: 412192}
   - {fileID: 488116}
   - {fileID: 409160}
   - {fileID: 438624}
@@ -6326,8 +6847,8 @@ SkinnedMeshRenderer:
   - {fileID: 417268}
   - {fileID: 418750}
   - {fileID: 433032}
-  - {fileID: 456376}
-  - {fileID: 418378}
+  - {fileID: 455702}
+  - {fileID: 412192}
   - {fileID: 488116}
   - {fileID: 409160}
   - {fileID: 438624}
@@ -6528,8 +7049,8 @@ SkinnedMeshRenderer:
   - {fileID: 417268}
   - {fileID: 418750}
   - {fileID: 433032}
-  - {fileID: 456376}
-  - {fileID: 418378}
+  - {fileID: 455702}
+  - {fileID: 412192}
   - {fileID: 488116}
   - {fileID: 409160}
   - {fileID: 438624}
@@ -6730,8 +7251,8 @@ SkinnedMeshRenderer:
   - {fileID: 417268}
   - {fileID: 418750}
   - {fileID: 433032}
-  - {fileID: 456376}
-  - {fileID: 418378}
+  - {fileID: 455702}
+  - {fileID: 412192}
   - {fileID: 488116}
   - {fileID: 409160}
   - {fileID: 438624}
