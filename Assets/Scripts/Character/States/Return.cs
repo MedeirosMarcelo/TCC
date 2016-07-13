@@ -2,20 +2,20 @@
 {
     public class Return : CharacterState
     {
+        TimerBehaviour timer;
         public Return(CharacterFsm fsm) : base(fsm)
         {
             Name = "RETURN";
+
+            timer = new TimerBehaviour(this);
+            timer.TotalTime = 5f;
+            timer.OnFinish = () => Fsm.ChangeState("END");
         }
         public override void FixedUpdate()
         {
             base.FixedUpdate();
             Look();
             Character.NavmeshAnimateWalk();
-
-            if (Character.NavmeshReachedDestination())
-            {
-                Fsm.ChangeState("END");
-            }
         }
         public override void Enter(string lastStateName, string nextStateName, float additionalDeltaTime = 0, params object[] args)
         {

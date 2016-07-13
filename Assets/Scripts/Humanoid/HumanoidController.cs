@@ -128,12 +128,6 @@ namespace Assets.Scripts.Humanoid
             Animator.SetFloat("ForwardSpeed", localVelocity.z);
             Animator.SetFloat("RightSpeed", localVelocity.x);
         }
-        public bool NavmeshReachedDestination()
-        {
-            return (!NavAgent.pathPending
-                && (NavAgent.remainingDistance <= NavAgent.stoppingDistance)
-                && (!NavAgent.hasPath || NavAgent.velocity.sqrMagnitude == 0f));
-        }
 
         // Round stuff
         public virtual void Win()

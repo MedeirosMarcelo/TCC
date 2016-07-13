@@ -76,7 +76,7 @@ namespace Assets.Scripts.Minion
         {
             base.PostRound();
             NavmeshStop();
-            if (!Team.Leader.IsDead)
+            if (!IsDead && !Team.Leader.IsDead)
             {
                 Fsm.ChangeState("WIN");
             }

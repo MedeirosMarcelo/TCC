@@ -25,7 +25,7 @@ public class AnimationBehaviour : BaseBehaviour
         Animator.SetFloat("Speed", TotalTime / PlayTime);
         if (Name != "")
         {
-            if (PlayTime < CrossFadeTime)
+            if (Mathf.Abs(PlayTime) < CrossFadeTime)
             {
                 Animator.Play(Name);
             }

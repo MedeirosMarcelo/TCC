@@ -108,6 +108,8 @@ namespace Assets.Scripts.Minion.States.Attack
         }
         public void Blocked()
         {
+            Fsm.ChangeState("STAGGER");
+
         }
     }
 }

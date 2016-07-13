@@ -38,6 +38,7 @@ namespace Assets.Scripts.Minion
                       new Circle(this),
                       new WindUp(this),
                       new Swing(this),
+                      new Stagger(this),
                       new Recover(this),
                       new Defeat(this),
                       new Win(this),

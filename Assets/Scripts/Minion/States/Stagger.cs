@@ -1,11 +1,11 @@
-﻿namespace Assets.Scripts.Character.States
+﻿namespace Assets.Scripts.Minion.States
 {
-    public class Stagger : CharacterState 
+    public class Stagger : MinionState 
     {
         TimerBehaviour timer;
         AnimationBehaviour animation;
 
-        public Stagger(CharacterFsm fsm) : base(fsm)
+        public Stagger(MinionFsm fsm) : base(fsm)
         {
             Name = "STAGGER";
 
@@ -13,7 +13,7 @@
             timer.TotalTime = 1.2f;
             timer.OnFinish = () => Fsm.ChangeState("IDLE");
 
-            animation = new AnimationBehaviour(this, Character.Animator);
+            animation = new AnimationBehaviour(this, Animator);
             animation.PlayTime =  1.2f;
             animation.TotalTime = 1.2f;
             animation.Name = "Stagger";
