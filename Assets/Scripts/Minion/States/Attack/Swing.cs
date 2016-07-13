@@ -17,13 +17,13 @@ namespace Assets.Scripts.Minion.States.Attack
         public Swing(MinionFsm fsm) : base(fsm)
         {
             Name = "ATTACK/SWING";
-            staminaCost = 0.5f; // uses 5% of stamina each attack/swing
             timer = new TimerBehaviour(this);
             timer.TotalTime = 0.15f;
             timer.OnFinish = () => Fsm.ChangeState("ATTACK/RECOVER");
 
             animation = new AnimationBehaviour(this, Animator);
             animation.PlayTime = 0.15f;
+            animation.TotalTime = 0.2f;
             animation.Name = "AttackHorizontalSwing";
 
             Damage = 1;
