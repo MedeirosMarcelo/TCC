@@ -41,6 +41,7 @@ namespace Assets.Scripts.Minion
                       new Recover(this),
                       new Defeat(this),
                       new Win(this),
+                      new Stand(this),
                       new End(this)
                       );
             Start("IDLE");

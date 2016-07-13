@@ -42,10 +42,9 @@ namespace Assets.Scripts.Character
         public CapsuleCollider BlockHighCollider { get; private set; }
 
         // Internal State
+        public override bool Ended { get { return (Fsm.Current.Name == "END"); } }
         public SwordStance Stance { get; set; }
         public int Lives { get; private set; }
-        public bool Ended { get; private set; }
-        public bool Defeated { get; private set; }
         public PlayerIndex Id
         {
             get { return input.id; }
@@ -80,11 +79,10 @@ namespace Assets.Scripts.Character
 
         protected override void Awake()
         {
-            base.Awake();
             StartingHealth = 2;
+            base.Awake();
+
             Lives = 3;
-            Ended = false;
-            Defeated = false;
             input = new GamePadInput();
             Stance = SwordStance.Right;
             Target = this; // guarantee target will not be null
@@ -113,6 +111,7 @@ namespace Assets.Scripts.Character
 #endif
             // Fsm must be last, states will access input, rbody ...
             Fsm = new CharacterFsm(this);
+            Fsm.ChangeState("END");
         }
         void Start()
         {
@@ -150,36 +149,42 @@ namespace Assets.Scripts.Character
             base.Die();
             Team.Defeat();
             Fsm.ChangeState("DEFEAT");
-            Defeated = true;
             Lives--;
         }
-        public override void Reset()
+
+        //Round
+        public override void PreRound()
         {
-            base.Reset();
-            if (Lives > 0)
+            Debug.Log("PreRound");
+            bool defeated = IsDead;
+            base.PreRound();
+
+            if (Lives > 0 && defeated)
             {
-                /*
-                for (int i = 0; i < lifeCounters.Count; i++)
-                {
-                    lifeCounters[i].SetActive(Lives >= i + 1);
-                }*/
-                if (Defeated)
-                {
-                    Fsm.ChangeState("STAND");
-                }
-                else
-                {
-                    Fsm.ChangeState("MOVEMENT");
-                }
-                Ended = false;
-                Defeated = false;
+                Fsm.ChangeState("STAND");
             }
         }
-        public void End()
+        public override void Round()
         {
-            Ended = true;
-            game.CheckEndRound();
+            Debug.Log("StartRound");
+            base.Round();
+            if (Lives > 0)
+            {
+                CanControl = true;
+                Fsm.ChangeState("MOVEMENT");
+            }
         }
+        public override void PostRound()
+        {
+            Debug.Log("EndRound");
+            base.PostRound();
+            CanControl = false;
+            if (!IsDead)
+            {
+                Fsm.ChangeState("WIN");
+            }
+        }
+
         public void ShowBlockSpark(Vector3 position)
         {
             Vector3 pos = new Vector3(position.x, position.y + 0.6f, position.z + 0.4f);

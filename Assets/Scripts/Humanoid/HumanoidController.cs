@@ -36,6 +36,7 @@ namespace Assets.Scripts.Humanoid
         public Transform Transform { get { return transform; } }
 
         // Internal State
+        public virtual bool Ended { get { throw new System.NotImplementedException(); } }
         public ITargetable Target;
         public int Health { get; protected set; }
         public Vector3 Velocity { get; set; }
@@ -49,7 +50,9 @@ namespace Assets.Scripts.Humanoid
         {
             Assert.IsFalse(bloodAnimator == null);
             Assert.IsFalse(sword == null);
+            Assert.IsFalse(StartingHealth > 0);
 
+            Health = StartingHealth;
             SpawnPosition = Transform.position;
             SpawnRotation = Transform.rotation;
             Velocity = Vector3.zero;
@@ -144,7 +147,8 @@ namespace Assets.Scripts.Humanoid
             TooCloseBox.enabled = false;
             AttackCollider.enabled = false;
         }
-        public virtual void Reset()
+
+        public virtual void PreRound()
         {
             if (Team.Leader.Lives > 0)
             {
@@ -153,12 +157,20 @@ namespace Assets.Scripts.Humanoid
                 Rigidbody.isKinematic = false;
                 Transform.position = SpawnPosition;
                 Transform.rotation = SpawnRotation;
+
                 //Colliders
                 Hitbox.enabled = true;
                 TooCloseBox.enabled = true;
                 AttackCollider.enabled = false;
             }
         }
+        public virtual void Round()
+        {
+        }
+        public virtual void PostRound()
+        {
+        }
+
         // Health Stuff
         public virtual void ReceiveDamage(int damage)
         {
@@ -170,7 +182,6 @@ namespace Assets.Scripts.Humanoid
             }
             AudioManager.Play(ClipType.Hit, Audio);
         }
-
         public void PlayFootsteps()
         {
             AudioManager.Play(ClipType.Footsteps, Audio);
@@ -184,7 +195,6 @@ namespace Assets.Scripts.Humanoid
             // 1 - 65
             // x - 1
         }
-
         private void Bleed()
         {
             Vector3 pos = transform.position * 1.1f;

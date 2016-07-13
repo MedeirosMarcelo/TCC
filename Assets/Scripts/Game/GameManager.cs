@@ -11,8 +11,8 @@ namespace Assets.Scripts.Game
     {
         Load,
         PreRound,
-        PlayRound,
-        RoundEnd,
+        Round,
+        PostRound,
         EndGame
     }
     public class GameManager : MonoBehaviour
@@ -67,6 +67,8 @@ namespace Assets.Scripts.Game
             }
             UpdateState();
         }
+
+        // FSM basics
         public void EnterState(GameState newState)
         {
             Debug.Log("Enter= " + newState + " Was in =" + State);
@@ -75,20 +77,20 @@ namespace Assets.Scripts.Game
             switch (State)
             {
                 case GameState.Load:
-                    LoadTeams();
+                    LoadEnter();
                     EnterState(GameState.PreRound);
                     break;
                 case GameState.PreRound:
-                    EnterPreRound();
+                    PreRoundEnter();
                     break;
-                case GameState.PlayRound:
-                    EnterPlayRound();
+                case GameState.Round:
+                    RoundEnter();
                     break;
-                case GameState.RoundEnd:
-                    EnterRoundEnd();
+                case GameState.PostRound:
+                    PostRoundEnter();
                     break;
                 case GameState.EndGame:
-                    EnterEndGame();
+                    EndGameEnter();
                     break;
                 default:
                     break;
@@ -101,10 +103,13 @@ namespace Assets.Scripts.Game
                 case GameState.Load:
                     break;
                 case GameState.PreRound:
+                    PreRoundUpdate();
                     break;
-                case GameState.PlayRound:
+                case GameState.Round:
+                    RoundUpdate();
                     break;
-                case GameState.RoundEnd:
+                case GameState.PostRound:
+                    PostRoundUpdate();
                     break;
                 case GameState.EndGame:
                     break;
@@ -120,10 +125,9 @@ namespace Assets.Scripts.Game
                     break;
                 case GameState.PreRound:
                     break;
-                case GameState.PlayRound:
-                    ExitPlayRound();
+                case GameState.Round:
                     break;
-                case GameState.RoundEnd:
+                case GameState.PostRound:
                     break;
                 case GameState.EndGame:
                     break;
@@ -132,7 +136,8 @@ namespace Assets.Scripts.Game
             }
         }
 
-        void LoadTeams()
+        // Load
+        void LoadEnter()
         {
             var players = PlayerManager.GetPlayerList();
             Assert.IsTrue(spawns.Length >= players.Count, "More player than spawn points");
@@ -151,69 +156,77 @@ namespace Assets.Scripts.Game
             }
         }
 
-        void EnterPreRound()
+        // Pre Round
+        void PreRoundEnter()
         {
-            Assert.IsTrue(spawns.Length >= Teams.Count, "More player than spawn points");
+            //Assert.IsTrue(spawns.Length >= Teams.Count, "More player than spawn points");
             foreach (var team in Teams)
             {
-                team.Reset();
+                team.PreRound();
             }
-            EnterState(GameState.PlayRound);
+        }
+        void PreRoundUpdate()
+        {
+            if (Teams.All(team => team.Ended))
+            {
+                EnterState(GameState.Round);
+            }
         }
 
-        void EnterPlayRound()
+        // Round
+        void RoundEnter()
         {
-            foreach (Player pl in PlayerManager.GetPlayerList())
+            foreach (var team in Teams)
             {
-                pl.Character.CanControl = true;
+                team.Round();
             }
         }
-        void ExitPlayRound()
+        void RoundUpdate()
         {
-            foreach (Player pl in PlayerManager.GetPlayerList())
+            var playingTeams = Teams.Where(team => !team.Leader.Ended);
+            if (playingTeams.Count() <= 1)
             {
-                pl.Character.CanControl = false;
+                EnterState(GameState.PostRound);
             }
         }
-        void EnterRoundEnd()
+
+        // Post Round
+        void PostRoundEnter()
         {
-            if (CheckGameEnd())
+            foreach (var team in Teams)
             {
-                EnterState(GameState.EndGame);
-                return;
+                team.PostRound();
             }
-            Invoke("RestartRound", 1.5f);
         }
+        void PostRoundUpdate()
+        {
+            var playingTeams = Teams.Where(team => !team.Leader.Ended);
+            if (playingTeams.Count() == 0)
+            {
+                if (Teams.Where(team => team.Leader.Lives > 0).Count() <= 1)
+                {
+                    EnterState(GameState.EndGame);
+                } else
+                {
+                    EnterState(GameState.PreRound);
+                }
+            }
+       }
+
+        // End Game
+        void EndGameEnter()
+        {
+            Invoke("ShowResultScreen", 1.5f);
+        }
+
+        // Invoked functions
         void RestartRound()
         {
             EnterState(GameState.PreRound);
         }
-        void EnterEndGame()
-        {
-            Invoke("ShowResultScreen",1.5f);
-        }
         void ShowResultScreen()
         {
             resultOverlay.SetActive(true);
-        }
-        public void CheckEndRound()
-        {
-            if (State != GameState.RoundEnd)
-            {
-            // If theres only one other team with leader alive, it wins
-            var playingTeams = Teams.Where(team => !team.Leader.Ended);
-            if (playingTeams.Count() <= 1)
-            {
-                if (playingTeams.Count() == 1) {
-                    playingTeams.First().Win();
-                }
-                EnterState(GameState.RoundEnd);
-            }
-            }
-        }
-        bool CheckGameEnd()
-        {
-            return (Teams.Where(team => team.Leader.Lives > 0).Count() <= 1);
         }
     }
 }

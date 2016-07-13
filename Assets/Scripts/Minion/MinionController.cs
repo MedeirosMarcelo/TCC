@@ -8,13 +8,15 @@ namespace Assets.Scripts.Minion
 {
     public class MinionController : Humanoid.HumanoidController
     {
+        public override bool Ended { get { return (Fsm.Current.Name == "END"); } }
         public MinionFsm Fsm { get; private set; }
 
         protected override void Awake()
         {
-            base.Awake();
             StartingHealth = 1;
+            base.Awake();
             Fsm = new MinionFsm(this);
+            Fsm.ChangeState("END");
         }
         void Start()
         {
@@ -33,7 +35,7 @@ namespace Assets.Scripts.Minion
         {
             Fsm.OnCollisionEnter(collision);
         }
-        // Round stuff
+        // Win/Die
         public override void Win()
         {
             base.Die();
@@ -44,14 +46,38 @@ namespace Assets.Scripts.Minion
             base.Die();
             Fsm.ChangeState("DEFEAT");
         }
-        public override void Reset()
+        //Round
+        public override void PreRound()
         {
-            base.Reset();
+            bool defeated = IsDead;
+            base.PreRound();
+
+            if (Team.Leader.Lives > 0)
+            {
+                if (defeated)
+                {
+                    Fsm.ChangeState("STAND");
+                }
+            }
+        }
+        public override void Round()
+        {
+            base.Round();
             if (Team.Leader.Lives > 0)
             {
                 Fsm.ChangeState("IDLE");
             }
         }
+        public override void PostRound()
+        {
+            base.PostRound();
+            NavmeshStop();
+            if (!Team.Leader.IsDead)
+            {
+                Fsm.ChangeState("WIN");
+            }
+        }
+
         // Minion Target
         public ITargetable ClosestTarget()
         {

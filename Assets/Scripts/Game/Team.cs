@@ -15,10 +15,9 @@ namespace Assets.Scripts.Game
         private const float spawnDistance = 2f;
         private GameManager manager;
 
-        public List<Team> OtherTeams
-        {
-            get { return manager.Teams.FindAll(t => t != this); }
-        }
+        public bool Ended { get { return Leader.Ended && Minions.All(m => m.Ended); } }
+        public List<Team> OtherTeams { get { return manager.Teams.FindAll(t => t != this); } }
+
         public Transform Spawn { get; private set; }
         public CharacterController Leader { get; private set; }
         public List<MinionController> Minions { get; private set; }
@@ -30,6 +29,7 @@ namespace Assets.Scripts.Game
             Minions = new List<MinionController>();
             Targets = new List<ITargetable>();
         }
+        // Spawn
         public void SpawnCharacter(GameObject prefab, Player player)
         {
 
@@ -67,14 +67,7 @@ namespace Assets.Scripts.Game
                 position += (Spawn.right * spawnDistance); // step right from last spawn
             }
         }
-        public void Reset()
-        {
-            Leader.Reset();
-            foreach (var minion in Minions)
-            {
-                minion.Reset();
-            }
-        }
+        // Win/Defeat
         public void Defeat()
         {
                 foreach (var minion in Minions)
@@ -90,6 +83,32 @@ namespace Assets.Scripts.Game
                 minion.Win();
             }
         }
+        // Round
+        public void PreRound()
+        {
+            Leader.PreRound();
+            foreach (var minion in Minions)
+            {
+                minion.PreRound();
+            }
+        }
+        public void Round()
+        {
+            Leader.Round();
+            foreach (var minion in Minions)
+            {
+                minion.Round();
+            }
+        }
+        public void PostRound()
+        {
+            Leader.PostRound();
+            foreach (var minion in Minions)
+            {
+                minion.PostRound();
+            }
+        }
     }
+
 }
 
