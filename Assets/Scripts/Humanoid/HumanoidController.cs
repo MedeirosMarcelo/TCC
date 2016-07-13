@@ -50,7 +50,7 @@ namespace Assets.Scripts.Humanoid
         {
             Assert.IsFalse(bloodAnimator == null);
             Assert.IsFalse(sword == null);
-            Assert.IsFalse(StartingHealth > 0);
+            Assert.IsTrue(StartingHealth > 0);
 
             Health = StartingHealth;
             SpawnPosition = Transform.position;
@@ -113,18 +113,28 @@ namespace Assets.Scripts.Humanoid
             NavAgent.updateRotation = updateRotation;
             destination.y = transform.position.y;
             NavAgent.SetDestination(destination);
-
+            NavmeshAnimateWalk();
+       }
+        public void NavmeshStop()
+        {
+            NavAgent.Stop();
+            Animator.SetFloat("ForwardSpeed", 0f);
+            Animator.SetFloat("RightSpeed", 0f);
+            Rigidbody.isKinematic = false;
+        }
+        public void NavmeshAnimateWalk()
+        {
             var localVelocity = Transform.InverseTransformDirection(NavAgent.velocity);
             Animator.SetFloat("ForwardSpeed", localVelocity.z);
             Animator.SetFloat("RightSpeed", localVelocity.x);
         }
-        public void NavmeshStop()
+        public bool NavmeshReachedDestination()
         {
-            Rigidbody.isKinematic = false;
-            NavAgent.Stop();
-            Animator.SetFloat("ForwardSpeed", 0f);
-            Animator.SetFloat("RightSpeed", 0f);
+            return (!NavAgent.pathPending
+                && (NavAgent.remainingDistance <= NavAgent.stoppingDistance)
+                && (!NavAgent.hasPath || NavAgent.velocity.sqrMagnitude == 0f));
         }
+
         // Round stuff
         public virtual void Win()
         {
@@ -155,9 +165,6 @@ namespace Assets.Scripts.Humanoid
                 Health = StartingHealth;
                 // Movement
                 Rigidbody.isKinematic = false;
-                Transform.position = SpawnPosition;
-                Transform.rotation = SpawnRotation;
-
                 //Colliders
                 Hitbox.enabled = true;
                 TooCloseBox.enabled = true;

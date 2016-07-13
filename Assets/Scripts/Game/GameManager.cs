@@ -92,8 +92,6 @@ namespace Assets.Scripts.Game
                 case GameState.EndGame:
                     EndGameEnter();
                     break;
-                default:
-                    break;
             }
         }
         void UpdateState()
@@ -159,7 +157,6 @@ namespace Assets.Scripts.Game
         // Pre Round
         void PreRoundEnter()
         {
-            //Assert.IsTrue(spawns.Length >= Teams.Count, "More player than spawn points");
             foreach (var team in Teams)
             {
                 team.PreRound();
@@ -218,7 +215,6 @@ namespace Assets.Scripts.Game
         {
             Invoke("ShowResultScreen", 1.5f);
         }
-
         // Invoked functions
         void RestartRound()
         {

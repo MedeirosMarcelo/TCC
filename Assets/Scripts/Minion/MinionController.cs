@@ -58,6 +58,10 @@ namespace Assets.Scripts.Minion
                 {
                     Fsm.ChangeState("STAND");
                 }
+                else
+                {
+                    Fsm.ChangeState("RETURN");
+                }
             }
         }
         public override void Round()

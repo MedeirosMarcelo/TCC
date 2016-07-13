@@ -12,7 +12,7 @@
             timer = new TimerBehaviour(this);
             timer.TotalTime = 3.733f;
             timer.OnFinish = () => {
-                timer.OnFinish = () => Fsm.ChangeState("END");
+                timer.OnFinish = () => Fsm.ChangeState("RETURN");
             };
 
             animation = new AnimationBehaviour(this, Minion.Animator);

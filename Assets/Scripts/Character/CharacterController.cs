@@ -159,9 +159,16 @@ namespace Assets.Scripts.Character
             bool defeated = IsDead;
             base.PreRound();
 
-            if (Lives > 0 && defeated)
+            if (Lives > 0)
             {
-                Fsm.ChangeState("STAND");
+                if (defeated)
+                {
+                    Fsm.ChangeState("STAND");
+                }
+                else
+                {
+                    Fsm.ChangeState("RETURN");
+                }
             }
         }
         public override void Round()
