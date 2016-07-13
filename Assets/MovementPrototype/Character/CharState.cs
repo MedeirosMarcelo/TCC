@@ -100,7 +100,7 @@ public abstract class CharState : BaseState
         }
         else if (collider.tag == "Push")
         {
-            Fsm.ChangeState("LOCKSWORDS");
+          ;  //Fsm.ChangeState("LOCKSWORDS");
         }
         // otherwise defer to base
         base.OnTriggerEnter(collider);

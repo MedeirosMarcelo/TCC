@@ -7,13 +7,13 @@
         public WindUp(MinionFsm fsm) : base(fsm)
         {
             Name = "ATTACK/WINDUP";
-            staminaCost = 0.10f; // uses 10% of stamina each attack/windup
             timer = new TimerBehaviour(this);
-            timer.TotalTime = 0.35f;
+            timer.TotalTime = 0.45f;
             timer.OnFinish = () => Fsm.ChangeState("ATTACK/SWING");
 
             animation = new AnimationBehaviour(this, Animator);
-            animation.PlayTime = 0.35f;
+            animation.PlayTime = 0.6f;
+            animation.TotalTime = 0.6f;
             animation.Name = "AttackHorizontalWindup";
         }
         public override void FixedUpdate()

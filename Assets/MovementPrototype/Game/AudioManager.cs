@@ -129,7 +129,7 @@ public static class AudioManager
                 source.volume = 0.2f;
                 break;
             case ClipType.MenuBGM:
-                PlayLooping(menuBGM, source);
+                Play(menuBGM, source);
                 source.volume = 0.5f;
                 GetMenuVolume(source, "Music");
                 break;
@@ -153,6 +153,13 @@ public static class AudioManager
     static void PlayLooping(AudioClip clip, AudioSource source)
     {
         source.loop = true;
+        source.clip = clip;
+        source.Play();
+    }
+
+    static void Play(AudioClip clip, AudioSource source)
+    {
+        source.loop = false;
         source.clip = clip;
         source.Play();
     }

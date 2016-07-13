@@ -9,11 +9,12 @@
             Name = "ATTACK/RECOVER";
             staminaCost = 0.01f; // uses 5% of stamina each attack/recover
             timer = new TimerBehaviour(this);
-            timer.TotalTime = 0.55f;
+            timer.TotalTime = 0.25f;
             timer.OnFinish = () => NextState();
 
             animation = new AnimationBehaviour(this, Animator);
-            animation.PlayTime = 0.55f;
+            animation.PlayTime = 0.25f;
+            animation.TotalTime = 0.5f;
             animation.Name = "AttackHorizontalRecover";
         }
     }

@@ -90,7 +90,7 @@ namespace Assets.Scripts.Character
             }
             else if ((collider.tag == "Push") && Fsm.Current.Name != "LOCK/LOCKSWORDS" && Fsm.Current.Name != "LOCK/PUSHAWAY")
             {
-                Fsm.ChangeState("LOCK/LOCKSWORDS", 0, collider);
+              //  Fsm.ChangeState("LOCK/LOCKSWORDS", 0, collider);
             }
             // otherwise defer to base
             base.OnTriggerEnter(collider);
