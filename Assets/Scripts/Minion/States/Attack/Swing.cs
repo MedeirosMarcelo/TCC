@@ -45,6 +45,7 @@ namespace Assets.Scripts.Minion.States.Attack
             base.Enter(lastStateName, nextStateName, additionalDeltaTime, args);
             haveHitted.Clear();
             Minion.AttackCollider.enabled = true;
+            AudioManager.Play(ClipType.Attack, Minion.Audio);
         }
         public override void Exit(string lastStateName, string nextStateName, float additionalDeltaTime, params object[] args)
         {

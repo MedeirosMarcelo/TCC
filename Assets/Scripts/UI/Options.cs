@@ -15,12 +15,12 @@ public class Options : Menu
     {
         mainMenuScreen = transform.parent.Find("Main Menu").gameObject;
         master = transform.Find("Master").Find("Value").GetComponent<Text>();
-        sfx = transform.Find("Sfx").Find("Value").GetComponent<Text>();
-        music = transform.Find("Music").Find("Value").GetComponent<Text>();
+        //sfx = transform.Find("Sfx").Find("Value").GetComponent<Text>(); Temporarily commented for presentation.
+        //music = transform.Find("Music").Find("Value").GetComponent<Text>(); Temporarily commented for presentation.
 
         master.text = PlayerPrefs.GetInt("Master", 100).ToString();
-        sfx.text = PlayerPrefs.GetInt("Sfx", 100).ToString();
-        music.text = PlayerPrefs.GetInt("Music", 100).ToString();
+        //sfx.text = PlayerPrefs.GetInt("Sfx", 100).ToString(); Temporarily commented for presentation.
+        //music.text = PlayerPrefs.GetInt("Music", 100).ToString(); Temporarily commented for presentation.
 
         base.Start();
     }
@@ -38,13 +38,13 @@ public class Options : Menu
         {
             switch (cursorIndex)
             {
-                case 0:
-                    break;
+                //case 0: Temporarily commented for presentation.
+                //    break;
+                //case 1:
+                //    break;
+                //case 2:
+                //    break;
                 case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
                     mainMenuScreen.SetActive(true);
                     this.gameObject.SetActive(false);
                     break;
@@ -64,10 +64,10 @@ public class Options : Menu
                     SetVolumeOption(10, "Master", master);
                     break;
                 case 1:
-                    SetVolumeOption(10, "Sfx", sfx);
+                    //SetVolumeOption(10, "Sfx", sfx); Temporarily commented for presentation.
                     break;
                 case 2:
-                    SetVolumeOption(10, "Music", music);
+                    //SetVolumeOption(10, "Music", music); Temporarily commented for presentation.
                     break;
                 case 3:
                     break;
@@ -84,10 +84,10 @@ public class Options : Menu
                     SetVolumeOption(-10, "Master", master);
                     break;
                 case 1:
-                    SetVolumeOption(-10, "Sfx", sfx);
+                    //SetVolumeOption(-10, "Sfx", sfx); Temporarily commented for presentation.
                     break;
                 case 2:
-                    SetVolumeOption(-10, "Music", music);
+                    //SetVolumeOption(-10, "Music", music); Temporarily commented for presentation.
                     break;
                 default:
                     break;

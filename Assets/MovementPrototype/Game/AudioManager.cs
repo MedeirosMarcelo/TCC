@@ -121,6 +121,7 @@ public static class AudioManager
                 source.PlayOneShot(GetRandomClip(drawSword));
                 break;
             case ClipType.Footsteps:
+                source.volume = 1f;
                 source.PlayOneShot(GetRandomClip(footSteps));
                 break;
             case ClipType.Dash:
@@ -133,18 +134,16 @@ public static class AudioManager
                 source.PlayOneShot(GetRandomClip(femaleDead));
                 break;
             case ClipType.ArenaEnvironment:
-                PlayLooping(arenaEnvironment, source);
                 source.volume = 0.2f;
+                PlayLooping(arenaEnvironment, source);
                 break;
             case ClipType.MenuBGM:
-                Play(menuBGM, source);
                 source.volume = 0.5f;
-                GetMenuVolume(source, "Music");
+                Play(menuBGM, source);
                 break;
             case ClipType.ArenaBGM:
-                PlayLooping(arenaBGM, source);
                 source.volume = 0.8f;
-                GetMenuVolume(source, "Music");
+                PlayLooping(arenaBGM, source);
                 break;
             case ClipType.GUICursor:
                 source.PlayOneShot(UICursor);
@@ -156,6 +155,7 @@ public static class AudioManager
                 source.PlayOneShot(UIStartGame);
                 break;
         }
+        GetMenuVolume(source, "Master");
     }
 
     static void PlayLooping(AudioClip clip, AudioSource source)
@@ -163,6 +163,7 @@ public static class AudioManager
         source.loop = true;
         source.clip = clip;
         source.Play();
+        GetMenuVolume(source, "Master");
     }
 
     static void Play(AudioClip clip, AudioSource source)
@@ -170,6 +171,7 @@ public static class AudioManager
         source.loop = false;
         source.clip = clip;
         source.Play();
+        GetMenuVolume(source, "Master");
     }
 
     static AudioClip GetRandomClip(IList<AudioClip> clip)

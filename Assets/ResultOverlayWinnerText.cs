@@ -23,7 +23,7 @@ namespace Assets.Scripts.UI
             if (winners.Count() > 0)
             {
                 var winner = winners.First();
-                title.text = "WINNER: Player " + winner.Id;
+                title.text = "WINNER";
             }
             else
             {
