@@ -6,6 +6,7 @@ public enum ClipType
     Attack,
     Hit,
     Block,
+    DrawSword,
     Footsteps,
     Dash,
     Hurt,
@@ -25,6 +26,7 @@ public static class AudioManager
     static IList<AudioClip> swingMetal = new List<AudioClip>();
     static IList<AudioClip> block = new List<AudioClip>();
     static IList<AudioClip> hit = new List<AudioClip>();
+    static IList<AudioClip> drawSword = new List<AudioClip>();
     static IList<AudioClip> footSteps = new List<AudioClip>();
     static IList<AudioClip> dash = new List<AudioClip>();
     static IList<AudioClip> femaleHurt = new List<AudioClip>();
@@ -55,6 +57,9 @@ public static class AudioManager
         hit.Add(Resources.Load("Audio/Sfx/Sword/Sword Hit 3") as AudioClip);
         hit.Add(Resources.Load("Audio/Sfx/Sword/Sword Hit 4") as AudioClip);
         hit.Add(Resources.Load("Audio/Sfx/Sword/Sword Hit 5") as AudioClip);
+
+        drawSword.Add(Resources.Load("Audio/Sfx/Sword/Draw Sword 1") as AudioClip);
+        drawSword.Add(Resources.Load("Audio/Sfx/Sword/Draw Sword 2") as AudioClip);
 
         swingMetal.Add(Resources.Load("Audio/Sfx/Sword/Sword Swing&Metal 1") as AudioClip);
         swingMetal.Add(Resources.Load("Audio/Sfx/Sword/Sword Swing&Metal 2") as AudioClip);
@@ -111,6 +116,9 @@ public static class AudioManager
                 break;
             case ClipType.Block:
                 source.PlayOneShot(GetRandomClip(block));
+                break;
+            case ClipType.DrawSword:
+                source.PlayOneShot(GetRandomClip(drawSword));
                 break;
             case ClipType.Footsteps:
                 source.PlayOneShot(GetRandomClip(footSteps));
