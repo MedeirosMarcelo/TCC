@@ -44,6 +44,7 @@ namespace Assets.Scripts.Minion
                       new Win(this),
                       new Stand(this),
                       new Return(this),
+                      new SmallReturn(this),
                       new End(this)
                       );
             Start("IDLE");

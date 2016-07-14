@@ -2605,7 +2605,7 @@ GameObject:
   - 114: {fileID: 11452500}
   - 195: {fileID: 19588048}
   m_Layer: 0
-  m_Name: Minion
+  m_Name: MinionBlue
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3489,7 +3489,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 102136}
-  m_LocalRotation: {x: 0.00087685155, y: 0.5061403, z: -0.6639293, w: 0.5504717}
+  m_LocalRotation: {x: 0.0008768514, y: 0.5061403, z: -0.6639293, w: 0.5504717}
   m_LocalPosition: {x: 0.012573804, y: 0.18308188, z: -0.028297909}
   m_LocalScale: {x: 1.0000013, y: 0.99999905, z: 1.0000012}
   m_Children:
@@ -5742,7 +5742,7 @@ NavMeshAgent:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 197116}
   m_Enabled: 1
-  m_Radius: 0.3
+  m_Radius: 0.7
   m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50

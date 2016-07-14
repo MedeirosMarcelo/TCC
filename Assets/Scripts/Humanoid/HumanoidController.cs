@@ -114,7 +114,7 @@ namespace Assets.Scripts.Humanoid
             destination.y = transform.position.y;
             NavAgent.SetDestination(destination);
             NavmeshAnimateWalk();
-       }
+        }
         public void NavmeshStop()
         {
             NavAgent.Stop();
@@ -157,6 +157,12 @@ namespace Assets.Scripts.Humanoid
             if (Team.Leader.Lives > 0)
             {
                 Health = StartingHealth;
+            }
+        }
+        public virtual void Round()
+        {
+            if (Team.Leader.Lives > 0)
+            {
                 // Movement
                 Rigidbody.isKinematic = false;
                 //Colliders
@@ -164,9 +170,6 @@ namespace Assets.Scripts.Humanoid
                 TooCloseBox.enabled = true;
                 AttackCollider.enabled = false;
             }
-        }
-        public virtual void Round()
-        {
         }
         public virtual void PostRound()
         {
