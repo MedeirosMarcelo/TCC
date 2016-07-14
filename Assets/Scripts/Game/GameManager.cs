@@ -27,7 +27,7 @@ namespace Assets.Scripts.Game
         [SerializeField]
         List<GameObject> characterPrefabs;
         [SerializeField]
-        GameObject minionPrefab;
+        List<GameObject> minionPrefabs;
         [SerializeField]
         GameObject resultOverlay;
         AudioSource[] audioSource;
@@ -148,7 +148,7 @@ namespace Assets.Scripts.Game
                 var team = new Team(this, spawn.Current);
                 Teams.Add(team);
                 team.SpawnCharacter(characterPrefabs[i], player);
-                team.SpawnMinions(minionPrefab, minionPerTeam);
+                team.SpawnMinions(minionPrefabs[i], minionPerTeam);
                 player.Character.CanControl = false;
                 i++;
             }

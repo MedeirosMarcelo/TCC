@@ -314,8 +314,12 @@ MonoBehaviour:
   - {fileID: 148454, guid: 321aa8fb31b7e6946a7a2b9729f8dad0, type: 2}
   - {fileID: 157282, guid: be1b6330ac5fef046931c376448823cf, type: 2}
   - {fileID: 116890, guid: f2ec310d0130c924c830e7950e06de7d, type: 2}
-  minionPrefab: {fileID: 197116, guid: 3a5d819965be68043927a9b945214310, type: 2}
-  resultOverlay: {fileID: 0}
+  minionPrefabs:
+  - {fileID: 197116, guid: 3a5d819965be68043927a9b945214310, type: 2}
+  - {fileID: 152290, guid: 13c1c1c21c63b7b429a6475efd877511, type: 2}
+  - {fileID: 185464, guid: e4170d14e6aba2e4086852694ef74255, type: 2}
+  - {fileID: 159182, guid: d791040270be0724ebc5362a47fe86ec, type: 2}
+  resultOverlay: {fileID: 169922, guid: e900b2c79bbfc704ab21ee1147695ad3, type: 2}
   state: 0
 --- !u!1001 &100100000
 Prefab:
