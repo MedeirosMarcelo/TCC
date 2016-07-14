@@ -10,12 +10,12 @@
             Name = "STAGGER";
 
             timer = new TimerBehaviour(this);
-            timer.TotalTime = 1.2f;
+            timer.TotalTime = 2f;
             timer.OnFinish = () => Fsm.ChangeState("IDLE");
 
             animation = new AnimationBehaviour(this, Character.Animator);
-            animation.PlayTime =  1.2f;
-            animation.TotalTime = 1.2f;
+            animation.PlayTime =  2f;
+            animation.TotalTime = 2f;
             animation.Name = "Stagger";
         }
     }

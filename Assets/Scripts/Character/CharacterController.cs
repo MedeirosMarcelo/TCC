@@ -41,6 +41,8 @@ namespace Assets.Scripts.Character
         public CapsuleCollider BlockMidCollider { get; private set; }
         public CapsuleCollider BlockHighCollider { get; private set; }
 
+        public GameObject Dashdust { get; private set; }
+
         // Internal State
         public override bool Ended { get { return (Fsm.Current.Name == "END"); } }
         public SwordStance Stance { get; set; }
@@ -101,6 +103,9 @@ namespace Assets.Scripts.Character
             Assert.IsFalse(BlockMidCollider == null);
             BlockHighCollider = sword.Find("Block High Collider").GetComponent<CapsuleCollider>();
             Assert.IsFalse(BlockHighCollider == null);
+
+            Dashdust = transform.Find("Dashdust").gameObject;
+            Assert.IsFalse(Dashdust == null);
 
             HandSwords[1].SetActive(false);
             HandSwords[2].SetActive(false);
@@ -247,6 +252,19 @@ namespace Assets.Scripts.Character
             backSword.SetActive(false);
             Debug.Log("Hand=" + handSword + " Back=" + backSword);
         }
+
+        public void ShowDashdust(float yAxis) {
+            Dashdust.SetActive(true);
+            Dashdust.transform.eulerAngles = new Vector3(Dashdust.transform.eulerAngles.x, yAxis, Dashdust.transform.eulerAngles.z);
+            UnityEngine.Debug.Log("DASH " + yAxis);
+        }
+
+        public void HideDashdust()
+        {
+            Dashdust.SetActive(false);
+            UnityEngine.Debug.Log("HIDE DASH ");
+        }
+
 #if UNITY_EDITOR
         void OnGUI()
         {

@@ -78,7 +78,7 @@ namespace Assets.Scripts.Game
             {
                 case GameState.Load:
                     LoadEnter();
-                    EnterState(GameState.PreRound);
+                    EnterState(GameState.Round);
                     break;
                 case GameState.PreRound:
                     PreRoundEnter();
