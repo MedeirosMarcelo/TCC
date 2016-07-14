@@ -10,8 +10,8 @@
             Name = "STAGGER";
 
             timer = new TimerBehaviour(this);
-            timer.TotalTime = 2f;
-            timer.OnFinish = () => Fsm.ChangeState("IDLE");
+            timer.TotalTime = 1.3f;
+            timer.OnFinish = () => Fsm.ChangeState("MOVEMENT");
 
             animation = new AnimationBehaviour(this, Character.Animator);
             animation.PlayTime =  2f;
