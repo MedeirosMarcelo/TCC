@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 namespace Assets.Scripts.UI
@@ -9,7 +10,7 @@ namespace Assets.Scripts.UI
 
     public class CharacterSelection : MonoBehaviour
     {
-
+        public Text minions;
         GameObject StartPrompt;
         GameObject[] playerAreaActive = new GameObject[4];
         GameObject[] playerAreaInactive = new GameObject[4];
@@ -18,6 +19,7 @@ namespace Assets.Scripts.UI
         void Start()
         {
             PlayerManager.Reset();
+            PlayerManager.MinionAmount = 0;
             StartPrompt = transform.Find("Panel").Find("Start Prompt").gameObject;
             audioSource = GetComponent<AudioSource>();
             AudioManager.Play(ClipType.GUIStartGame, audioSource);
@@ -33,15 +35,30 @@ namespace Assets.Scripts.UI
             PromptStart();
             ControlInput();
             StartInput();
+            MinionAmount();
         }
 
         void ControlInput()
         {
-
             if (PlayerManager.GetPlayerList().Count == 0
                 && Input.GetKeyDown(KeyCode.JoystickButton1))
             {
                 SceneManager.LoadScene("Main Menu");
+            }
+
+            if (Input.GetKeyDown(KeyCode.Joystick1Button5))
+            {
+                if (PlayerManager.MinionAmount >= 10)
+                    PlayerManager.MinionAmount = 0;
+                else
+                    PlayerManager.MinionAmount++;
+            }
+            else if (Input.GetKeyDown(KeyCode.Joystick1Button4))
+            {
+                if (PlayerManager.MinionAmount <= 0)
+                    PlayerManager.MinionAmount = 10;
+                else
+                    PlayerManager.MinionAmount--;
             }
 
             if (Input.GetKeyDown(KeyCode.Joystick1Button0))
@@ -146,6 +163,12 @@ namespace Assets.Scripts.UI
         {
             AudioManager.Play(ClipType.GUIStartGame, audioSource);
             SceneManager.LoadScene("Loading");
+        }
+
+        void MinionAmount()
+        {
+            if (minions)
+                minions.text = "Minions: " + PlayerManager.MinionAmount;
         }
     }
 }

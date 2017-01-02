@@ -254,15 +254,15 @@ namespace Assets.Scripts.Character
         }
 
         public void ShowDashdust(float yAxis) {
-            Dashdust.SetActive(true);
-            Dashdust.transform.eulerAngles = new Vector3(Dashdust.transform.eulerAngles.x, yAxis, Dashdust.transform.eulerAngles.z);
-            UnityEngine.Debug.Log("DASH " + yAxis);
+        //    Dashdust.SetActive(true);
+         //   Dashdust.transform.localEulerAngles = new Vector3(Dashdust.transform.eulerAngles.x, yAxis - 30, Dashdust.transform.eulerAngles.z);
+         //   UnityEngine.Debug.Log("DASH " + yAxis);
         }
 
         public void HideDashdust()
         {
-            Dashdust.SetActive(false);
-            UnityEngine.Debug.Log("HIDE DASH ");
+         //   Dashdust.SetActive(false);
+        //    UnityEngine.Debug.Log("HIDE DASH ");
         }
 
 #if UNITY_EDITOR

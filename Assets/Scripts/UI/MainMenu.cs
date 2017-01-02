@@ -10,6 +10,7 @@ public class MainMenu : Menu
     AudioSource source;
 
     public override void Start() {
+        Time.timeScale = 1;
         optionScreen = transform.parent.Find("Options").gameObject;
         source = transform.parent.parent.GetComponent<AudioSource>();
         AudioManager.Play(ClipType.MenuBGM, source);

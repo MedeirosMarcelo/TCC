@@ -49,10 +49,14 @@ namespace Assets.Scripts.Game
 
         void Awake()
         {
+            Time.timeScale = 1;
             Teams = new List<Team>();
         }
         void Start()
         {
+            if (PlayerManager.MinionAmount >= 0)
+                minionPerTeam = PlayerManager.MinionAmount;
+
             audioSource = GetComponents<AudioSource>();
             AudioManager.Play(ClipType.ArenaEnvironment, audioSource[0]);
             AudioManager.Play(ClipType.ArenaBGM, audioSource[1]);

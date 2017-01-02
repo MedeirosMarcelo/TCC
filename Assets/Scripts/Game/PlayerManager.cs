@@ -6,9 +6,11 @@ namespace Assets.Scripts.Game
 {
     public static class PlayerManager
     {
+        public static int MinionAmount { get; set; }
         static List<Player> PlayerList = new List<Player>();
         static PlayerManager()
         {
+            MinionAmount = -1;
             GameManager gm = GameObject.FindObjectOfType<GameManager>();
             if (gm != null)
             {

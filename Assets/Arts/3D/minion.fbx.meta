@@ -5965,7 +5965,14 @@ ModelImporter:
         functionName: ShowDashdust
         data: 
         objectReferenceParameter: {instanceID: 0}
-        floatParameter: -180
+        floatParameter: 180
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9567901
+        functionName: HideDashdust
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
         intParameter: 0
         messageOptions: 0
       transformMask:
@@ -6708,7 +6715,14 @@ ModelImporter:
         functionName: ShowDashdust
         data: 
         objectReferenceParameter: {instanceID: 0}
-        floatParameter: 180
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.91049385
+        functionName: HideDashdust
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
         intParameter: 0
         messageOptions: 0
       transformMask:
@@ -7446,7 +7460,21 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.25925925
+        functionName: ShowDashdust
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: -90
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.95679015
+        functionName: HideDashdust
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -8182,7 +8210,21 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.24382715
+        functionName: ShowDashdust
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 90
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.94135803
+        functionName: HideDashdust
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
